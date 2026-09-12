@@ -113,19 +113,33 @@ function fakeState(overrides = {}) {
 {
   const ids = listTemplateIds().sort();
   const expected = [
+    "atc_nudge",
     "auto_discount_active",
     "cart_under_threshold",
     "checkout_bounce",
+    "compare_back",
     "delivery_gap",
+    "delivery_reassure",
+    "exit_intent_help",
+    "free_shipping_gap",
+    "idle_check_in",
     "low_stock",
+    "low_stock_nudge",
     "missed_discount",
+    "promo_hint",
+    "review_confidence",
     "search_help",
+    "search_refine_help",
     "similar_on_promo",
+    "size_availability",
     "size_help",
+    "spec_diff_hint",
     "stuck_checkout",
+    "total_reassure",
+    "variant_help",
   ];
   assert.deepEqual(ids, expected);
-  console.log("(viii) ok — templates.json has the expected 10 template ids:", ids.join(", "));
+  console.log("(viii) ok — templates.json has the expected", expected.length, "template ids:", ids.join(", "));
 }
 
 // (ix) an array's own length is a groundable fact (search_help's `count`
@@ -188,6 +202,121 @@ function fakeState(overrides = {}) {
   assert.equal(missedDiscountChain[0], "promo-code", "chain's first entry is the template's own natural target_hint");
   assert.equal(anchorChain("not_a_real_template"), null, "unknown template id returns null, not a throw");
   console.log("(xi) ok — anchorChain(): size_help has none, missed_discount has a real ordered chain:", missedDiscountChain.join(" -> "));
+}
+
+// (xii) page-scanned-context templates (2026-09-12 brief) render from
+// page_context/comparison/cart_economics/spec_diff grounding, and reject a
+// slot value not present in any of them.
+{
+  const state = fakeState({
+    page_context: {
+      type: "product",
+      product: { title: "Khadi Field Jacket", price: 3450, compareAt: null, currency: "৳" },
+      variants: { options: [], availableJoined: "L, XL", unavailableJoined: "M" },
+      stock: { text: "Only 2 left in stock", lowStockN: 2 },
+      delivery: { text: "Arrives in 2-4 days" },
+      rating: { value: 4.5, count: 812 },
+      badges: [],
+      category: null,
+      search: null,
+      cartSummary: null,
+      promoPresent: false,
+    },
+    comparison: [{ path: "/p/other-jacket", slug: "other-jacket", title: "Cascade Runner Jacket", price: 2900, delta: 550 }],
+    cart_economics: { subtotal: 1800, itemCount: 2, freeShippingThreshold: 2000, gapToFreeShipping: 200, bestPromo: null, deliveryEstimateDays: "2-4", currency: { code: "BDT", symbol: "৳", position: "prefix" } },
+    spec_diff: { other_title: "Cascade Runner Jacket", other_slug: "cascade-runner-jacket", other_path: "/p/cascade-runner-jacket", feature: "is rated 4.8" },
+  });
+
+  const lowStock = renderCard({ template: "low_stock_nudge", slots: { n: "2", variant: "M" } }, state);
+  assert.equal(lowStock.ok, true, JSON.stringify(lowStock));
+  assert.equal(lowStock.body, "Only 2 left in M");
+
+  const freeShip = renderCard({ template: "free_shipping_gap", slots: { gap: "200" } }, state);
+  assert.equal(freeShip.ok, true, JSON.stringify(freeShip));
+  assert.equal(freeShip.body, "Add ৳200 more for free shipping");
+
+  const deliveryReassure = renderCard({ template: "delivery_reassure", slots: { delivery: "Arrives in 2-4 days" } }, state);
+  assert.equal(deliveryReassure.ok, true, JSON.stringify(deliveryReassure));
+
+  const compareBack = renderCard({ template: "compare_back", slots: { other_title: "Cascade Runner Jacket", delta: "550" } }, state);
+  assert.equal(compareBack.ok, true, JSON.stringify(compareBack));
+  assert.equal(compareBack.body, "Cascade Runner Jacket you looked at is ৳550 cheaper");
+
+  const sizeAvail = renderCard({ template: "size_availability", slots: { unavailable: "M", available: "L, XL" } }, state);
+  assert.equal(sizeAvail.ok, true, JSON.stringify(sizeAvail));
+  assert.equal(sizeAvail.body, "M is sold out here, L, XL are in stock");
+
+  const review = renderCard({ template: "review_confidence", slots: { rating: "4.5", count: "812" } }, state);
+  assert.equal(review.ok, true, JSON.stringify(review));
+  assert.equal(review.body, "Rated 4.5 by 812 shoppers");
+
+  const specDiffHint = renderCard({ template: "spec_diff_hint", slots: { other_title: "Cascade Runner Jacket", feature: "is rated 4.8" } }, state);
+  assert.equal(specDiffHint.ok, true, JSON.stringify(specDiffHint));
+
+  // Reject: a value that never appears in page_context/comparison/
+  // cart_economics/spec_diff (or any other grounded block) — same
+  // fail-closed contract as (iv) above, extended to the new blocks.
+  const fabricated = renderCard({ template: "low_stock_nudge", slots: { n: "999", variant: "M" } }, state);
+  assert.equal(fabricated.ok, false);
+  assert.match(fabricated.reason, /not grounded/);
+
+  console.log("(xii) ok — page-scanned-context templates render from grounded page_context/comparison/cart_economics/spec_diff, reject a fabricated slot value");
+}
+
+// (xiii) fact-slot fuzzy grounding + autofill (2026-09-12 live-run fix —
+// see server/NOTES.md/POLICY.md: 0 cards shown in a 14-minute live run
+// because the model paraphrases free-text facts and strict exact-match
+// grounding denied every one of them).
+{
+  const state = fakeState({
+    business: {
+      delivery: { free_over: 2000, fee: 0 },
+      returns: { window_days: 7 },
+      payment: { methods: ["bKash", "Cash on delivery"] },
+      currency: { code: "BDT", symbol: "৳", position: "before" },
+    },
+    offers: [{ kind: "delivery_gap", label: "৳50 away from free delivery", gap: 50 }],
+  });
+
+  // (a) exact match still works (unchanged fast path).
+  const exact = renderCard({ template: "total_reassure", slots: { breakdown_fact: "৳50 away from free delivery" } }, state);
+  assert.equal(exact.ok, true, JSON.stringify(exact));
+  assert.deepEqual(exact.autofilled, []);
+
+  // (b) paraphrase of a real fact (shares the number 50 with offers[0].label)
+  // passes via fuzzy match, not autofill.
+  const paraphrase = renderCard(
+    { template: "total_reassure", slots: { breakdown_fact: "You're only ৳50 short of free shipping" } },
+    state
+  );
+  assert.equal(paraphrase.ok, true, JSON.stringify(paraphrase));
+  assert.deepEqual(paraphrase.autofilled, [], "fuzzy match, not autofill — the model's own text is kept");
+
+  // (c) a fact slot with NO relation to any grounded fact (no shared number
+  // or keyword) falls back to autofill from the template's declared source
+  // (business.delivery) rather than being denied outright.
+  const noRelation = renderCard({ template: "idle_check_in", slots: { fact: "hope you are having a wonderful day" } }, state);
+  assert.equal(noRelation.ok, true, JSON.stringify(noRelation));
+  assert.deepEqual(noRelation.autofilled, ["fact"]);
+  assert.match(noRelation.body, /Free delivery over ৳2000/);
+
+  // (d) deny-when-no-source: same unrelated text, but business.delivery is
+  // absent this time — autofill has nothing to resolve, so it fails closed
+  // exactly like the old strict contract, not silently through.
+  const noSourceState = fakeState({ business: null, offers: [] });
+  const denied = renderCard({ template: "idle_check_in", slots: { fact: "hope you are having a wonderful day" } }, noSourceState);
+  assert.equal(denied.ok, false);
+  assert.match(denied.reason, /not grounded|no fact source/);
+
+  // (e) exact/code/price slots (kind !== "fact") are UNCHANGED: a
+  // fabricated code is still denied outright, never fuzzy-matched or
+  // autofilled, even though "10" appears as a substring-ish number
+  // elsewhere.
+  const fabricatedCode = renderCard({ template: "missed_discount", slots: { code: "MADEUP10", saving: "10" } }, fakeState({ offers: [{ kind: "missed_discount", code: "REAL10", saving: 10 }] }));
+  assert.equal(fabricatedCode.ok, false);
+  assert.match(fabricatedCode.reason, /not grounded in store facts/);
+
+  console.log("(xiii) ok — fact slots: exact -> fuzzy -> autofill -> deny; exact/code slots unchanged");
 }
 
 console.log("\ntemplates.test: all assertions passed");

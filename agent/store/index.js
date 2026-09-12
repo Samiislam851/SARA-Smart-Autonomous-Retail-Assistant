@@ -13,6 +13,7 @@ import { readFileSync, statSync } from "node:fs";
 import path from "node:path";
 import { resolveSiteDir } from "./sites.js";
 import { CART_GAP_PCT } from "../gate.js";
+import { normalizeCurrency, formatMoney } from "./currency.js";
 
 // Fixed at module load — the reference point for any promo's `ends_in_ms`
 // fallback (see promos.json / README.md: "ends_in_ms counts from server
@@ -221,6 +222,42 @@ export function activePromos(store, now = Date.now()) {
 export function promosFor(store, slug, now = Date.now()) {
   const catalogMap = catalogBySlug(store);
   return activePromos(store, now).filter((p) => appliesToSlug(p, slug, catalogMap));
+}
+
+// Cart-item field-name mismatch — category fix (live finding: NextCart's
+// NEXT10 card said "save ৳4" on a $37.99 item where 10% should be ~$3.80 —
+// close enough it read as "roughly right" until the SAME item was checked
+// at qty 2, where 10% of the real $75.98 subtotal is $7.60, not $4).
+// Root cause: this module's cart-item shape was written against ONE
+// reference site's own `window.__agentCart.items` field names (`sku`,
+// `qty`) and assumed every site would match. NextCart's own bridge
+// (personal-nextcart/src/components/layout/Header.tsx's
+// buildAgentCartPayload()) exposes `{name, variant, quantity, price}` —
+// no `sku` at all, and `quantity` instead of `qty` — so `item.qty ?? 1`
+// silently fell back to 1 on every NextCart cart line regardless of how
+// many units were actually in the cart, and `item.sku` was always
+// `undefined` (harmless only for a `slugs:"all"` promo like NEXT10; a
+// slug/category-scoped promo would have matched nothing at all). Same
+// defect class as the per-site route-prefix mismatch already fixed above
+// (getRoutes()/classifyPath()) — a per-site field name assumed universal.
+// Fixed once here, at ingestion, rather than trusting every call site to
+// remember both field-name variants: `qty` falls back to `quantity`
+// (NextCart's name), and `slug` falls back to `sku`, then falls back to a
+// best-effort exact-name match against the catalog (NextCart's payload
+// carries only `name`, no slug/sku field) — `null` only if nothing matches,
+// same as before this fix for a site with neither.
+function normalizeCartItem(item, catalogMap) {
+  const qty = Number.isFinite(item?.qty) ? item.qty : Number.isFinite(item?.quantity) ? item.quantity : 1;
+  let slug = item?.sku ?? item?.slug ?? null;
+  if (!slug && item?.name && catalogMap) {
+    for (const p of catalogMap.values()) {
+      if (p.name === item.name) {
+        slug = p.slug;
+        break;
+      }
+    }
+  }
+  return { slug, price: Number(item?.price) || 0, qty, name: item?.name ?? null };
 }
 
 function minCartMet(promo, cart) {
@@ -490,13 +527,15 @@ function applyUrgency(offer) {
 export function computeOffers({ page, cart, promo, search } = {}, now = Date.now(), store = loadStore()) {
   const offers = [];
   const catalogMap = catalogBySlug(store);
+  const currency = normalizeCurrency(store.policies);
 
   // missed_discount / auto_discount_active — one entry per (cart item, applicable promo).
-  for (const item of cart?.items || []) {
-    const slug = item.sku;
+  for (const rawItem of cart?.items || []) {
+    const item = normalizeCartItem(rawItem, catalogMap);
+    const slug = item.slug;
     for (const p of promosFor(store, slug, now)) {
       if (!minCartMet(p, cart)) continue;
-      const saving = savingFor(p, item.price, item.qty ?? 1);
+      const saving = savingFor(p, item.price, item.qty);
       const base = {
         slug,
         promo_id: p.id,
@@ -582,7 +621,7 @@ export function computeOffers({ page, cart, promo, search } = {}, now = Date.now
           slug: null,
           promo_id: null,
           code: null,
-          label: `৳${gap} away from free delivery`,
+          label: `${formatMoney(gap, currency)} away from free delivery`,
           saving: null,
           gap,
           fill_with: cheapestCatalogItemAtLeast(store, gap, now),
@@ -612,7 +651,7 @@ export function computeOffers({ page, cart, promo, search } = {}, now = Date.now
         slug: null,
         promo_id: null,
         code: null,
-        label: `৳${gap} from free delivery`,
+        label: `${formatMoney(gap, currency)} from free delivery`,
         saving: null,
         gap,
         fill_with: cheapestCatalogItemAtLeast(store, gap, now),
@@ -649,6 +688,85 @@ export function computeOffers({ page, cart, promo, search } = {}, now = Date.now
   return offers;
 }
 
+/**
+ * cartEconomics({ cart, offers, store }) → compact cart-economics fact block
+ * for buildState() (2026-09-12 "richer page-scanned context" brief), or null
+ * when there's no cart yet. Reuses computeOffers()'s own delivery_gap/
+ * cart_under_threshold/missed_discount entries rather than re-deriving the
+ * same thresholds a second time (same "one place defines it" principle as
+ * CART_GAP_PCT above) — this is a SUMMARY view of facts already computed,
+ * not a new source of truth.
+ * { subtotal, itemCount, freeShippingThreshold, gapToFreeShipping,
+ *   bestPromo: {code, saving, label} | null, deliveryEstimateDays,
+ *   currency: {code, symbol, position} }
+ */
+export function cartEconomics({ cart, offers, store = loadStore() } = {}) {
+  if (!cart) return null;
+  const currency = normalizeCurrency(store?.policies);
+  const freeOver = store?.policies?.delivery?.free_over ?? FREE_DELIVERY_THRESHOLD_FALLBACK;
+  const itemCount = (cart.items || []).reduce((n, it) => n + (Number(it.qty) || 1), 0);
+  const gapOffer = (offers || []).find((o) => o.kind === "cart_under_threshold" || o.kind === "delivery_gap");
+  const gap = gapOffer ? gapOffer.gap : Math.max(0, freeOver - (cart.total ?? 0));
+  const bestPromo = (offers || []).find((o) => o.kind === "missed_discount") || null;
+  return {
+    subtotal: cart.total ?? 0,
+    itemCount,
+    freeShippingThreshold: freeOver,
+    gapToFreeShipping: gap > 0 ? gap : 0,
+    bestPromo: bestPromo ? { code: bestPromo.code, saving: bestPromo.saving, label: bestPromo.label } : null,
+    deliveryEstimateDays: store?.policies?.delivery?.days ?? null,
+    currency,
+  };
+}
+
+// "Undecided comparer" brief (2026-09-12): fields diffed between two
+// same-category products, in priority order — most-distinguishing first.
+// brand/rating/review_count/price/sizes are the only structured fields
+// EITHER store's catalog import populates (NextCart's own product schema
+// has no attributes/specs/features/material field — see import-
+// nextcart.mjs's toCatalogEntry() comment); price/variant availability are
+// always present as a fallback so specDiff() never comes back empty for
+// two real catalog entries.
+const SPEC_DIFF_FIELDS = ["brand", "rating", "review_count", "price", "sizes"];
+
+function describeSpecDiff(field, a, b) {
+  if (field === "price") {
+    if (a.price === b.price) return null;
+    return { feature: `${b.price < a.price ? "is cheaper" : "is pricier"}`, field, a: a.price, b: b.price };
+  }
+  if (field === "sizes") {
+    const bOnly = (b.sizes || []).filter((s) => !(a.sizes || []).includes(s));
+    if (bOnly.length === 0) return null;
+    return { feature: `has ${bOnly.join(", ")} available`, field, a: (a.sizes || []).join(", "), b: bOnly.join(", ") };
+  }
+  if (a[field] == null || b[field] == null || a[field] === b[field]) return null;
+  if (field === "brand") return { feature: `is made by ${b.brand}`, field, a: a.brand, b: b.brand };
+  if (field === "rating") return { feature: `is rated ${b.rating}`, field, a: a.rating, b: b.rating };
+  if (field === "review_count") return { feature: `has ${b.review_count} reviews`, field, a: a.review_count, b: b.review_count };
+  return null;
+}
+
+/**
+ * specDiff(currentSlug, otherSlug, store = loadStore()) → { feature, field,
+ * a, b } | null — the single most-distinguishing SPEC_DIFF_FIELDS
+ * difference between the two catalog entries (checked in priority order,
+ * first real difference wins), or null if either slug is unknown or the two
+ * entries are identical on every field checked. Grounds the
+ * `spec_diff_hint` template's `feature` slot — never a model-invented
+ * distinguisher.
+ */
+export function specDiff(currentSlug, otherSlug, store = loadStore()) {
+  const map = catalogBySlug(store);
+  const current = currentSlug ? map.get(currentSlug) : null;
+  const other = otherSlug ? map.get(otherSlug) : null;
+  if (!current || !other) return null;
+  for (const field of SPEC_DIFF_FIELDS) {
+    const d = describeSpecDiff(field, current, other);
+    if (d) return d;
+  }
+  return null;
+}
+
 /** businessBlock(store = loadStore()) → compact `{ delivery, returns, payment }` for buildState(). */
 export function businessBlock(store = loadStore()) {
   const policies = store.policies;
@@ -657,5 +775,11 @@ export function businessBlock(store = loadStore()) {
     delivery: policies.delivery ?? null,
     returns: policies.returns ?? null,
     payment: policies.payment ?? null,
+    // Store-derived currency fact (category fix — see server/store/
+    // currency.js's header comment): {code, symbol, position}, always
+    // present (normalizeCurrency() defaults rather than omitting), so the
+    // model/templates never have to assume ৳/BDT for a site that isn't
+    // one.
+    currency: normalizeCurrency(policies),
   };
 }

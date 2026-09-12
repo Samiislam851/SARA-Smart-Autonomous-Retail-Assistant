@@ -174,7 +174,7 @@ function actionProposal(overrides = {}) {
 {
   // skipCooldown isolates the nudge-budget guard from the (now tighten-only,
   // 30s-floor) cooldown guard — see (viii).
-  const config = loadPolicyConfig({ AGENT_MAX_NUDGES_PER_SESSION: "1" });
+  const config = loadPolicyConfig({ AGENT_MAX_NUDGES_PER_SESSION: "1", AGENT_MAX_CARDS_PER_PAGEVIEW: "-1" });
   const session = fakeSession();
   const state = fakeState(["size-guide", "cart-add"]);
   const r1 = applyPolicy(session, state, actionProposal({ action: { target: "size-guide" } }), { config, skipCooldown: true });
@@ -187,7 +187,7 @@ function actionProposal(overrides = {}) {
 
 // (x) nudge budget applies even under opts.skipCooldown (cached replay).
 {
-  const config = loadPolicyConfig({ AGENT_MAX_NUDGES_PER_SESSION: "1" });
+  const config = loadPolicyConfig({ AGENT_MAX_NUDGES_PER_SESSION: "1", AGENT_MAX_CARDS_PER_PAGEVIEW: "-1" });
   const session = fakeSession();
   const state = fakeState(["size-guide", "cart-add"]);
   const r1 = applyPolicy(session, state, actionProposal({ action: { target: "size-guide" } }), { config, skipCooldown: true });
@@ -271,7 +271,7 @@ function actionProposal(overrides = {}) {
     console.warn = originalWarn;
   }
   assert.equal(config.cooldownMs, 30_000, "invalid cooldown falls back to default");
-  assert.equal(config.maxNudgesPerSession, 3, "out-of-range nudge budget falls back to default");
+  assert.equal(config.maxNudgesPerSession, 4, "out-of-range nudge budget falls back to the normal-sensitivity default (4)");
   assert.deepEqual([...config.allowedActions].sort(), ["noop", "spotlight"], "unknown action names dropped, valid ones kept, noop always present");
   assert.equal(config.maxMessageChars, 140, "out-of-range message cap falls back to default");
   assert.equal(config.minConfidence, 0, "out-of-range confidence floor falls back to default");
@@ -285,12 +285,16 @@ function actionProposal(overrides = {}) {
   const described = describePolicyConfig(config);
   assert.deepEqual(Object.keys(described).sort(), [
     "allowedActions",
+    "cardTtlMs",
     "cooldownMs",
     "denyTargets",
+    "maxCardsPerPageview",
     "maxMessageChars",
     "maxNudgesPerSession",
     "minConfidence",
+    "minGapMs",
     "sensitivity",
+    "suppressAfterDismiss",
   ]);
   assert.equal(described.cooldownMs, 45000);
   assert.deepEqual(described.denyTargets, ["a", "b"]);
@@ -315,7 +319,7 @@ function actionProposal(overrides = {}) {
 // nudge-unrelated concern is out of scope here — use skipCooldown so only
 // the nudge-budget guard is under test).
 {
-  const config = loadPolicyConfig({ AGENT_MAX_NUDGES_PER_SESSION: "-1" });
+  const config = loadPolicyConfig({ AGENT_MAX_NUDGES_PER_SESSION: "-1", AGENT_MAX_CARDS_PER_PAGEVIEW: "-1" });
   const session = fakeSession();
   const state = fakeState(["size-guide", "cart-add", "shipping-banner"]);
   const r1 = applyPolicy(session, state, actionProposal({ action: { target: "size-guide" } }), { config, skipCooldown: true });
@@ -528,17 +532,20 @@ function cardProposal(card, overrides = {}) {
 
 // (xxx) Guard B, negative case: a second card with a DIFFERENT cta.value is
 // NOT blocked by the same-fact guard (cooldown satisfied via skipCooldown).
+// AGENT_MAX_CARDS_PER_PAGEVIEW disabled (-1) here — this test is about
+// Guard B in isolation, not the per-pageview cap (see its own tests below).
 {
   const session = fakeSession();
   const state = {
     ...fakeState(["size-guide", "size-picker"]),
     product: { slug: "x", name: "x", price: 1, sizes: ["S", "M", "L"], fit_notes: "" },
   };
+  const config = loadPolicyConfig({ AGENT_MAX_CARDS_PER_PAGEVIEW: "-1" });
   const card1 = { title: "Between sizes?", body: "Take the larger.", cta: { kind: "pick_size", label: "Try size L", value: "L" } };
-  applyPolicy(session, state, cardProposal(card1, { target: "size-guide" }), { skipCooldown: true });
+  applyPolicy(session, state, cardProposal(card1, { target: "size-guide" }), { skipCooldown: true, config });
 
   const card2 = { title: "Between sizes?", body: "Or maybe M.", cta: { kind: "pick_size", label: "Try size M", value: "M" } };
-  const { action } = applyPolicy(session, state, cardProposal(card2, { target: "size-picker" }), { skipCooldown: true });
+  const { action } = applyPolicy(session, state, cardProposal(card2, { target: "size-picker" }), { skipCooldown: true, config });
   assert.equal(action.action, "card", "a different cta.value is not treated as the same fact");
   console.log("(xxx) ok — different cta value passes the same-fact guard");
 }
@@ -567,19 +574,22 @@ function cardProposal(card, overrides = {}) {
 }
 
 // (xxxii) Guard C, negative case: a second card 100s after the previous one
-// (past the 90s default quiet period) is allowed.
+// (past the 90s default quiet period) is allowed. AGENT_MAX_CARDS_PER_PAGEVIEW
+// disabled (-1) — this test is about Guard C in isolation, not the
+// per-pageview cap (see its own tests below).
 {
   const session = fakeSession();
   const state = {
     ...fakeState(["size-guide", "cart-add"]),
     product: { slug: "x", name: "x", price: 1, sizes: ["S", "M", "L"], fit_notes: "" },
   };
+  const config = loadPolicyConfig({ AGENT_MAX_CARDS_PER_PAGEVIEW: "-1" });
   const card1 = { title: "Between sizes?", body: "Take the larger.", cta: { kind: "pick_size", label: "Try size L", value: "L" } };
-  applyPolicy(session, state, cardProposal(card1, { target: "size-guide" }));
+  applyPolicy(session, state, cardProposal(card1, { target: "size-guide" }), { config });
   session.lastInterventionAt -= 100000;
 
   const card2 = { title: "Add for free delivery", body: "One tap.", cta: { kind: "add_to_cart", label: "Add jacket", value: "khadi-field-jacket" } };
-  const { action } = applyPolicy(session, state, cardProposal(card2, { target: "cart-add" }));
+  const { action } = applyPolicy(session, state, cardProposal(card2, { target: "cart-add" }), { config });
   assert.equal(action.action, "card", "100s after a prior card is past the 90s quiet period");
   console.log("(xxxii) ok — second card 100s later allowed, past the quiet period");
 }
@@ -595,12 +605,15 @@ function cardProposal(card, overrides = {}) {
       ...fakeState(["size-guide", "cart-add"]),
       product: { slug: "x", name: "x", price: 1, sizes: ["S", "M", "L"], fit_notes: "" },
     };
+    // AGENT_MAX_CARDS_PER_PAGEVIEW disabled (-1) — this test is about
+    // Guard C's knob in isolation, not the per-pageview cap.
+    const config = loadPolicyConfig({ AGENT_MAX_CARDS_PER_PAGEVIEW: "-1" });
     const card1 = { title: "Between sizes?", body: "Take the larger.", cta: { kind: "pick_size", label: "Try size L", value: "L" } };
-    applyPolicy(session, state, cardProposal(card1, { target: "size-guide" }));
+    applyPolicy(session, state, cardProposal(card1, { target: "size-guide" }), { config });
     session.lastInterventionAt -= 40000;
 
     const card2 = { title: "Add for free delivery", body: "One tap.", cta: { kind: "add_to_cart", label: "Add jacket", value: "khadi-field-jacket" } };
-    const { action } = applyPolicy(session, state, cardProposal(card2, { target: "cart-add" }));
+    const { action } = applyPolicy(session, state, cardProposal(card2, { target: "cart-add" }), { config });
     assert.equal(action.action, "card", "AGENT_ON_SCREEN_QUIET_MS=-1 disables guard C");
   } finally {
     if (original === undefined) delete process.env.AGENT_ON_SCREEN_QUIET_MS;
@@ -680,6 +693,147 @@ function cardProposal(card, overrides = {}) {
   assert.equal(action.target, "promo-code", "natural target kept untouched when it's already visible");
   assert.ok(!trace.signals.some((s) => s.startsWith("anchor_fallback")), "no anchor_fallback note when no rewrite happened");
   console.log("(xxxvii) ok — anchor fallback leaves an already-visible target untouched");
+}
+
+// --- Frequency & fatigue guards (docs/BEHAVIOR-MATRIX.md, 2026-09-12) -----
+
+// (xxxviii) Per-pageview cap: AGENT_MAX_CARDS_PER_PAGEVIEW=1 (the normal
+// default) denies a second non-noop action on the SAME page_view even to a
+// different target, with a traced `suppressed:page_cap` reason — then a
+// fresh page_view resets the counter and a third action on the new page is
+// allowed.
+{
+  const config = loadPolicyConfig({ AGENT_MAX_CARDS_PER_PAGEVIEW: "1" });
+  const session = fakeSession({
+    events: [{ type: "page_view", target: "/product/x", meta: { targets: ["size-guide", "cart-add"] } }],
+  });
+  const state = fakeState(["size-guide", "cart-add"]);
+  const r1 = applyPolicy(session, state, actionProposal({ action: { target: "size-guide" } }), { config, skipCooldown: true });
+  assert.equal(r1.action.action, "highlight");
+  const r2 = applyPolicy(session, state, actionProposal({ action: { target: "cart-add" } }), { config, skipCooldown: true });
+  assert.equal(r2.action.action, "noop", "second action on the same pageview denied by the page cap");
+  assert.match(r2.trace.why, /suppressed:page_cap \(1\)/);
+
+  // pushEvent() (state.js) is what resets actionsThisPageview in production
+  // on a real page_view; this test builds session.events directly (no
+  // state.js session), so it mirrors that same reset by hand.
+  session.events.push({ type: "page_view", target: "/cart", meta: { targets: ["cart-add"] } });
+  session.actionsThisPageview = 0;
+  const r3 = applyPolicy(session, state, actionProposal({ action: { target: "cart-add" } }), { config, skipCooldown: true });
+  assert.equal(r3.action.action, "highlight", "a fresh page_view resets the per-pageview cap");
+  console.log("(xxxviii) ok — per-pageview cap denies a second action, resets on page_view:", r2.trace.why);
+}
+
+// (xxxix) AGENT_MAX_CARDS_PER_PAGEVIEW=-1 disables the cap — many actions on
+// the same pageview all pass (nudge budget disabled too, for isolation).
+{
+  const config = loadPolicyConfig({ AGENT_MAX_CARDS_PER_PAGEVIEW: "-1", AGENT_MAX_NUDGES_PER_SESSION: "-1" });
+  const session = fakeSession();
+  const state = fakeState(["size-guide", "cart-add", "shipping-banner"]);
+  const r1 = applyPolicy(session, state, actionProposal({ action: { target: "size-guide" } }), { config, skipCooldown: true });
+  const r2 = applyPolicy(session, state, actionProposal({ action: { target: "cart-add" } }), { config, skipCooldown: true });
+  const r3 = applyPolicy(session, state, actionProposal({ action: { target: "shipping-banner" } }), { config, skipCooldown: true });
+  assert.equal(r1.action.action, "highlight");
+  assert.equal(r2.action.action, "highlight");
+  assert.equal(r3.action.action, "highlight", "AGENT_MAX_CARDS_PER_PAGEVIEW=-1 never caps a pageview");
+  console.log("(xxxix) ok — per-pageview cap disabled with -1");
+}
+
+// (xl) Dismissed-template suppression: once session.dismissedTemplates has a
+// template id (as index.js's handleOutcomeEvent() records on an
+// outcome:"dismiss"), a fresh proposal using that SAME template is denied
+// with `suppressed:dismissed_template`, even on a different target/page —
+// a DIFFERENT template is unaffected.
+{
+  const config = loadPolicyConfig({ AGENT_MAX_CARDS_PER_PAGEVIEW: "-1" });
+  const session = fakeSession({ dismissedTemplates: new Set(["missed_discount"]) });
+  const state = {
+    ...fakeState(["cart-link", "search"]),
+    offers: [{ kind: "missed_discount", code: "JACKET10", saving: 345 }],
+  };
+  const card = { template: "missed_discount", slots: { code: "JACKET10", saving: "345" }, cta: { kind: "apply_code", label: "Apply JACKET10", value: "JACKET10" } };
+  const { action, trace } = applyPolicy(session, state, cardProposal(card, { target: "cart-link" }), { config, skipCooldown: true });
+  assert.equal(action.action, "noop", "same template already dismissed this session is suppressed");
+  assert.match(trace.why, /suppressed:dismissed_template \(missed_discount\)/);
+  console.log("(xl) ok — dismissed template suppressed:", trace.why);
+}
+
+// (xli) AGENT_SUPPRESS_AFTER_DISMISS=false disables the guard — the same
+// dismissed template is allowed back through.
+{
+  const config = loadPolicyConfig({ AGENT_MAX_CARDS_PER_PAGEVIEW: "-1", AGENT_SUPPRESS_AFTER_DISMISS: "false" });
+  const session = fakeSession({ dismissedTemplates: new Set(["missed_discount"]) });
+  const state = {
+    ...fakeState(["cart-link", "search"]),
+    offers: [{ kind: "missed_discount", code: "JACKET10", saving: 345 }],
+  };
+  const card = { template: "missed_discount", slots: { code: "JACKET10", saving: "345" }, cta: { kind: "apply_code", label: "Apply JACKET10", value: "JACKET10" } };
+  const { action } = applyPolicy(session, state, cardProposal(card, { target: "cart-link" }), { config, skipCooldown: true });
+  assert.equal(action.action, "card", "AGENT_SUPPRESS_AFTER_DISMISS=false lets the same template back through");
+  console.log("(xli) ok — AGENT_SUPPRESS_AFTER_DISMISS=false disables the guard");
+}
+
+// (xlii) Payment-step suppression: the storefront's single /checkout route
+// (web/app/checkout/page.tsx) is where the payment-options section lives —
+// any non-noop action proposed while the shopper's current page is
+// /checkout is denied with `suppressed:payment_step`, regardless of target
+// visibility or nudge/cooldown state.
+{
+  const session = fakeSession({
+    events: [{ type: "page_view", target: "/checkout", meta: { targets: ["payment-options", "cart-link"] } }],
+  });
+  const state = fakeState(["payment-options", "cart-link"]);
+  const { action, trace } = applyPolicy(session, state, actionProposal({ action: { target: "payment-options" } }), { skipCooldown: true });
+  assert.equal(action.action, "noop", "any card/highlight on /checkout is suppressed");
+  assert.match(trace.why, /suppressed:payment_step/);
+  console.log("(xlii) ok — payment-step suppression on /checkout:", trace.why);
+}
+
+// (xliii) Payment-step suppression does not apply off /checkout — same
+// session shape, different current page, action allowed.
+{
+  const session = fakeSession({
+    events: [{ type: "page_view", target: "/cart", meta: { targets: ["cart-link"] } }],
+  });
+  const state = fakeState(["cart-link"]);
+  const { action } = applyPolicy(session, state, actionProposal({ action: { target: "cart-link" } }), { skipCooldown: true });
+  assert.equal(action.action, "highlight", "payment-step suppression is scoped to /checkout only");
+  console.log("(xliii) ok — no payment-step suppression off /checkout");
+}
+
+// (xliv) Post-cta suppression: an action proposed within 3s of
+// session.lastCtaOutcomeAt (set by index.js's handleOutcomeEvent() on an
+// outcome:"cta") is denied with `suppressed:post_cta`; once outside the
+// window it's allowed again.
+{
+  const session = fakeSession({ lastCtaOutcomeAt: Date.now() - 500 });
+  const state = fakeState(["size-guide"]);
+  const denied1 = applyPolicy(session, state, actionProposal(), { skipCooldown: true });
+  assert.equal(denied1.action.action, "noop", "action within 3s of a cta outcome is suppressed");
+  assert.match(denied1.trace.why, /suppressed:post_cta/);
+
+  session.lastCtaOutcomeAt = Date.now() - 3500;
+  const allowed = applyPolicy(session, state, actionProposal(), { skipCooldown: true });
+  assert.equal(allowed.action.action, "highlight", "past the 3s window, the action is allowed again");
+  console.log("(xliv) ok — post-cta suppression:", denied1.trace.why);
+}
+
+// (xlv) Guard B recency window (2026-09-12 live-run fix): a CTA shown more
+// than RECENT_CTA_WINDOW_MS (10 min) ago no longer blocks the identical
+// offer — only a recent repeat counts as "already offered". Directly seeds
+// session.recentCtas (same shape applyPolicy() itself pushes) rather than
+// re-running the full 10-minute clock.
+{
+  const session = fakeSession();
+  const state = {
+    ...fakeState(["size-guide"]),
+    product: { slug: "x", name: "x", price: 1, sizes: ["S", "M", "L"], fit_notes: "" },
+  };
+  session.recentCtas = [{ kind: "pick_size", value: "L", target: "size-picker", ts: Date.now() - 11 * 60 * 1000 }];
+  const card = { title: "Still deciding?", body: "L runs true to size.", cta: { kind: "pick_size", label: "Try size L", value: "L" } };
+  const { action } = applyPolicy(session, state, cardProposal(card, { target: "size-guide" }), { skipCooldown: true });
+  assert.equal(action.action, "card", "a CTA shown 11 minutes ago no longer blocks the identical offer");
+  console.log("(xlv) ok — Guard B same-CTA block expires after the recency window, not forever");
 }
 
 console.log("\nprobe-policy: all assertions passed");

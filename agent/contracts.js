@@ -3,6 +3,18 @@
 export const EVENT_TYPES = [
   "page_view", "dwell", "scroll_depth", "rage_click",
   "cart_view", "cart_update", "search", "back_nav", "agent_outcome",
+  // Context-aware trigger signals (server/docs/BEHAVIOR-MATRIX.md P0 list,
+  // added 2026-09-12). Each is a discrete client-observed moment gate.js
+  // reasons over directly (session.events filter), same as back_nav/
+  // rage_click above — never a heartbeat, never replaces existing dwell.
+  "exit_intent", "atc_hesitation", "variant_switch", "promo_focus_blur", "scroll_uturn",
+  // Page context scan (added 2026-09-12, "richer page-scanned context" brief)
+  // — agent.js's DOM scan of the CURRENT page (product/cart/category/search/
+  // checkout/home facts), sent on page_view (boot + route change, after DOM
+  // settles) and deduped by content hash. Never a heartbeat, never counted
+  // by consultFloorCheck's isHeartbeatEvent (see buckets.js) since it isn't
+  // a dwell tick.
+  "page_context",
 ];
 
 export const ACTIONS = ["highlight", "scroll_to", "message", "spotlight", "card", "noop"];
@@ -121,10 +133,50 @@ export function isValidSessionId(id) {
  *              `search` events for the same `q` as refining/superseding
  *              earlier ones, same as cart_update.
  * back_nav     no meta (target = path)
+ * exit_intent  meta: { kind: "mouse_leave"|"tab_hidden" } — target = page path.
+ *              Client-side once-per-session gate (agent.js) means the server
+ *              still sees at most a handful of these, but gate.js itself
+ *              does not additionally rate-limit — the client is the source
+ *              of truth for "once per session" here (mirrors how back_nav
+ *              is a plain one-shot event with no server-side count cap).
+ * atc_hesitation meta: { target: "add-to-cart", hovers: number, ms?: number }
+ *              — target = the add-to-cart element id. Fired when the
+ *              shopper hovers/focuses it >=1.5s without clicking, or
+ *              hovers it 2+ times without clicking.
+ * variant_switch meta: { kind: "size"|"color" } — target = the option
+ *              element id (e.g. "size-option-m", "color-picker"). One event
+ *              per switch; gate.js counts >=2 within its own window.
+ * promo_focus_blur meta: { empty: boolean } — target = "promo-code".
+ *              Fired on blur of the promo code field; empty=true means the
+ *              shopper focused it and left without typing a code.
+ * scroll_uturn meta: { downPct: number } — target = page path. Fired when
+ *              the shopper scrolled down >=60% of the page then back to
+ *              the top within 5s without clicking anything in between.
+ * page_context meta: { page_type: "product"|"cart"|"category"|"search"|
+ *              "checkout"|"home", product?: { title, price, compareAt,
+ *              currency }, variants?: [{ name, available }], stock_text?:
+ *              string, delivery_text?: string, rating?: { value, count },
+ *              badges?: string[], category?: { name, count }, search?:
+ *              { query, count }, cart_summary?: { subtotal, shipping, total,
+ *              discountLine }, promo_present?: boolean } — target = page
+ *              path (same convention as page_view). agent.js's DOM scan,
+ *              capped ~2KB, deduped client-side by content hash (only sent
+ *              when it changed). server/state.js merges this into
+ *              session.pageContext (latest per path + last-5 history) and
+ *              surfaces a compact `page` block + `comparison` block
+ *              (products viewed this session vs current) in buildState()'s
+ *              output. No PII: never scans form field values except a
+ *              promo-code-field-non-empty boolean.
  * agent_outcome meta: { action_id: string, action: string, cta_kind?: string,
- *                outcome: "cta"|"dismiss"|"turn_off"|"navigated"|"ignored",
- *                ms_visible: number }
- *              — target = the action's own target. Never pushed into
+ *                template?: string, outcome: "cta"|"dismiss"|"turn_off"|
+ *                "navigated"|"ignored", ms_visible: number }
+ *              — template (added 2026-09-12, frequency-control brief): the
+ *              card template id this action rendered from, if any (see
+ *              server/templates.js) — echoed by the widget from the action
+ *              payload so index.js's handleOutcomeEvent() can record a
+ *              per-session dismissed-template suppression set
+ *              (AGENT_SUPPRESS_AFTER_DISMISS). Absent for non-card actions.
+ *              target = the action's own target. Never pushed into
  *              session.events (see index.js's dedicated agent_outcome
  *              branch in POST /event) — it must never feed gate.js/tick.js's
  *              friction signals or buildState()'s `recent` log, and must
@@ -141,7 +193,25 @@ export const META_SHAPES = {
   cart_update: { total: "number", items: "array" },
   search: { q: "string", results: "number" },
   back_nav: null,
-  agent_outcome: { action_id: "string", action: "string", cta_kind: "string", outcome: "string", ms_visible: "number" },
+  agent_outcome: { action_id: "string", action: "string", cta_kind: "string", template: "string", outcome: "string", ms_visible: "number" },
+  exit_intent: { kind: "string" },
+  atc_hesitation: { target: "string", hovers: "number", ms: "number" },
+  variant_switch: { kind: "string" },
+  promo_focus_blur: { empty: "boolean" },
+  scroll_uturn: { downPct: "number" },
+  page_context: {
+    page_type: "string",
+    product: "object",
+    variants: "array",
+    stock_text: "string",
+    delivery_text: "string",
+    rating: "object",
+    badges: "array",
+    category: "object",
+    search: "object",
+    cart_summary: "object",
+    promo_present: "boolean",
+  },
 };
 
 function typeOf(v) {

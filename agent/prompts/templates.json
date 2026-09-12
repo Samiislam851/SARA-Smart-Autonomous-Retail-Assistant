@@ -3,117 +3,573 @@
     "when": "Real attention on size-guide/size-picker (not just page dwell).",
     "title": "Between sizes?",
     "body": "{fit_notes} Returns are free within {returns_window_days} days.",
-    "cta": { "kind": ["pick_size"] },
+    "cta": {
+      "kind": [
+        "pick_size"
+      ]
+    },
     "slots": {
-      "fit_notes": { "max_len": 140 },
-      "returns_window_days": { "max_len": 4 }
+      "fit_notes": {
+        "max_len": 140
+      },
+      "returns_window_days": {
+        "max_len": 4
+      }
     },
     "tone": "Direct, reassuring, no exclamation marks."
   },
   "missed_discount": {
     "when": "A missed_discount offer exists (a code not yet applied) and there's hesitation on cart/checkout.",
     "title": "Save on your order",
-    "body": "Use {code} to save ৳{saving} on your order.",
-    "cta": { "kind": ["apply_code"] },
+    "body": "Use {code} to save {currency}{saving} on your order.",
+    "cta": {
+      "kind": [
+        "apply_code"
+      ]
+    },
     "slots": {
-      "code": { "max_len": 20 },
-      "saving": { "max_len": 8 }
+      "code": {
+        "max_len": 20
+      },
+      "saving": {
+        "max_len": 8
+      }
     },
     "tone": "Plain, exact amount, no hype.",
-    "anchor": ["promo-code", "cart-link", "search", "agent-banner"]
+    "anchor": [
+      "promo-code",
+      "cart-link",
+      "search",
+      "agent-banner"
+    ]
   },
   "auto_discount_active": {
     "when": "An auto_discount_active offer exists (already applied automatically) — informational only, no code to mention.",
     "title": "Discount applied",
-    "body": "{label} is already applied — you're saving ৳{saving}.",
-    "cta": { "kind": ["none"] },
+    "body": "{label} is already applied — you're saving {currency}{saving}.",
+    "cta": {
+      "kind": [
+        "none"
+      ]
+    },
     "slots": {
-      "label": { "max_len": 60 },
-      "saving": { "max_len": 8 }
+      "label": {
+        "max_len": 60
+      },
+      "saving": {
+        "max_len": 8
+      }
     },
     "tone": "Reassuring confirmation, not a pitch.",
-    "anchor": ["promo-code", "cart-link", "search", "agent-banner"]
+    "anchor": [
+      "promo-code",
+      "cart-link",
+      "search",
+      "agent-banner"
+    ]
   },
   "similar_on_promo": {
     "when": "A similar_on_promo offer exists and there's real attention or a return visit on the current (non-promo) product.",
     "title": "Worth a look",
-    "body": "{label} — save ৳{saving} in the same collection.",
-    "cta": { "kind": ["open_product"] },
+    "body": "{label} — save {currency}{saving} in the same collection.",
+    "cta": {
+      "kind": [
+        "open_product"
+      ]
+    },
     "slots": {
-      "label": { "max_len": 80 },
-      "saving": { "max_len": 8 }
+      "label": {
+        "max_len": 80
+      },
+      "saving": {
+        "max_len": 8
+      }
     },
     "tone": "Helpful comparison, not pushy.",
-    "anchor": ["similar-products", "cart-link", "search", "agent-banner"]
+    "anchor": [
+      "similar-products",
+      "cart-link",
+      "search",
+      "agent-banner"
+    ]
   },
   "delivery_gap": {
     "when": "A delivery_gap offer exists with a real hesitation signal (cart/checkout page + dwelling or bouncing).",
     "title": "Almost free delivery",
-    "body": "Add {fill_with_name} (৳{fill_with_price}) and delivery is free — you're ৳{gap} away.",
-    "cta": { "kind": ["add_to_cart"] },
+    "body": "Add {fill_with_name} ({currency}{fill_with_price}) and delivery is free — you're {currency}{gap} away.",
+    "cta": {
+      "kind": [
+        "add_to_cart"
+      ]
+    },
     "slots": {
-      "fill_with_name": { "max_len": 60 },
-      "fill_with_price": { "max_len": 8 },
-      "gap": { "max_len": 8 }
+      "fill_with_name": {
+        "max_len": 60
+      },
+      "fill_with_price": {
+        "max_len": 8
+      },
+      "gap": {
+        "max_len": 8
+      }
     },
     "tone": "Concrete, exact amounts, one clear ask.",
-    "anchor": ["shipping-banner", "cart-link", "search", "agent-banner"]
+    "anchor": [
+      "shipping-banner",
+      "cart-link",
+      "search",
+      "agent-banner"
+    ]
   },
   "cart_under_threshold": {
     "when": "A cart_under_threshold offer exists (an open cart under the free-delivery threshold, any gap size) while the shopper is BROWSING (not already on cart/checkout — that's delivery_gap's recipe instead).",
     "title": "Free delivery is close",
-    "body": "Add {fill_with_name} (৳{fill_with_price}) and delivery is free — you're ৳{gap} away.",
-    "cta": { "kind": ["add_to_cart"] },
+    "body": "Add {fill_with_name} ({currency}{fill_with_price}) and delivery is free — you're {currency}{gap} away.",
+    "cta": {
+      "kind": [
+        "add_to_cart"
+      ]
+    },
     "slots": {
-      "fill_with_name": { "max_len": 60 },
-      "fill_with_price": { "max_len": 8 },
-      "gap": { "max_len": 8 }
+      "fill_with_name": {
+        "max_len": 60
+      },
+      "fill_with_price": {
+        "max_len": 8
+      },
+      "gap": {
+        "max_len": 8
+      }
     },
     "tone": "Concrete, exact amounts, one clear ask — same voice as delivery_gap.",
-    "anchor": ["shipping-banner", "cart-link", "search", "agent-banner"]
+    "anchor": [
+      "shipping-banner",
+      "cart-link",
+      "search",
+      "agent-banner"
+    ]
   },
   "checkout_bounce": {
     "when": "patterns.checkoutBounce is true — the shopper reached checkout and then left to a different page (a login wall, a back-nav to cart/shop) without a later checkout visit.",
     "title": "Still want it?",
     "body": "Your cart is saved — pick up where you left off.",
-    "cta": { "kind": ["apply_code", "open_product", "none"] },
+    "cta": {
+      "kind": [
+        "apply_code",
+        "open_product",
+        "none"
+      ]
+    },
     "slots": {},
     "tone": "Reassuring, no blame, one clear next step.",
-    "anchor": ["cart-link", "search", "agent-banner"]
+    "anchor": [
+      "cart-link",
+      "search",
+      "agent-banner"
+    ]
   },
   "search_help": {
     "when": "search.results is exactly 0 for the shopper's current search.q AND the store found 1-3 real catalog matches (offers[].candidates).",
     "title": "Found a match",
     "body": "Found {count} {count|match|matches} for {name}.",
-    "cta": { "kind": ["open_product", "search"] },
+    "cta": {
+      "kind": [
+        "open_product",
+        "search"
+      ]
+    },
     "slots": {
-      "count": { "max_len": 2 },
-      "name": { "max_len": 60 }
+      "count": {
+        "max_len": 2
+      },
+      "name": {
+        "max_len": 60
+      }
     },
     "tone": "Factual, names the match count.",
-    "anchor": ["search", "cart-link", "agent-banner"]
+    "anchor": [
+      "search",
+      "cart-link",
+      "agent-banner"
+    ]
   },
   "stuck_checkout": {
     "when": "Rage clicks or repeated form-field friction on /checkout with no concrete offer fact to hand over.",
     "title": "Trouble checking out?",
     "body": "You can also complete payment via {payment_method} if this isn't working.",
-    "cta": { "kind": ["none"] },
+    "cta": {
+      "kind": [
+        "none"
+      ]
+    },
     "slots": {
-      "payment_method": { "max_len": 30 }
+      "payment_method": {
+        "max_len": 30
+      }
     },
     "tone": "Calm, offers an alternative, no blame.",
-    "anchor": ["checkout-btn", "cart-link", "agent-banner"]
+    "anchor": [
+      "checkout-btn",
+      "cart-link",
+      "agent-banner"
+    ]
   },
   "low_stock": {
     "when": "facts.keys.stock is low for the current product/selected variant — a concrete near-miss fact.",
     "title": "Almost gone",
     "body": "Only {stock} left in {size_selected} — grab it before it's out.",
-    "cta": { "kind": ["add_to_cart", "pick_size"] },
+    "cta": {
+      "kind": [
+        "add_to_cart",
+        "pick_size"
+      ]
+    },
     "slots": {
-      "stock": { "max_len": 4 },
-      "size_selected": { "max_len": 10 }
+      "stock": {
+        "max_len": 4
+      },
+      "size_selected": {
+        "max_len": 10
+      }
     },
     "tone": "Urgent but factual, one concrete number.",
-    "anchor": ["cart-add", "cart-link", "agent-banner"]
+    "anchor": [
+      "cart-add",
+      "cart-link",
+      "agent-banner"
+    ]
+  },
+  "exit_intent_help": {
+    "when": "exit_intent fired (mouse left upward, or tab hidden then visible) — a real leaving signal, not scroll noise.",
+    "title": "Before you go",
+    "body": "{fact}",
+    "cta": {
+      "kind": [
+        "open_product",
+        "apply_code",
+        "none"
+      ]
+    },
+    "slots": {
+      "fact": {
+        "max_len": 140,
+        "kind": "fact",
+        "source": "offers[0]"
+      }
+    },
+    "tone": "Brief, no guilt-trip, one concrete reason to stay.",
+    "anchor": [
+      "cart-link",
+      "search",
+      "agent-banner"
+    ]
+  },
+  "atc_nudge": {
+    "when": "atc_hesitation fired — hovered/focused add-to-cart repeatedly without clicking.",
+    "title": "Ready when you are",
+    "body": "{fit_or_stock_fact}",
+    "cta": {
+      "kind": [
+        "add_to_cart"
+      ]
+    },
+    "slots": {
+      "fit_or_stock_fact": {
+        "max_len": 140,
+        "kind": "fact",
+        "source": "product.fit_notes"
+      }
+    },
+    "tone": "Reassuring, answers the likely hesitation (size/stock/fit), not pushy.",
+    "anchor": [
+      "add-to-cart",
+      "size-guide",
+      "agent-banner"
+    ]
+  },
+  "variant_help": {
+    "when": "variant_churn fired — 2+ size/color switches within 30s, no add-to-cart yet.",
+    "title": "Need a hand choosing?",
+    "body": "{fit_notes}",
+    "cta": {
+      "kind": [
+        "pick_size",
+        "none"
+      ]
+    },
+    "slots": {
+      "fit_notes": {
+        "max_len": 140
+      }
+    },
+    "tone": "Direct, practical, no pressure to decide fast.",
+    "anchor": [
+      "size-guide",
+      "color-picker",
+      "agent-banner"
+    ]
+  },
+  "promo_hint": {
+    "when": "promo_focus_empty fired — focused the promo code field and left it empty.",
+    "title": "Have a code?",
+    "body": "{code_fact}",
+    "cta": {
+      "kind": [
+        "apply_code",
+        "none"
+      ]
+    },
+    "slots": {
+      "code_fact": {
+        "max_len": 140,
+        "kind": "fact",
+        "source": "offers[0]"
+      }
+    },
+    "tone": "Helpful, only mention a code if one is actually active.",
+    "anchor": [
+      "promo-code",
+      "cart-link",
+      "agent-banner"
+    ]
+  },
+  "total_reassure": {
+    "when": "total_dwell fired — real attention (not a glance) on the cart/checkout total or shipping line.",
+    "title": "About that total",
+    "body": "{breakdown_fact}",
+    "cta": {
+      "kind": [
+        "none",
+        "add_to_cart"
+      ]
+    },
+    "slots": {
+      "breakdown_fact": {
+        "max_len": 140,
+        "kind": "fact",
+        "source": "business.delivery"
+      }
+    },
+    "tone": "Plain breakdown, no upsell tone.",
+    "anchor": [
+      "cart-total",
+      "checkout-total",
+      "agent-banner"
+    ]
+  },
+  "search_refine_help": {
+    "when": "search_refine fired — 2+ different queries within 60s, still narrowing.",
+    "title": "Still looking?",
+    "body": "{suggestion_fact}",
+    "cta": {
+      "kind": [
+        "search",
+        "open_product",
+        "none"
+      ]
+    },
+    "slots": {
+      "suggestion_fact": {
+        "max_len": 140,
+        "kind": "fact",
+        "source": "offers[0]"
+      }
+    },
+    "tone": "Offer one concrete next step, not a generic 'try again'.",
+    "anchor": [
+      "search",
+      "agent-banner"
+    ]
+  },
+  "idle_check_in": {
+    "when": "idle fired — no input for 20s+ on a product/cart page, lowest priority, only when nothing else applies.",
+    "title": "Still there?",
+    "body": "{fact}",
+    "cta": {
+      "kind": [
+        "none",
+        "add_to_cart",
+        "open_product"
+      ]
+    },
+    "slots": {
+      "fact": {
+        "max_len": 140,
+        "kind": "fact",
+        "source": "business.delivery"
+      }
+    },
+    "tone": "Very low-key, easy to ignore, never a hard sell.",
+    "anchor": [
+      "agent-banner"
+    ]
+  },
+  "low_stock_nudge": {
+    "when": "page fact: low_stock — page_context scan found stock text naming a low count for the current product/variant.",
+    "title": "Almost gone",
+    "body": "Only {n} left in {variant}",
+    "cta": {
+      "kind": [
+        "add_to_cart",
+        "none"
+      ]
+    },
+    "slots": {
+      "n": {
+        "max_len": 6
+      },
+      "variant": {
+        "max_len": 40
+      }
+    },
+    "tone": "Plain fact, no artificial urgency beyond the real number.",
+    "anchor": [
+      "add-to-cart",
+      "size-guide",
+      "agent-banner"
+    ]
+  },
+  "free_shipping_gap": {
+    "when": "page fact: free_shipping_gap — page_context/cart_economics shows a real, small gap to the free-shipping threshold.",
+    "title": "Almost free shipping",
+    "body": "Add {currency}{gap} more for free shipping",
+    "cta": {
+      "kind": [
+        "add_to_cart",
+        "none"
+      ]
+    },
+    "slots": {
+      "gap": {
+        "max_len": 12
+      }
+    },
+    "tone": "Plain gap fact, no upsell tone.",
+    "anchor": [
+      "shipping-banner",
+      "cart-total",
+      "agent-banner"
+    ]
+  },
+  "delivery_reassure": {
+    "when": "total_dwell or atc_hesitation fired and a real delivery estimate is known (business.delivery / page_context delivery text).",
+    "title": "On its way",
+    "body": "Order now, arrives {delivery}",
+    "cta": {
+      "kind": [
+        "add_to_cart",
+        "none"
+      ]
+    },
+    "slots": {
+      "delivery": {
+        "max_len": 40
+      }
+    },
+    "tone": "Reassuring, one concrete delivery fact.",
+    "anchor": [
+      "shipping-banner",
+      "checkout-total",
+      "agent-banner"
+    ]
+  },
+  "compare_back": {
+    "when": "product ping-pong — comparison block shows a previously viewed product cheaper than the current one.",
+    "title": "Comparing?",
+    "body": "{other_title} you looked at is {currency}{delta} cheaper",
+    "cta": {
+      "kind": [
+        "open_product",
+        "none"
+      ]
+    },
+    "slots": {
+      "other_title": {
+        "max_len": 60
+      },
+      "delta": {
+        "max_len": 12
+      }
+    },
+    "tone": "Neutral, informational — never pushy about switching.",
+    "anchor": [
+      "similar-products",
+      "agent-banner"
+    ]
+  },
+  "size_availability": {
+    "when": "page fact: variant_out_of_stock, or variant_churn — page_context scan found per-option availability for the current product.",
+    "title": "Sizes in stock",
+    "body": "{unavailable} is sold out here, {available} are in stock",
+    "cta": {
+      "kind": [
+        "pick_size",
+        "none"
+      ]
+    },
+    "slots": {
+      "unavailable": {
+        "max_len": 40
+      },
+      "available": {
+        "max_len": 40
+      }
+    },
+    "tone": "Direct, practical.",
+    "anchor": [
+      "size-guide",
+      "color-picker",
+      "agent-banner"
+    ]
+  },
+  "spec_diff_hint": {
+    "when": "page fact: undecided_compare — 2+ same-category PDPs viewed within 3 minutes without reaching the specs/details section, and a real spec_diff was computed. Card `cta` carries only ONE action (contract fixed shape) — prefer `open_product` (the compared product) since that's the more useful single tap; the widget's own product-details anchor (see `anchor` below) is where policy.js redirects a card whose target_hint isn't visible, not a second cta.",
+    "title": "Comparing?",
+    "body": "Comparing this and {other_title}? The other has {feature} — in case that's what you're after.",
+    "cta": {
+      "kind": [
+        "open_product",
+        "none"
+      ]
+    },
+    "slots": {
+      "other_title": {
+        "max_len": 60
+      },
+      "feature": {
+        "max_len": 60
+      }
+    },
+    "tone": "Helpful, one concrete differentiator, never pushy about either product.",
+    "anchor": [
+      "product-title",
+      "similar-products",
+      "agent-banner"
+    ]
+  },
+  "review_confidence": {
+    "when": "long PDP dwell (element attention / return visit) and page_context scanned a rating + review count.",
+    "title": "Well reviewed",
+    "body": "Rated {rating} by {count} shoppers",
+    "cta": {
+      "kind": [
+        "add_to_cart",
+        "none"
+      ]
+    },
+    "slots": {
+      "rating": {
+        "max_len": 6
+      },
+      "count": {
+        "max_len": 10
+      }
+    },
+    "tone": "Plain social-proof fact, no exaggeration.",
+    "anchor": [
+      "product-image",
+      "add-to-cart",
+      "agent-banner"
+    ]
   }
 }

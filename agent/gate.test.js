@@ -14,7 +14,7 @@
 
 import assert from "node:assert/strict";
 import { getSession, resetSession, pushEvent, buildState } from "./state.js";
-import { gate, computeSignals, consultFloorCheck, pageMomentCheck, CONSULT_FLOOR_MS, MAX_MODEL_CALLS_PER_MIN } from "./gate.js";
+import { gate, computeSignals, consultFloorCheck, pageMomentCheck, CONSULT_FLOOR_MS, MAX_MODEL_CALLS_PER_MIN, signalsForReason, forSignalsMap } from "./gate.js";
 import { shouldCallDecider } from "./tick.js";
 
 const SID = "gate_test_session";
@@ -188,17 +188,35 @@ function heartbeats(session, page, startMs, count, startAccumMs, stepMs) {
   assert.equal(decide, true, "sanity: first page_view of an unseen path is always a decision");
   session.lastDeciderAt = T0;
 
-  // 30 identical page-level dwell heartbeats — page dwell alone is never a
-  // signal, and nothing else about the situation changes.
+  // 19 identical page-level dwell heartbeats — page dwell alone is never a
+  // bucket/friction signal, and nothing else about the situation changes.
+  // Capped at 19s (< IDLE_MS's 20s default): rule 20 (idle, added
+  // 2026-09-12) is DELIBERATELY a real trigger once the shopper has given
+  // no real input for 20s+ on a product/cart page — see gate.js's
+  // idleSignal and BEHAVIOR-MATRIX.md's P0 item 8 — so "heartbeats alone
+  // stay quiet forever" is no longer the invariant; "heartbeats alone stay
+  // quiet until the idle floor" is.
   let allQuiet = true;
-  for (let i = 1; i <= 30; i++) {
+  for (let i = 1; i <= 19; i++) {
     pushEvent(session, ev("dwell", PATH, T0 + i * 1000, { ms: i * 1000 }));
     state = buildState(session);
     const should = shouldCallDecider(session, session.events.at(-1), state);
     if (should) allQuiet = false;
   }
-  assert.equal(allQuiet, true, "expected 30 page-level heartbeats after a decision to all be quiet ticks");
-  console.log("(vi.a) ok — 30 page-level heartbeats after a decision are all quiet ticks");
+  assert.equal(allQuiet, true, "expected page-level heartbeats before the idle floor to all be quiet ticks");
+  console.log("(vi.a) ok — page-level heartbeats before the idle floor (19s) are all quiet ticks");
+
+  // The 20th heartbeat (20s of no real input) crosses IDLE_MS and SHOULD
+  // now trigger — via gate.js's own idle rule, not a dwell-bucket trigger.
+  pushEvent(session, ev("dwell", PATH, T0 + 20000, { ms: 20000 }));
+  state = buildState(session);
+  const idleShould = shouldCallDecider(session, session.events.at(-1), state);
+  assert.equal(idleShould, true, "expected the 20s-idle heartbeat to trigger via gate.js's idle rule");
+  const idleGateResult = gate(state, session, session.events.at(-1));
+  assert.equal(idleGateResult.pass, true, `expected gate() to pass on the same idle tick, got: ${idleGateResult.reason}`);
+  assert.match(idleGateResult.reason, /^idle:/);
+  console.log("(vi.a.2) ok — 20s idle heartbeat triggers + gate() passes:", idleGateResult.reason);
+  session.lastDeciderAt = T0 + 20000; // re-baseline so the rest of this test's dwell-bucket assertions aren't polluted by idle staying true
 
   // Now element attention on size-guide crosses the 5s bucket boundary.
   pushEvent(
@@ -536,6 +554,240 @@ function heartbeats(session, page, startMs, count, startAccumMs, stepMs) {
   console.log(`(xvii) ok — cost cap trims floor calls at ${MAX_MODEL_CALLS_PER_MIN}/min: ${passCount} passed, rest rate-capped`);
 
   resetSession(SID);
+}
+
+// ---- (xviii) exit_intent fires -------------------------------------------
+{
+  resetSession(SID);
+  const session = getSession(SID);
+  pushEvent(session, ev("page_view", "/product/khadi-field-jacket", T0, { targets: ["add-to-cart"] }));
+  pushEvent(session, ev("exit_intent", "/product/khadi-field-jacket", T0 + 2000, { kind: "mouse_leave" }));
+  const lastEvent = session.events.at(-1);
+  const state = buildState(session);
+  const result = gate(state, session, lastEvent);
+  assert.equal(result.pass, true, `expected gate to pass via exit_intent, got: ${result.reason}`);
+  assert.match(result.reason, /^exit intent:/);
+  console.log("(xviii) ok — exit_intent fires:", result.reason);
+  resetSession(SID);
+}
+
+// ---- (xix) atc_hesitation fires ------------------------------------------
+{
+  resetSession(SID);
+  const session = getSession(SID);
+  pushEvent(session, ev("page_view", "/product/khadi-field-jacket", T0, { targets: ["add-to-cart"] }));
+  pushEvent(session, ev("atc_hesitation", "add-to-cart", T0 + 2000, { target: "add-to-cart", hovers: 2 }));
+  const lastEvent = session.events.at(-1);
+  const state = buildState(session);
+  const result = gate(state, session, lastEvent);
+  assert.equal(result.pass, true, `expected gate to pass via atc_hesitation, got: ${result.reason}`);
+  assert.match(result.reason, /^add-to-cart hesitation:/);
+  console.log("(xix) ok — atc_hesitation fires:", result.reason);
+  resetSession(SID);
+}
+
+// ---- (xx) variant_churn fires with 2+ switches and no cart-add -----------
+{
+  resetSession(SID);
+  const session = getSession(SID);
+  pushEvent(session, ev("page_view", "/product/khadi-field-jacket", T0, { targets: ["size-option-m", "size-option-l"] }));
+  pushEvent(session, ev("variant_switch", "size-option-m", T0 + 1000, { kind: "size" }));
+  pushEvent(session, ev("variant_switch", "size-option-l", T0 + 2000, { kind: "size" }));
+  const lastEvent = session.events.at(-1);
+  const state = buildState(session);
+  const result = gate(state, session, lastEvent);
+  assert.equal(result.pass, true, `expected gate to pass via variant_churn, got: ${result.reason}`);
+  assert.match(result.reason, /^variant churn:/);
+  console.log("(xx) ok — variant_churn fires:", result.reason);
+  resetSession(SID);
+}
+
+// ---- (xx.b) variant_churn does NOT fire once cart-add happened -----------
+{
+  resetSession(SID);
+  const session = getSession(SID);
+  pushEvent(session, ev("page_view", "/product/khadi-field-jacket", T0, { targets: ["size-option-m", "size-option-l"] }));
+  pushEvent(session, ev("variant_switch", "size-option-m", T0 + 1000, { kind: "size" }));
+  pushEvent(session, ev("variant_switch", "size-option-l", T0 + 2000, { kind: "size" }));
+  pushEvent(session, ev("cart_update", "cart-add", T0 + 3000, { total: 1200, items: [] }));
+  const state = buildState(session);
+  const sig = computeSignals(state, session, T0 + 3500);
+  assert.equal(sig.variantChurn.hit, false, "expected variantChurn NOT to fire after a cart-add");
+  console.log("(xx.b) ok — variant_churn suppressed after cart-add");
+  resetSession(SID);
+}
+
+// ---- (xxi) promo_focus_empty fires ---------------------------------------
+{
+  resetSession(SID);
+  const session = getSession(SID);
+  pushEvent(session, ev("page_view", "/cart", T0, { targets: ["promo-code"] }));
+  pushEvent(session, ev("promo_focus_blur", "promo-code", T0 + 1000, { empty: true }));
+  const lastEvent = session.events.at(-1);
+  const state = buildState(session);
+  const result = gate(state, session, lastEvent);
+  assert.equal(result.pass, true, `expected gate to pass via promo_focus_empty, got: ${result.reason}`);
+  assert.match(result.reason, /^promo code focused/);
+  console.log("(xxi) ok — promo_focus_empty fires:", result.reason);
+  resetSession(SID);
+}
+
+// ---- (xxi.b) promo_focus_empty does NOT fire when a code was typed -------
+{
+  resetSession(SID);
+  const session = getSession(SID);
+  pushEvent(session, ev("page_view", "/cart", T0, { targets: ["promo-code"] }));
+  pushEvent(session, ev("promo_focus_blur", "promo-code", T0 + 1000, { empty: false }));
+  const state = buildState(session);
+  const sig = computeSignals(state, session, T0 + 1500);
+  assert.equal(sig.promoFocusEmpty.hit, false, "expected promoFocusEmpty NOT to fire when a code was typed");
+  console.log("(xxi.b) ok — promo_focus_empty suppressed when a code was typed");
+  resetSession(SID);
+}
+
+// ---- (xxii) total_dwell fires on real cart-total attention ---------------
+{
+  resetSession(SID);
+  const session = getSession(SID);
+  pushEvent(session, ev("page_view", "/cart", T0, { targets: ["cart-total"] }));
+  pushEvent(session, ev("dwell", "cart-total", T0 + 1000, { ms: 4200, kind: "attention" }));
+  const lastEvent = session.events.at(-1);
+  const state = buildState(session);
+  const result = gate(state, session, lastEvent);
+  assert.equal(result.pass, true, `expected gate to pass via total_dwell, got: ${result.reason}`);
+  assert.match(result.reason, /^total dwell:/);
+  console.log("(xxii) ok — total_dwell fires:", result.reason);
+  resetSession(SID);
+}
+
+// ---- (xxiii) search_refine fires on 2+ different consecutive queries -----
+{
+  resetSession(SID);
+  const session = getSession(SID);
+  pushEvent(session, ev("page_view", "/search", T0, { targets: [] }));
+  pushEvent(session, ev("search", "search", T0 + 1000, { q: "kantha" }));
+  pushEvent(session, ev("search", "search", T0 + 2000, { q: "kantha scarf" }));
+  const lastEvent = session.events.at(-1);
+  const state = buildState(session);
+  const result = gate(state, session, lastEvent);
+  assert.equal(result.pass, true, `expected gate to pass via search_refine, got: ${result.reason}`);
+  assert.match(result.reason, /^search refine:/);
+  console.log("(xxiii) ok — search_refine fires:", result.reason);
+  resetSession(SID);
+}
+
+// ---- (xxiv) scroll_uturn fires on a product page --------------------------
+{
+  resetSession(SID);
+  const session = getSession(SID);
+  pushEvent(session, ev("page_view", "/product/khadi-field-jacket", T0, { targets: [] }));
+  pushEvent(session, ev("scroll_uturn", "/product/khadi-field-jacket", T0 + 3000, { downPct: 72 }));
+  const lastEvent = session.events.at(-1);
+  const state = buildState(session);
+  const result = gate(state, session, lastEvent);
+  assert.equal(result.pass, true, `expected gate to pass via scroll_uturn, got: ${result.reason}`);
+  assert.match(result.reason, /^scroll u-turn/);
+  console.log("(xxiv) ok — scroll_uturn fires:", result.reason);
+  resetSession(SID);
+}
+
+// ---- (xxv) idle fires on a quiet product page after 20s+ of no input -----
+{
+  resetSession(SID);
+  const session = getSession(SID);
+  pushEvent(session, ev("page_view", "/product/khadi-field-jacket", T0, { targets: [] }));
+  const ts = T0 + 21000;
+  pushEvent(session, ev("dwell", "/product/khadi-field-jacket", ts, { ms: 21000 })); // page-level heartbeat, not "real input"
+  const lastEvent = session.events.at(-1);
+  const state = buildState(session);
+  const result = gate(state, session, lastEvent);
+  assert.equal(result.pass, true, `expected gate to pass via idle, got: ${result.reason}`);
+  assert.match(result.reason, /^idle:/);
+  console.log("(xxv) ok — idle fires:", result.reason);
+  resetSession(SID);
+}
+
+// ---- (xxvi) signalsForReason()/forSignalsMap() — semantic trace category fix ----
+// server/NOTES.md "generic reasons in the log" defect class: server.log and
+// the trace panel used to show only the generic gate/guard/llm/quiet reason,
+// never WHICH behavioral signal triggered the model call. signalsForReason()
+// is the machine-readable counterpart of decide.md's own reason-prefix ->
+// template prose table — must stay in sync with every context-aware trigger
+// rule 13-19's own reason string shape.
+{
+  assert.deepEqual(signalsForReason("variant churn: 2 option switches within 30s, no add-to-cart"), [
+    { name: "variant_churn", template: "variant_help" },
+  ]);
+  assert.deepEqual(signalsForReason("add-to-cart hesitation: 3.2s ago"), [{ name: "atc_hesitation", template: "atc_nudge" }]);
+  assert.deepEqual(signalsForReason("exit intent: 1.0s ago"), [{ name: "exit_intent", template: "exit_intent_help" }]);
+  assert.deepEqual(signalsForReason("idle: no input for 21s on /p (>= 20s), tab visible"), [{ name: "idle", template: "idle_check_in" }]);
+  // A reason with no matching context-aware trigger (rules 1-12, floor, page_moment) yields [].
+  assert.deepEqual(signalsForReason("element attention: size-guide 5.0s >= 5s on current page"), []);
+  assert.deepEqual(signalsForReason(null), []);
+  assert.deepEqual(signalsForReason(undefined), []);
+
+  const map = forSignalsMap();
+  assert.equal(map.variant_churn, "variant_help");
+  assert.equal(map.atc_hesitation, "atc_nudge");
+  assert.equal(map.idle, "idle_check_in");
+  console.log("(xxvi) ok — signalsForReason()/forSignalsMap() map gate reasons to their template ids:", map);
+}
+
+// ---- (page_fact) page_context arrival with a strong fact is itself a gate
+// signal, once per page path per session (2026-09-12 "richer scanned site
+// context" brief). ---------------------------------------------------------
+{
+  resetSession(SID);
+  const session = getSession(SID);
+  const PRODUCT = "/product/leather-mojari-sandals";
+  pushEvent(session, ev("page_view", PRODUCT, T0, { targets: ["product-image", "add-to-cart"] }));
+  pushEvent(session, ev("page_context", PRODUCT, T0 + 500, { page_type: "product", stock_text: "Only 2 left in stock", promo_present: false }));
+
+  let state = buildState(session);
+  let lastEvent = session.events.at(-1);
+  let result = gate(state, session, lastEvent);
+  assert.equal(result.pass, true, `expected page_fact (low_stock) to pass gate, got: ${result.reason}`);
+  assert.match(result.reason, /^page fact: low_stock/);
+  assert.equal(state.page_context.stock.lowStockN, 2);
+
+  // A second page_context on the SAME path must NOT re-fire the page_fact
+  // signal, even carrying the exact same strong fact — once per page path
+  // per session.
+  pushEvent(session, ev("page_context", PRODUCT, T0 + 3000, { page_type: "product", stock_text: "Only 2 left in stock", promo_present: false }));
+  state = buildState(session);
+  lastEvent = session.events.at(-1);
+  result = gate(state, session, lastEvent);
+  assert.ok(
+    !result.reason.startsWith("page fact: low_stock"),
+    `expected page_fact to fire once per page path, got a second hit: ${result.reason}`
+  );
+
+  console.log("(page_fact) ok — low-stock page_context fires once per page path:", result.reason);
+}
+
+// ---- (page_fact free_shipping_gap) a real, small gap to the free-
+// shipping threshold is a strong fact even with no low-stock text. --------
+{
+  resetSession(SID);
+  const session = getSession(SID);
+  pushEvent(session, ev("page_view", "/cart", T0, { targets: ["cart-total", "checkout-btn"] }));
+  pushEvent(session, ev("cart_view", null, T0 + 100, { total: 1900, items: [{ sku: "x", qty: 1, price: 1900 }] }));
+  pushEvent(session, ev("page_context", "/cart", T0 + 500, { page_type: "cart", promo_present: false }));
+
+  const state = buildState(session);
+  const lastEvent = session.events.at(-1);
+  const result = gate(state, session, lastEvent);
+  // Only asserted if the default store's free-shipping threshold actually
+  // puts this gap under the 20% strong-fact bar — computed from real
+  // cart_economics, not hardcoded, so this stays honest if the default
+  // store's threshold ever changes.
+  if (state.cart_economics && state.cart_economics.gapToFreeShipping > 0 && state.cart_economics.gapToFreeShipping / state.cart_economics.subtotal < 0.2) {
+    assert.equal(result.pass, true, `expected page_fact (free_shipping_gap) to pass, got: ${result.reason}`);
+    assert.match(result.reason, /^page fact: free_shipping_gap/);
+    console.log("(page_fact free_shipping_gap) ok —", result.reason, state.cart_economics);
+  } else {
+    console.log("(page_fact free_shipping_gap) skipped — default store's threshold doesn't put this cart in the strong-fact band:", state.cart_economics);
+  }
 }
 
 console.log("gate.test: all assertions passed");

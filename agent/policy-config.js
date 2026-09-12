@@ -10,9 +10,19 @@
 import { ACTIONS } from "./contracts.js";
 
 // Fixed contract floor (CLAUDE.md's ground rule 3: "max one intervention per
-// 30s per session") — AGENT_COOLDOWN_MS may only TIGHTEN this, never loosen
-// it, so its accepted range's minimum is 30s, not 0.
-const MIN_COOLDOWN_MS = 30_000;
+// 30s per session") for a NORMAL session — AGENT_COOLDOWN_MS may only
+// TIGHTEN this, never loosen it. "demo" sensitivity gets its own, looser
+// floor (2026-09-12 "trigger pops a little more frequently" brief,
+// explicit owner request + .env's AGENT_COOLDOWN_MS=15000 under
+// AGENT_SENSITIVITY=demo) — a live demo audience deliberately trades the
+// real-shopper-fatigue floor for more visible cards across pages; this is a
+// documented, sensitivity-scoped exception to ground rule 3, not a general
+// loosening (a "normal" session keeps the full 30s floor, unchanged).
+const MIN_COOLDOWN_MS_BY_SENSITIVITY = Object.freeze({ normal: 30_000, demo: 15_000 });
+const MIN_COOLDOWN_MS = MIN_COOLDOWN_MS_BY_SENSITIVITY.normal;
+// Matching sensitivity-aware DEFAULT (was a flat MIN_COOLDOWN_MS for both) —
+// same shape as MAX_NUDGES_DEFAULTS/CONSULT_FLOOR_DEFAULTS below.
+const COOLDOWN_DEFAULTS = Object.freeze({ normal: 30_000, demo: 15_000 });
 
 const DEFAULTS = Object.freeze({
   cooldownMs: MIN_COOLDOWN_MS,
@@ -23,6 +33,59 @@ const DEFAULTS = Object.freeze({
   minConfidence: 0,
   sensitivity: "normal",
 });
+
+// Frequency & fatigue knobs (docs/BEHAVIOR-MATRIX.md "Frequency & fatigue" +
+// server brief 2026-09-12). Sensitivity-aware defaults follow the same
+// pattern as CONSULT_FLOOR_DEFAULTS below: a "demo" session gets a looser
+// (not identical-ratio) default so a live demo can show several cards
+// across pages without sitting through the full normal-session budget.
+//
+// AGENT_MAX_NUDGES_PER_SESSION's own default now depends on sensitivity too
+// (was a flat 3) — raised per owner request ("several meaningful cards
+// across pages"). maxNudgesPerSession keeps its existing -1=unlimited /
+// 0=silent / N contract; only the fallback-when-unset value changed.
+const MAX_NUDGES_DEFAULTS = Object.freeze({ normal: 4, demo: 6 });
+
+// AGENT_MAX_CARDS_PER_PAGEVIEW: per-pageview cap on non-noop actions
+// (docs/BEHAVIOR-MATRIX.md "Per-page cap: 1 card per page view"). Enforced
+// in policy.js against session.actionsThisPageview (reset on every
+// page_view, see state.js pushEvent()). -1 = unlimited.
+const MAX_CARDS_PER_PAGEVIEW_DEFAULTS = Object.freeze({ normal: 1, demo: 2 });
+
+// AGENT_MIN_GAP_MS: NOT a second timer — docs/BEHAVIOR-MATRIX.md is explicit
+// ("reuse, don't add a second timer"). This is purely an observability
+// alias for cooldownMs, exposed in describePolicyConfig()/GET /health under
+// its own name because the brief calls it out as a distinct knob name. It
+// is NOT sensitivity-scaled: cooldownMs's floor (MIN_COOLDOWN_MS, 30s) is a
+// FIXED CONTRACT ceiling from CLAUDE.md ground rule 3 ("max one
+// intervention per 30s per session") — AGENT_COOLDOWN_MS may only tighten
+// it, never loosen it, in EITHER sensitivity mode. A "demo" default of
+// 15000 (as this brief's knob table originally proposed) would violate that
+// floor, so demo does not get a shorter min-gap than normal; see
+// server/POLICY.md "Frequency" section for this explicit deviation.
+
+// AGENT_SUPPRESS_AFTER_DISMISS: same card TEMPLATE not re-shown after the
+// shopper dismissed it, for the rest of the session (docs/BEHAVIOR-MATRIX.md
+// "Suppress-after-dismiss"). Boolean, default true in both sensitivities.
+const DEFAULT_SUPPRESS_AFTER_DISMISS = true;
+
+// AGENT_CARD_TTL_MS: widget-side auto-collapse-into-tray timer for a shown
+// card (server/public/agent.js). Not a policy.js guard (nothing to enforce
+// server-side beyond passing the number through) — sent to the widget via
+// the action wire message (index.js's actionMessage(), card actions only)
+// so the two ends can't drift out of sync on the number. Same 12s default
+// in both sensitivities (a demo audience doesn't need shorter/longer
+// per-card visibility, just more of them and no repeats).
+const DEFAULT_CARD_TTL_MS = 12000;
+
+function parseBoolEnv(varName, raw, fallback) {
+  if (raw === undefined || raw === null || raw === "") return fallback;
+  const v = String(raw).trim().toLowerCase();
+  if (v === "true" || v === "1" || v === "yes") return true;
+  if (v === "false" || v === "0" || v === "no") return false;
+  warn(varName, raw, 'must be "true" or "false"', fallback);
+  return fallback;
+}
 
 // AGENT_SENSITIVITY — gate.js/tick.js knob, not a policy.js guard: how
 // readily the pre-model layer (gate.js's eight-plus signals, tick.js's
@@ -132,23 +195,49 @@ function parseAllowedActions(varName, raw, fallback) {
  * the documented default with a console.warn (see server/POLICY.md).
  */
 export function loadPolicyConfig(env = process.env) {
+  // Parsed first — MAX_NUDGES_DEFAULTS/MAX_CARDS_PER_PAGEVIEW_DEFAULTS below
+  // key off it, same as CONSULT_FLOOR_DEFAULTS already does further down.
+  const sensitivity = parseSensitivity(env.AGENT_SENSITIVITY, DEFAULTS.sensitivity);
+
+  const cooldownFloor = MIN_COOLDOWN_MS_BY_SENSITIVITY[sensitivity] ?? MIN_COOLDOWN_MS_BY_SENSITIVITY.normal;
   const cooldownMs = parseIntEnv("AGENT_COOLDOWN_MS", env.AGENT_COOLDOWN_MS, {
-    min: MIN_COOLDOWN_MS,
+    min: cooldownFloor,
     max: 600_000,
-    fallback: DEFAULTS.cooldownMs,
+    fallback: COOLDOWN_DEFAULTS[sensitivity] ?? COOLDOWN_DEFAULTS.normal,
   });
 
   // -1 = unlimited nudges, 0 = zero nudges (agent stays silent all session),
   // >=1 = that many. Numeric-but-invalid input (non-integer, out of range)
-  // falls back to the default (3) — a plain number knob, not an enum, so a
-  // typo falling back to a middle-ground default rather than the most
-  // restrictive value (0) is acceptable here (see policy-config audit note
-  // in POLICY.md / the fail-closed guard on AGENT_ALLOWED_ACTIONS above,
-  // which IS an enum knob).
+  // falls back to the sensitivity-aware default (4 normal / 6 demo) — a
+  // plain number knob, not an enum, so a typo falling back to a
+  // middle-ground default rather than the most restrictive value (0) is
+  // acceptable here (see policy-config audit note in POLICY.md / the
+  // fail-closed guard on AGENT_ALLOWED_ACTIONS above, which IS an enum
+  // knob).
   const maxNudgesPerSession = parseIntEnv("AGENT_MAX_NUDGES_PER_SESSION", env.AGENT_MAX_NUDGES_PER_SESSION, {
     min: -1,
     max: Number.MAX_SAFE_INTEGER,
-    fallback: DEFAULTS.maxNudgesPerSession,
+    fallback: MAX_NUDGES_DEFAULTS[sensitivity] ?? MAX_NUDGES_DEFAULTS.normal,
+  });
+
+  // -1 = unlimited cards per pageview. See MAX_CARDS_PER_PAGEVIEW_DEFAULTS
+  // above; enforced in policy.js against session.actionsThisPageview.
+  const maxCardsPerPageview = parseIntEnv("AGENT_MAX_CARDS_PER_PAGEVIEW", env.AGENT_MAX_CARDS_PER_PAGEVIEW, {
+    min: -1,
+    max: Number.MAX_SAFE_INTEGER,
+    fallback: MAX_CARDS_PER_PAGEVIEW_DEFAULTS[sensitivity] ?? MAX_CARDS_PER_PAGEVIEW_DEFAULTS.normal,
+  });
+
+  const suppressAfterDismiss = parseBoolEnv(
+    "AGENT_SUPPRESS_AFTER_DISMISS",
+    env.AGENT_SUPPRESS_AFTER_DISMISS,
+    DEFAULT_SUPPRESS_AFTER_DISMISS
+  );
+
+  const cardTtlMs = parseIntEnv("AGENT_CARD_TTL_MS", env.AGENT_CARD_TTL_MS, {
+    min: 1000,
+    max: 120_000,
+    fallback: DEFAULT_CARD_TTL_MS,
   });
 
   const allowedActions = parseAllowedActions("AGENT_ALLOWED_ACTIONS", env.AGENT_ALLOWED_ACTIONS, DEFAULTS.allowedActions);
@@ -167,11 +256,12 @@ export function loadPolicyConfig(env = process.env) {
     fallback: DEFAULTS.minConfidence,
   });
 
-  const sensitivity = parseSensitivity(env.AGENT_SENSITIVITY, DEFAULTS.sensitivity);
-
   return Object.freeze({
     cooldownMs,
     maxNudgesPerSession,
+    maxCardsPerPageview,
+    suppressAfterDismiss,
+    cardTtlMs,
     allowedActions: Object.freeze(allowedActions),
     denyTargets: Object.freeze(denyTargets),
     maxMessageChars,
@@ -191,7 +281,13 @@ export const policyConfig = loadPolicyConfig();
 export function describePolicyConfig(config = policyConfig) {
   return {
     cooldownMs: config.cooldownMs,
+    // minGapMs: observability alias for cooldownMs, not a second timer —
+    // see the AGENT_MIN_GAP_MS comment above DEFAULT_CARD_TTL_MS.
+    minGapMs: config.cooldownMs,
     maxNudgesPerSession: config.maxNudgesPerSession,
+    maxCardsPerPageview: config.maxCardsPerPageview,
+    suppressAfterDismiss: config.suppressAfterDismiss,
+    cardTtlMs: config.cardTtlMs,
     allowedActions: [...config.allowedActions],
     denyTargets: [...config.denyTargets],
     maxMessageChars: config.maxMessageChars,

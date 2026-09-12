@@ -2,7 +2,8 @@
 
 import { isPageDwellTarget } from "./buckets.js";
 import * as metrics from "./metrics.js";
-import { loadStore, computeOffers, businessBlock, productSlugFromPage, classifyPath } from "./store/index.js";
+import { loadStore, computeOffers, businessBlock, productSlugFromPage, classifyPath, cartEconomics, specDiff } from "./store/index.js";
+import { normalizeCurrency, formatMoney } from "./store/currency.js";
 import { log } from "./log.js";
 import { getSensitivityMultiplier } from "./policy-config.js";
 
@@ -20,6 +21,76 @@ const MAX_JOURNEY_VISITS = 12;
 const MAX_RECENT_EVENTS = 12;
 const MAX_FOCUS_TARGETS = 6;
 const FOCUS_NOW_WINDOW_MS = 10000;
+// Last-N page_context summaries kept per session (brief: "last 5 pages
+// summary: title, price, type") — feeds buildState()'s `comparison` block.
+const MAX_PAGE_CONTEXT_HISTORY = 5;
+
+// "only N left" / "N left in stock" style stock text -> a plain integer, so
+// low_stock_nudge's `n` slot and gate.js's page_fact "low_stock" check both
+// have a real grounded number without re-parsing the same regex twice.
+// Computed server-side (not trusted from the client as a pre-parsed number)
+// so it's provably derived from the verbatim stock_text every time.
+function parseLowStockN(text) {
+  if (typeof text !== "string" || !text) return null;
+  const m = /only\s+(\d+)\s+left|(\d+)\s+left\s+in\s+stock/i.exec(text);
+  if (!m) return null;
+  const n = Number(m[1] ?? m[2]);
+  return Number.isFinite(n) ? n : null;
+}
+
+function joinNames(arr) {
+  return Array.isArray(arr) && arr.length ? arr.join(", ") : null;
+}
+
+/**
+ * buildPageBlock(pageContext, path) -> compact `page` fact block for the
+ * CURRENT page, or null if no page_context scan has landed yet for `path`.
+ * Adds two template-friendly derived strings (variants.availableJoined/
+ * unavailableJoined) so a card slot can quote "L, XL" verbatim — a single
+ * primitive value templates.js's collectGroundedValues() can match —
+ * instead of the model having to invent a comma-joined phrase itself.
+ */
+function buildPageBlock(pageContext, path) {
+  const raw = path ? pageContext?.byPath?.[path] : null;
+  if (!raw) return null;
+  const variantsRaw = Array.isArray(raw.variants) ? raw.variants : [];
+  const available = variantsRaw.filter((v) => v && v.available === true).map((v) => v.name).filter(Boolean);
+  const unavailable = variantsRaw.filter((v) => v && v.available === false).map((v) => v.name).filter(Boolean);
+  const stockText = typeof raw.stock_text === "string" ? raw.stock_text : null;
+  return {
+    type: raw.page_type ?? null,
+    product: raw.product ?? null,
+    variants: variantsRaw.length
+      ? { options: variantsRaw, availableJoined: joinNames(available), unavailableJoined: joinNames(unavailable) }
+      : null,
+    stock: stockText ? { text: stockText, lowStockN: parseLowStockN(stockText) } : null,
+    delivery: raw.delivery_text ? { text: raw.delivery_text } : null,
+    rating: raw.rating ?? null,
+    badges: Array.isArray(raw.badges) ? raw.badges.slice(0, 5) : [],
+    category: raw.category ?? null,
+    search: raw.search ?? null,
+    cartSummary: raw.cart_summary ?? null,
+    promoPresent: Boolean(raw.promo_present),
+  };
+}
+
+/**
+ * buildComparison(history, path, currentPrice) -> up to 3 other pages
+ * (products) viewed this session, each with a price delta vs the current
+ * page (currentPrice - other.price, null if either price is unknown) —
+ * grounds the `compare_back` template ("{other_title} is {currency}{delta}
+ * cheaper") without the model inventing the comparison itself.
+ */
+function buildComparison(history, path, currentPrice, store) {
+  const others = (history || []).filter((h) => h.path !== path && h.price != null);
+  return others.slice(-3).map((h) => ({
+    path: h.path,
+    slug: productSlugFromPage(h.path, store), // grounds a compare_back/spec_diff_hint card's open_product cta.value
+    title: h.title,
+    price: h.price,
+    delta: currentPrice != null && h.price != null ? Math.round((currentPrice - h.price) * 100) / 100 : null,
+  }));
+}
 
 // AGENT_SENSITIVITY multiplier (server/policy-config.js) — reused here ONLY
 // for breadthNoCommit's product-count floor, same formula gate.js's own
@@ -69,6 +140,24 @@ export function getSession(id) {
       // empty/absent site loads the default store (loadStore()'s own
       // default), same as before multi-site support existed.
       site: "",
+      // Frequency & fatigue knobs (docs/BEHAVIOR-MATRIX.md, policy-config.js
+      // AGENT_MAX_CARDS_PER_PAGEVIEW/AGENT_SUPPRESS_AFTER_DISMISS): reset on
+      // every page_view (see pushEvent() above); dismissedTemplates/
+      // lastCtaOutcomeAt are populated OUTSIDE the normal pushEvent()
+      // pipeline (index.js's handleOutcomeEvent(), which — per its own doc
+      // comment — deliberately never touches session.events/friction
+      // signals/decisions) but set directly on this same session object,
+      // since they're per-session policy bookkeeping, not event-stream data.
+      actionsThisPageview: 0,
+      dismissedTemplates: new Set(),
+      lastCtaOutcomeAt: 0,
+      // Page-context scan (2026-09-12 "richer page-scanned context" brief):
+      // byPath[path] = latest page_context meta for that path (overwritten
+      // on every new scan of the same path); history = last MAX_PAGE_
+      // CONTEXT_HISTORY {path, title, price, type, ts} summaries, most
+      // recent last, used to build buildState()'s `comparison` block
+      // (products viewed this session vs the current one).
+      pageContext: { byPath: {}, history: [] },
     });
   }
   return sessions.get(id);
@@ -105,8 +194,39 @@ export function pushEvent(session, event) {
   // rather than resetting to default, so a same-visit navigation on a site
   // whose pages don't all carry the attribute doesn't silently flip the
   // agent back to the wrong store mid-session.
-  if (event.type === "page_view" && typeof event.meta?.site === "string" && event.meta.site) {
+  if (typeof event.meta?.site === "string" && event.meta.site) {
     session.site = event.meta.site;
+  }
+  // Per-pageview action cap (docs/BEHAVIOR-MATRIX.md "Per-page cap"):
+  // actionsThisPageview counts non-noop actions delivered since the LATEST
+  // page_view, reset to 0 on every page_view. policy.js's checkViolation
+  // reads it against config.maxCardsPerPageview and applyPolicy() increments
+  // it alongside nudgeCount on every allowed non-noop action.
+  if (event.type === "page_view") {
+    session.actionsThisPageview = 0;
+  }
+  // Page-context scan merge (see contracts.js's page_context doc): keyed by
+  // path (event.target, same convention as page_view). Overwrites the prior
+  // scan of the same path — "latest per page" per the brief — and keeps a
+  // capped last-N history for the comparison block below.
+  if (event.type === "page_context") {
+    const p = event.target ?? null;
+    if (p) {
+      if (!session.pageContext) session.pageContext = { byPath: {}, history: [] };
+      session.pageContext.byPath[p] = event.meta || {};
+      const entry = {
+        path: p,
+        title: event.meta?.product?.title ?? null,
+        price: event.meta?.product?.price ?? null,
+        type: event.meta?.page_type ?? null,
+        ts: event.ts ?? Date.now(),
+      };
+      const hist = session.pageContext.history;
+      const existingIdx = hist.findIndex((h) => h.path === p);
+      if (existingIdx >= 0) hist.splice(existingIdx, 1);
+      hist.push(entry);
+      if (hist.length > MAX_PAGE_CONTEXT_HISTORY) hist.shift();
+    }
   }
   // Server receive time, not the client-supplied event.ts — event.ts is
   // attacker/clock-controllable input (a client can backdate or future-date
@@ -474,15 +594,18 @@ function buildPatterns({ visits, focusTop, events, store }) {
   };
 }
 
-/** describeCartUpdate(e) → a short human line for a cart_update event. */
-function describeCartUpdate(e) {
+/** describeCartUpdate(e, currency) → a short human line for a cart_update event.
+ * `currency` (server/store/currency.js's normalizeCurrency() result) is the
+ * site's own currency — never assume ৳ (category fix, see
+ * server/store/currency.js's header comment). */
+function describeCartUpdate(e, currency) {
   if (e.target === "cart-add") {
     const items = Array.isArray(e.meta?.items) ? e.meta.items : [];
     const added = items[items.length - 1]?.name;
     return added ? `added to cart: ${added}` : "added to cart";
   }
   const total = e.meta?.total;
-  return total != null ? `cart updated (৳${total})` : "cart updated";
+  return total != null ? `cart updated (${formatMoney(total, currency)})` : "cart updated";
 }
 
 /**
@@ -506,6 +629,7 @@ function buildRecent(events, store, now) {
   const out = [];
   let lastPageViewTarget = undefined; // undefined = "no page_view seen yet"
   let seenThisVisit = new Set();
+  const currency = normalizeCurrency(store?.policies);
 
   for (const e of events) {
     const ts = e.ts ?? now;
@@ -522,10 +646,10 @@ function buildRecent(events, store, now) {
       const seconds = Math.round((e.meta?.ms ?? 0) / 1000);
       out.push({ ts, line: `focused on ${e.target} (${seconds}s)` });
     } else if (e.type === "cart_update") {
-      out.push({ ts, line: describeCartUpdate(e) });
+      out.push({ ts, line: describeCartUpdate(e, currency) });
     } else if (e.type === "cart_view") {
       const total = e.meta?.total;
-      out.push({ ts, line: total != null ? `viewed cart (৳${total})` : "viewed cart" });
+      out.push({ ts, line: total != null ? `viewed cart (${formatMoney(total, currency)})` : "viewed cart" });
     } else if (e.type === "search") {
       const q = e.meta?.q ?? "";
       const results = e.meta?.results;
@@ -535,6 +659,16 @@ function buildRecent(events, store, now) {
     } else if (e.type === "rage_click") {
       const count = e.meta?.count;
       out.push({ ts, line: `rage-clicked ${e.target ?? "page"}${count ? ` (${count}x)` : ""}` });
+    } else if (e.type === "exit_intent") {
+      out.push({ ts, line: `showed exit intent (${e.meta?.kind === "tab_hidden" ? "switched tabs then back" : "mouse left toward the top"})` });
+    } else if (e.type === "atc_hesitation") {
+      out.push({ ts, line: `hesitated on add-to-cart (${e.meta?.hovers ?? "?"} hovers, no click)` });
+    } else if (e.type === "variant_switch") {
+      out.push({ ts, line: `switched ${e.meta?.kind ?? "an"} option (${e.target ?? "?"})` });
+    } else if (e.type === "promo_focus_blur") {
+      out.push({ ts, line: e.meta?.empty ? "focused promo code then left it empty" : "focused promo code" });
+    } else if (e.type === "scroll_uturn") {
+      out.push({ ts, line: `scrolled down then back to top within 5s (${Math.round(e.meta?.downPct ?? 0)}% down)` });
     }
     // scroll_depth, agent_outcome: never meaningful here.
   }
@@ -758,10 +892,13 @@ export function buildState(session) {
   let business = null;
   let product = null;
   let store = null;
+  let cartEconomicsBlock = null;
+  let specDiffBlock = null;
   try {
     store = loadStore(session.site);
     offers = computeOffers({ page, cart, promo, search }, now, store);
     business = businessBlock(store);
+    cartEconomicsBlock = cartEconomics({ cart, offers, store });
     // product: the CURRENT product page's catalog entry, trimmed to what the
     // decider/policy needs — null off a product page (or if the slug isn't
     // in the catalog). server/policy.js's card guard uses product.sizes to
@@ -778,7 +915,35 @@ export function buildState(session) {
         price: catalogEntry.price,
         sizes: Array.isArray(catalogEntry.sizes) ? catalogEntry.sizes.slice() : [],
         fit_notes: catalogEntry.fit_notes ?? null,
+        // category added for the "undecided comparer" brief (2026-09-12) —
+        // specDiffBlock below needs it to only compare same-category
+        // products; harmless addition for every existing consumer (policy.js
+        // only reads product.sizes).
+        category: catalogEntry.category ?? null,
       };
+    }
+    // "Undecided comparer" (2026-09-12 brief): the single most-distinguishing
+    // spec difference (store/index.js's specDiff(), priority-ordered:
+    // brand/rating/review_count/price/sizes — NextCart's catalog has no
+    // structured attributes/specs/features field, see import-nextcart.mjs's
+    // toCatalogEntry() comment) between the CURRENT product and the most
+    // recent same-category product viewed earlier this session (checked
+    // newest-first over the last 2 page_context history entries).
+    if (catalogEntry) {
+      const otherPaths = (session.pageContext?.history || [])
+        .filter((h) => h.path !== effectivePage)
+        .slice(-2)
+        .reverse();
+      for (const h of otherPaths) {
+        const otherSlug = productSlugFromPage(h.path, store);
+        const otherEntry = otherSlug ? (store.catalog || []).find((p) => p.slug === otherSlug) : null;
+        if (!otherEntry || !otherEntry.category || otherEntry.category !== catalogEntry.category) continue;
+        const d = specDiff(catalogEntry.slug, otherEntry.slug, store);
+        if (d) {
+          specDiffBlock = { other_title: otherEntry.name, other_slug: otherEntry.slug, other_path: h.path, feature: d.feature };
+          break;
+        }
+      }
     }
     // Business-block size per decision (server/store/README.md "Multiple
     // stores" latency note): {product, offers, business} is the store-
@@ -803,6 +968,14 @@ export function buildState(session) {
   const patterns = buildPatterns({ visits: visitsForPatterns, focusTop: focus.top, events, store });
   const recent = buildRecent(events, store, now);
 
+  const pageBlock = buildPageBlock(session.pageContext, effectivePage);
+  const comparison = buildComparison(
+    session.pageContext?.history,
+    effectivePage,
+    pageBlock?.product?.price ?? product?.price ?? null,
+    store
+  );
+
   const result = {
     page,
     needsResnapshot,
@@ -820,6 +993,15 @@ export function buildState(session) {
     recent,
     dwell,
     lastIntervention,
+    // NOTE: named `page_context` (not `page`) — `state.page` is already the
+    // plain page-path STRING relied on throughout gate.js/tick.js/decide.md;
+    // reusing that key for this new fact block would silently break every
+    // existing consumer. This is the new compact page-scan block the brief
+    // calls "page"; see prompts/decide.md's "Use the page block" paragraph.
+    page_context: pageBlock,
+    comparison,
+    cart_economics: cartEconomicsBlock,
+    spec_diff: specDiffBlock,
   };
 
   // stateBytes: total size of the model-facing state (server/NOTES.md

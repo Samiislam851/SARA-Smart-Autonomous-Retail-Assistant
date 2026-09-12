@@ -367,4 +367,58 @@ function loadFixtureEvents(file) {
   resetSession("fixture");
 }
 
+// ---- page_context merge + comparison block (2026-09-12 "richer scanned
+// site context" brief) ------------------------------------------------------
+{
+  resetSession("pagectx_fixture");
+  const session = getSession("pagectx_fixture");
+
+  pushEvent(session, ev("page_view", SANDALS, { targets: SANDALS_TARGETS }));
+  pushEvent(
+    session,
+    ev("page_context", SANDALS, {
+      page_type: "product",
+      product: { title: "Leather Mojari Sandals", price: 1800, compareAt: null, currency: "৳" },
+      variants: [
+        { name: "M", available: false },
+        { name: "L", available: true },
+      ],
+      stock_text: "Only 3 left in stock",
+      promo_present: false,
+    })
+  );
+
+  let state = buildState(session);
+  assert.ok(state.page_context, "page_context block present after a page_context event");
+  assert.equal(state.page_context.type, "product");
+  assert.equal(state.page_context.product.title, "Leather Mojari Sandals");
+  assert.equal(state.page_context.stock.lowStockN, 3, "'Only 3 left in stock' parses to lowStockN=3");
+  assert.equal(state.page_context.variants.availableJoined, "L");
+  assert.equal(state.page_context.variants.unavailableJoined, "M");
+  assert.equal(state.comparison.length, 0, "no other product viewed yet — comparison is empty");
+
+  // View a second, cheaper product — comparison should now show it with a
+  // negative delta (current minus other: 1800 - 1200 -> +600 means current
+  // is pricier, so delta here is CURRENT - OTHER = +600).
+  pushEvent(session, ev("page_view", SAREE, { targets: SAREE_TARGETS }));
+  pushEvent(
+    session,
+    ev("page_context", SAREE, {
+      page_type: "product",
+      product: { title: "Jamdani Saree Classic", price: 1200, compareAt: null, currency: "৳" },
+      promo_present: false,
+    })
+  );
+  state = buildState(session);
+  assert.equal(state.comparison.length, 1, "one prior product now in comparison");
+  assert.equal(state.comparison[0].title, "Leather Mojari Sandals");
+  assert.equal(state.comparison[0].delta, 1200 - 1800, "delta = current price (1200) minus other price (1800) = -600");
+  console.log("(page_context) ok — page_context merges into state.page_context + comparison", {
+    page: state.page_context,
+    comparison: state.comparison,
+  });
+
+  resetSession("pagectx_fixture");
+}
+
 console.log("state.test.js: all assertions passed");

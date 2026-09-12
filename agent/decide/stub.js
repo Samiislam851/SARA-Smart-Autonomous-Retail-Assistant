@@ -4,6 +4,7 @@
 import { summarize } from "../state.js";
 import { isPageDwellTarget } from "../buckets.js";
 import { computeSignals } from "../gate.js";
+import { formatMoney } from "../store/currency.js"; // stub decider must never hardcode ৳ — see server/store/currency.js
 
 // Test-only artificial latency: AGENT_STUB_DELAY_MS (default 0, no delay,
 // zero behavior change for real usage) makes decide() resolve after a fixed
@@ -133,7 +134,7 @@ function decideNow(state, session) {
         message: null,
         card: {
           title: "You have a code",
-          body: `Use ${missedOffer.code} to save ৳${missedOffer.saving} on your ${itemName}.`,
+          body: `Use ${missedOffer.code} to save ${formatMoney(missedOffer.saving, state.business?.currency)} on your ${itemName}.`,
           cta: { kind: "apply_code", label: `Apply ${missedOffer.code}`, value: missedOffer.code },
         },
       },
@@ -161,7 +162,7 @@ function decideNow(state, session) {
           message: null,
           card: {
             title: "Something on promo",
-            body: `The ${simName} in the same collection is ৳${similarOffer.saving} off if you want a look.`,
+            body: `The ${simName} in the same collection is ${formatMoney(similarOffer.saving, state.business?.currency)} off if you want a look.`,
             cta: { kind: "open_product", label: "See it", value: similarOffer.slug },
           },
         },
@@ -192,7 +193,7 @@ function decideNow(state, session) {
           message: null,
           card: {
             title: "Add for free delivery",
-            body: `Add the ${fill.name} (৳${fill.price}${promoNote}) and delivery is free — you're ৳${deliveryGap.gap} away.`,
+            body: `Add the ${fill.name} (${formatMoney(fill.price, state.business?.currency)}${promoNote}) and delivery is free — you're ${formatMoney(deliveryGap.gap, state.business?.currency)} away.`,
             cta: { kind: "add_to_cart", label: `Add ${fill.name}`, value: fill.slug },
           },
         },

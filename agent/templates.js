@@ -90,7 +90,102 @@ function collectGroundedValues(state) {
   visit(state?.product);
   visit(state?.business);
   visit(state?.facts);
+  // Page-context scan facts (2026-09-12 brief) — page_context/comparison/
+  // cart_economics are computed server-side (state.js/store/index.js) from
+  // the widget's DOM scan, same "store/state computes it, model only
+  // quotes it" contract as offers/product/business/facts above.
+  visit(state?.page_context);
+  visit(state?.comparison);
+  visit(state?.cart_economics);
+  visit(state?.spec_diff);
   return values;
+}
+
+// Fact-slot fuzzy grounding + autofill (2026-09-12 live-run fix — see
+// server/NOTES.md/POLICY.md: a live run showed 0 cards in 14 minutes
+// because the model PARAPHRASES free-text facts ("free delivery (fee 0,
+// threshold 0)") instead of copying a store string verbatim, and strict
+// exact-match grounding denied every one of them). A slot marked
+// `kind: "fact"` in templates.json (a whole-sentence reassurance/breakdown,
+// never a code/price/slug) now gets three chances, in order:
+//   1. exact match (same as before — still the common case for a model
+//      that DOES copy verbatim).
+//   2. fuzzy match: the value shares a real NUMBER or a >=4-char keyword
+//      with some grounded fact string (case/punctuation-insensitive) — a
+//      paraphrase of a real fact still passes, an invented one still can't
+//      (no grounded string shares any of its numbers/keywords).
+//   3. autofill: if neither matches, the slot's declared `source` (a path
+//      into `state`, e.g. "business.delivery", "offers[0]",
+//      "product.fit_notes", "page.stock") is resolved directly and used
+//      instead of the model's text — reported back as `autofilled` so
+//      callers can mark the trace (`slot_autofilled:<name>`).
+// A slot with no `kind` (or `kind !== "fact"`) keeps the original strict
+// exact-match-only contract unchanged — codes/prices/slugs/sizes must
+// still be copied verbatim, never paraphrased or autofilled.
+function normalizeFactText(s) {
+  return String(s ?? "")
+    .toLowerCase()
+    .replace(/[^\w\s.]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+function factTokens(s) {
+  return normalizeFactText(s).split(" ").filter(Boolean);
+}
+
+/**
+ * factFuzzyMatch(value, groundedValues) -> boolean — true if `value` shares
+ * at least one real number token OR one >=4-char keyword token with ANY
+ * string in `groundedValues` (the same Set collectGroundedValues() already
+ * builds for exact matching).
+ */
+function factFuzzyMatch(value, groundedValues) {
+  const valueTokens = factTokens(value);
+  const numbers = new Set(valueTokens.filter((t) => /^\d+(\.\d+)?$/.test(t)));
+  const keywords = new Set(valueTokens.filter((t) => t.length >= 4 && !/^\d+$/.test(t)));
+  if (numbers.size === 0 && keywords.size === 0) return false;
+  for (const g of groundedValues) {
+    for (const t of factTokens(g)) {
+      if (numbers.has(t) || keywords.has(t)) return true;
+    }
+  }
+  return false;
+}
+
+/**
+ * resolveFactSource(source, state) -> string | null — canonical fact text
+ * for a `slots.<name>.source` declared in templates.json. Only a small,
+ * known set of source paths is supported (deliberately not a generic JSON-
+ * path evaluator — every source is merchant/template-authored, never model
+ * input, so a hardcoded lookup is safer than an expression evaluator).
+ */
+function resolveFactSource(source, state) {
+  if (!source || typeof source !== "string") return null;
+  const currency = state?.business?.currency?.symbol ?? "৳";
+  if (source === "business.delivery") {
+    const d = state?.business?.delivery;
+    if (!d) return null;
+    if (d.free_over) return `Free delivery over ${currency}${d.free_over}`;
+    if (d.days) return `Delivery in ${d.days} days`;
+    return null;
+  }
+  if (source === "business.returns") {
+    const r = state?.business?.returns;
+    return r?.window_days ? `Returns accepted within ${r.window_days} days` : null;
+  }
+  if (source === "product.fit_notes") return state?.product?.fit_notes ?? null;
+  if (source === "product.price") {
+    const p = state?.product;
+    return p?.price != null ? `${currency}${p.price}` : null;
+  }
+  if (source === "page.stock") return state?.page_context?.stock?.text ?? null;
+  if (source === "page.delivery") return state?.page_context?.delivery?.text ?? null;
+  const offerMatch = /^offers\[(\d+)\]$/.exec(source);
+  if (offerMatch) {
+    const offer = (state?.offers || [])[Number(offerMatch[1])];
+    return offer?.label ?? null;
+  }
+  return null;
 }
 
 /**
@@ -120,22 +215,60 @@ export function renderCard(card, state) {
   const grounded = collectGroundedValues(state);
   const slotSpecs = tpl.slots || {};
   const resolved = {};
+  // {currency} is NOT a model-supplied slot — it's the site's own currency
+  // symbol (server/store/currency.js), threaded through business.currency
+  // by server/state.js/store/index.js. Resolved here, unconditionally,
+  // exactly like a slot value, so every template body can say
+  // "{currency}{saving}" instead of hardcoding ৳ (category fix — see
+  // server/store/currency.js's header comment for the live finding this
+  // closes). Defaults to ৳ only if state.business is entirely absent
+  // (mirrors currency.js's own default store fallback).
+  resolved.currency = state?.business?.currency?.symbol ?? "৳";
 
+  const autofilled = [];
   for (const name of Object.keys(slotSpecs)) {
     const spec = slotSpecs[name] || {};
-    const raw = slotsIn[name];
-    if (raw === undefined || raw === null || raw === "") {
-      return { ok: false, reason: `template ${templateId} missing slot "${name}"` };
-    }
-    const value = String(raw).trim();
     const maxLen = Number.isFinite(spec.max_len) ? spec.max_len : DEFAULT_SLOT_MAX;
-    if (value.length > maxLen) {
-      return { ok: false, reason: `template ${templateId} slot "${name}" exceeds ${maxLen} chars` };
+    const isFactSlot = spec.kind === "fact";
+    const raw = slotsIn[name];
+    const value = raw === undefined || raw === null ? "" : String(raw).trim();
+
+    if (!isFactSlot) {
+      // Unchanged strict contract: codes/prices/slugs/sizes/counts must be
+      // copied verbatim from a real fact, never paraphrased or autofilled.
+      if (!value) return { ok: false, reason: `template ${templateId} missing slot "${name}"` };
+      if (value.length > maxLen) {
+        return { ok: false, reason: `template ${templateId} slot "${name}" exceeds ${maxLen} chars` };
+      }
+      if (!grounded.has(value)) {
+        return { ok: false, reason: `template ${templateId} slot "${name}" value not grounded in store facts` };
+      }
+      resolved[name] = value;
+      continue;
     }
-    if (!grounded.has(value)) {
-      return { ok: false, reason: `template ${templateId} slot "${name}" value not grounded in store facts` };
+
+    // Fact slot: exact match, then fuzzy match, then autofill from the
+    // template's declared `source`, then fail closed.
+    if (value && value.length <= maxLen && grounded.has(value)) {
+      resolved[name] = value;
+      continue;
     }
-    resolved[name] = value;
+    if (value && value.length <= maxLen && factFuzzyMatch(value, grounded)) {
+      resolved[name] = value;
+      continue;
+    }
+    const autofill = resolveFactSource(spec.source, state);
+    if (autofill) {
+      resolved[name] = String(autofill).trim().slice(0, maxLen);
+      autofilled.push(name);
+      continue;
+    }
+    return {
+      ok: false,
+      reason: value
+        ? `template ${templateId} slot "${name}" not grounded (no matching fact, no fact source available)`
+        : `template ${templateId} missing slot "${name}" (no fact source available)`,
+    };
   }
 
   // Only placeholders the template itself declares (its own `slots` keys)
@@ -172,7 +305,7 @@ export function renderCard(card, state) {
     return { ok: false, reason: `template ${templateId} rendered body exceeds ${BODY_MAX} chars` };
   }
 
-  return { ok: true, title, body };
+  return { ok: true, title, body, autofilled };
 }
 
 /** listTemplateIds() -> string[] — used by tooling/docs, not the hot path. */

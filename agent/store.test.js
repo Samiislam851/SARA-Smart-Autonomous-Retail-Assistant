@@ -5,7 +5,7 @@
 // contents (those can change without breaking this file's assertions).
 
 import assert from "node:assert/strict";
-import { computeOffers, businessBlock, searchCandidates, productSlugFromPage, classifyPath, getRoutes } from "./store/index.js";
+import { computeOffers, businessBlock, searchCandidates, productSlugFromPage, classifyPath, getRoutes, cartEconomics, specDiff } from "./store/index.js";
 
 const NOW = 1_700_000_000_000;
 
@@ -253,9 +253,69 @@ const SCARF = {
     },
   });
   const block = businessBlock(store);
-  assert.deepEqual(Object.keys(block).sort(), ["delivery", "payment", "returns"], "businessBlock is the compact {delivery, returns, payment} subset");
+  assert.deepEqual(
+    Object.keys(block).sort(),
+    ["currency", "delivery", "payment", "returns"],
+    "businessBlock is the compact {delivery, returns, payment, currency} subset"
+  );
   assert.equal(block.delivery.free_over, 2000);
   console.log("(ix) ok — businessBlock returns the compact subset:", block);
+}
+
+// ---- (ix.b) businessBlock() currency — store-derived, never hardcoded ৳ ---
+{
+  const bdtStore = fakeStore({ policies: { currency: "BDT" } });
+  const bdtBlock = businessBlock(bdtStore);
+  assert.deepEqual(bdtBlock.currency, { code: "BDT", symbol: "৳", position: "before" });
+
+  const usdStore = fakeStore({ policies: { currency: "USD" } });
+  const usdBlock = businessBlock(usdStore);
+  assert.deepEqual(usdBlock.currency, { code: "USD", symbol: "$", position: "before" });
+  console.log("(ix.b) ok — businessBlock().currency reflects the site's own policies.currency:", bdtBlock.currency, usdBlock.currency);
+}
+
+// ---- (ix.c) computeOffers() delivery_gap/cart_under_threshold labels use the site's own currency symbol ----
+{
+  const usdStore = fakeStore({
+    policies: { currency: "USD", delivery: { free_over: 100 } },
+  });
+  const cart = { total: 95, items: [] }; // gap 5, within 10% of a $100 threshold
+  const offers = computeOffers({ page: "/cart", cart }, NOW, usdStore);
+  const gapOffer = offers.find((o) => o.kind === "delivery_gap");
+  assert.ok(gapOffer, "expected a delivery_gap offer");
+  assert.equal(gapOffer.label, "$5 away from free delivery");
+  console.log("(ix.c) ok — delivery_gap label uses USD $, not hardcoded ৳:", gapOffer.label);
+}
+
+// ---- (ix.d) cart item field-name mismatch (NextCart's {quantity} not {qty}, no {sku}) is normalized ----
+{
+  const store = fakeStore({
+    catalog: [{ slug: "chino-pants", name: "Summit Trail Chino Pants High", price: 37.99 }],
+    promos: [
+      {
+        id: "next10",
+        code: "NEXT10",
+        kind: "percent",
+        value: 10,
+        applies: { slugs: "all" },
+        auto_apply: false,
+      },
+    ],
+    policies: { currency: "USD" },
+  });
+  // NextCart's own cart payload shape (personal-nextcart Header.tsx's
+  // buildAgentCartPayload): {name, variant, quantity, price} — no `sku`,
+  // `quantity` not `qty`. Category fix: this must NOT silently treat qty
+  // as 1 (server/store/index.js's normalizeCartItem()).
+  const cart = {
+    total: 75.98,
+    items: [{ name: "Summit Trail Chino Pants High", quantity: 2, price: 37.99 }],
+  };
+  const offers = computeOffers({ page: "/cart", cart }, NOW, store);
+  const missed = offers.find((o) => o.kind === "missed_discount");
+  assert.ok(missed, "expected a missed_discount offer even with no item.sku (NEXT10 applies to all slugs)");
+  assert.equal(missed.saving, 8, `10% of $75.98 (2 x $37.99) rounds to $8, got ${missed.saving}`);
+  console.log("(ix.d) ok — NextCart's quantity/no-sku cart shape is normalized, saving computed off the real subtotal:", missed.saving);
 }
 
 // ---- (x) missing store degrades to no offers, no throw -------------------
@@ -416,6 +476,95 @@ const SCARF = {
   assert.deepEqual(getRoutes(undefined).product, ["/product/", "/products/", "/p/"], "getRoutes(undefined) never throws, returns full defaults");
 
   console.log("(xx) ok — per-site product/cart/checkout/search route classification");
+}
+
+// ---- (xxi) cartEconomics() — 2026-09-12 "richer scanned site context"
+// brief. NextCart-shaped cart (money in decimal major units, like
+// import-nextcart.mjs's toCatalogEntry() output) with a free-shipping
+// threshold (a non-NextCart-shaped store here — NextCart's OWN
+// policies.json has free_over: 0, i.e. always-free standard shipping, see
+// server/store/nextcart/policies.json — so this test uses a store WITH a
+// real threshold, same shape as server/store/policies.json's default).
+{
+  const store = fakeStore({
+    catalog: [JACKET, SCARF],
+    promos: [
+      {
+        id: "jacket10",
+        code: "JACKET10",
+        kind: "percent",
+        value: 10,
+        applies: { slugs: ["khadi-field-jacket"] },
+        min_cart: null,
+        starts_at: null,
+        ends_at: null,
+        ends_in_ms: null,
+        label: "10% off the jacket",
+        auto_apply: false,
+      },
+    ],
+    policies: { currency: "BDT", delivery: { free_over: 2000, days: "1-2", fee: 80 } },
+  });
+  const cart = { total: 1800, items: [{ sku: "khadi-field-jacket", qty: 1, price: 3450 }] };
+  const offers = computeOffers({ page: "/cart", cart, promo: null }, NOW, store);
+  const econ = cartEconomics({ cart, offers, store });
+  assert.equal(econ.subtotal, 1800);
+  assert.equal(econ.itemCount, 1);
+  assert.equal(econ.freeShippingThreshold, 2000);
+  assert.equal(econ.gapToFreeShipping, 200, "gap = 2000 - 1800");
+  assert.ok(econ.bestPromo && econ.bestPromo.code === "JACKET10", "missed_discount offer surfaces as bestPromo");
+  assert.equal(econ.deliveryEstimateDays, "1-2");
+  assert.equal(econ.currency.code, "BDT");
+  assert.equal(cartEconomics({ cart: null, offers: [], store }), null, "no cart -> null, not a throw");
+  console.log("(xxi) ok — cartEconomics():", econ);
+}
+
+// ---- (xxii) specDiff() — NextCart's own product schema has no structured
+// attributes/specs/features/material field (personal-nextcart's
+// src/lib/schemas/product.ts: only brand/rating/reviewCount/price/
+// variants/description) — so this diffs brand/rating/review_count/price/
+// sizes, same fields import-nextcart.mjs's toCatalogEntry() now populates.
+// Priority order: brand first, so two products differing in brand AND
+// rating reports the brand difference, not the rating one.
+{
+  const earbudsA = {
+    slug: "wavecrest-earbuds",
+    name: "Wavecrest Noise-Isolating Wireless Earbuds",
+    price: 53.99,
+    category: "electronics",
+    sizes: [],
+    brand: "Wavecrest",
+    rating: 4.3,
+    review_count: 2306,
+  };
+  const earbudsB = {
+    slug: "nexbeam-earbuds",
+    name: "Nexbeam Earbuds",
+    price: 49.99,
+    category: "electronics",
+    sizes: [],
+    brand: "Nexbeam",
+    rating: 4.6,
+    review_count: 900,
+  };
+  const store = fakeStore({ catalog: [earbudsA, earbudsB] });
+
+  const diff = specDiff("wavecrest-earbuds", "nexbeam-earbuds", store);
+  assert.ok(diff, "a real diff is found between two different-brand products");
+  assert.equal(diff.field, "brand", "brand is checked first — the most-distinguishing real field");
+  assert.match(diff.feature, /Nexbeam/);
+
+  // Identical catalog entries (same brand/rating/review_count/price/sizes)
+  // -> no diff, not a fabricated one.
+  const twin = { ...earbudsA, slug: "wavecrest-earbuds-2" };
+  const storeTwins = fakeStore({ catalog: [earbudsA, twin] });
+  assert.equal(specDiff("wavecrest-earbuds", "wavecrest-earbuds-2", storeTwins), null, "identical entries -> null, never invented");
+
+  // Unknown slug -> null, never throws.
+  assert.equal(specDiff("wavecrest-earbuds", "not-a-real-slug", store), null);
+  assert.equal(specDiff(null, "nexbeam-earbuds", store), null);
+
+  console.log("(xxii) ok — specDiff():", diff);
 }
 
 console.log("store.test: all assertions passed");

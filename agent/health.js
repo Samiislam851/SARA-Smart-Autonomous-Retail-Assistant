@@ -14,6 +14,8 @@ import { log } from "./log.js";
 import { withInflight } from "./inflight.js";
 import { describePolicyConfig } from "./policy-config.js";
 import { storeStatus } from "./store/index.js";
+import * as persist from "./persist.js";
+import { MAX_MODEL_CALLS_PER_MIN, CONSULT_FLOOR_MS } from "./gate.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const pkg = JSON.parse(readFileSync(path.join(__dirname, "package.json"), "utf8"));
@@ -201,10 +203,17 @@ export function createHealthRouter({ sockets, server }) {
       uptime_s: Math.round(process.uptime()),
       mode: process.env.AGENT_MODE || "stub",
       policy: describePolicyConfig(),
+      // Frequency knobs the "trigger pops more frequently in demo mode"
+      // brief (2026-09-12) asked to be observable — these two live in
+      // gate.js, not policy-config.js's describePolicyConfig() (see that
+      // module's own comment on why AGENT_MAX_MODEL_CALLS_PER_MIN stays out
+      // of loadPolicyConfig()), so they're surfaced here instead.
+      gate: { maxModelCallsPerMin: MAX_MODEL_CALLS_PER_MIN, consultFloorMs: CONSULT_FLOOR_MS },
       backend: process.env.LLM_BACKEND || "codex",
       version: pkg.version,
       sockets: socketCount,
       store: storeStatus(),
+      db: { enabled: persist.isEnabled(), connected: persist.isConnected() },
       metrics: {
         llmCalls: snap.llmCalls,
         cacheHits: snap.cacheHits,

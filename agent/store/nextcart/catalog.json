@@ -14,7 +14,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Wavecrest",
+    "rating": 4.3,
+    "review_count": 2306
   },
   {
     "slug": "nexbeam-bluetooth-speaker",
@@ -31,7 +34,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Nexbeam",
+    "rating": 4.3,
+    "review_count": 2936
   },
   {
     "slug": "arclight-smart-watch",
@@ -48,7 +54,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Arclight",
+    "rating": 4.1,
+    "review_count": 3960
   },
   {
     "slug": "sonique-hdr-streaming-media-player",
@@ -65,7 +74,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Sonique",
+    "rating": 4.8,
+    "review_count": 292
   },
   {
     "slug": "pulsegear-noise-cancelling-headphones-pro",
@@ -82,7 +94,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Pulsegear",
+    "rating": 3.4,
+    "review_count": 1474
   },
   {
     "slug": "kryotech-braided-usb-c-charging-cable",
@@ -99,7 +114,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Kryotech",
+    "rating": 4.5,
+    "review_count": 3187
   },
   {
     "slug": "voltara-smart-led-light-bulb-4-pack",
@@ -116,7 +134,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Voltara",
+    "rating": 3.5,
+    "review_count": 0
   },
   {
     "slug": "sonique-1080p-home-security-camera",
@@ -133,7 +154,10 @@
     ],
     "fit_notes": null,
     "in_stock": false,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Sonique",
+    "rating": 3.3,
+    "review_count": 821
   },
   {
     "slug": "nexbeam-noise-isolating-wireless-earbuds",
@@ -150,7 +174,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Nexbeam",
+    "rating": 4,
+    "review_count": 682
   },
   {
     "slug": "pulsegear-waterproof-bluetooth-speaker-max",
@@ -167,7 +194,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Pulsegear",
+    "rating": 3.8,
+    "review_count": 2647
   },
   {
     "slug": "wavecrest-always-on-display-smart-watch-2-0",
@@ -184,7 +214,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Wavecrest",
+    "rating": 3.7,
+    "review_count": 330
   },
   {
     "slug": "arclight-hdr-streaming-media-player",
@@ -201,7 +234,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Arclight",
+    "rating": 4.3,
+    "review_count": 2535
   },
   {
     "slug": "voltara-studio-noise-cancelling-headphones-2-0",
@@ -218,7 +254,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Voltara",
+    "rating": 4.7,
+    "review_count": 2
   },
   {
     "slug": "arclight-portable-power-bank-plus",
@@ -235,7 +274,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Arclight",
+    "rating": 4.5,
+    "review_count": 2246
   },
   {
     "slug": "voltara-usb-c-charging-cable",
@@ -252,7 +294,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Voltara",
+    "rating": 4.2,
+    "review_count": 2577
   },
   {
     "slug": "nexbeam-colour-changing-smart-led-light-bulb-4-pack",
@@ -269,7 +314,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Nexbeam",
+    "rating": 4.4,
+    "review_count": 132
   },
   {
     "slug": "voltara-keychain-bluetooth-tracker-tag-pro",
@@ -286,7 +334,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Voltara",
+    "rating": 3.3,
+    "review_count": 124
   },
   {
     "slug": "kryotech-home-security-camera-plus",
@@ -303,7 +354,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": true
+    "low_stock": true,
+    "brand": "Kryotech",
+    "rating": 3.6,
+    "review_count": 515
   },
   {
     "slug": "sonique-noise-isolating-wireless-earbuds",
@@ -320,7 +374,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Sonique",
+    "rating": 4.6,
+    "review_count": 1243
   },
   {
     "slug": "nexbeam-portable-bluetooth-speaker-mini",
@@ -337,7 +394,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Nexbeam",
+    "rating": 4.3,
+    "review_count": 3067
   },
   {
     "slug": "sonique-always-on-display-smart-watch",
@@ -354,7 +414,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Sonique",
+    "rating": 4,
+    "review_count": 2869
   },
   {
     "slug": "nexbeam-streaming-media-player",
@@ -371,7 +434,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Nexbeam",
+    "rating": 3.9,
+    "review_count": 1778
   },
   {
     "slug": "sonique-studio-noise-cancelling-headphones",
@@ -388,7 +454,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Sonique",
+    "rating": 4.6,
+    "review_count": 3138
   },
   {
     "slug": "nexbeam-portable-power-bank-pro",
@@ -405,7 +474,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Nexbeam",
+    "rating": 3.7,
+    "review_count": 2105
   },
   {
     "slug": "pulsegear-braided-usb-c-charging-cable-max",
@@ -422,7 +494,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Pulsegear",
+    "rating": 4.8,
+    "review_count": 2114
   },
   {
     "slug": "kryotech-smart-led-light-bulb-4-pack",
@@ -439,7 +514,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Kryotech",
+    "rating": 4.6,
+    "review_count": 8
   },
   {
     "slug": "pulsegear-compact-bluetooth-tracker-tag",
@@ -456,7 +534,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": true
+    "low_stock": true,
+    "brand": "Pulsegear",
+    "rating": 4.2,
+    "review_count": 2939
   },
   {
     "slug": "pulsegear-1080p-home-security-camera-2-0",
@@ -473,7 +554,10 @@
     ],
     "fit_notes": null,
     "in_stock": false,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Pulsegear",
+    "rating": 3.6,
+    "review_count": 196
   },
   {
     "slug": "byteforge-wireless-mouse",
@@ -490,7 +574,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Byteforge",
+    "rating": 4.7,
+    "review_count": 3347
   },
   {
     "slug": "byteforge-mechanical-keyboard-mini",
@@ -507,7 +594,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Byteforge",
+    "rating": 3.9,
+    "review_count": 2098
   },
   {
     "slug": "nordwork-usb-c-hub-7-in-1-2-0",
@@ -524,7 +614,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Nordwork",
+    "rating": 4.3,
+    "review_count": 195
   },
   {
     "slug": "circuiq-27-inch-monitor",
@@ -541,7 +634,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Circuiq",
+    "rating": 3.4,
+    "review_count": 2097
   },
   {
     "slug": "circuiq-laptop-backpack-max",
@@ -558,7 +654,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Circuiq",
+    "rating": 3.9,
+    "review_count": 621
   },
   {
     "slug": "pixeldock-shock-resistant-external-ssd-1tb-max",
@@ -575,7 +674,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Pixeldock",
+    "rating": 4.5,
+    "review_count": 2901
   },
   {
     "slug": "pixeldock-autofocus-1080p-webcam",
@@ -592,7 +694,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Pixeldock",
+    "rating": 4.4,
+    "review_count": 3361
   },
   {
     "slug": "quantera-aluminum-laptop-stand",
@@ -609,7 +714,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Quantera",
+    "rating": 4.7,
+    "review_count": 2235
   },
   {
     "slug": "circuiq-wireless-charging-pad-max",
@@ -626,7 +734,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Circuiq",
+    "rating": 3.3,
+    "review_count": 434
   },
   {
     "slug": "byteforge-cable-management-kit",
@@ -643,7 +754,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Byteforge",
+    "rating": 3.5,
+    "review_count": 547
   },
   {
     "slug": "byteforge-wireless-mouse-max",
@@ -660,7 +774,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Byteforge",
+    "rating": 4.5,
+    "review_count": 453
   },
   {
     "slug": "coreline-mechanical-keyboard",
@@ -677,7 +794,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Coreline",
+    "rating": 3.3,
+    "review_count": 1986
   },
   {
     "slug": "nordwork-aluminum-usb-c-hub-7-in-1",
@@ -694,7 +814,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Nordwork",
+    "rating": 4.6,
+    "review_count": 4007
   },
   {
     "slug": "coreline-qhd-27-inch-monitor-max",
@@ -711,7 +834,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Coreline",
+    "rating": 4.1,
+    "review_count": 1210
   },
   {
     "slug": "pixeldock-laptop-backpack-pro",
@@ -728,7 +854,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Pixeldock",
+    "rating": 4.1,
+    "review_count": 687
   },
   {
     "slug": "quantera-external-ssd-1tb",
@@ -745,7 +874,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Quantera",
+    "rating": 4.8,
+    "review_count": 4176
   },
   {
     "slug": "nordwork-1080p-webcam",
@@ -762,7 +894,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Nordwork",
+    "rating": 4.5,
+    "review_count": 86
   },
   {
     "slug": "byteforge-aluminum-laptop-stand-max",
@@ -779,7 +914,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Byteforge",
+    "rating": 4.7,
+    "review_count": 3582
   },
   {
     "slug": "nordwork-wireless-charging-pad-mini",
@@ -796,7 +934,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Nordwork",
+    "rating": 4.3,
+    "review_count": 60
   },
   {
     "slug": "nordwork-under-desk-cable-management-kit-elite",
@@ -813,7 +954,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Nordwork",
+    "rating": 4.1,
+    "review_count": 3143
   },
   {
     "slug": "nordwork-silent-click-wireless-mouse",
@@ -830,7 +974,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": true
+    "low_stock": true,
+    "brand": "Nordwork",
+    "rating": 4.4,
+    "review_count": 3333
   },
   {
     "slug": "coreline-backlit-mechanical-keyboard-pro",
@@ -847,7 +994,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Coreline",
+    "rating": 4.8,
+    "review_count": 902
   },
   {
     "slug": "pixeldock-compact-usb-c-hub-7-in-1",
@@ -864,7 +1014,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Pixeldock",
+    "rating": 3.4,
+    "review_count": 357
   },
   {
     "slug": "nordwork-qhd-27-inch-monitor",
@@ -881,7 +1034,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Nordwork",
+    "rating": 4.9,
+    "review_count": 4660
   },
   {
     "slug": "byteforge-laptop-backpack",
@@ -898,7 +1054,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Byteforge",
+    "rating": 4.9,
+    "review_count": 149
   },
   {
     "slug": "circuiq-portable-external-ssd-1tb-2-0",
@@ -915,7 +1074,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Circuiq",
+    "rating": 4.7,
+    "review_count": 552
   },
   {
     "slug": "nordwork-autofocus-1080p-webcam",
@@ -932,7 +1094,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Nordwork",
+    "rating": 4.3,
+    "review_count": 1168
   },
   {
     "slug": "coreline-adjustable-aluminum-laptop-stand-elite",
@@ -949,7 +1114,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Coreline",
+    "rating": 3.7,
+    "review_count": 3020
   },
   {
     "slug": "coreline-fast-wireless-charging-pad-max",
@@ -966,7 +1134,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Coreline",
+    "rating": 4,
+    "review_count": 2181
   },
   {
     "slug": "quantera-desk-cable-management-kit",
@@ -983,7 +1154,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Quantera",
+    "rating": 4.6,
+    "review_count": 4380
   },
   {
     "slug": "millbrook-stainless-steel-cookware-set-10-piece-deluxe",
@@ -1000,7 +1174,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Millbrook",
+    "rating": 3.3,
+    "review_count": 115
   },
   {
     "slug": "vessel-co-cordless-electric-kettle-classic",
@@ -1017,7 +1194,10 @@
     ],
     "fit_notes": null,
     "in_stock": false,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Vessel & Co",
+    "rating": 4.4,
+    "review_count": 1634
   },
   {
     "slug": "millbrook-tilt-head-stand-mixer-classic",
@@ -1034,7 +1214,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": true
+    "low_stock": true,
+    "brand": "Millbrook",
+    "rating": 4.4,
+    "review_count": 1019
   },
   {
     "slug": "hearthstone-scratch-resistant-nonstick-frying-pan",
@@ -1051,7 +1234,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Hearthstone",
+    "rating": 4.1,
+    "review_count": 3139
   },
   {
     "slug": "hearthstone-ceramic-dinnerware-set-16-piece",
@@ -1068,7 +1254,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Hearthstone",
+    "rating": 4.2,
+    "review_count": 1232
   },
   {
     "slug": "kindred-home-memory-foam-pillow-2-pack-classic",
@@ -1085,7 +1274,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Kindred Home",
+    "rating": 3.3,
+    "review_count": 1061
   },
   {
     "slug": "vessel-co-room-darkening-blackout-curtain-pair",
@@ -1102,7 +1294,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Vessel & Co",
+    "rating": 4.6,
+    "review_count": 4058
   },
   {
     "slug": "hearthstone-air-fryer-classic",
@@ -1119,7 +1314,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": true
+    "low_stock": true,
+    "brand": "Hearthstone",
+    "rating": 3.9,
+    "review_count": 623
   },
   {
     "slug": "kindred-home-3-piece-bamboo-cutting-board-set",
@@ -1136,7 +1334,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Kindred Home",
+    "rating": 4,
+    "review_count": 1232
   },
   {
     "slug": "kindred-home-induction-ready-stainless-steel-cookware-set-10-piece-xl",
@@ -1153,7 +1354,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Kindred Home",
+    "rating": 4.3,
+    "review_count": 870
   },
   {
     "slug": "millbrook-cordless-electric-kettle",
@@ -1170,7 +1374,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Millbrook",
+    "rating": 3.8,
+    "review_count": 1902
   },
   {
     "slug": "vessel-co-stand-mixer",
@@ -1187,7 +1394,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Vessel & Co",
+    "rating": 4.7,
+    "review_count": 796
   },
   {
     "slug": "copperlane-scratch-resistant-nonstick-frying-pan",
@@ -1204,7 +1414,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Copperlane",
+    "rating": 4.2,
+    "review_count": 3249
   },
   {
     "slug": "vessel-co-stoneware-ceramic-dinnerware-set-16-piece",
@@ -1221,7 +1434,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": true
+    "low_stock": true,
+    "brand": "Vessel & Co",
+    "rating": 4.2,
+    "review_count": 4192
   },
   {
     "slug": "millbrook-memory-foam-pillow-2-pack",
@@ -1238,7 +1454,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Millbrook",
+    "rating": 3.5,
+    "review_count": 443
   },
   {
     "slug": "northgrain-thermal-blackout-curtain-pair-pro",
@@ -1255,7 +1474,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": true
+    "low_stock": true,
+    "brand": "Northgrain",
+    "rating": 4.1,
+    "review_count": 861
   },
   {
     "slug": "vessel-co-compact-digital-kitchen-scale",
@@ -1272,7 +1494,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Vessel & Co",
+    "rating": 4.6,
+    "review_count": 531
   },
   {
     "slug": "copperlane-air-fryer-deluxe",
@@ -1289,7 +1514,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Copperlane",
+    "rating": 3.7,
+    "review_count": 54
   },
   {
     "slug": "hearthstone-3-piece-bamboo-cutting-board-set",
@@ -1306,7 +1534,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Hearthstone",
+    "rating": 3.6,
+    "review_count": 1822
   },
   {
     "slug": "millbrook-induction-ready-stainless-steel-cookware-set-10-piece-pro",
@@ -1323,7 +1554,10 @@
     ],
     "fit_notes": null,
     "in_stock": false,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Millbrook",
+    "rating": 4.7,
+    "review_count": 632
   },
   {
     "slug": "millbrook-rapid-boil-electric-kettle",
@@ -1340,7 +1574,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Millbrook",
+    "rating": 3.7,
+    "review_count": 690
   },
   {
     "slug": "millbrook-stand-mixer",
@@ -1357,7 +1594,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Millbrook",
+    "rating": 3.2,
+    "review_count": 723
   },
   {
     "slug": "hearthstone-nonstick-frying-pan-pro",
@@ -1374,7 +1614,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Hearthstone",
+    "rating": 4.6,
+    "review_count": 1448
   },
   {
     "slug": "northgrain-ceramic-dinnerware-set-16-piece",
@@ -1391,7 +1634,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Northgrain",
+    "rating": 4.5,
+    "review_count": 2855
   },
   {
     "slug": "kindred-home-cooling-gel-memory-foam-pillow-2-pack",
@@ -1408,7 +1654,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Kindred Home",
+    "rating": 3.7,
+    "review_count": 2898
   },
   {
     "slug": "millbrook-blackout-curtain-pair",
@@ -1425,7 +1674,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Millbrook",
+    "rating": 4.5,
+    "review_count": 4957
   },
   {
     "slug": "vessel-co-precision-digital-kitchen-scale",
@@ -1442,7 +1694,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Vessel & Co",
+    "rating": 3.8,
+    "review_count": 106
   },
   {
     "slug": "vessel-co-digital-air-fryer",
@@ -1459,7 +1714,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Vessel & Co",
+    "rating": 3.5,
+    "review_count": 1807
   },
   {
     "slug": "kindred-home-bamboo-cutting-board-set",
@@ -1476,7 +1734,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Kindred Home",
+    "rating": 3.9,
+    "review_count": 177
   },
   {
     "slug": "the-long-meadow",
@@ -1493,7 +1754,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Marcus Delgado",
+    "rating": 4.8,
+    "review_count": 3278
   },
   {
     "slug": "the-everyday-table",
@@ -1510,7 +1774,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Clara Lindqvist",
+    "rating": 3.4,
+    "review_count": 839
   },
   {
     "slug": "focus-by-design",
@@ -1527,7 +1794,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Daniel Voss",
+    "rating": 4.2,
+    "review_count": 1436
   },
   {
     "slug": "luna-and-the-hidden-hollow",
@@ -1544,7 +1814,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Nathaniel Okonkwo",
+    "rating": 4.4,
+    "review_count": 1041
   },
   {
     "slug": "the-wild-years",
@@ -1561,7 +1834,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Ava Delgado",
+    "rating": 4.3,
+    "review_count": 3841
   },
   {
     "slug": "birds-a-field-guide",
@@ -1578,7 +1854,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Clara Lindqvist",
+    "rating": 4.4,
+    "review_count": 3212
   },
   {
     "slug": "the-river-chronicles",
@@ -1595,7 +1874,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": true
+    "low_stock": true,
+    "brand": "Daniel Okonkwo",
+    "rating": 3.5,
+    "review_count": 863
   },
   {
     "slug": "bone-and-ash",
@@ -1612,7 +1894,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Sofia Hawthorne",
+    "rating": 4.8,
+    "review_count": 4264
   },
   {
     "slug": "golden-roads-exploring-the-scottish-highlands",
@@ -1629,7 +1914,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Marcus Marlow",
+    "rating": 3.7,
+    "review_count": 585
   },
   {
     "slug": "the-long-road-a-history-of-the-silk-road",
@@ -1646,7 +1934,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Yusuf Chen",
+    "rating": 3.2,
+    "review_count": 1777
   },
   {
     "slug": "the-last-horizon",
@@ -1663,7 +1954,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": true
+    "low_stock": true,
+    "brand": "Owen Okonkwo",
+    "rating": 3.9,
+    "review_count": 175
   },
   {
     "slug": "the-mediterranean-table",
@@ -1680,7 +1974,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": true
+    "low_stock": true,
+    "brand": "Sofia Reyes",
+    "rating": 3.4,
+    "review_count": 18
   },
   {
     "slug": "the-focus-mindset",
@@ -1697,7 +1994,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": true
+    "low_stock": true,
+    "brand": "Thomas Ramirez",
+    "rating": 4.3,
+    "review_count": 374
   },
   {
     "slug": "zoe-and-the-orchard",
@@ -1714,7 +2014,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Sofia Delgado",
+    "rating": 4,
+    "review_count": 3363
   },
   {
     "slug": "a-long-life",
@@ -1731,7 +2034,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Ava Reyes",
+    "rating": 3.5,
+    "review_count": 743
   },
   {
     "slug": "the-backyard-native-plants-of-the-mediterranean",
@@ -1748,7 +2054,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": true
+    "low_stock": true,
+    "brand": "Eleanor Hawthorne",
+    "rating": 4.4,
+    "review_count": 1772
   },
   {
     "slug": "amber-horizon-volume-one",
@@ -1765,7 +2074,10 @@
     ],
     "fit_notes": null,
     "in_stock": false,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Marcus Sinclair",
+    "rating": 4,
+    "review_count": 1833
   },
   {
     "slug": "the-weight-of-dust",
@@ -1782,7 +2094,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Owen Whitfield",
+    "rating": 3.2,
+    "review_count": 1552
   },
   {
     "slug": "northern-italy-the-complete-traveler-s-guide",
@@ -1799,7 +2114,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Sofia Lindqvist",
+    "rating": 4.5,
+    "review_count": 678
   },
   {
     "slug": "forgotten-empire-the-story-of-the-age-of-sail",
@@ -1816,7 +2134,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Clara Lindqvist",
+    "rating": 3.3,
+    "review_count": 378
   },
   {
     "slug": "the-silent-hour",
@@ -1833,7 +2154,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Nathaniel Marlow",
+    "rating": 4.1,
+    "review_count": 4041
   },
   {
     "slug": "the-weeknight-kitchen",
@@ -1850,7 +2174,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Owen Delgado",
+    "rating": 3.9,
+    "review_count": 2666
   },
   {
     "slug": "the-momentum-advantage",
@@ -1867,7 +2194,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Sofia Delgado",
+    "rating": 4.7,
+    "review_count": 3528
   },
   {
     "slug": "goodnight-leo",
@@ -1884,7 +2214,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": true
+    "low_stock": true,
+    "brand": "Clara Okafor",
+    "rating": 4.3,
+    "review_count": 1066
   },
   {
     "slug": "becoming-endless",
@@ -1901,7 +2234,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Owen Hawthorne",
+    "rating": 4,
+    "review_count": 2060
   },
   {
     "slug": "constellations-a-field-guide",
@@ -1918,7 +2254,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Nathaniel Delgado",
+    "rating": 3.3,
+    "review_count": 1082
   },
   {
     "slug": "restless-storm-book-one",
@@ -1935,7 +2274,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Marisol Chen",
+    "rating": 3.4,
+    "review_count": 2468
   },
   {
     "slug": "what-the-rain-knows",
@@ -1952,7 +2294,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Sofia Hawthorne",
+    "rating": 3.8,
+    "review_count": 320
   },
   {
     "slug": "morocco-the-complete-traveler-s-guide",
@@ -1969,7 +2314,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Daniel Chen",
+    "rating": 4.1,
+    "review_count": 1092
   },
   {
     "slug": "the-rise-and-fall-of-the-steel-industry",
@@ -1986,7 +2334,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Hannah Okafor",
+    "rating": 3.8,
+    "review_count": 523
   },
   {
     "slug": "cascade-co-runner",
@@ -2010,7 +2361,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Cascade & Co",
+    "rating": 4.7,
+    "review_count": 3077
   },
   {
     "slug": "summit-trail-insulated-trailblazer-boot",
@@ -2034,7 +2388,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Summit Trail",
+    "rating": 3.7,
+    "review_count": 2628
   },
   {
     "slug": "aurora-organic-cotton-classic-tee",
@@ -2056,7 +2413,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Aurora",
+    "rating": 3.6,
+    "review_count": 776
   },
   {
     "slug": "ridgeline-trucker-jacket-high",
@@ -2078,7 +2438,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Ridgeline",
+    "rating": 3.6,
+    "review_count": 20
   },
   {
     "slug": "northfield-crewneck-sweater",
@@ -2100,7 +2463,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Northfield",
+    "rating": 4.7,
+    "review_count": 1107
   },
   {
     "slug": "aurora-four-way-stretch-flex-leggings",
@@ -2122,7 +2488,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Aurora",
+    "rating": 3.9,
+    "review_count": 1204
   },
   {
     "slug": "cascade-co-insulated-puffer-parka-pro",
@@ -2144,7 +2513,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Cascade & Co",
+    "rating": 3.8,
+    "review_count": 1580
   },
   {
     "slug": "driftwood-low-top-court-sneaker-high",
@@ -2168,7 +2540,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Driftwood",
+    "rating": 3.6,
+    "review_count": 2903
   },
   {
     "slug": "aurora-brushed-cotton-flannel-shirt-low",
@@ -2190,7 +2565,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Aurora",
+    "rating": 3.4,
+    "review_count": 971
   },
   {
     "slug": "ridgeline-slim-fit-chino-pants-elite",
@@ -2212,7 +2590,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Ridgeline",
+    "rating": 3.3,
+    "review_count": 1424
   },
   {
     "slug": "aurora-lightweight-runner",
@@ -2236,7 +2617,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Aurora",
+    "rating": 3.6,
+    "review_count": 973
   },
   {
     "slug": "aurora-trailblazer-boot",
@@ -2260,7 +2644,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Aurora",
+    "rating": 3.5,
+    "review_count": 1314
   },
   {
     "slug": "driftwood-classic-tee-elite",
@@ -2282,7 +2669,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Driftwood",
+    "rating": 4.7,
+    "review_count": 139
   },
   {
     "slug": "cascade-co-stonewash-trucker-jacket-high",
@@ -2304,7 +2694,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": true
+    "low_stock": true,
+    "brand": "Cascade & Co",
+    "rating": 3.3,
+    "review_count": 10
   },
   {
     "slug": "northfield-merino-wool-crewneck-sweater-elite",
@@ -2326,7 +2719,10 @@
     ],
     "fit_notes": null,
     "in_stock": false,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Northfield",
+    "rating": 3.7,
+    "review_count": 2515
   },
   {
     "slug": "ridgeline-high-waist-flex-leggings-low",
@@ -2348,7 +2744,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Ridgeline",
+    "rating": 4.3,
+    "review_count": 1738
   },
   {
     "slug": "summit-trail-court-sneaker",
@@ -2372,7 +2771,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Summit Trail",
+    "rating": 3.5,
+    "review_count": 437
   },
   {
     "slug": "northfield-flannel-shirt-low",
@@ -2394,7 +2796,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Northfield",
+    "rating": 4.1,
+    "review_count": 3163
   },
   {
     "slug": "ridgeline-slim-fit-chino-pants-low",
@@ -2416,7 +2821,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Ridgeline",
+    "rating": 4.6,
+    "review_count": 2171
   },
   {
     "slug": "summit-trail-breathable-runner",
@@ -2440,7 +2848,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Summit Trail",
+    "rating": 3.3,
+    "review_count": 320
   },
   {
     "slug": "cascade-co-insulated-trailblazer-boot-low",
@@ -2464,7 +2875,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Cascade & Co",
+    "rating": 4,
+    "review_count": 3354
   },
   {
     "slug": "summit-trail-classic-tee-high",
@@ -2486,7 +2900,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Summit Trail",
+    "rating": 4.4,
+    "review_count": 110
   },
   {
     "slug": "aurora-stonewash-trucker-jacket-low",
@@ -2508,7 +2925,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Aurora",
+    "rating": 3.4,
+    "review_count": 2083
   },
   {
     "slug": "cascade-co-crewneck-sweater-se",
@@ -2530,7 +2950,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Cascade & Co",
+    "rating": 4.6,
+    "review_count": 166
   },
   {
     "slug": "cascade-co-high-waist-flex-leggings-pro",
@@ -2552,7 +2975,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Cascade & Co",
+    "rating": 4.5,
+    "review_count": 4671
   },
   {
     "slug": "cascade-co-puffer-parka-elite",
@@ -2574,7 +3000,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Cascade & Co",
+    "rating": 3.2,
+    "review_count": 317
   },
   {
     "slug": "aurora-canvas-court-sneaker-se",
@@ -2598,7 +3027,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Aurora",
+    "rating": 3.5,
+    "review_count": 2224
   },
   {
     "slug": "aurora-flannel-shirt-mid",
@@ -2620,7 +3052,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Aurora",
+    "rating": 3.3,
+    "review_count": 55
   },
   {
     "slug": "summit-trail-chino-pants-high",
@@ -2642,7 +3077,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Summit Trail",
+    "rating": 4,
+    "review_count": 1255
   },
   {
     "slug": "summit-peak-yoga-mat-2-0",
@@ -2659,7 +3097,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": true
+    "low_stock": true,
+    "brand": "Summit Peak",
+    "rating": 4.1,
+    "review_count": 2727
   },
   {
     "slug": "rivergrade-space-saving-adjustable-dumbbell-set",
@@ -2676,7 +3117,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Rivergrade",
+    "rating": 4.5,
+    "review_count": 1780
   },
   {
     "slug": "pinecrest-3-season-camping-tent-2-person-elite",
@@ -2693,7 +3137,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Pinecrest",
+    "rating": 3.9,
+    "review_count": 922
   },
   {
     "slug": "pinecrest-insulated-water-bottle",
@@ -2710,7 +3157,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Pinecrest",
+    "rating": 3.4,
+    "review_count": 1434
   },
   {
     "slug": "rivergrade-5-level-resistance-band-set",
@@ -2727,7 +3177,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Rivergrade",
+    "rating": 4.7,
+    "review_count": 1214
   },
   {
     "slug": "trailforge-hiking-backpack-30l-xl",
@@ -2744,7 +3197,10 @@
     ],
     "fit_notes": null,
     "in_stock": false,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Trailforge",
+    "rating": 3.9,
+    "review_count": 452
   },
   {
     "slug": "stridewell-adjustable-fit-bicycle-helmet-pro",
@@ -2761,7 +3217,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Stridewell",
+    "rating": 4.1,
+    "review_count": 895
   },
   {
     "slug": "trailforge-travel-fishing-rod-and-reel-combo-pro",
@@ -2778,7 +3237,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Trailforge",
+    "rating": 3.5,
+    "review_count": 2
   },
   {
     "slug": "summit-peak-mummy-style-sleeping-bag-3-season-2-0",
@@ -2795,7 +3257,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Summit Peak",
+    "rating": 3.5,
+    "review_count": 320
   },
   {
     "slug": "summit-peak-foam-roller",
@@ -2812,7 +3277,10 @@
     ],
     "fit_notes": null,
     "in_stock": false,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Summit Peak",
+    "rating": 3.3,
+    "review_count": 530
   },
   {
     "slug": "summit-peak-extra-thick-yoga-mat",
@@ -2829,7 +3297,10 @@
     ],
     "fit_notes": null,
     "in_stock": false,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Summit Peak",
+    "rating": 3.4,
+    "review_count": 15
   },
   {
     "slug": "trailforge-adjustable-dumbbell-set",
@@ -2846,7 +3317,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Trailforge",
+    "rating": 4.7,
+    "review_count": 2504
   },
   {
     "slug": "pinecrest-32oz-insulated-water-bottle",
@@ -2863,7 +3337,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Pinecrest",
+    "rating": 4.5,
+    "review_count": 4464
   },
   {
     "slug": "altitude-co-5-level-resistance-band-set",
@@ -2880,7 +3357,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Altitude Co",
+    "rating": 4.1,
+    "review_count": 265
   },
   {
     "slug": "trailforge-ventilated-hiking-backpack-30l-2-0",
@@ -2897,7 +3377,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Trailforge",
+    "rating": 3.5,
+    "review_count": 110
   },
   {
     "slug": "trailforge-adjustable-fit-bicycle-helmet",
@@ -2914,7 +3397,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Trailforge",
+    "rating": 4.8,
+    "review_count": 4948
   },
   {
     "slug": "trailforge-fishing-rod-and-reel-combo-xl",
@@ -2931,7 +3417,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Trailforge",
+    "rating": 3.9,
+    "review_count": 348
   },
   {
     "slug": "altitude-co-mummy-style-sleeping-bag-3-season",
@@ -2948,7 +3437,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Altitude Co",
+    "rating": 3.4,
+    "review_count": 249
   },
   {
     "slug": "trailforge-high-density-foam-roller",
@@ -2965,7 +3457,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": true
+    "low_stock": true,
+    "brand": "Trailforge",
+    "rating": 3.9,
+    "review_count": 1868
   },
   {
     "slug": "pinecrest-non-slip-yoga-mat",
@@ -2982,7 +3477,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Pinecrest",
+    "rating": 3.9,
+    "review_count": 2240
   },
   {
     "slug": "trailforge-space-saving-adjustable-dumbbell-set-elite",
@@ -2999,7 +3497,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Trailforge",
+    "rating": 3.7,
+    "review_count": 1459
   },
   {
     "slug": "summit-peak-quick-pitch-camping-tent-2-person",
@@ -3016,7 +3517,10 @@
     ],
     "fit_notes": null,
     "in_stock": false,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Summit Peak",
+    "rating": 3.8,
+    "review_count": 391
   },
   {
     "slug": "stridewell-double-wall-insulated-water-bottle-elite",
@@ -3033,7 +3537,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Stridewell",
+    "rating": 3.7,
+    "review_count": 10
   },
   {
     "slug": "stridewell-5-level-resistance-band-set",
@@ -3050,7 +3557,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Stridewell",
+    "rating": 4.6,
+    "review_count": 5107
   },
   {
     "slug": "trailforge-trail-ready-hiking-backpack-30l-elite",
@@ -3067,7 +3577,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Trailforge",
+    "rating": 4.3,
+    "review_count": 2398
   },
   {
     "slug": "pinecrest-bicycle-helmet-xl",
@@ -3084,7 +3597,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": true
+    "low_stock": true,
+    "brand": "Pinecrest",
+    "rating": 4.8,
+    "review_count": 2901
   },
   {
     "slug": "stridewell-travel-fishing-rod-and-reel-combo",
@@ -3101,7 +3617,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Stridewell",
+    "rating": 4.8,
+    "review_count": 84
   },
   {
     "slug": "pinecrest-sleeping-bag-3-season-pro",
@@ -3118,7 +3637,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Pinecrest",
+    "rating": 4.5,
+    "review_count": 301
   },
   {
     "slug": "trailforge-high-density-foam-roller-elite",
@@ -3135,7 +3657,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Trailforge",
+    "rating": 4.5,
+    "review_count": 197
   },
   {
     "slug": "lumen-co-long-wear-matte-liquid-lipstick",
@@ -3152,7 +3677,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Lumen & Co",
+    "rating": 4.2,
+    "review_count": 3430
   },
   {
     "slug": "lumen-co-brightening-vitamin-c-serum",
@@ -3169,7 +3697,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Lumen & Co",
+    "rating": 4.5,
+    "review_count": 3179
   },
   {
     "slug": "clearwater-beauty-sonic-electric-toothbrush",
@@ -3186,7 +3717,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Clearwater Beauty",
+    "rating": 3.4,
+    "review_count": 180
   },
   {
     "slug": "lumen-co-ionic-hair-dryer-mini",
@@ -3203,7 +3737,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Lumen & Co",
+    "rating": 3.5,
+    "review_count": 1478
   },
   {
     "slug": "clearwater-beauty-facial-cleansing-brush-pro",
@@ -3220,7 +3757,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Clearwater Beauty",
+    "rating": 3.3,
+    "review_count": 1666
   },
   {
     "slug": "velvet-bloom-eau-de-parfum-mini",
@@ -3237,7 +3777,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Velvet Bloom",
+    "rating": 4.5,
+    "review_count": 3069
   },
   {
     "slug": "clearwater-beauty-beard-trimmer-kit",
@@ -3254,7 +3797,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Clearwater Beauty",
+    "rating": 3.5,
+    "review_count": 1665
   },
   {
     "slug": "glowfield-6-piece-bath-bomb-gift-set",
@@ -3271,7 +3817,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Glowfield",
+    "rating": 3.4,
+    "review_count": 715
   },
   {
     "slug": "clearwater-beauty-nail-polish-set-6-piece",
@@ -3288,7 +3837,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Clearwater Beauty",
+    "rating": 4.2,
+    "review_count": 3218
   },
   {
     "slug": "marbleleaf-brightening-vitamin-c-serum-pro",
@@ -3305,7 +3857,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": true
+    "low_stock": true,
+    "brand": "Marbleleaf",
+    "rating": 3.8,
+    "review_count": 2873
   },
   {
     "slug": "lumen-co-electric-toothbrush-deluxe",
@@ -3322,7 +3877,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Lumen & Co",
+    "rating": 4.1,
+    "review_count": 904
   },
   {
     "slug": "lumen-co-fast-drying-ionic-hair-dryer",
@@ -3339,7 +3897,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Lumen & Co",
+    "rating": 4.5,
+    "review_count": 4937
   },
   {
     "slug": "pure-meridian-facial-cleansing-brush",
@@ -3356,7 +3917,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": true
+    "low_stock": true,
+    "brand": "Pure Meridian",
+    "rating": 3.6,
+    "review_count": 2843
   },
   {
     "slug": "glowfield-lightweight-daily-moisturizer-spf-30",
@@ -3373,7 +3937,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Glowfield",
+    "rating": 4.7,
+    "review_count": 5010
   },
   {
     "slug": "glowfield-eau-de-parfum",
@@ -3390,7 +3957,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Glowfield",
+    "rating": 4.5,
+    "review_count": 1641
   },
   {
     "slug": "clearwater-beauty-cordless-beard-trimmer-kit",
@@ -3407,7 +3977,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Clearwater Beauty",
+    "rating": 4.9,
+    "review_count": 3556
   },
   {
     "slug": "lumen-co-6-piece-bath-bomb-gift-set",
@@ -3424,7 +3997,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Lumen & Co",
+    "rating": 3.2,
+    "review_count": 32
   },
   {
     "slug": "clearwater-beauty-nail-polish-set-6-piece-deluxe",
@@ -3441,7 +4017,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Clearwater Beauty",
+    "rating": 4,
+    "review_count": 119
   },
   {
     "slug": "pure-meridian-matte-liquid-lipstick-pro",
@@ -3458,7 +4037,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Pure Meridian",
+    "rating": 4.5,
+    "review_count": 2920
   },
   {
     "slug": "pure-meridian-brightening-vitamin-c-serum",
@@ -3475,7 +4057,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Pure Meridian",
+    "rating": 4.8,
+    "review_count": 1755
   },
   {
     "slug": "glowfield-rechargeable-electric-toothbrush",
@@ -3492,7 +4077,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Glowfield",
+    "rating": 4.6,
+    "review_count": 754
   },
   {
     "slug": "glowfield-fast-drying-ionic-hair-dryer",
@@ -3509,7 +4097,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Glowfield",
+    "rating": 4.5,
+    "review_count": 210
   },
   {
     "slug": "marbleleaf-silicone-facial-cleansing-brush-mini",
@@ -3526,7 +4117,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Marbleleaf",
+    "rating": 3.4,
+    "review_count": 200
   },
   {
     "slug": "marbleleaf-eau-de-parfum",
@@ -3543,7 +4137,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": true
+    "low_stock": true,
+    "brand": "Marbleleaf",
+    "rating": 3.9,
+    "review_count": 1056
   },
   {
     "slug": "glowfield-cordless-beard-trimmer-kit-pro",
@@ -3560,7 +4157,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Glowfield",
+    "rating": 4,
+    "review_count": 1447
   },
   {
     "slug": "velvet-bloom-6-piece-bath-bomb-gift-set-pro",
@@ -3577,7 +4177,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Velvet Bloom",
+    "rating": 3.3,
+    "review_count": 2009
   },
   {
     "slug": "lumen-co-nail-polish-set-6-piece",
@@ -3594,7 +4197,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Lumen & Co",
+    "rating": 4.6,
+    "review_count": 455
   },
   {
     "slug": "jollywood-building-block-set-500-piece-2-0",
@@ -3611,7 +4217,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Jollywood",
+    "rating": 3.6,
+    "review_count": 1940
   },
   {
     "slug": "tinker-tales-high-speed-remote-control-car-deluxe",
@@ -3628,7 +4237,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Tinker Tales",
+    "rating": 4.2,
+    "review_count": 601
   },
   {
     "slug": "brightbrick-strategy-board-game",
@@ -3645,7 +4257,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": true
+    "low_stock": true,
+    "brand": "Brightbrick",
+    "rating": 4.6,
+    "review_count": 284
   },
   {
     "slug": "funhouse-kids-soft-plush-stuffed-animal-deluxe",
@@ -3662,7 +4277,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Funhouse Kids",
+    "rating": 4.8,
+    "review_count": 1522
   },
   {
     "slug": "funhouse-kids-puzzle-1000-piece-deluxe",
@@ -3679,7 +4297,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Funhouse Kids",
+    "rating": 3.8,
+    "review_count": 2865
   },
   {
     "slug": "tinker-tales-washable-kids-art-supply-kit-deluxe",
@@ -3696,7 +4317,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Tinker Tales",
+    "rating": 4.7,
+    "review_count": 1822
   },
   {
     "slug": "brightbrick-poseable-action-figure",
@@ -3713,7 +4337,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Brightbrick",
+    "rating": 4.4,
+    "review_count": 3529
   },
   {
     "slug": "playnest-stem-robot-building-kit-2-0",
@@ -3730,7 +4357,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Playnest",
+    "rating": 3.9,
+    "review_count": 70
   },
   {
     "slug": "jollywood-party-card-game",
@@ -3747,7 +4377,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Jollywood",
+    "rating": 3.6,
+    "review_count": 9
   },
   {
     "slug": "playnest-battery-powered-ride-on-toy-car",
@@ -3764,7 +4397,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Playnest",
+    "rating": 3.7,
+    "review_count": 821
   },
   {
     "slug": "tinker-tales-stackable-building-block-set-500-piece-2-0",
@@ -3781,7 +4417,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Tinker Tales",
+    "rating": 4.1,
+    "review_count": 3127
   },
   {
     "slug": "brightbrick-high-speed-remote-control-car-deluxe",
@@ -3798,7 +4437,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Brightbrick",
+    "rating": 4.5,
+    "review_count": 1350
   },
   {
     "slug": "playnest-oversized-plush-stuffed-animal-deluxe",
@@ -3815,7 +4457,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Playnest",
+    "rating": 4.4,
+    "review_count": 2795
   },
   {
     "slug": "funhouse-kids-jigsaw-puzzle-1000-piece",
@@ -3832,7 +4477,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Funhouse Kids",
+    "rating": 3.9,
+    "review_count": 728
   },
   {
     "slug": "playnest-kids-art-supply-kit",
@@ -3849,7 +4497,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Playnest",
+    "rating": 4.4,
+    "review_count": 1490
   },
   {
     "slug": "playnest-action-figure",
@@ -3866,7 +4517,10 @@
     ],
     "fit_notes": null,
     "in_stock": false,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Playnest",
+    "rating": 4,
+    "review_count": 3722
   },
   {
     "slug": "funhouse-kids-stem-robot-building-kit",
@@ -3883,7 +4537,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Funhouse Kids",
+    "rating": 3.8,
+    "review_count": 3020
   },
   {
     "slug": "playnest-party-card-game",
@@ -3900,7 +4557,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Playnest",
+    "rating": 3.6,
+    "review_count": 2264
   },
   {
     "slug": "brightbrick-battery-powered-ride-on-toy-car",
@@ -3917,7 +4577,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Brightbrick",
+    "rating": 3.9,
+    "review_count": 2448
   },
   {
     "slug": "funhouse-kids-building-block-set-500-piece",
@@ -3934,7 +4597,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Funhouse Kids",
+    "rating": 4.5,
+    "review_count": 1433
   },
   {
     "slug": "brightbrick-remote-control-car",
@@ -3951,7 +4617,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Brightbrick",
+    "rating": 3.3,
+    "review_count": 1504
   },
   {
     "slug": "tinker-tales-strategy-board-game",
@@ -3968,7 +4637,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Tinker Tales",
+    "rating": 4.3,
+    "review_count": 518
   },
   {
     "slug": "wondercraft-soft-plush-stuffed-animal-2-0",
@@ -3985,7 +4657,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Wondercraft",
+    "rating": 4.6,
+    "review_count": 740
   },
   {
     "slug": "funhouse-kids-puzzle-1000-piece",
@@ -4002,7 +4677,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Funhouse Kids",
+    "rating": 3.9,
+    "review_count": 2179
   },
   {
     "slug": "playnest-washable-kids-art-supply-kit",
@@ -4019,7 +4697,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Playnest",
+    "rating": 3.3,
+    "review_count": 2092
   },
   {
     "slug": "funhouse-kids-poseable-action-figure",
@@ -4036,7 +4717,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Funhouse Kids",
+    "rating": 3.8,
+    "review_count": 3123
   },
   {
     "slug": "wondercraft-stem-robot-building-kit-xl",
@@ -4053,7 +4737,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Wondercraft",
+    "rating": 3.8,
+    "review_count": 3282
   },
   {
     "slug": "funhouse-kids-quick-play-party-card-game-xl",
@@ -4070,7 +4757,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Funhouse Kids",
+    "rating": 3.2,
+    "review_count": 262
   },
   {
     "slug": "playnest-ride-on-toy-car-xl",
@@ -4087,7 +4777,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Playnest",
+    "rating": 4.5,
+    "review_count": 3986
   },
   {
     "slug": "pure-origin-organic-coffee-beans-12oz",
@@ -4104,7 +4797,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Pure Origin",
+    "rating": 3.8,
+    "review_count": 996
   },
   {
     "slug": "harvest-sun-raw-honey-16oz",
@@ -4121,7 +4817,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Harvest & Sun",
+    "rating": 4.3,
+    "review_count": 2994
   },
   {
     "slug": "pure-origin-almond-butter-16oz",
@@ -4138,7 +4837,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Pure Origin",
+    "rating": 3.6,
+    "review_count": 2181
   },
   {
     "slug": "golden-field-green-tea-bags-100-count",
@@ -4155,7 +4857,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Golden Field",
+    "rating": 3.6,
+    "review_count": 2092
   },
   {
     "slug": "northgrain-pantry-no-sugar-added-trail-mix-2lb",
@@ -4172,7 +4877,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Northgrain Pantry",
+    "rating": 3.6,
+    "review_count": 1035
   },
   {
     "slug": "golden-field-dry-pasta-16oz",
@@ -4189,7 +4897,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Golden Field",
+    "rating": 4.3,
+    "review_count": 927
   },
   {
     "slug": "harvest-sun-dark-chocolate-bar-multi-pack",
@@ -4206,7 +4917,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": true
+    "low_stock": true,
+    "brand": "Harvest & Sun",
+    "rating": 4,
+    "review_count": 2888
   },
   {
     "slug": "golden-field-protein-powder-2lb",
@@ -4223,7 +4937,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": true
+    "low_stock": true,
+    "brand": "Golden Field",
+    "rating": 4.7,
+    "review_count": 2078
   },
   {
     "slug": "pure-origin-organic-quinoa-32oz",
@@ -4240,7 +4957,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Pure Origin",
+    "rating": 4.2,
+    "review_count": 4177
   },
   {
     "slug": "wildroot-organic-coffee-beans-12oz",
@@ -4257,7 +4977,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Wildroot",
+    "rating": 4.3,
+    "review_count": 63
   },
   {
     "slug": "harvest-sun-extra-virgin-olive-oil-500ml",
@@ -4274,7 +4997,10 @@
     ],
     "fit_notes": null,
     "in_stock": false,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Harvest & Sun",
+    "rating": 4.4,
+    "review_count": 1604
   },
   {
     "slug": "pure-origin-unfiltered-raw-honey-16oz",
@@ -4291,7 +5017,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Pure Origin",
+    "rating": 3.5,
+    "review_count": 2406
   },
   {
     "slug": "northgrain-pantry-almond-butter-16oz",
@@ -4308,7 +5037,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Northgrain Pantry",
+    "rating": 4.3,
+    "review_count": 4011
   },
   {
     "slug": "meadowbrook-organic-green-tea-bags-100-count",
@@ -4325,7 +5057,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Meadowbrook",
+    "rating": 3.3,
+    "review_count": 1474
   },
   {
     "slug": "golden-field-trail-mix-2lb",
@@ -4342,7 +5077,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Golden Field",
+    "rating": 4.8,
+    "review_count": 318
   },
   {
     "slug": "meadowbrook-70-cacao-dark-chocolate-bar-multi-pack",
@@ -4359,7 +5097,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Meadowbrook",
+    "rating": 4.2,
+    "review_count": 47
   },
   {
     "slug": "pure-origin-unflavoured-protein-powder-2lb",
@@ -4376,7 +5117,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Pure Origin",
+    "rating": 4,
+    "review_count": 457
   },
   {
     "slug": "pure-origin-quinoa-32oz",
@@ -4393,7 +5137,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Pure Origin",
+    "rating": 4.8,
+    "review_count": 250
   },
   {
     "slug": "harvest-sun-single-origin-organic-coffee-beans-12oz",
@@ -4410,7 +5157,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Harvest & Sun",
+    "rating": 4.5,
+    "review_count": 3576
   },
   {
     "slug": "golden-field-cold-pressed-extra-virgin-olive-oil-500ml",
@@ -4427,7 +5177,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Golden Field",
+    "rating": 4.3,
+    "review_count": 3477
   },
   {
     "slug": "northgrain-pantry-unfiltered-raw-honey-16oz",
@@ -4444,7 +5197,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": true
+    "low_stock": true,
+    "brand": "Northgrain Pantry",
+    "rating": 4.5,
+    "review_count": 2641
   },
   {
     "slug": "pure-origin-unsalted-almond-butter-16oz",
@@ -4461,7 +5217,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Pure Origin",
+    "rating": 4.3,
+    "review_count": 860
   },
   {
     "slug": "pure-origin-green-tea-bags-100-count",
@@ -4478,7 +5237,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Pure Origin",
+    "rating": 4.7,
+    "review_count": 2612
   },
   {
     "slug": "meadowbrook-no-sugar-added-trail-mix-2lb",
@@ -4495,7 +5257,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Meadowbrook",
+    "rating": 3.7,
+    "review_count": 1551
   },
   {
     "slug": "pure-origin-dry-pasta-16oz",
@@ -4512,7 +5277,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": true
+    "low_stock": true,
+    "brand": "Pure Origin",
+    "rating": 3.4,
+    "review_count": 601
   },
   {
     "slug": "northgrain-pantry-dark-chocolate-bar-multi-pack",
@@ -4529,7 +5297,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Northgrain Pantry",
+    "rating": 3.4,
+    "review_count": 2434
   },
   {
     "slug": "wildroot-protein-powder-2lb",
@@ -4546,7 +5317,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Wildroot",
+    "rating": 4.8,
+    "review_count": 549
   },
   {
     "slug": "meadowbrook-tri-colour-quinoa-32oz",
@@ -4563,7 +5337,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Meadowbrook",
+    "rating": 4.1,
+    "review_count": 3921
   },
   {
     "slug": "autopeak-car-phone-mount",
@@ -4580,7 +5357,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Autopeak",
+    "rating": 3.2,
+    "review_count": 1383
   },
   {
     "slug": "torquewell-microfiber-detailing-towels-12-pack",
@@ -4597,7 +5377,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Torquewell",
+    "rating": 4.2,
+    "review_count": 248
   },
   {
     "slug": "roadgrip-12v-portable-tire-inflator-pro",
@@ -4614,7 +5397,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Roadgrip",
+    "rating": 4,
+    "review_count": 224
   },
   {
     "slug": "autopeak-night-vision-1080p-dash-cam-pro",
@@ -4631,7 +5417,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Autopeak",
+    "rating": 4.2,
+    "review_count": 3445
   },
   {
     "slug": "torquewell-all-weather-floor-mats",
@@ -4648,7 +5437,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": true
+    "low_stock": true,
+    "brand": "Torquewell",
+    "rating": 4.2,
+    "review_count": 821
   },
   {
     "slug": "autopeak-handheld-car-vacuum",
@@ -4665,7 +5457,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Autopeak",
+    "rating": 4.8,
+    "review_count": 5318
   },
   {
     "slug": "driftline-12v-jump-starter-power-pack-xl",
@@ -4682,7 +5477,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Driftline",
+    "rating": 4.9,
+    "review_count": 2632
   },
   {
     "slug": "autopeak-windshield-sun-shade",
@@ -4699,7 +5497,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Autopeak",
+    "rating": 3.3,
+    "review_count": 492
   },
   {
     "slug": "driftline-long-lasting-ceramic-car-wax-kit",
@@ -4716,7 +5517,10 @@
     ],
     "fit_notes": null,
     "in_stock": false,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Driftline",
+    "rating": 3.8,
+    "review_count": 2855
   },
   {
     "slug": "trailhitch-magnetic-car-phone-mount-xl",
@@ -4733,7 +5537,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Trailhitch",
+    "rating": 4,
+    "review_count": 329
   },
   {
     "slug": "ironclad-microfiber-detailing-towels-12-pack-max",
@@ -4750,7 +5557,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": true
+    "low_stock": true,
+    "brand": "Ironclad",
+    "rating": 4.4,
+    "review_count": 1409
   },
   {
     "slug": "trailhitch-portable-tire-inflator",
@@ -4767,7 +5577,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Trailhitch",
+    "rating": 3.6,
+    "review_count": 933
   },
   {
     "slug": "trailhitch-loop-recording-1080p-dash-cam",
@@ -4784,7 +5597,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Trailhitch",
+    "rating": 3.4,
+    "review_count": 162
   },
   {
     "slug": "torquewell-heavy-duty-all-weather-floor-mats",
@@ -4801,7 +5617,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Torquewell",
+    "rating": 4.4,
+    "review_count": 1560
   },
   {
     "slug": "ironclad-cordless-handheld-car-vacuum",
@@ -4818,7 +5637,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Ironclad",
+    "rating": 4.2,
+    "review_count": 1285
   },
   {
     "slug": "torquewell-portable-jump-starter-power-pack-max",
@@ -4835,7 +5657,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Torquewell",
+    "rating": 3.9,
+    "review_count": 3375
   },
   {
     "slug": "torquewell-universal-fit-car-seat-cover-pair-xl",
@@ -4852,7 +5677,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Torquewell",
+    "rating": 3.3,
+    "review_count": 1889
   },
   {
     "slug": "driftline-windshield-sun-shade-pro",
@@ -4869,7 +5697,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Driftline",
+    "rating": 4.4,
+    "review_count": 728
   },
   {
     "slug": "autopeak-ceramic-car-wax-kit-max",
@@ -4886,7 +5717,10 @@
     ],
     "fit_notes": null,
     "in_stock": false,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Autopeak",
+    "rating": 4.2,
+    "review_count": 4315
   },
   {
     "slug": "autopeak-magnetic-car-phone-mount-max",
@@ -4903,7 +5737,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Autopeak",
+    "rating": 4.7,
+    "review_count": 2919
   },
   {
     "slug": "trailhitch-lint-free-microfiber-detailing-towels-12-pack-xl",
@@ -4920,7 +5757,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Trailhitch",
+    "rating": 4.7,
+    "review_count": 144
   },
   {
     "slug": "driftline-portable-tire-inflator",
@@ -4937,7 +5777,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Driftline",
+    "rating": 4.6,
+    "review_count": 3335
   },
   {
     "slug": "ironclad-loop-recording-1080p-dash-cam-max",
@@ -4954,7 +5797,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Ironclad",
+    "rating": 3.3,
+    "review_count": 74
   },
   {
     "slug": "torquewell-heavy-duty-all-weather-floor-mats-pro",
@@ -4971,7 +5817,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Torquewell",
+    "rating": 4.7,
+    "review_count": 2460
   },
   {
     "slug": "torquewell-handheld-car-vacuum",
@@ -4988,7 +5837,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Torquewell",
+    "rating": 4.7,
+    "review_count": 4397
   },
   {
     "slug": "torquewell-portable-jump-starter-power-pack",
@@ -5005,7 +5857,10 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Torquewell",
+    "rating": 4.4,
+    "review_count": 572
   },
   {
     "slug": "driftline-car-seat-cover-pair",
@@ -5022,6 +5877,9 @@
     ],
     "fit_notes": null,
     "in_stock": true,
-    "low_stock": false
+    "low_stock": false,
+    "brand": "Driftline",
+    "rating": 3.7,
+    "review_count": 1707
   }
 ]

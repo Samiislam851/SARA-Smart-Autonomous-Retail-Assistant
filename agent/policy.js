@@ -28,6 +28,14 @@ import { classifyStaleContext, liveProduct } from "./stale.js";
 export const COOLDOWN_MS = defaultPolicyConfig.cooldownMs;
 
 const STYLES = new Set(["pulse", "outline"]);
+
+// Guard B (same-CTA-already-offered) time window — see the guard's own
+// comment below. 10 minutes: long enough that a rapid repeat proposal
+// (the actual defect this guard exists for) is still caught, short enough
+// that a shopper who comes back to the same product later in a long
+// session can be re-offered the same real fact instead of being silently
+// blocked for the rest of the session.
+const RECENT_CTA_WINDOW_MS = 10 * 60 * 1000;
 // Fixed-short-effect-lifetime defect class: a live decider takes 15-22s
 // (claude CLI); the old 8000/8000/10000ms defaults could expire entirely
 // inside a shopper's wait for the effect to even land, making the
@@ -338,6 +346,19 @@ export function applyPolicy(session, state, proposed, opts = {}) {
       }
     }
 
+    // Suppress-after-dismiss (docs/BEHAVIOR-MATRIX.md, AGENT_SUPPRESS_AFTER_
+    // DISMISS): the SAME card template must never re-show once the shopper
+    // has dismissed it this session — checked here (before render strips
+    // the template id off a fresh proposal, same ordering constraint as the
+    // anchor-fallback block above) so a repeat template is denied outright
+    // rather than rendered and then denied downstream. session.
+    // dismissedTemplates is populated by index.js's handleOutcomeEvent() on
+    // an outcome:"dismiss" whose action carried a template id (see
+    // contracts.js's agent_outcome.meta.template doc comment).
+    if (config.suppressAfterDismiss && templateIdForAnchor && session.dismissedTemplates?.has(templateIdForAnchor)) {
+      return denied(normalized, `suppressed:dismissed_template (${templateIdForAnchor})`);
+    }
+
     // Card templates: render {template, slots} into {title, body} BEFORE
     // any other guard runs, so every downstream check (length/shape/cta
     // realness in checkViolation) sees a plain rendered card exactly like
@@ -347,7 +368,20 @@ export function applyPolicy(session, state, proposed, opts = {}) {
     if (action.action === "card" && action.card?.template) {
       const rendered = renderCard(action.card, state);
       if (!rendered.ok) return denied(normalized, rendered.reason);
-      action.card = { title: rendered.title, body: rendered.body, cta: action.card.cta };
+      // template id is kept (not just render input) so it can flow out on
+      // the wire (index.js's actionMessage()) for the widget to echo back
+      // in agent_outcome.meta.template — that's what lets
+      // AGENT_SUPPRESS_AFTER_DISMISS (checked above, in the
+      // dismissed-template block) suppress the SAME template next time.
+      action.card = { title: rendered.title, body: rendered.body, cta: action.card.cta, template: action.card.template };
+      // slot_autofilled:<name> (2026-09-12 live-run fix) — a fact slot the
+      // model paraphrased past exact/fuzzy grounding got its text replaced
+      // by a canonical store fact (templates.js's resolveFactSource());
+      // surfaced on the trace so this is observable, not silent.
+      if (Array.isArray(rendered.autofilled) && rendered.autofilled.length > 0) {
+        trace.signals = Array.isArray(trace.signals) ? trace.signals.slice() : [];
+        for (const name of rendered.autofilled) trace.signals.push(`slot_autofilled:${name}`);
+      }
     }
 
     const reason = checkViolation(session, state, action, trace, opts, config);
@@ -370,6 +404,7 @@ export function applyPolicy(session, state, proposed, opts = {}) {
       // {kind:"pick_size", value:"L"}) — "never same TARGET" alone let that
       // through and burned the session's nudge budget on a repeat. Found
       // live 2026-09-11 (session s_kmtgye1g).
+      session.actionsThisPageview = (session.actionsThisPageview ?? 0) + 1;
       if (action.action === "card" && action.card?.cta) {
         session.recentCtas = session.recentCtas ?? [];
         session.recentCtas.push({
@@ -392,7 +427,10 @@ export function applyPolicy(session, state, proposed, opts = {}) {
 //   (snapshot) → target-on-current-page (live re-check, guard A) →
 //   deny-targets → min-confidence → cooldown → never-same-target →
 //   same-CTA-already-offered (guard B) → on-screen quiet period (guard C)
+//   → payment-step suppression → post-cta suppression → per-pageview cap
 //   → nudge budget.
+// (dismissed-template suppression, guard D, runs earlier in applyPolicy()
+// itself — before template render — see the comment there.)
 function checkViolation(session, state, action, trace, opts = {}, config = defaultPolicyConfig) {
   if (!action || !ACTIONS.includes(action.action)) {
     return "invalid action type";
@@ -531,10 +569,24 @@ function checkViolation(session, state, action, trace, opts = {}, config = defau
   // {kind:"pick_size", value:"L"}) and slip past actedTargets entirely.
   // Found live 2026-09-11 (session s_kmtgye1g) — it burned the 3-per-session
   // budget on a repeat, leaving nothing for later. session.recentCtas is
-  // populated in applyPolicy() only when a `card` action actually passes.
+  // populated in applyPolicy() only when a `card` action actually passes
+  // (i.e. was actually SHOWN/delivered) — never on a merely-proposed-then-
+  // denied card, so this guard was never blocking on a phantom offer.
+  //
+  // RECENT_CTA_WINDOW_MS (2026-09-12 live-run fix): the original guard had
+  // no time bound at all — a CTA shown once, any time earlier in a long
+  // session, blocked the exact same offer forever, even minutes/hours
+  // later when re-offering it would be entirely reasonable (the promo is
+  // still the best one, the shopper came back to the same product). Now
+  // only a CTA shown within this window counts as "already offered";
+  // recentCtas entries carry their own `ts` already (see the push() above)
+  // so this is a pure read-side filter, no new bookkeeping.
   if (action.action === "card" && Array.isArray(session.recentCtas) && action.card?.cta) {
     const { kind, value } = action.card.cta;
-    const dup = session.recentCtas.some((c) => c.kind === kind && c.value === value);
+    const now = Date.now();
+    const dup = session.recentCtas.some(
+      (c) => c.kind === kind && c.value === value && now - (c.ts ?? 0) < RECENT_CTA_WINDOW_MS
+    );
     if (dup) return `same CTA already offered (${kind} ${value})`;
   }
 
@@ -559,6 +611,40 @@ function checkViolation(session, state, action, trace, opts = {}, config = defau
     ) {
       return `on-screen quiet period active (${Math.round(quietMs / 1000)}s)`;
     }
+  }
+
+  // Payment-step suppression (docs/BEHAVIOR-MATRIX.md "mid checkout on the
+  // payment step specifically" — highest-stakes field-abandonment risk per
+  // Baymard). The storefront (web/app/checkout/page.tsx) has a single
+  // /checkout route with a payment-options section on it, not a distinct
+  // /checkout/payment route — so this matches the /checkout page itself
+  // (the only page payment happens on) rather than a literal
+  // "/checkout/payment" path. Traced the same way stale.js's
+  // stale_context:* denials are, as `suppressed:payment_step`.
+  const currentPagePath = currentPage(session);
+  if (currentPagePath && /^\/checkout(\/|$)/.test(currentPagePath)) {
+    return "suppressed:payment_step";
+  }
+
+  // Post-cta suppression (docs/BEHAVIOR-MATRIX.md "immediately after a cta
+  // outcome — let the resulting action complete first"): session.
+  // lastCtaOutcomeAt is set by index.js's handleOutcomeEvent() on an
+  // outcome:"cta" report. 3s fixed window (not merchant-configurable — this
+  // is a UX debounce, not a policy dial the brief asked to expose).
+  const POST_CTA_QUIET_MS = 3000;
+  if (session.lastCtaOutcomeAt && Date.now() - session.lastCtaOutcomeAt < POST_CTA_QUIET_MS) {
+    return "suppressed:post_cta";
+  }
+
+  // Per-pageview cap (docs/BEHAVIOR-MATRIX.md "Per-page cap"):
+  // session.actionsThisPageview counts non-noop actions since the last
+  // page_view (state.js pushEvent() resets it, applyPolicy() increments it
+  // on allow). -1 = unlimited.
+  if (
+    config.maxCardsPerPageview !== -1 &&
+    (session.actionsThisPageview ?? 0) >= config.maxCardsPerPageview
+  ) {
+    return `suppressed:page_cap (${config.maxCardsPerPageview})`;
   }
 
   // maxNudgesPerSession: -1 = unlimited (guard never fires); 0 = zero

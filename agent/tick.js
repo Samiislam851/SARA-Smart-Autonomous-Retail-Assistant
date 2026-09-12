@@ -39,7 +39,7 @@
 // for `lastDwellBuckets` — not hidden global state.
 
 import { bucketAttention, isPageDwellTarget } from "./buckets.js";
-import { computeSignals, consultFloorCheck, pageMomentCheck } from "./gate.js";
+import { computeSignals, consultFloorCheck, pageMomentCheck, pageFactCheck, undecidedCompareCheck } from "./gate.js";
 import { getSensitivityMultiplier } from "./policy-config.js"; // AGENT_SENSITIVITY: "demo" shrinks bucketAttention's boundaries so a dwell-bucket crossing (and thus a decider call) happens sooner
 
 const M = getSensitivityMultiplier();
@@ -116,6 +116,28 @@ export function shouldCallDecider(session, event, state) {
     breadthNoCommit: sig.breadthNoCommit.hit,
     cartLeave: sig.cartLeave.hit,
     returnAfterCart: sig.returnAfterCart.hit,
+    // Context-aware trigger signals (gate.js rules 13-20, added
+    // 2026-09-12) — without a flag here, tick.js's flagTrigger never
+    // notices these turned true and the event gets folded into a "quiet"
+    // tick before gate() (which DOES know these reasons) ever runs.
+    exitIntent: sig.exitIntent.hit,
+    atcHesitation: sig.atcHesitation.hit,
+    variantChurn: sig.variantChurn.hit,
+    promoFocusEmpty: sig.promoFocusEmpty.hit,
+    totalDwell: sig.totalDwell.hit,
+    searchRefine: sig.searchRefine.hit,
+    scrollUturn: sig.scrollUturn.hit,
+    idle: sig.idle.hit,
+    // page_fact / undecided_compare (2026-09-12 "richer scanned site
+    // context" brief) — same category-fix requirement as the comment
+    // above: without a flag here, a page_context event carrying a strong
+    // fact (or an undecided-comparer moment) gets folded into a "quiet"
+    // tick before gate() (which does know these reasons) ever runs. Both
+    // checks are pure reads here (the session-side "already fired"
+    // bookkeeping is only written by gate()'s own cascade), so calling them
+    // twice per event (once here, once in gate()) is side-effect-free.
+    pageFact: pageFactCheck(state, session, event).hit,
+    undecidedCompare: undecidedCompareCheck(state, session, now).hit,
   };
   const prevFlags = session.lastSignalFlags || {};
   const flagTrigger = Object.keys(flags).some((k) => flags[k] && !prevFlags[k]);

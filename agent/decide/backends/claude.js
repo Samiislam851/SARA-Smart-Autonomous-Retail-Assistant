@@ -30,7 +30,7 @@
 //
 // Nested-session note: the server process itself sometimes runs INSIDE a
 // Claude Code session (dev), which sets CLAUDECODE=1 in its env. Tested
-// in one run, a nested `claude -p` call SUCCEEDED even with CLAUDECODE=1 still
+// tonight: a nested `claude -p` call SUCCEEDED even with CLAUDECODE=1 still
 // set in the child's env (no refusal observed). We still strip it before
 // spawning as a no-cost defensive measure, in case a future CLI version
 // changes that behavior.

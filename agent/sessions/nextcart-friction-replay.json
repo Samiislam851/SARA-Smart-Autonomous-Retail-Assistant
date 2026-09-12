@@ -1,0 +1,191 @@
+{
+  "name": "nextcart-friction-replay",
+  "session": "fx_nc_friction_replay",
+  "description": "Task 5 verification replay (agent-storefront worker brief, currency/prompt/signals/executor pass): summit-trail-chino-pants-high on NextCart (site=nextcart), with variant switches (variant_churn), add-to-cart hesitation (atc_hesitation), a cart visit, and a promo-code focus/blur-empty (promo_focus_empty) — expects >=2 cards this session with gate signals attached (server/gate.js signalsForReason()), running under AGENT_SENSITIVITY=demo. Not part of check.sh's REQUIRED_STUB_FIXTURES (requires the real LLM loop, AGENT_MODE=llm) — run manually: node replay.js sessions/nextcart-friction-replay.json Extended 2026-09-12 (\"richer scanned site context\" brief) with two page_context events: a low-stock fact on the PDP (expects gate.js's page_fact signal, reason \"page fact: low_stock\", template low_stock_nudge) and a cart_summary on /cart (cart_economics grounding — NextCart's own policies.json free_over=0 means gapToFreeShipping is always 0 here, so no free_shipping_gap signal is expected on THIS site/fixture, only low_stock).",
+  "expect": [
+    {
+      "action": "card"
+    }
+  ],
+  "events": [
+    {
+      "delay_ms": 0,
+      "type": "page_view",
+      "target": "/p/summit-trail-chino-pants-high",
+      "meta": {
+        "site": "nextcart",
+        "targets": [
+          "add-to-cart",
+          "cart-link",
+          "price",
+          "product-title",
+          "promo-code",
+          "search-input",
+          "shipping-policy",
+          "size-option-SMALL",
+          "size-option-MEDIUM",
+          "size-option-LARGE",
+          "size-option-X-LARGE"
+        ]
+      }
+    },
+    {
+      "delay_ms": 500,
+      "type": "page_context",
+      "target": "/p/summit-trail-chino-pants-high",
+      "meta": {
+        "page_type": "product",
+        "product": {
+          "title": "Summit Trail Chino Pants High",
+          "price": 37.99,
+          "compareAt": null,
+          "currency": "$"
+        },
+        "variants": [
+          {
+            "name": "SMALL",
+            "available": true
+          },
+          {
+            "name": "MEDIUM",
+            "available": true
+          },
+          {
+            "name": "LARGE",
+            "available": true
+          },
+          {
+            "name": "X-LARGE",
+            "available": false
+          }
+        ],
+        "stock_text": "Only 2 left in stock",
+        "promo_present": false
+      }
+    },
+    {
+      "delay_ms": 1000,
+      "type": "dwell",
+      "target": "/p/summit-trail-chino-pants-high",
+      "meta": {
+        "ms": 3000
+      }
+    },
+    {
+      "delay_ms": 1000,
+      "type": "variant_switch",
+      "target": "size-option-MEDIUM",
+      "meta": {}
+    },
+    {
+      "delay_ms": 2000,
+      "type": "variant_switch",
+      "target": "size-option-LARGE",
+      "meta": {}
+    },
+    {
+      "delay_ms": 2000,
+      "type": "variant_switch",
+      "target": "size-option-X-LARGE",
+      "meta": {}
+    },
+    {
+      "delay_ms": 2000,
+      "type": "dwell",
+      "target": "/p/summit-trail-chino-pants-high",
+      "meta": {
+        "ms": 9000
+      }
+    },
+    {
+      "delay_ms": 3000,
+      "type": "atc_hesitation",
+      "target": "add-to-cart",
+      "meta": {
+        "hovers": 2
+      }
+    },
+    {
+      "delay_ms": 2000,
+      "type": "cart_update",
+      "target": "cart-add",
+      "meta": {
+        "total": 75.98,
+        "items": [
+          {
+            "name": "Summit Trail Chino Pants High",
+            "variant": "Large",
+            "quantity": 2,
+            "price": 37.99
+          }
+        ]
+      }
+    },
+    {
+      "delay_ms": 1000,
+      "type": "page_view",
+      "target": "/cart",
+      "meta": {
+        "site": "nextcart",
+        "targets": [
+          "cart-link",
+          "cart-total",
+          "checkout-btn",
+          "promo-code",
+          "search-input"
+        ]
+      }
+    },
+    {
+      "delay_ms": 500,
+      "type": "page_context",
+      "target": "/cart",
+      "meta": {
+        "page_type": "cart",
+        "cart_summary": {
+          "total": "$75.98",
+          "shipping": "free",
+          "discountLine": null
+        },
+        "promo_present": false
+      }
+    },
+    {
+      "delay_ms": 1000,
+      "type": "dwell",
+      "target": "/cart",
+      "meta": {
+        "ms": 4000
+      }
+    },
+    {
+      "delay_ms": 1000,
+      "type": "dwell",
+      "target": "promo-code",
+      "meta": {
+        "ms": 3000,
+        "kind": "attention",
+        "interactions": {
+          "focus_ms": 3000,
+          "clicks": 1
+        }
+      }
+    },
+    {
+      "delay_ms": 1000,
+      "type": "promo_focus_blur",
+      "target": "promo-code",
+      "meta": {
+        "empty": true
+      }
+    },
+    {
+      "delay_ms": 2000,
+      "type": "dwell",
+      "target": "/cart",
+      "meta": {
+        "ms": 9000
+      }
+    }
+  ]
+}

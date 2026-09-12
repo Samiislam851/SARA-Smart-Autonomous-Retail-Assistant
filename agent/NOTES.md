@@ -77,11 +77,11 @@ process-group kill on timeout. Each backend is its own module under `decide/back
 `LLM_BACKEND` selects via a small registry (also holds each backend's default
 model/timeout, overridable by `LLM_MODEL`/`LLM_TIMEOUT_MS`).
 
-| backend | auth | latency observed (this machine) | quota/cost notes | tested in this pass |
+| backend | auth | latency observed (this machine) | quota/cost notes | tested tonight |
 |---|---|---|---|---|
 | `codex` (default) | local `codex` CLi, ChatGPT/API auth via `~/.codex` | 10.4–15.0s (5-call probe, `gpt-6-astra`) | personal ChatGPT auth hit a daily usage-limit wall after ~30 calls in an earlier pass | not re-run this pass (quota); code path untouched except the shared shell runner |
 | `claude` | local `claude -p` CLI, `~/.claude` login (OAuth or API key) | 14.0–30.1s (5-call direct probe: min 14015ms / median 23072ms / max 30087ms, one hit the 30s default timeout) | Claude Code subscription/API usage; `--no-session-persistence` avoids leaving resumable sessions on disk per call | **yes** — see "claude backend measurement" below |
-| `openai` | `OPENAI_API_KEY` bearer to `OPENAI_BASE_URL` — covers **OpenAI itself, OpenRouter, or a local Ollama server** (any OpenAI-chat-completions-compatible endpoint) by pointing `OPENAI_BASE_URL` at it | 61.9s/call (`qwen2.5:3b` on Ollama, CPU) — see "Run status" below | free (local Ollama) or metered per the endpoint | tested in an earlier pass against Ollama, not re-run since |
+| `openai` | `OPENAI_API_KEY` bearer to `OPENAI_BASE_URL` — covers **OpenAI itself, OpenRouter, or a local Ollama server** (any OpenAI-chat-completions-compatible endpoint) by pointing `OPENAI_BASE_URL` at it | 61.9s/call (`qwen2.5:3b` on Ollama, CPU) — see "Run status" below | free (local Ollama) or metered per the endpoint | tested in an earlier pass against Ollama, not re-run tonight |
 | `anthropic` | `@anthropic-ai/sdk`, resolves `ANTHROPIC_API_KEY` or an `ant auth login` profile | n/a — no key on this machine | untested-live; code path + auth-failure noop verified (see below) | **no** (no key) |
 | `gemini` | `@google/genai` SDK, resolves `GEMINI_API_KEY` or `GOOGLE_API_KEY` | n/a — no key on this machine | untested-live; code path + auth-failure noop verified (see below); exact model id `gemini-2.5-flash-lite` NOT confirmed against a live `models.list()` — do that first once a key is available | **no** (no key) |
 
@@ -110,7 +110,7 @@ model/timeout, overridable by `LLM_MODEL`/`LLM_TIMEOUT_MS`).
   under Anthropic pricing), `usage.output_tokens` as `tokensOut`; chars/4 estimate only if
   `usage` is absent entirely. Nested-session note: the server process itself sometimes
   runs INSIDE a Claude Code session (dev), setting `CLAUDECODE=1` in its env — tested
-  in one run, a nested `claude -p` call **succeeded even with `CLAUDECODE=1` still set** (no
+  tonight, a nested `claude -p` call **succeeded even with `CLAUDECODE=1` still set** (no
   refusal observed); the backend strips it from the child's env anyway as a no-cost
   defensive measure in case a future CLI version changes that behavior.
 - **openai**: `decide/backends/openai.js`, moved unchanged out of `decide/llm.js`. Plain
@@ -147,7 +147,7 @@ model/timeout, overridable by `LLM_MODEL`/`LLM_TIMEOUT_MS`).
   itself is unchanged. Errors mapped separately per the brief:
   `Anthropic.RateLimitError` → `"rate limited"`, `Anthropic.APIConnectionError` →
   `"connection failed"`, `Anthropic.AuthenticationError` (401) → `"auth"`, any other
-  `Anthropic.APIError` → `"api error <status>"`. **Verified**: with no
+  `Anthropic.APIError` → `"api error <status>"`. **Verified tonight**: with no
   `ANTHROPIC_API_KEY` configured, the SDK throws a plain `Error` (NOT an
   `AuthenticationError`/`APIError` instance — no HTTP call is even attempted) with
   message `"Could not resolve authentication method. Expected one of apiKey, authToken,
@@ -173,7 +173,7 @@ model/timeout, overridable by `LLM_MODEL`/`LLM_TIMEOUT_MS`).
   dialect). `prompts/schema.json` itself is unchanged. Errors: an `ApiError` (SDK's own
   error class) with status 401/403 → `"auth"`, status 429 → `"rate limited"`; a
   credentials-resolution failure that happens BEFORE any HTTP call (see below) is
-  pattern-matched the same way as the anthropic backend. **Verified**: with no
+  pattern-matched the same way as the anthropic backend. **Verified tonight**: with no
   key configured, the SDK does NOT throw at construction — it falls through to
   Application Default Credentials and `generateContent()` throws a plain `Error`,
   `"Could not load the default credentials. Browse to
@@ -189,7 +189,7 @@ model/timeout, overridable by `LLM_MODEL`/`LLM_TIMEOUT_MS`).
 ### claude backend measurement (M4 pass, 2026-09-11)
 
 `AGENT_MODE=llm LLM_BACKEND=claude AGENT_METRICS_RESET=1 PORT=5100 node index.js` +
-`node replay.js sessions/*.json --speed 2 --settle 30000`, run twice (first before,
+`node replay.js sessions/*.json --speed 2 --settle 30000`, run twice tonight (first before,
 second after `sessions/cart-threshold.json`'s `expect` was updated elsewhere during this
 session to a single `{action:"message", target:"shipping-banner"}` — resolving the "Open
 decision" above via option (b): the widget now scrolls to a `message` action's target
@@ -242,7 +242,7 @@ Claude Code CLI as a backend for this workload," not as what a Claude API deploy
 the same prompt would cost.
 
 A true cache-cold vs cache-warm pair (two separate server processes, per the "Cost
-design" recipe below) was not additionally re-run — this single `claude-cold` row
+design" recipe below) was not additionally run tonight — this single `claude-cold` row
 is the one saved to `metrics-runs/claude-cold-*.json`; treat `tokens/call: in=25628` as
 dominated by the CLI harness overhead above (not `prompts/decide.md` + state JSON) and
 by Claude's own prompt caching re-creating the harness's cache entry on nearly every
@@ -1433,7 +1433,7 @@ server/*.test.js` 7/7, `bash scripts/check.sh` PASS. **Not built**: the web
 search box (`web/components/Nav.tsx`) is decorative — it never computes
 `meta.results`, so this whole chain is currently unreachable from a real
 browser session until the client gets an actual product search (see
-this doc).
+`NOTES.md` §7).
 
 ## 2026-09-12 — card templates + stale-response guard
 
@@ -1558,7 +1558,7 @@ quiet.
 **Not built**: `web/lib/contracts.ts`'s `AgentCard` wire type is
 deliberately UNCHANGED — templating resolves to plain `{title, body, cta}`
 entirely server-side before broadcast, so the widget never needs to know
-templates exist. NOTES.md updated.
+templates exist. `NOTES.md` §2/§7 updated.
 
 ## 2026-09-12: shopper-pattern signals (me_1 defect class)
 
@@ -1842,7 +1842,7 @@ so this fix touches none of check.sh's fixture-replay assertions); every
 Files touched: `server/gate.js`, `server/tick.js`, `server/policy-config.js`
 (one new knob, `getConsultFloorMs()`), `server/gate.test.js`,
 `server/replay-count.test.js`, `.env.example`, `docker-compose.yml`,
-`server/POLICY.md`, this section. **Not browser-verified**
+`server/POLICY.md`, `NOTES.md` §7, this section. **Not browser-verified**
 — ready for browser verification, needs a server image rebuild first.
 
 ## Restraint-over-acting / structurally-impossible cards / missing moments (2026-09-12)
@@ -1960,7 +1960,7 @@ route classification.
   from a live call) — this is a live-latency/prompt-salience tuning gap,
   not a code defect. `decide.md` now explicitly tells the model to check
   `patterns.checkoutBounce` by name first; a lower-latency backend (API key
-  instead of CLI shell-out) would very likely close this (see git history for prior notes)
+  instead of CLI shell-out, see `NOTES.md`) would very likely close this
   by letting more real calls land in the same wall-clock window.
 - `server/sessions/nextcart-search-fix.json` (new) — condensed from
   `server/sessions/samples/final_nc_1219732343.json`, a POSITIVE case (the
@@ -2006,7 +2006,7 @@ nextcart/policies.json` (new `routes` blocks), `server/templates.test.js`,
 `server/sessions/zero-result-search.json` (description only),
 `server/sessions/samples/final_tm_242431.json` (new, raw dump),
 `server/sessions/samples/final_nc_1219732343.json` (new, raw dump),
-**Not browser-verified** — ready for browser
+`NOTES.md` §7. **Not browser-verified** — ready for browser
 verification, needs a server image rebuild first (this pass only ran
 against a bare `node index.js` on port 4810, never Docker/3000/4000/3800/
 3801/8081).

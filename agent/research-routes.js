@@ -20,6 +20,45 @@ import * as metrics from "./metrics.js";
 import { log } from "./log.js";
 import { readLiveRecord, listLiveSessionIds, persistRecord } from "./live-record.js";
 import { OUTCOME_KINDS } from "./contracts.js";
+import * as persist from "./persist.js";
+
+/** dbRecordToLiveShape({session, events, decisions, outcomes}) — reshape a
+ * server/persist.js getSession() result into the same {session, startedAt,
+ * lastAt, events, decisions, labels, outcomes} shape live-record.js's files
+ * use, so summarizeSession()/toFixture() and the /sessions/:id route below
+ * work unmodified whether the record came from a live-record file or Mongo
+ * (server/OPS.md "Persistence" — the DB fallback exists for exactly this:
+ * research pages surviving a restart when the in-memory/file copy is gone). */
+function dbRecordToLiveShape(dbRec) {
+  const { session, events, decisions, outcomes } = dbRec;
+  return {
+    session: session.session,
+    startedAt: session.firstSeen ?? null,
+    lastAt: session.lastSeen ?? null,
+    events: (events || []).map((e) => ({ i: e.i, ts: e.ts, type: e.type, target: e.target, meta: e.meta, replay: e.replay })),
+    decisions: (decisions || []).map((d) => ({
+      ts: d.ts,
+      eventIndex: d.eventIndex,
+      trigger: d.trigger,
+      decided: d.decided,
+      reason: d.reason,
+      ms: d.ms,
+      action: d.action,
+      trace: d.trace,
+      delivered: d.delivered,
+    })),
+    labels: [],
+    outcomes: (outcomes || []).map((o) => ({
+      action_id: o.action_id,
+      action: o.action,
+      target: o.target,
+      cta_kind: o.cta_kind,
+      outcome: o.outcome,
+      ms_visible: o.ms_visible,
+      ts: o.ts,
+    })),
+  };
+}
 
 const MAX_JOBS = 50;
 const MAX_LABEL_NOTE_LEN = 200;
@@ -144,12 +183,42 @@ export function createResearchRouter({
 }) {
   const router = express.Router();
 
-  router.get("/sessions", (req, res) => {
+  router.get("/sessions", async (req, res) => {
     const limit = Math.min(500, Math.max(1, Number(req.query.limit) || 50));
     const ids = listLiveSessionIds();
     const recs = ids.map(readLiveRecord).filter(Boolean);
+    // DB fallback (server/persist.js, server/OPS.md "Persistence"): memory
+    // first, then DB — add any DB session not already covered by a
+    // live-record file (e.g. after a restart with no local file, or a
+    // shorter live-record retention window than the DB's), so /sessions
+    // survives a restart when AGENT_DB_URI is set. listSessions() is [] and
+    // this is a no-op when persistence is off or unreachable.
+    if (persist.isEnabled()) {
+      const seen = new Set(recs.map((r) => r.session));
+      const dbSummaries = await persist.listSessions({ limit });
+      for (const s of dbSummaries) {
+        if (seen.has(s.session)) continue;
+        // Already in summarizeSession()'s OUTPUT shape (not its input shape
+        // — DB-only rows have no event/decision arrays to summarize from,
+        // just the sessions-collection counts), tagged so the .map() below
+        // passes it straight through instead of re-summarizing it.
+        recs.push({
+          __dbSummary: true,
+          session: s.session,
+          startedAt: s.firstSeen ?? null,
+          lastAt: s.lastSeen ?? s.updatedAt ?? null,
+          events: s.eventCount ?? 0,
+          decisions: s.decisionCount ?? 0,
+          interventions: 0,
+          pages: s.lastPage ? [s.lastPage] : [],
+          labels: [],
+          lastDecision: null,
+          outcomes: emptyOutcomeCounts(),
+        });
+      }
+    }
     recs.sort((a, b) => (b.lastAt ?? 0) - (a.lastAt ?? 0));
-    res.json(recs.slice(0, limit).map(summarizeSession));
+    res.json(recs.slice(0, limit).map((r) => (r.__dbSummary ? r : summarizeSession(r))));
   });
 
   // GET /sessions/stats — aggregate outcome rates across every recorded
@@ -213,8 +282,18 @@ export function createResearchRouter({
     });
   });
 
-  router.get("/sessions/:id", (req, res) => {
-    const rec = readLiveRecord(req.params.id);
+  router.get("/sessions/:id", async (req, res) => {
+    let rec = readLiveRecord(req.params.id);
+    // DB fallback (server/persist.js, server/OPS.md "Persistence"): memory/
+    // file first, then DB — a session with no live-record file (e.g. the
+    // process restarted since it was recorded, or AGENT_LIVE_RECORD wasn't
+    // set when it happened) can still be served from Mongo when
+    // AGENT_DB_URI is set. No-op (returns null) when persistence is off or
+    // unreachable, so this falls straight through to the existing 404.
+    if (!rec && persist.isEnabled()) {
+      const dbRec = await persist.getSession(req.params.id);
+      if (dbRec) rec = dbRecordToLiveShape(dbRec);
+    }
     if (!rec) return res.status(404).json({ error: "no such recorded session" });
     // Outcomes (server/RESEARCH.md "Outcomes" section): join each decision
     // to its outcome by action id — computed on read, never persisted onto

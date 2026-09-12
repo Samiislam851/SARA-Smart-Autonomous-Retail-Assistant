@@ -33,12 +33,13 @@ import {
   resetSession,
 } from "./state.js";
 import { applyPolicy } from "./policy.js";
+import { policyConfig } from "./policy-config.js";
 import { decide } from "./decide/index.js";
 import { record as recordCached, hasRecording } from "./decide/cached.js";
 import { clearSessionInflight } from "./decide/llm.js";
 import { FIXTURE_NAME_RE, loadFixture, listFixtureNames, fixtureDurationMs, verifyRecording } from "./demo-play.js";
 import { shouldCallDecider } from "./tick.js";
-import { gate } from "./gate.js";
+import { gate, signalsForReason } from "./gate.js";
 import * as metrics from "./metrics.js";
 import { log, recent as recentLogs } from "./log.js";
 import { createHealthRouter } from "./health.js";
@@ -47,6 +48,7 @@ import { inflightCount, withInflight } from "./inflight.js";
 import { recordEvent, recordDecision, recordOutcome, lastEventIndex } from "./live-record.js";
 import { computeContextFingerprint } from "./stale.js";
 import { createResearchRouter } from "./research-routes.js";
+import * as persist from "./persist.js";
 
 // Last-resort safety net: any throw/rejection that slips past every local
 // try/catch and per-promise handler in this codebase (a bug we didn't
@@ -75,6 +77,15 @@ const AGENT_MAX_INFLIGHT = Number(process.env.AGENT_MAX_INFLIGHT) || 32;
 const AGENT_MAX_SESSIONS = Number(process.env.AGENT_MAX_SESSIONS) || 5000;
 const SOCKETS_PER_SESSION_MAX = 5;
 const WS_PING_INTERVAL_MS = 30_000;
+
+// Optional durable persistence (server/persist.js, server/OPS.md
+// "Persistence") — off unless AGENT_DB_URI is set. Fire-and-forget: never
+// awaited on the request/decision path, degrades to a single warning log on
+// a Mongo outage rather than blocking or crashing (see persist.js).
+const AGENT_DB_URI = process.env.AGENT_DB_URI || "";
+if (AGENT_DB_URI) {
+  persist.init(AGENT_DB_URI).catch((err) => log.warn("persist: init failed", { err: String(err?.message ?? err) }));
+}
 
 // ---- http + ws -------------------------------------------------------------
 
@@ -198,6 +209,13 @@ function actionMessage(action) {
     message: action.message,
     card: action.card ?? null,
     id: action.id ?? null,
+    // card_ttl_ms (frequency-control brief, 2026-09-12): merchant policy
+    // knob (AGENT_CARD_TTL_MS), not decider-controlled — sent alongside a
+    // card action so agent.js's auto-collapse-into-tray timer reads one
+    // number from one source instead of hardcoding its own default that can
+    // drift from the server's. null for every other action type (nothing to
+    // collapse).
+    card_ttl_ms: action.action === "card" ? policyConfig.cardTtlMs : null,
   };
 }
 
@@ -430,9 +448,15 @@ function deriveReason({ callDecider, skipReason, trace, mode }) {
   }
   if (trace?.why?.startsWith("(cached)")) return "cache";
   if (trace?.why?.includes("(guard:")) return "guard";
+  // Fallback decider (server/decide/fallback.js) ran — either llm mode's own
+  // failure path called it (trace.why starts "fallback: llm_<reason>"), or
+  // AGENT_MODE=fallback picked it directly. Checked before the mode-name
+  // branches below so a fallback-produced trace never reports as "llm".
+  if (trace?.why?.startsWith("fallback:")) return "fallback";
   if (mode === "stub") return "stub";
   if (mode === "cached") return "cached";
   if (mode === "llm") return "llm";
+  if (mode === "fallback") return "fallback";
   return "unknown";
 }
 
@@ -463,6 +487,26 @@ function processEventCore(ev, opts = {}) {
   // session's live-recording file, if recording is on and this isn't a
   // fx_*/rp_* synthetic session — see live-record.js's module comment.
   recordEvent(ev, { replay: Boolean(opts.replay) });
+  // Durable mirror (server/persist.js, no-op unless AGENT_DB_URI set):
+  // fire-and-forget, never awaited — must never add latency to POST /event.
+  persist.saveEvent(ev.session, {
+    i: session.events.length - 1,
+    ts: ev.ts,
+    type: ev.type,
+    target: ev.target ?? null,
+    meta: ev.meta ?? null,
+    replay: Boolean(opts.replay),
+  }).catch((err) => log.warn("persist.saveEvent failed", { session: ev.session, err: String(err?.message ?? err) }));
+  {
+    const summary = { site: session.site || "default", eventCount: session.events.length };
+    // Only set lastPage on an actual page_view — omitting the key (rather
+    // than passing undefined/null) on every other event type preserves the
+    // last known page instead of clobbering it via Mongo's $set.
+    if (ev.type === "page_view") summary.lastPage = ev.target ?? null;
+    persist
+      .upsertSession(ev.session, summary)
+      .catch((err) => log.warn("persist.upsertSession failed", { session: ev.session, err: String(err?.message ?? err) }));
+  }
   // A page_view is a hard per-page boundary for dwell-bucket history
   // (tick.js's session.lastDwellBuckets, keyed by dwell "subject" —
   // "__page__" or a target name). Without this reset, a target name reused
@@ -569,6 +613,14 @@ async function decideAndBroadcast(session, ev, opts = {}) {
 
     let callDecider = true;
     let skipReason = null;
+    // The gate.js reason that let this call through (rules 13-20's
+    // context-aware triggers/idle) — captured here (gate() itself isn't
+    // re-run once callDecider stays true) so it can be attached to the
+    // FRESH state rebuilt right before decide() below (server/gate.js's
+    // signalsForReason(), server/NOTES.md "generic reasons in the log"
+    // defect class: server.log/the trace panel used to show only
+    // "reason: llm", never which behavioral signal triggered the call).
+    let gatePassSignals = [];
     // opts.force (research loop's POST /session/:id/decide — see
     // research-routes.js) bypasses tick.js's quiet-tick check AND gate.js's
     // layer-0 gate, same as bypassThrottle above, WITHOUT touching
@@ -586,6 +638,8 @@ async function decideAndBroadcast(session, ev, opts = {}) {
           callDecider = false;
           skipReason = `gated: ${g.reason}`;
           metrics.inc("gated");
+        } else {
+          gatePassSignals = signalsForReason(g.reason);
         }
       }
     }
@@ -638,6 +692,13 @@ async function decideAndBroadcast(session, ev, opts = {}) {
       // the coalesced path) while we waited. The decider must see the
       // CURRENT state, not whatever was true when this cycle started.
       state = buildState(session);
+      // Signals that let this call through the gate (empty for a
+      // bypassThrottle/forced call, or a call let through only by the
+      // consult floor/page_moment/quiet-tick-bypass paths, which don't name
+      // a single context-aware trigger) — read by decide/llm.js to build
+      // the AGENT_SENSITIVITY=demo prompt block (signals_fired/for_signals)
+      // and copied onto trace.signals below for observability.
+      state.gateSignals = gatePassSignals;
       session.lastDeciderAt = Date.now();
       // Stale-response guard (server/stale.js): captured HERE, the moment
       // this decision starts being computed against "now" — the decider
@@ -706,12 +767,21 @@ async function decideAndBroadcast(session, ev, opts = {}) {
   // decision entry should say so, not whatever llm/stub/cache/etc. the
   // decider happened to run under.
   const reason = opts.reasonLabel ?? deriveReason({ callDecider, skipReason, trace, mode: AGENT_MODE });
+  // Semantic trace (server/NOTES.md "generic reasons in the log" defect
+  // class): server.log used to show only the generic `reason`
+  // (gate|guard|llm|quiet), never WHICH behavioral signal triggered the
+  // model call — `state.gateSignals` (set above, from gate.js's
+  // signalsForReason()) names it, e.g. "variant_churn" for a call let
+  // through by rule 15. Empty for a floor/page_moment/quiet-tick/forced
+  // call — those don't name a single context-aware trigger.
+  const signals = (state.gateSignals || []).map((s) => s.name);
 
   log.info("decision", {
     session: ev.session,
     event: ev.type,
     decided,
     reason,
+    signals,
     ms,
   });
 
@@ -727,11 +797,39 @@ async function decideAndBroadcast(session, ev, opts = {}) {
     trigger: ev.type,
     decided,
     reason,
+    signals,
     ms,
     action,
     trace,
     delivered: action.action !== "noop",
   });
+
+  // Durable mirror (server/persist.js, no-op unless AGENT_DB_URI set): this
+  // is the single choke point where every decision cycle's trace record is
+  // produced, whether callDecider ran or a quiet-tick/gate/overload skip
+  // built the noop trace above — same record recordDecision() just got,
+  // plus model/backend so a restarted process can still tell which decider
+  // produced it. Fire-and-forget, never awaited.
+  persist
+    .saveDecision(ev.session, {
+      ts: trace.ts ?? Date.now(),
+      eventIndex: lastEventIndex(ev.session),
+      trigger: ev.type,
+      decided,
+      reason,
+      signals,
+      ms,
+      action,
+      trace,
+      delivered: action.action !== "noop",
+      mode: AGENT_MODE,
+      model: process.env.LLM_MODEL || null,
+      page: state.page ?? null,
+    })
+    .catch((err) => log.warn("persist.saveDecision failed", { session: ev.session, err: String(err?.message ?? err) }));
+  persist
+    .upsertSession(ev.session, { site: session.site || "default", decisionCount: (session.decisionCount = (session.decisionCount || 0) + 1) })
+    .catch((err) => log.warn("persist.upsertSession (decision) failed", { session: ev.session, err: String(err?.message ?? err) }));
 
   return { action, trace, reason, ms };
   } finally {
@@ -842,6 +940,36 @@ function handleOutcomeEvent(ev, res) {
   };
   const { recorded, duplicate } = recordOutcome(ev.session, entry);
   if (recorded) metrics.inc("outcomes");
+  // Frequency & fatigue bookkeeping (docs/BEHAVIOR-MATRIX.md,
+  // policy-config.js AGENT_SUPPRESS_AFTER_DISMISS): set directly on the
+  // session object via peekSession (never getSession — an outcome for a
+  // session that doesn't exist/expired must not resurrect one) and never
+  // via pushEvent()/session.events, same "must never enter the normal event
+  // pipeline" boundary this function's own doc comment already establishes
+  // for agent_outcome. dismissedTemplates/lastCtaOutcomeAt are read by
+  // policy.js's applyPolicy()/checkViolation().
+  if (recorded) {
+    const liveSession = peekSession(ev.session);
+    if (liveSession) {
+      const template = typeof meta.template === "string" && meta.template ? meta.template : null;
+      if (outcome === "dismiss" && template) {
+        liveSession.dismissedTemplates = liveSession.dismissedTemplates ?? new Set();
+        liveSession.dismissedTemplates.add(template);
+      }
+      if (outcome === "cta") {
+        // Server receive time, not ev.ts — same client-clock-is-attacker-
+        // controlled rationale as state.js's lastEventAt (a client could
+        // otherwise future-date ev.ts to extend its own post-cta quiet
+        // window, or back-date it to shrink it).
+        liveSession.lastCtaOutcomeAt = Date.now();
+      }
+    }
+  }
+  if (recorded) {
+    persist
+      .saveOutcome(ev.session, entry)
+      .catch((err) => log.warn("persist.saveOutcome failed", { session: ev.session, err: String(err?.message ?? err) }));
+  }
   // recordEvent() (the same generic per-event live-recording call every
   // other event type gets via processEventCore) also gets this one, so the
   // raw agent_outcome frame shows up in the session's `events` list too —

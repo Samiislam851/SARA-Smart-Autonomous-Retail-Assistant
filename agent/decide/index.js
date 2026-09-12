@@ -3,13 +3,24 @@
 import { decide as decideStub } from "./stub.js";
 import { decide as decideLlm } from "./llm.js";
 import { decide as decideCached } from "./cached.js";
+import { decideFallback } from "./fallback.js";
 
 const MODE = process.env.AGENT_MODE || "stub";
+
+// AGENT_MODE=fallback — deterministic fallback decider only, no LLM call at
+// all (server/decide/fallback.js). Useful on a judge's machine with no
+// model key/CLI available: same grounded card/message behavior the llm
+// mode's failure path falls back to, just chosen up front instead of after
+// a real call fails.
+function decideFallbackMode(state) {
+  return decideFallback(state, { reason: "mode" });
+}
 
 const DECIDERS = {
   stub: decideStub,
   llm: decideLlm,
   cached: decideCached,
+  fallback: decideFallbackMode,
 };
 
 // llm's decide() is always async. stub/cached are sync-returning by default,

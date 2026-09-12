@@ -38,12 +38,50 @@ restrict the agent, so a typo should never silently re-open every action.
 | Var | Default | Range / accepted values | What it does | Guard reason text |
 |---|---|---|---|---|
 | `AGENT_COOLDOWN_MS` | `30000` | integer, `30000`–`600000` | Minimum ms between non-noop actions in a session. **Tighten-only**: the fixed contract floor (`CLAUDE.md`'s "max one intervention per 30s per session") is the minimum accepted value — a value below `30000` falls back to the `30000` default, it is never honoured. Raise it (up to `600000`) to make the agent quieter. | `cooldown active (30s)` |
-| `AGENT_MAX_NUDGES_PER_SESSION` | `3` | integer, `>= -1` | Hard cap on total non-noop actions ever delivered to one session. `0` = **zero nudges** — the agent stays silent all session, even the first non-noop action is denied. `-1` = **unlimited**. Any positive N = that many allowed. Counted in `session.nudgeCount` (`server/state.js`), incremented on every allowed non-noop action — including during cached-mode replay (`opts.skipCooldown` does not exempt this guard). | `session nudge budget spent (3)` |
+| `AGENT_MAX_NUDGES_PER_SESSION` | `4` normal / `6` demo | integer, `>= -1` | Hard cap on total non-noop actions ever delivered to one session. `0` = **zero nudges** — the agent stays silent all session, even the first non-noop action is denied. `-1` = **unlimited**. Any positive N = that many allowed. Counted in `session.nudgeCount` (`server/state.js`), incremented on every allowed non-noop action — including during cached-mode replay (`opts.skipCooldown` does not exempt this guard). Default raised from a flat `3` and made sensitivity-aware 2026-09-12 (see "Frequency & fatigue" below) — an explicit `AGENT_MAX_NUDGES_PER_SESSION` still overrides either default. | `session nudge budget spent (4)` |
 | `AGENT_ALLOWED_ACTIONS` | all actions | comma list, subset of `highlight,scroll_to,message,spotlight,noop` | Restricts which action types the agent may ever emit. Unknown names are dropped with a warning; `noop` is always allowed regardless of what's listed. **Fail-closed**: if EVERY requested action is invalid (e.g. all typos, or the value resolves to no tokens at all), this falls back to **noop-only**, not the permissive "all actions" default. | `action "spotlight" disabled by merchant` |
 | `AGENT_DENY_TARGETS` | (empty) | comma list of target ids | Target ids the agent may never highlight/scroll_to/spotlight/message, e.g. `checkout-button`. Free-text list — there's no "invalid" entry to fail closed on; an unset/empty value is (correctly) the least restrictive state, deny nothing. | `target "checkout-button" denied by merchant` |
 | `AGENT_MAX_MESSAGE_CHARS` | `140` | integer, `1`–`140` | Lowers (never raises) the contract's 140-char message cap. Messages over the cap are **truncated**, not denied — see Message length note below. | n/a (truncation happens in `normalize()`, before guards run) |
 | `AGENT_MIN_CONFIDENCE` | `0` | float, `0`–`1` | Non-noop actions whose `trace.confidence` is below this floor are denied. Confidence exactly at the floor is allowed. | `confidence 0.41 below merchant floor 0.6` |
 | `AGENT_ON_SCREEN_QUIET_MS` | `90000` | integer `>= 0`, or `-1` to disable | Second, longer floor on top of `AGENT_COOLDOWN_MS`: while the PREVIOUS non-noop action was a `card` or `message` (the only actions that leave persistent text on screen), no new one may broadcast until this many ms have passed. Cards no longer auto-expire, so a second nudge while the first is still on screen is noise, not help. Skipped under `opts.skipCooldown` (same cached-replay rationale as the cooldown guard). **Not** in `server/policy-config.js` — this change's edit boundary excluded that file, so `policy.js` reads `process.env.AGENT_ON_SCREEN_QUIET_MS` directly rather than through the validated-singleton pattern every other knob above uses; TODO for whoever owns `policy-config.js` next: fold it in alongside `cooldownMs`. TODO: once an `agent_outcome` event reports the prior card/message was actively dismissed, this guard should shorten/clear early instead of always waiting out the full floor. | `on-screen quiet period active (90s)` |
+
+## Frequency & fatigue (docs/BEHAVIOR-MATRIX.md "Frequency & fatigue", added 2026-09-12)
+
+Owner-facing goal: several meaningful, non-annoying cards across a session
+instead of one that feels random and disappears. Knobs below, all in
+`server/policy-config.js`, all exposed under `policy` in `GET /health`:
+
+| Var | Default normal / demo | Range | Enforced | Guard reason text |
+|---|---|---|---|---|
+| `AGENT_MAX_NUDGES_PER_SESSION` | `4` / `6` | integer, `>= -1` | `policy.js` `checkViolation()` (existing guard, see Vars table above) | `session nudge budget spent (N)` |
+| `AGENT_MAX_CARDS_PER_PAGEVIEW` | `1` / `2` | integer, `>= -1` (`-1` = unlimited) | `policy.js` `checkViolation()`, against `session.actionsThisPageview` — counts non-noop actions since the session's LATEST `page_view`; reset to `0` on every `page_view` (`server/state.js` `pushEvent()`), incremented alongside `nudgeCount` on every allowed non-noop action | `suppressed:page_cap (N)` |
+| `AGENT_SUPPRESS_AFTER_DISMISS` | `true` | `true` \| `false` | `policy.js` `applyPolicy()`, checked before template render, against `session.dismissedTemplates` (a `Set`, populated by `index.js`'s `handleOutcomeEvent()` on an `outcome:"dismiss"` whose action carried a template id — see `contracts.js`'s `agent_outcome.meta.template`) | `suppressed:dismissed_template (template_id)` |
+| `AGENT_CARD_TTL_MS` | `12000` | integer, `1000`–`120000` | Not a `policy.js` guard — sent to the widget on every `card` action's wire message (`index.js` `actionMessage()`'s `card_ttl_ms` field) so `server/public/agent.js` can auto-collapse the card into the suggestions tray after this many ms (paused while hovered/focused, badge increments on collapse, reopens from the tray on click) | n/a |
+| `AGENT_MIN_GAP_MS` | (alias only) | n/a | **Not a second timer** — `docs/BEHAVIOR-MATRIX.md` is explicit ("reuse, don't add a second timer"). `minGapMs` in `describePolicyConfig()`/`GET /health` is a read-only alias for `AGENT_COOLDOWN_MS`'s resolved value, exposed under this name only because the brief that added this section named it as a distinct knob. **Not sensitivity-scaled**: `AGENT_COOLDOWN_MS`'s 30s floor is a fixed contract ceiling (`CLAUDE.md` ground rule 3, "max one intervention per 30s per session") — `demo` sensitivity does NOT get a shorter min-gap than `normal` (an earlier draft of this knob table proposed `15000` for demo; that would violate the floor, so it was not implemented). | (shares `AGENT_COOLDOWN_MS`'s `cooldown active (Ns)`) |
+
+Two more suppression rules from the same BEHAVIOR-MATRIX section, added as
+plain (non-configurable) guards in `policy.js` `checkViolation()`:
+
+- **Payment-step suppression** — any non-noop action proposed while the
+  shopper's current page is `/checkout` (the storefront's single checkout
+  route, which is also where the payment-options section lives — there is
+  no separate `/checkout/payment` route to match) is denied outright.
+  Reason: `suppressed:payment_step`.
+- **Post-cta suppression** — any non-noop action proposed within a fixed 3s
+  of `session.lastCtaOutcomeAt` (set by `index.js`'s `handleOutcomeEvent()`
+  on an `outcome:"cta"` report) is denied — lets the CTA's own resulting
+  action complete before anything else interrupts. Reason:
+  `suppressed:post_cta`. Not merchant-configurable (a UX debounce, not a
+  policy dial).
+
+**Skipped** (noted per brief, not implemented): a server-side mirror of the
+widget's "shopper is actively typing" suppression. `server/public/agent.js`
+already hard-suppresses cards/messages client-side while typing
+(`is-typing-suppressed`), but there is no `EVENT_TYPES` entry that reports
+typing/input state to the server (`contracts.js`), so `policy.js` has
+nothing to check against. Adding one is a contract change (`web/lib/
+contracts.ts` + `server/contracts.js`, "change both or neither") outside
+this change's scope.
 
 ## Sensitivity — `AGENT_SENSITIVITY` (gate.js/tick.js, not a policy.js guard)
 
@@ -195,8 +233,20 @@ Applied in `checkViolation()`, in this order, first match wins:
     when a `card` action actually passes.
 11. **on-screen quiet period** — `AGENT_ON_SCREEN_QUIET_MS` (skipped under
     `opts.skipCooldown`, same as cooldown). See the Vars table above.
-12. **nudge budget** — `AGENT_MAX_NUDGES_PER_SESSION` (NOT skippable via
+12. **payment-step suppression** — any non-noop action while the shopper's
+    current page is `/checkout` is denied (unconditional). See "Frequency &
+    fatigue" above.
+13. **post-cta suppression** — any non-noop action within 3s of the
+    session's last `outcome:"cta"` report is denied (unconditional). See
+    "Frequency & fatigue" above.
+14. **per-pageview cap** — `AGENT_MAX_CARDS_PER_PAGEVIEW`. See "Frequency &
+    fatigue" above.
+15. **nudge budget** — `AGENT_MAX_NUDGES_PER_SESSION` (NOT skippable via
     `opts.skipCooldown`).
+
+(**dismissed-template suppression** — `AGENT_SUPPRESS_AFTER_DISMISS` — runs
+earlier, in `applyPolicy()` itself before template render, not in this
+`checkViolation()` chain; see "Frequency & fatigue" above.)
 
 Every denial keeps the existing trace format:
 `<why> (guard: <reason>; proposed <decision>)`.

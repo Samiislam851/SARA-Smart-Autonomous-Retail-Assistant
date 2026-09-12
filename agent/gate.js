@@ -24,8 +24,9 @@
 // bucketDwell.
 
 import { COOLDOWN_MS } from "./policy.js"; // merchant-configurable (AGENT_COOLDOWN_MS), same value policy.js enforces
-import { getSensitivityMultiplier, getConsultFloorMs } from "./policy-config.js"; // AGENT_SENSITIVITY: "demo" scales every window/dwell threshold below by 0.6
+import { getSensitivityMultiplier, getConsultFloorMs, policyConfig } from "./policy-config.js"; // AGENT_SENSITIVITY: "demo" scales every window/dwell threshold below by 0.6
 import { isPageDwellTarget } from "./buckets.js"; // consultFloorCheck's "shopper active" definition — see below
+import { formatMoney } from "./store/currency.js"; // gate reasons must never hardcode ৳ — see server/store/currency.js's header comment
 
 const FREE_DELIVERY_THRESHOLD = 2000; // fallback when neither state.facts.keys.free_delivery_threshold nor state.business.delivery.free_over is present
 
@@ -69,6 +70,22 @@ const CART_LEAVE_WINDOW_MS = 60000 * M; // rule 11 — cart page_view then navig
 const RETURN_AFTER_CART_WINDOW_MS = 90000 * M; // rule 12 — a product seen before the cart visit, seen again after
 const BREADTH_MIN_PRODUCTS = Math.max(2, Math.round(3 * M)); // rule 10 — distinct products viewed with zero add-to-cart all session
 
+// Context-aware trigger signals (server/docs/BEHAVIOR-MATRIX.md P0 list,
+// added 2026-09-12) — rules 13-19. Each reasons over a discrete client
+// event (contracts.js EVENT_TYPES) rather than a dwell/window recompute,
+// same "the client is the source of truth for the moment, gate.js just
+// checks recency" shape as rule 4 (rage_click)/rule 3's backNavAgoMs.
+const EXIT_INTENT_WINDOW_MS = 15000 * M; // rule 13 — exit_intent event just happened
+const ATC_HESITATION_WINDOW_MS = 15000 * M; // rule 14
+const VARIANT_CHURN_WINDOW_MS = 30000 * M; // rule 15 — >=2 variant_switch within this window, no cart-add since
+const VARIANT_CHURN_MIN_SWITCHES = 2;
+const PROMO_FOCUS_EMPTY_WINDOW_MS = 15000 * M; // rule 16
+const TOTAL_DWELL_MS = 4000 * M; // rule 17 — element attention on a cart/checkout total line
+const TOTAL_DWELL_TARGETS = ["cart-total", "checkout-total", "shipping-line"];
+const SEARCH_REFINE_WINDOW_MS = 60000 * M; // rule 18 — >=2 consecutive DIFFERENT queries within this window
+const SCROLL_UTURN_WINDOW_MS = 15000 * M; // rule 19 — scroll_uturn event just happened (on a product page)
+const IDLE_MS = 20000 * M; // rule 20 — no real input for this long, tab visible, on PDP/cart — lowest priority (checked after every other rule and the floor)
+
 // Consult floor + page-moment trigger + cost cap — added 2026-09-12 (see
 // server/NOTES.md, "model only consulted on signal edges, no floor" defect:
 // live Acme session you_2 had 47 events/31 decisions/0 model calls,
@@ -87,16 +104,27 @@ const CONSULT_FLOOR_ACTIVE_WINDOW_MS = 20000; // "shopper active" = >=1 non-hear
 // knob this fix's file-scope keeps out of that module — see the brief);
 // same parse-with-fallback shape as policy-config.js's parseIntEnv, applied
 // inline here since it's a single simple int with no sensitivity coupling.
-function parseMaxCallsPerMin(raw) {
-  if (raw === undefined || raw === null || raw === "") return 6;
+// Sensitivity-aware default (2026-09-12 "trigger pops more frequently"
+// brief) — same pattern as policy-config.js's MAX_NUDGES_DEFAULTS/
+// CONSULT_FLOOR_DEFAULTS: "demo" gets a looser default (8) so a live demo
+// session isn't rate-capped as readily as a real shopper session (6),
+// without a merchant having to also set AGENT_MAX_MODEL_CALLS_PER_MIN by
+// hand. An explicit env value always overrides either default.
+const MAX_CALLS_PER_MIN_DEFAULTS = Object.freeze({ normal: 6, demo: 8 });
+
+function parseMaxCallsPerMin(raw, fallback) {
+  if (raw === undefined || raw === null || raw === "") return fallback;
   const n = Number(raw);
   if (!Number.isFinite(n) || !Number.isInteger(n) || n < 1) {
-    console.warn(`[gate] AGENT_MAX_MODEL_CALLS_PER_MIN=${JSON.stringify(raw)} must be a positive integer — using default (6)`);
-    return 6;
+    console.warn(`[gate] AGENT_MAX_MODEL_CALLS_PER_MIN=${JSON.stringify(raw)} must be a positive integer — using default (${fallback})`);
+    return fallback;
   }
   return n;
 }
-export const MAX_MODEL_CALLS_PER_MIN = parseMaxCallsPerMin(process.env.AGENT_MAX_MODEL_CALLS_PER_MIN);
+export const MAX_MODEL_CALLS_PER_MIN = parseMaxCallsPerMin(
+  process.env.AGENT_MAX_MODEL_CALLS_PER_MIN,
+  MAX_CALLS_PER_MIN_DEFAULTS[policyConfig.sensitivity] ?? MAX_CALLS_PER_MIN_DEFAULTS.normal
+);
 const RATE_WINDOW_MS = 60000;
 
 /** isHeartbeatEvent(e, page) → true for a page-level dwell tick (the
@@ -150,6 +178,73 @@ export function pageMomentCheck(state, session, event, now) {
   }
   const priorPageViews = (session.events || []).slice(0, -1).filter((e) => e.type === "page_view").length;
   return { hit: priorPageViews >= 2, category, priorPageViews };
+}
+
+// "trigger pops a little more frequently, based on scanned site context"
+// brief (2026-09-12): a page_context arrival carrying a "strong fact" is
+// itself a gate signal, once per page path per session — the shopper just
+// landed on a page with a real, actionable fact (low stock, a near
+// free-shipping gap, their selected variant sold out) and gate.js's rules
+// 1-20 above may not fire on a fresh landing with no dwell/friction yet.
+const LOW_STOCK_MAX_N = 5; // "only N left" counts as strong when N is this small or less
+const FREE_SHIPPING_GAP_PCT = 0.20; // gap must be < this fraction of subtotal to count as "strong"
+
+/**
+ * pageFactCheck(state, session, event) → { hit, path, kind }
+ * kind: "low_stock" | "free_shipping_gap" | "variant_out_of_stock" | null.
+ * Only considers the event that JUST arrived (event.type === "page_context")
+ * and only fires once per page path per session (session.pageFactPaths).
+ */
+export function pageFactCheck(state, session, event) {
+  if (event.type !== "page_context") return { hit: false, path: null, kind: null };
+  const path = event.target ?? state.page ?? null;
+  const seen = session.pageFactPaths || (session.pageFactPaths = new Set());
+  if (path && seen.has(path)) return { hit: false, path, kind: null };
+
+  const page = state.page_context;
+  const econ = state.cart_economics;
+  let kind = null;
+  if (page?.stock?.lowStockN != null && page.stock.lowStockN <= LOW_STOCK_MAX_N) {
+    kind = "low_stock";
+  } else if (econ && econ.gapToFreeShipping > 0 && econ.subtotal > 0 && econ.gapToFreeShipping / econ.subtotal < FREE_SHIPPING_GAP_PCT) {
+    kind = "free_shipping_gap";
+  } else if (page?.type === "product" && page?.variants?.unavailableJoined) {
+    kind = "variant_out_of_stock";
+  }
+  if (!kind) return { hit: false, path, kind: null };
+  return { hit: true, path, kind };
+}
+
+// "Undecided comparer" brief (2026-09-12): 2+ product pages in the SAME
+// category viewed within this window, with the specs/details section
+// reached (spec_seen) on fewer than every one of them — a shopper
+// ping-ponging between similar products without ever reading what tells
+// them apart. Fires at most once per session (session.undecidedCompareFired)
+// since it's a session-shape signal, not a per-page one.
+const UNDECIDED_COMPARE_WINDOW_MS = 180000; // 3 minutes
+
+/**
+ * undecidedCompareCheck(state, session, now) → { hit, categories }
+ * Reads session.pageContext directly (not just the latest page_context
+ * event) since it needs the LAST TWO product pages' own scans, not just the
+ * current one. Requires store.js's productSlugFromPage/catalog lookup to
+ * resolve each page_context path to a category — done by the caller
+ * (buildState already resolved `state.spec_diff` off the same data), so
+ * this check just asks "does a real spec_diff exist AND was at least one
+ * of the two pages never scrolled to its specs section".
+ */
+export function undecidedCompareCheck(state, session, now) {
+  if (session.undecidedCompareFired) return { hit: false };
+  if (!state.spec_diff) return { hit: false };
+  const byPath = session.pageContext?.byPath || {};
+  const currentSpecSeen = Boolean(byPath[state.page]?.spec_seen);
+  const otherSpecSeen = Boolean(byPath[state.spec_diff.other_path]?.spec_seen);
+  const history = session.pageContext?.history || [];
+  const otherEntry = history.find((h) => h.path === state.spec_diff.other_path);
+  const withinWindow = otherEntry ? now - otherEntry.ts <= UNDECIDED_COMPARE_WINDOW_MS : false;
+  if (!withinWindow) return { hit: false };
+  if (currentSpecSeen && otherSpecSeen) return { hit: false }; // both reached specs — not "undecided", just thorough
+  return { hit: true };
 }
 
 /** recordModelCall(session, now) → mutate session.modelCallTimestamps
@@ -361,6 +456,96 @@ function cartFrictionSignal(state) {
   };
 }
 
+// rule 13 — exit_intent: the widget already gates this to once per session
+// client-side (mouse left the viewport upward, or the tab was hidden >3s
+// then came back) — gate.js just checks recency of the most recent one.
+function exitIntentSignal(events, now, windowMs) {
+  const ms = msSince(events, "exit_intent", now);
+  return { hit: ms <= windowMs, agoMs: ms };
+}
+
+// rule 14 — atc_hesitation: hovered/focused the add-to-cart control without
+// clicking it (agent.js decides the 1.5s/2-hover threshold; gate.js just
+// checks recency, same shape as rage_click).
+function atcHesitationSignal(events, now, windowMs) {
+  const ms = msSince(events, "atc_hesitation", now);
+  return { hit: ms <= windowMs, agoMs: ms };
+}
+
+// rule 15 — variant_churn: >=2 variant_switch events within the window,
+// with no cart-add since the first of those switches (an add-to-cart right
+// after switching once is normal shopping, not churn).
+function variantChurnSignal(events, now, windowMs, minSwitches) {
+  const switches = events.filter((e) => e.type === "variant_switch" && now - (e.ts ?? now) <= windowMs);
+  if (switches.length < minSwitches) return { hit: false, count: switches.length };
+  const firstSwitchTs = switches[0].ts ?? now;
+  const addedSince = events.some((e) => e.type === "cart_update" && e.target === "cart-add" && (e.ts ?? now) >= firstSwitchTs);
+  return { hit: !addedSince, count: switches.length };
+}
+
+// rule 16 — promo_focus_empty: focused the promo code field and blurred it
+// empty (agent.js reports meta.empty; a blur with a code typed is not a
+// signal — the shopper may just be about to click Apply).
+function promoFocusEmptySignal(events, now, windowMs) {
+  for (let i = events.length - 1; i >= 0; i--) {
+    const e = events[i];
+    if (e.type !== "promo_focus_blur") continue;
+    const ms = now - (e.ts ?? now);
+    return { hit: ms <= windowMs && !!e.meta?.empty, agoMs: ms };
+  }
+  return { hit: false, agoMs: Infinity };
+}
+
+// rule 17 — total_dwell: real attention (not mere visibility — same
+// perTarget attention map rule 1 uses) on the cart/checkout total or
+// shipping line — a shopper staring at the number, not just glancing at it.
+function totalDwellSignal(perTarget, thresholdMs, targets) {
+  for (const t of targets) {
+    const ms = perTarget?.[t] ?? 0;
+    if (ms >= thresholdMs) return { hit: true, target: t, ms };
+  }
+  return { hit: false, target: null, ms: 0 };
+}
+
+// rule 18 — search_refine: >=2 CONSECUTIVE searches this window with a
+// DIFFERENT (non-empty) query each time — distinct from searchFriction's
+// "same query repeated" rule above; refining ("kantha" -> "kantha scarf")
+// is its own friction shape (can't find it, keeps narrowing).
+function searchRefineSignal(events, now, windowMs) {
+  const searches = events
+    .filter((e) => e.type === "search" && now - (e.ts ?? now) <= windowMs)
+    .map((e) => String(e.meta?.q ?? "").trim().toLowerCase())
+    .filter((q) => q.length > 0);
+  let refines = 0;
+  for (let i = 1; i < searches.length; i++) {
+    if (searches[i] !== searches[i - 1]) refines++;
+  }
+  return { hit: searches.length >= 2 && refines >= 1, distinctCount: searches.length };
+}
+
+// rule 19 — scroll_uturn: the widget itself computes the down->top-within-5s
+// shape (needs continuous scroll position tracking agent.js already does
+// for scroll_depth); gate.js just checks recency, on a product page only
+// (a cart-page scroll u-turn isn't a meaningful "still deciding" signal).
+function scrollUturnSignal(state, events, now, windowMs) {
+  if (!state.page || !state.page.startsWith("/product/")) return { hit: false, agoMs: Infinity };
+  const ms = msSince(events, "scroll_uturn", now);
+  return { hit: ms <= windowMs, agoMs: ms };
+}
+
+// rule 20 — idle: no real (non-heartbeat) input for idleMs while the tab is
+// visible, on a product or cart page. Lowest-priority signal (checked last,
+// after even the consult floor) — a low-priority nudge, not friction, so
+// every actual friction signal above always wins first say.
+function idleSignal(state, events, now, idleMs) {
+  if (state.page !== "/cart" && !(state.page || "").startsWith("/product/")) return { hit: false, sinceMs: 0 };
+  if (!events.length) return { hit: false, sinceMs: 0 };
+  const lastReal = [...events].reverse().find((e) => !isHeartbeatEvent(e, state.page));
+  if (!lastReal) return { hit: false, sinceMs: 0 };
+  const sinceMs = now - (lastReal.ts ?? now);
+  return { hit: sinceMs >= idleMs, sinceMs };
+}
+
 /**
  * computeSignals(state, session, now) → twelve friction signals (six original
  * behavioral + two store-offer-driven + four shopper-pattern signals added
@@ -398,6 +583,15 @@ export function computeSignals(state, session, now) {
   const cartLeave = cartLeaveSignal(events, now, CART_LEAVE_WINDOW_MS);
   const returnAfterCart = returnAfterCartSignal(events, now, RETURN_AFTER_CART_WINDOW_MS);
 
+  const exitIntent = exitIntentSignal(events, now, EXIT_INTENT_WINDOW_MS);
+  const atcHesitation = atcHesitationSignal(events, now, ATC_HESITATION_WINDOW_MS);
+  const variantChurn = variantChurnSignal(events, now, VARIANT_CHURN_WINDOW_MS, VARIANT_CHURN_MIN_SWITCHES);
+  const promoFocusEmpty = promoFocusEmptySignal(events, now, PROMO_FOCUS_EMPTY_WINDOW_MS);
+  const totalDwell = totalDwellSignal(perTarget, TOTAL_DWELL_MS, TOTAL_DWELL_TARGETS);
+  const searchRefine = searchRefineSignal(events, now, SEARCH_REFINE_WINDOW_MS);
+  const scrollUturn = scrollUturnSignal(state, events, now, SCROLL_UTURN_WINDOW_MS);
+  const idle = idleSignal(state, events, now, IDLE_MS);
+
   return {
     attention,
     elementAttention,
@@ -416,6 +610,14 @@ export function computeSignals(state, session, now) {
     breadthNoCommit,
     cartLeave,
     returnAfterCart,
+    exitIntent,
+    atcHesitation,
+    variantChurn,
+    promoFocusEmpty,
+    totalDwell,
+    searchRefine,
+    scrollUturn,
+    idle,
   };
 }
 
@@ -462,6 +664,41 @@ export function gate(state, session, event) {
 
   const sig = computeSignals(state, session, now);
 
+  // page_fact / undecided_compare (2026-09-12 brief): checked right after
+  // computing sig, ahead of the friction cascade below — these are page-
+  // landing moments (the shopper just arrived with a real fact in hand),
+  // not friction accumulated over a dwell window, so they get first say
+  // rather than waiting for rules 1-20 to fail first.
+  const pageFact = pageFactCheck(state, session, event);
+  if (pageFact.hit) {
+    session.pageFactPaths.add(pageFact.path);
+    recordModelCall(session, now);
+    return { pass: true, reason: `page fact: ${pageFact.kind} on ${pageFact.path}` };
+  }
+
+  const undecidedCompare = undecidedCompareCheck(state, session, now);
+  if (undecidedCompare.hit) {
+    session.undecidedCompareFired = true;
+    recordModelCall(session, now);
+    return {
+      pass: true,
+      reason: `undecided compare: ${state.page} vs ${state.spec_diff.other_path}, specs not seen on both`,
+    };
+  }
+
+  // total_dwell is checked BEFORE the generic elementAttention rule below:
+  // both watch the same perTarget attention map at the same threshold, so
+  // without this ordering a cart-total/checkout-total attention hit would
+  // always be reported as the generic "element attention" reason and the
+  // more specific total_dwell template/reason would be unreachable.
+  if (sig.totalDwell.hit) {
+    recordModelCall(session, now);
+    return {
+      pass: true,
+      reason: `total dwell: ${sig.totalDwell.target} attention ${(sig.totalDwell.ms / 1000).toFixed(1)}s >= ${Math.round(TOTAL_DWELL_MS / 1000)}s`,
+    };
+  }
+
   if (sig.elementAttention) {
     recordModelCall(session, now);
     return {
@@ -496,7 +733,7 @@ export function gate(state, session, event) {
     recordModelCall(session, now);
     return {
       pass: true,
-      reason: `cart friction: gap ৳${sig.cartFriction.gap} <= 10% of ৳${sig.cartFriction.threshold} on ${state.page}, page dwell ${(sig.cartFriction.pageDwellMs / 1000).toFixed(1)}s >= 8s`,
+      reason: `cart friction: gap ${formatMoney(sig.cartFriction.gap, state.business?.currency)} <= 10% of ${formatMoney(sig.cartFriction.threshold, state.business?.currency)} on ${state.page}, page dwell ${(sig.cartFriction.pageDwellMs / 1000).toFixed(1)}s >= 8s`,
     };
   }
 
@@ -553,6 +790,42 @@ export function gate(state, session, event) {
     };
   }
 
+  if (sig.exitIntent.hit) {
+    recordModelCall(session, now);
+    return { pass: true, reason: `exit intent: ${(sig.exitIntent.agoMs / 1000).toFixed(1)}s ago` };
+  }
+
+  if (sig.atcHesitation.hit) {
+    recordModelCall(session, now);
+    return { pass: true, reason: `add-to-cart hesitation: ${(sig.atcHesitation.agoMs / 1000).toFixed(1)}s ago` };
+  }
+
+  if (sig.variantChurn.hit) {
+    recordModelCall(session, now);
+    return {
+      pass: true,
+      reason: `variant churn: ${sig.variantChurn.count} option switches within ${Math.round(VARIANT_CHURN_WINDOW_MS / 1000)}s, no add-to-cart`,
+    };
+  }
+
+  if (sig.promoFocusEmpty.hit) {
+    recordModelCall(session, now);
+    return { pass: true, reason: `promo code focused then left empty ${(sig.promoFocusEmpty.agoMs / 1000).toFixed(1)}s ago` };
+  }
+
+  if (sig.searchRefine.hit) {
+    recordModelCall(session, now);
+    return {
+      pass: true,
+      reason: `search refine: ${sig.searchRefine.distinctCount} queries within ${Math.round(SEARCH_REFINE_WINDOW_MS / 1000)}s, narrowing`,
+    };
+  }
+
+  if (sig.scrollUturn.hit) {
+    recordModelCall(session, now);
+    return { pass: true, reason: `scroll u-turn on ${state.page}: ${(sig.scrollUturn.agoMs / 1000).toFixed(1)}s ago` };
+  }
+
   // Consult floor / page moment: fallback ONLY — every rule above (1-12)
   // already gets first say, so an actual friction signal always keeps its
   // own specific reason. These two exist for the opposite case: NOTHING
@@ -582,10 +855,73 @@ export function gate(state, session, event) {
     };
   }
 
+  if (sig.idle.hit) {
+    recordModelCall(session, now);
+    return { pass: true, reason: `idle: no input for ${Math.round(sig.idle.sinceMs / 1000)}s on ${state.page} (>= ${Math.round(IDLE_MS / 1000)}s), tab visible` };
+  }
+
   const backNavPresent = sig.backNavAgoMs <= NAV_FRICTION_WINDOW_MS ? "back_nav present" : "no back_nav";
-  const cartDesc = state.cart ? `৳${state.cart.total} (gap ৳${sig.cartFriction.gap ?? "?"})` : "none";
+  const cartDesc = state.cart
+    ? `${formatMoney(state.cart.total, state.business?.currency)} (gap ${sig.cartFriction.gap != null ? formatMoney(sig.cartFriction.gap, state.business?.currency) : "?"})`
+    : "none";
   return {
     pass: false,
     reason: `no friction signal in last 60s: max attention ${(sig.attention.ms / 1000).toFixed(1)}s, ${backNavPresent}, cart ${cartDesc}`,
   };
+}
+
+// ---- signal name / template hint map --------------------------------------
+// Machine-readable counterpart of prompts/decide.md's "Context-aware trigger
+// templates" prose table (reason prefix -> template id) — added so
+// server/decide/llm.js can hand the model an explicit `signals_fired: [...]`
+// array (the SIGNAL NAME, e.g. "variant_churn") with a `for_signals` map to
+// the matching template id, instead of making the model re-parse gate.js's
+// own free-text `reason` string to guess which template it implies.
+// server/index.js also uses this to put a `signals` array on the decision
+// record for observability (server/NOTES.md "generic reasons in the log"
+// defect class) — so server.log/the trace panel can say "variant churn ->
+// card variant_help" instead of just "reason: llm".
+//
+// One entry per rule 13-19 context-aware trigger PLUS idle (rule 20, lowest
+// priority) — the eight reasons that have a matching template in
+// prompts/templates.json's "Context-aware trigger templates". Rules 1-12
+// (the original behavioral signals + shopper-pattern flags) don't get a
+// single-template mapping here — they ground a `card` via `offers`/
+// `patterns` fields directly (see decide.md's "Card recipes"), not via a
+// gate-reason-name -> template lookup, so they're intentionally absent.
+const SIGNAL_TEMPLATE_MAP = [
+  { name: "exit_intent", prefix: "exit intent:", template: "exit_intent_help" },
+  { name: "atc_hesitation", prefix: "add-to-cart hesitation:", template: "atc_nudge" },
+  { name: "variant_churn", prefix: "variant churn:", template: "variant_help" },
+  { name: "promo_focus_empty", prefix: "promo code focused", template: "promo_hint" },
+  { name: "total_dwell", prefix: "total dwell:", template: "total_reassure" },
+  { name: "search_refine", prefix: "search refine:", template: "search_refine_help" },
+  { name: "idle", prefix: "idle:", template: "idle_check_in" },
+  // Page-scan-context templates (2026-09-12 brief) — page_fact's `kind`
+  // selects which template, undecided_compare always maps to spec_diff_hint.
+  { name: "page_fact_low_stock", prefix: "page fact: low_stock", template: "low_stock_nudge" },
+  { name: "page_fact_free_shipping_gap", prefix: "page fact: free_shipping_gap", template: "free_shipping_gap" },
+  { name: "page_fact_variant_out_of_stock", prefix: "page fact: variant_out_of_stock", template: "size_availability" },
+  { name: "undecided_compare", prefix: "undecided compare:", template: "spec_diff_hint" },
+];
+
+/**
+ * signalsForReason(reason) → [{ name, template }] — the context-aware
+ * trigger signal(s) whose reason-string prefix matches `reason` (gate()'s
+ * own `reason`, e.g. "variant churn: 2 option switches..."). Empty array for
+ * a reason with no matching context-aware trigger (rules 1-12, the floor,
+ * or page_moment — none of those name a single template the same way).
+ * Pure string matching, safe to call with any string (including null/
+ * undefined, which just yields []).
+ */
+export function signalsForReason(reason) {
+  if (typeof reason !== "string" || !reason) return [];
+  return SIGNAL_TEMPLATE_MAP.filter((s) => reason.startsWith(s.prefix)).map((s) => ({ name: s.name, template: s.template }));
+}
+
+/** forSignalsMap() → { [signalName]: templateId } — every known signal->template pairing, for prompt injection (decide/llm.js). */
+export function forSignalsMap() {
+  const out = {};
+  for (const s of SIGNAL_TEMPLATE_MAP) out[s.name] = s.template;
+  return out;
 }

@@ -25,15 +25,26 @@
  * CTA button) — same fixed corner as the message bubble, and like it has NO
  * auto-expiry (duration_ms is ignored for both; only used by highlight/
  * spotlight). Dismissed by ×, the CTA being taken, or a fresh message/card
- * replacing it. This embed's CTA executor (runCardCta()) only performs the
- * two kinds it can do generically on ANY host page:
- *   - open_product -> location.href = "/product/<value>"
+ * replacing it. This embed's CTA executor (runCardCta(), see the generic
+ * executors just above it) performs the action directly on ANY host page,
+ * against the same `data-agent-target` attributes already used for
+ * targeting/highlighting — no per-site glue code required:
+ *   - open_product -> location.href = "/product/<value>" (this repo's own
+ *     default route; a foreign site with a different product route
+ *     currently still gets this fallback, see server/NOTES.md follow-up)
  *   - search       -> location.href = "/search?q=<value>"
- * The other three kinds (pick_size, add_to_cart, apply_code) need the host
- * page's own cart/product logic, which this embed doesn't have — instead it
- * dispatches `window.dispatchEvent(new CustomEvent("agent:cta", { detail:
- * { kind, value } }))` and lets the host page wire up a listener. "none"
- * renders no button at all.
+ *   - apply_code   -> writes the code into `[data-agent-target="promo-code"]`
+ *     and submits its form (applyPromoCode())
+ *   - pick_size    -> clicks `[data-agent-target="size-option-<VALUE>"]`
+ *     (selectSizeOption())
+ *   - add_to_cart  -> no generic executor (needs product/qty context this
+ *     embed doesn't reliably have) — CustomEvent dispatch only, same as
+ *     before.
+ * apply_code/pick_size ALSO still dispatch the legacy
+ * `window.dispatchEvent(new CustomEvent("agent:cta", { detail: { kind,
+ * value } }))` so a host page with its own listener (this repo's own
+ * reference `web/` app) keeps working unchanged. "none" renders no button
+ * at all.
  *
  * Outcome tracking (server/RESEARCH.md "Outcomes" section): every non-noop
  * action carries a server-assigned `id`, echoed back as an `agent_outcome`
@@ -45,9 +56,22 @@
 (function () {
   "use strict";
 
+  // Mirrors server/contracts.js's EVENT_TYPES exactly — this list is the
+  // client-side emit() allowlist (see emit() below), so any event type
+  // missing here is silently dropped before it ever reaches fetch(), no
+  // matter how correctly it's constructed elsewhere in this file. Found
+  // out of sync 2026-09-12 (category fix, not a one-off): exit_intent,
+  // atc_hesitation, variant_switch, promo_focus_blur, and scroll_uturn were
+  // already being emit()'d (lines below) but had never been added here,
+  // so every one of those five context-aware trigger events has been a
+  // silent no-op since they were introduced — same defect class this
+  // brief's own page_context event would have hit if this list weren't
+  // fixed at the same time.
   var EVENT_TYPES = [
     "page_view", "dwell", "scroll_depth", "rage_click",
-    "cart_view", "cart_update", "search", "back_nav", "agent_outcome"
+    "cart_view", "cart_update", "search", "back_nav", "agent_outcome",
+    "exit_intent", "atc_hesitation", "variant_switch", "promo_focus_blur", "scroll_uturn",
+    "page_context",
   ];
   var ACTIONS = ["highlight", "scroll_to", "message", "spotlight", "card", "noop"];
   // Outcome tracking (server/RESEARCH.md "Outcomes" section) — mirrors
@@ -713,11 +737,93 @@
     }
     return order.slice(-4).map(function (k) { return texts[k]; });
   }
-  // Allow-list CTA executor for the "card" action — see the file header
-  // comment for what each kind does and why only two of the five are
-  // performed directly here. Shared by the live on-page card's button and a
-  // tray suggestion's replay of an old card. Anything outside CardCtaKind
-  // (contracts.ts) or with no value is a no-op.
+  // ---- generic, allow-listed CTA executors -------------------------------
+  // Category fix (live finding A: clicking "Apply NEXT10" on NextCart
+  // dismissed the card and applied nothing — this embed only ever
+  // dispatched a CustomEvent("agent:cta") for apply_code/pick_size/
+  // add_to_cart and relied on the HOST PAGE to have its own listener
+  // translating that into a real DOM action. That works for this repo's
+  // own reference `web/` app (which wires one up) but not for an arbitrary
+  // "foreign" storefront (NextCart, Acme, or any future site) that
+  // never wrote one. These executors perform the action directly, against
+  // the SAME `data-agent-target` attributes every site already exposes for
+  // targeting/highlighting — no per-site glue code required.
+  //
+  // Kept to a small, allow-listed set (same "the agent never touches the
+  // DOM outside a fixed vocabulary" rule as the rest of this file): a
+  // native-setter value write (for a React/Vue-controlled input) + a real
+  // `input`/`change` event + a real form submit — never innerHTML, never
+  // eval, never an arbitrary selector from server/model text (only ever
+  // `[data-agent-target="..."]`, built from a fixed prefix + the CTA's own
+  // already-validated value).
+
+  /** setNativeInputValue(input, value) — writes through the native
+   * HTMLInputElement value setter (bypasses a React-controlled input's own
+   * setter override) so the framework's change-tracking sees the write,
+   * then dispatches real `input`/`change` events the same way a real
+   * keystroke would. */
+  function setNativeInputValue(input, value) {
+    try {
+      var desc = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, "value");
+      if (desc && desc.set) { desc.set.call(input, value); } else { input.value = value; }
+    } catch (err) {
+      input.value = value;
+    }
+    try { input.dispatchEvent(new Event("input", { bubbles: true })); } catch (err) { /* no-op */ }
+    try { input.dispatchEvent(new Event("change", { bubbles: true })); } catch (err) { /* no-op */ }
+  }
+
+  /** applyPromoCode(code) → true if it found + submitted a promo-code form.
+   * `[data-agent-target="promo-code"]` is this embed's fixed target id for
+   * a promo/coupon input (see docs/*.md's per-site target id tables) — set
+   * the value, then submit its closest <form> (requestSubmit(), so a
+   * React/Next Server Action form's own submit handling still runs) or,
+   * failing that, click a submit button in the same form/nearby. */
+  function applyPromoCode(code) {
+    if (!code) return false;
+    try {
+      var input = document.querySelector('[data-agent-target="promo-code"]');
+      if (!input) return false;
+      setNativeInputValue(input, code);
+      var form = input.closest("form");
+      if (form && typeof form.requestSubmit === "function") { form.requestSubmit(); return true; }
+      var applyBtn = (form || document).querySelector('[data-agent-target="promo-apply"]') ||
+        (form ? form.querySelector('button[type="submit"], input[type="submit"]') : null);
+      if (applyBtn) { applyBtn.click(); return true; }
+      if (form) { form.submit(); return true; }
+      return false;
+    } catch (err) { return false; }
+  }
+
+  /** sizeOptionTarget(value) → "size-option-<VALUE>", normalized the same
+   * way every known site's own size-option markup builds it (uppercased,
+   * internal whitespace collapsed to a single hyphen — e.g. "X Large" ->
+   * "X-LARGE"). Sites that build their own id differently (a labeled size
+   * that doesn't match this normalization) simply find no matching element
+   * below and fall through to a no-op, same as any other missing target. */
+  function sizeOptionTarget(value) {
+    return "size-option-" + String(value).trim().toUpperCase().replace(/\s+/g, "-");
+  }
+
+  /** selectSizeOption(value) → true if it clicked a matching size option. */
+  function selectSizeOption(value) {
+    if (!value) return false;
+    try {
+      var el = document.querySelector('[data-agent-target="' + sizeOptionTarget(value) + '"]');
+      if (!el) return false;
+      el.click();
+      return true;
+    } catch (err) { return false; }
+  }
+
+  // Allow-list CTA executor for the "card" action — shared by the live
+  // on-page card's button and a tray suggestion's replay of an old card.
+  // apply_code/pick_size now perform the real action directly (see the
+  // executors above) AND still dispatch the legacy CustomEvent, so a host
+  // page that already wired up its own "agent:cta" listener (this repo's
+  // own reference `web/` app) keeps working unchanged. add_to_cart has no
+  // generic cross-site executor (needs product/qty context this embed
+  // doesn't reliably have) — CustomEvent dispatch only, same as before.
   function runCardCta(cta) {
     if (!cta) return;
     switch (cta.kind) {
@@ -727,9 +833,19 @@
       case "search":
         if (cta.value) location.href = "/search?q=" + encodeURIComponent(cta.value);
         return;
-      case "pick_size":
-      case "add_to_cart":
       case "apply_code":
+        applyPromoCode(cta.value);
+        try {
+          window.dispatchEvent(new CustomEvent("agent:cta", { detail: { kind: cta.kind, value: cta.value || null } }));
+        } catch (err) { /* CustomEvent unsupported — no-op */ }
+        return;
+      case "pick_size":
+        selectSizeOption(cta.value);
+        try {
+          window.dispatchEvent(new CustomEvent("agent:cta", { detail: { kind: cta.kind, value: cta.value || null } }));
+        } catch (err) { /* CustomEvent unsupported — no-op */ }
+        return;
+      case "add_to_cart":
         try {
           window.dispatchEvent(new CustomEvent("agent:cta", { detail: { kind: cta.kind, value: cta.value || null } }));
         } catch (err) { /* CustomEvent unsupported — no-op */ }
@@ -783,11 +899,32 @@
   } catch (err) { /* noop — non-browser eval context */ }
 
   function boot() {
+    // document.currentScript is null for `async` scripts by the time this
+    // runs (spec: only set synchronously during initial script execution),
+    // so async embeds always fell through to the "last <script> on the
+    // page" guess — wrong whenever anything else appends a script after.
+    // Look up this script by its own src first.
     var scriptEl = document.currentScript ||
+      document.querySelector('script[src*="agent.js"]') ||
       (function () { var s = document.getElementsByTagName("script"); return s[s.length - 1]; })();
 
+    // Bug: defaulting to location.origin sends every /event POST and the
+    // WS to the HOST PAGE's origin, not the agent server's. On any foreign
+    // site without an explicit data-server override this is a 404/refused
+    // connection and zero events ever reach the server (widget looks
+    // permanently "offline"). Default to the origin the script itself was
+    // loaded from instead; only fall back to location.origin when the src
+    // is relative/same-origin (no way to tell them apart, and same-origin
+    // is the correct answer there anyway).
+    var scriptOrigin = location.origin;
+    try {
+      if (scriptEl && scriptEl.src) {
+        scriptOrigin = new URL(scriptEl.src, location.href).origin;
+      }
+    } catch (err) { /* malformed src — keep location.origin fallback */ }
+
     var cfg = {
-      server: (scriptEl && scriptEl.getAttribute("data-server")) || location.origin,
+      server: (scriptEl && scriptEl.getAttribute("data-server")) || scriptOrigin,
       panel: scriptEl && scriptEl.getAttribute("data-panel") === "true",
       site: (scriptEl && scriptEl.getAttribute("data-site")) || "",
       targetsMode: (scriptEl && scriptEl.getAttribute("data-targets")) || "auto",
@@ -880,6 +1017,7 @@
         ms_visible: Math.max(0, Date.now() - (shownAt || Date.now()))
       };
       if (info.ctaKind) meta.cta_kind = info.ctaKind;
+      if (info.template) meta.template = info.template;
       emit("agent_outcome", info.target || null, meta);
     }
 
@@ -892,6 +1030,9 @@
 
     function emit(type, target, meta) {
       if (EVENT_TYPES.indexOf(type) === -1) return;
+      // Every event carries the site so a server that (re)starts mid-session
+      // pins the right store from whatever event arrives first, not only page_view.
+      if (cfg.site) { meta = meta || {}; if (!meta.site) meta.site = cfg.site; }
       var body = { session: session, type: type, target: target || null, ts: Date.now(), meta: meta || undefined };
       try {
         fetch(cfg.httpBase + "/event", {
@@ -1025,6 +1166,223 @@
       checkRouteSearch();
     }
 
+    // ---- page_context scan (2026-09-12 "richer scanned site context" brief) --
+    // Best-effort DOM scan of the CURRENT page's shopper-facing facts
+    // (contracts.js's page_context event), sent on page_view (boot + route
+    // change) after DOM settles (~500ms) and once more at 2.5s (SSR/
+    // hydration races — a client-rendered price/rating can still be empty
+    // at 500ms). Deduped by content hash — resent only when it changed.
+    // Capped ~2KB. No PII: never reads a form field's VALUE except the
+    // promo-code field's non-empty boolean.
+    var lastPageContextJson = null;
+    var pageContextTimers = [];
+
+    function pcText(el) {
+      try { return el ? String(el.textContent || "").trim() : ""; } catch (err) { return ""; }
+    }
+    function pcMoney(text) {
+      var m = /[$€£৳]\s?[\d.,]+/.exec(text || "");
+      return m ? m[0].trim() : null;
+    }
+    function pcMoneyNumber(moneyText) {
+      if (!moneyText) return null;
+      var n = Number(String(moneyText).replace(/[^\d.]/g, ""));
+      return Number.isFinite(n) ? n : null;
+    }
+    function classifyPageType(path) {
+      if (!path) return "other";
+      if (/^\/(product|p)\//.test(path)) return "product";
+      if (/^\/cart\/?($|\?)/.test(path)) return "cart";
+      if (/^\/checkout/.test(path)) return "checkout";
+      if (/^\/search/.test(path)) return "search";
+      if (/^\/(category|c)\//.test(path)) return "category";
+      if (path === "/" || path === "") return "home";
+      return "other";
+    }
+    function pcScanProduct(pageType) {
+      if (pageType !== "product") return null;
+      var titleEl = targetEl("product-title") || document.querySelector("h1");
+      var title = titleEl ? pcText(titleEl).slice(0, 80) : null;
+      if (!title) return null;
+      var priceEl = targetEl("price");
+      var priceMoney = priceEl ? pcMoney(pcText(priceEl)) : null;
+      var compareEl = document.querySelector('[data-agent-target="compare-price"], .line-through, [class*="strikethrough" i]');
+      var compareMoney = compareEl ? pcMoney(pcText(compareEl)) : null;
+      return {
+        title: title,
+        price: pcMoneyNumber(priceMoney),
+        compareAt: pcMoneyNumber(compareMoney),
+        currency: priceMoney ? priceMoney.replace(/[\d.,\s]/g, "") : null,
+      };
+    }
+    function pcScanVariants() {
+      var els = Array.prototype.slice.call(
+        document.querySelectorAll('[data-agent-target^="size-option-"], [data-agent-target^="color-option-"]')
+      );
+      if (!els.length) return [];
+      return els.slice(0, 20).map(function (el) {
+        var id = el.getAttribute("data-agent-target") || "";
+        var name = id.replace(/^size-option-|^color-option-/, "");
+        var available = !(
+          el.disabled ||
+          el.getAttribute("aria-disabled") === "true" ||
+          el.getAttribute("data-available") === "false"
+        );
+        return { name: name, available: available };
+      });
+    }
+    function pcScanStockText(pageType) {
+      if (pageType !== "product") return null;
+      var atc = targetEl("add-to-cart");
+      var scope = atc && atc.closest ? (atc.closest("div") || atc.parentElement) : null;
+      var text = pcText(scope || document.body);
+      var m = /only\s+\d+\s+left(?:\s+in\s+stock)?|out of stock|in stock/i.exec(text);
+      return m ? m[0] : null;
+    }
+    function pcScanDeliveryText() {
+      var el = targetEl("shipping-info") || targetEl("shipping-banner");
+      if (!el) return null;
+      var t = pcText(el);
+      return t ? t.slice(0, 140) : null;
+    }
+    function pcScanRating() {
+      var el = document.querySelector('[aria-label*="Rated" i], [data-agent-target="rating"]');
+      var text = el ? el.getAttribute("aria-label") || pcText(el) : pcText(document.body).slice(0, 4000);
+      var m = /Rated\s+([\d.]+)\s+out of 5 stars,?\s*([\d,]+)\s*review/i.exec(text || "");
+      if (!m) return null;
+      return { value: Number(m[1]), count: Number(String(m[2]).replace(/,/g, "")) };
+    }
+    function pcScanBadges() {
+      var els = Array.prototype.slice.call(document.querySelectorAll('[class*="badge" i], [data-agent-target="badge"]'));
+      var out = [];
+      els.slice(0, 5).forEach(function (el) {
+        var t = pcText(el);
+        if (t && t.length <= 24) out.push(t);
+      });
+      return out;
+    }
+    function pcScanCategory(pageType) {
+      if (pageType !== "category") return null;
+      var h1 = document.querySelector("h1");
+      var name = h1 ? pcText(h1).slice(0, 60) : null;
+      var count = document.querySelectorAll('a[href^="/p/"], a[href^="/product/"]').length;
+      return name ? { name: name, count: count } : null;
+    }
+    function pcScanSearch(pageType) {
+      if (pageType !== "search") return null;
+      var params = null;
+      try { params = new URLSearchParams(location.search); } catch (err) { /* unsupported — best effort */ }
+      var q = params ? params.get("q") || params.get("query") || "" : "";
+      var count = document.querySelectorAll('a[href^="/p/"], a[href^="/product/"]').length;
+      return q ? { query: q.slice(0, 60), count: count } : null;
+    }
+    function pcScanCartSummary(pageType) {
+      if (pageType !== "cart" && pageType !== "checkout") return null;
+      var totalEl = targetEl("cart-total") || targetEl("checkout-total");
+      if (!totalEl) return null;
+      var container = totalEl.closest ? totalEl.closest("dl") || totalEl.closest("table") || totalEl.parentElement : null;
+      var containerText = pcText(container || totalEl);
+      var shipM = /shipping[^\d$€£৳a-z]*(free|[$€£৳]\s?[\d.,]+)/i.exec(containerText);
+      var discM = /discount[^\d$€£৳]*([$€£৳]\s?[\d.,]+)/i.exec(containerText);
+      return {
+        total: pcMoney(pcText(totalEl)),
+        shipping: shipM ? shipM[1] : null,
+        discountLine: discM ? discM[1] : null,
+      };
+    }
+    function pcScanPromoPresent() {
+      var el = document.querySelector(
+        '[data-agent-target="promo-code"], input[name*="promo" i], input[placeholder*="promo" i], input[aria-label*="promo" i], input[placeholder*="code" i]'
+      );
+      if (!el) return false;
+      return Boolean(el.value && String(el.value).trim());
+    }
+
+    // "Undecided comparer" brief (2026-09-12): has the shopper actually
+    // scrolled to/dwelled (>=1.5s in view) on a specs/details/description
+    // section on THIS product page — server/gate.js's undecided_compare
+    // signal needs this per page, not just a page_type.
+    var specSeenConfirmed = false;
+    var specSeenTimer = null;
+    var specIO = null;
+    function findSpecHeading() {
+      var els = document.querySelectorAll("h2, h3, summary, legend, [data-agent-target]");
+      for (var i = 0; i < els.length; i++) {
+        if (/spec|detail|description|feature/i.test(pcText(els[i]))) return els[i];
+      }
+      return null;
+    }
+    function setupSpecObserver() {
+      if (specIO) { specIO.disconnect(); specIO = null; }
+      if (specSeenTimer) { clearTimeout(specSeenTimer); specSeenTimer = null; }
+      specSeenConfirmed = false;
+      if (!("IntersectionObserver" in window)) return;
+      var el = findSpecHeading();
+      if (!el) return;
+      specIO = new IntersectionObserver(safe(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            if (!specSeenTimer) {
+              specSeenTimer = setTimeout(safe(function () {
+                specSeenConfirmed = true;
+                sendPageContextIfChanged();
+              }), 1500);
+            }
+          } else if (specSeenTimer) {
+            clearTimeout(specSeenTimer);
+            specSeenTimer = null;
+          }
+        });
+      }), { threshold: 0.3 });
+      specIO.observe(el);
+    }
+
+    function computePageContext() {
+      var pageType = classifyPageType(pagePath);
+      var out = { page_type: pageType };
+      var product = pcScanProduct(pageType);
+      if (product) out.product = product;
+      if (pageType === "product") out.spec_seen = specSeenConfirmed;
+      var variants = pcScanVariants();
+      if (variants.length) out.variants = variants;
+      var stockText = pcScanStockText(pageType);
+      if (stockText) out.stock_text = stockText;
+      var deliveryText = pcScanDeliveryText();
+      if (deliveryText) out.delivery_text = deliveryText;
+      var rating = pcScanRating();
+      if (rating) out.rating = rating;
+      var badges = pcScanBadges();
+      if (badges.length) out.badges = badges;
+      var category = pcScanCategory(pageType);
+      if (category) out.category = category;
+      var search = pcScanSearch(pageType);
+      if (search) out.search = search;
+      var cartSummary = pcScanCartSummary(pageType);
+      if (cartSummary) out.cart_summary = cartSummary;
+      out.promo_present = pcScanPromoPresent();
+      return out;
+    }
+
+    function sendPageContextIfChanged() {
+      try {
+        var ctx = computePageContext();
+        var json = JSON.stringify(ctx);
+        if (json.length > 2000) return; // ~2KB cap — drop rather than truncate mid-structure
+        if (json === lastPageContextJson) return;
+        lastPageContextJson = json;
+        emit("page_context", pagePath, ctx);
+      } catch (err) { /* best effort only — a scan never throws off the tracker */ }
+    }
+
+    function schedulePageContextScan() {
+      pageContextTimers.forEach(function (t) { clearTimeout(t); });
+      setupSpecObserver();
+      pageContextTimers = [
+        setTimeout(safe(sendPageContextIfChanged), 500),
+        setTimeout(safe(sendPageContextIfChanged), 2500), // hydration/SSR race — a client-rendered fact can still be empty at 500ms
+      ];
+    }
+
     // ---- rate-limited page_view resend (D1 feedback-loop guard) ----------
     // Facts/target rescans can legitimately want to resend page_view when
     // the page's discoverable state changes, but nothing should ever be
@@ -1096,6 +1454,7 @@
     discoverTargets();
     sendPageView();
     scheduleFactsRun();
+    schedulePageContextScan();
 
     // Re-scan on DOM mutation (debounced) and on route change.
     var rescanTimer = null;
@@ -1185,6 +1544,8 @@
       lastFactsJson = null;
       resetPageViewRateLimit();
       scheduleFactsRun();
+      lastPageContextJson = null; // new page path — never dedupe against the previous page's scan
+      schedulePageContextScan();
     }
     ["pushState", "replaceState"].forEach(function (fn) {
       var orig = history[fn];
@@ -1583,6 +1944,136 @@
       maybeEmitCart();
     }), true);
     // ---- back_nav via browser back button already covered by popstate above -
+    // ---- context-aware trigger signals (BEHAVIOR-MATRIX.md P0 list) -------
+    // exit_intent: mouse leaves upward past the top of the viewport, or the
+    // tab was hidden for >3s then came back. Once per session (sessionStorage
+    // flag) — a real "about to leave" moment, not something to re-fire on
+    // every mouse wobble near the top of the page.
+    var EXIT_INTENT_KEY = "agent_embed_exit_intent_fired";
+    function exitIntentAlreadyFired() {
+      try { return sessionStorage.getItem(EXIT_INTENT_KEY) === "1"; } catch (err) { return state.exitIntentFiredMemory === true; }
+    }
+    function markExitIntentFired() {
+      try { sessionStorage.setItem(EXIT_INTENT_KEY, "1"); } catch (err) { state.exitIntentFiredMemory = true; }
+    }
+    function tryFireExitIntent() {
+      if (exitIntentAlreadyFired()) return;
+      markExitIntentFired();
+      emit("exit_intent", pagePath, { kind: "mouse_leave" });
+    }
+    document.addEventListener("mouseout", safe(function (e) {
+      if (e.clientY > 0) return;
+      if (e.relatedTarget || e.toElement) return; // only a true leave-the-viewport-top move
+      tryFireExitIntent();
+    }));
+    // Robustness fallback (category fix): `mouseout` with `relatedTarget ===
+    // null` doesn't fire reliably in every browser/embedding context (e.g.
+    // a host page with an overlapping fixed-position element right at the
+    // viewport top can swallow the mouseout before it reaches `document`).
+    // `mouseleave` on `documentElement` doesn't bubble but fires directly
+    // on the root when the pointer truly leaves the page — a second,
+    // independent signal for the same "about to leave" moment.
+    // tryFireExitIntent()'s own already-fired guard means this can never
+    // double-emit with the mouseout listener above.
+    document.documentElement.addEventListener("mouseleave", safe(function (e) {
+      if (e.clientY > 0) return;
+      tryFireExitIntent();
+    }));
+    (function () {
+      var hiddenAt = 0;
+      document.addEventListener("visibilitychange", safe(function () {
+        if (document.visibilityState === "hidden") { hiddenAt = Date.now(); return; }
+        if (document.visibilityState === "visible" && hiddenAt && Date.now() - hiddenAt > 3000 && !exitIntentAlreadyFired()) {
+          markExitIntentFired();
+          emit("exit_intent", pagePath, { kind: "tab_hidden" });
+        }
+        hiddenAt = 0;
+      }));
+    })();
+    // atc_hesitation: hover/focus on the add-to-cart target >=1.5s without a
+    // click, or 2+ separate hovers without a click. One event per hover
+    // session on the target (cleared on click/blur-then-new-hover cycle).
+    (function () {
+      var ATC_HOVER_MS = 1500;
+      var hoverTimer = null;
+      var hoverCount = 0;
+      var firedForThisAttempt = false;
+      function atcEl() { return targetEl("add-to-cart"); }
+      function onEnter() {
+        hoverCount++;
+        firedForThisAttempt = false;
+        if (hoverTimer) clearTimeout(hoverTimer);
+        hoverTimer = setTimeout(safe(function () {
+          if (!firedForThisAttempt) {
+            firedForThisAttempt = true;
+            emit("atc_hesitation", "add-to-cart", { target: "add-to-cart", hovers: hoverCount, ms: ATC_HOVER_MS });
+          }
+        }), ATC_HOVER_MS);
+        if (hoverCount >= 2 && !firedForThisAttempt) {
+          firedForThisAttempt = true;
+          emit("atc_hesitation", "add-to-cart", { target: "add-to-cart", hovers: hoverCount });
+        }
+      }
+      function onLeave() { if (hoverTimer) { clearTimeout(hoverTimer); hoverTimer = null; } }
+      function onClick() { hoverCount = 0; firedForThisAttempt = false; onLeave(); }
+      document.addEventListener("mouseover", safe(function (e) {
+        var el = e.target && e.target.closest ? e.target.closest('[data-agent-target="add-to-cart"]') : null;
+        if (el) onEnter();
+      }), true);
+      document.addEventListener("mouseout", safe(function (e) {
+        var el = e.target && e.target.closest ? e.target.closest('[data-agent-target="add-to-cart"]') : null;
+        if (el) onLeave();
+      }), true);
+      document.addEventListener("focusin", safe(function (e) {
+        var el = e.target && e.target.closest ? e.target.closest('[data-agent-target="add-to-cart"]') : null;
+        if (el) onEnter();
+      }));
+      document.addEventListener("click", safe(function (e) {
+        var el = e.target && e.target.closest ? e.target.closest('[data-agent-target="add-to-cart"]') : null;
+        if (el) onClick();
+      }), true);
+    })();
+    // variant_switch: any click on a size-option-*/color-picker target.
+    document.addEventListener("click", safe(function (e) {
+      var el = e.target && e.target.closest ? e.target.closest("[data-agent-target]") : null;
+      if (!el) return;
+      var id = el.getAttribute("data-agent-target") || "";
+      if (id.indexOf("size-option-") === 0) emit("variant_switch", id, { kind: "size" });
+      else if (id === "color-picker" || id.indexOf("color-option-") === 0) emit("variant_switch", id, { kind: "color" });
+    }), true);
+    // promo_focus_blur: blur of the promo-code field, reporting whether it
+    // was left empty.
+    document.addEventListener("focusout", safe(function (e) {
+      var el = e.target && e.target.closest ? e.target.closest('[data-agent-target="promo-code"]') : null;
+      if (!el) return;
+      var val = (el.value != null ? el.value : el.textContent || "").trim();
+      emit("promo_focus_blur", "promo-code", { empty: val.length === 0 });
+    }), true);
+    // scroll_uturn: scrolled down >=60% then back to (near) the top within
+    // 5s, with no click in between (a click means the shopper interacted
+    // with something, not just glanced and reconsidered).
+    (function () {
+      var maxPct = 0;
+      var downAt = 0;
+      var clickedSince = false;
+      document.addEventListener("click", safe(function () { clickedSince = true; }), true);
+      function scrollPct() {
+        var doc = document.documentElement;
+        var scrollable = (doc.scrollHeight || 0) - (doc.clientHeight || window.innerHeight || 1);
+        if (scrollable <= 0) return 0;
+        return Math.min(100, Math.max(0, (window.scrollY || doc.scrollTop || 0) / scrollable * 100));
+      }
+      window.addEventListener("scroll", safe(function () {
+        var pct = scrollPct();
+        if (pct >= 60 && maxPct < 60) { downAt = Date.now(); clickedSince = false; }
+        if (pct > maxPct) maxPct = pct;
+        if (maxPct >= 60 && pct <= 5 && downAt && Date.now() - downAt <= 5000 && !clickedSince) {
+          emit("scroll_uturn", pagePath, { downPct: maxPct });
+          maxPct = 0;
+          downAt = 0;
+        }
+      }), { passive: true });
+    })();
     // ----
     // Input types/autocomplete values that must NEVER have their value read
     // or sent, even if the field's name/id happens to look search-like —
@@ -2250,18 +2741,79 @@
         }
       }));
 
+      // TTL countdown bar (frequency-control brief, 2026-09-12): a
+      // notification-style card auto-collapses into the tray after
+      // card_ttl_ms (server/policy-config.js's AGENT_CARD_TTL_MS, sent on
+      // the wire per-action so this never hardcodes its own default — see
+      // server/index.js's actionMessage()) unless the shopper is hovering
+      // it. The suggestion itself is already in the tray the moment the
+      // action lands (addSuggestion, independent of this bar) — this only
+      // controls how long the on-page card stays visibly popped up.
+      var ttlBar = el("div", "agx-page-card-ttlbar");
+      ttlBar.style.display = "none";
+      var ttlFill = el("div", "agx-page-card-ttlfill");
+      ttlBar.appendChild(ttlFill);
       cardBoxEl.appendChild(head);
       cardBoxEl.appendChild(bodyEl);
       cardBoxEl.appendChild(ctaBtn);
       cardBoxEl.appendChild(footer);
       cardBoxEl.appendChild(whyLine);
+      cardBoxEl.appendChild(ttlBar);
       document.body.appendChild(cardBoxEl);
       cardBoxEl._title = titleEl;
       cardBoxEl._body = bodyEl;
       cardBoxEl._cta = ctaBtn;
       cardBoxEl._whyLine = whyLine;
       cardBoxEl._whyBtn = whyBtn;
+      cardBoxEl._ttlBar = ttlBar;
+      cardBoxEl._ttlFill = ttlFill;
+      // Pause on hover — a shopper actively reading/reaching for the CTA
+      // must never have the card vanish under their cursor.
+      cardBoxEl.addEventListener("mouseenter", safe(function () { cardTtlPaused = true; }));
+      cardBoxEl.addEventListener("mouseleave", safe(function () { cardTtlPaused = false; cardTtlLastTick = Date.now(); }));
       return cardBoxEl;
+    }
+    // ---- card TTL countdown (auto-collapse into tray) ----------------------
+    var cardTtlTimer = null;
+    var cardTtlTotalMs = 0;
+    var cardTtlRemainingMs = 0;
+    var cardTtlPaused = false;
+    var cardTtlLastTick = 0;
+    function clearCardTtl() {
+      if (cardTtlTimer) { clearInterval(cardTtlTimer); cardTtlTimer = null; }
+      cardTtlPaused = false;
+      if (cardBoxEl && cardBoxEl._ttlBar) cardBoxEl._ttlBar.style.display = "none";
+    }
+    function tickCardTtl() {
+      if (cardTtlPaused) { cardTtlLastTick = Date.now(); return; }
+      var now = Date.now();
+      var delta = now - cardTtlLastTick;
+      cardTtlLastTick = now;
+      cardTtlRemainingMs -= delta;
+      var pct = Math.max(0, Math.min(100, (cardTtlRemainingMs / cardTtlTotalMs) * 100));
+      if (cardBoxEl && cardBoxEl._ttlFill) cardBoxEl._ttlFill.style.width = pct + "%";
+      if (cardTtlRemainingMs <= 0) {
+        clearCardTtl();
+        // Auto-collapse, not a shopper dismissal — the suggestion is
+        // already in the tray (addSuggestion ran when the action landed);
+        // "ignored" matches reportIfStillShowing's own outcome for a card
+        // that ends without ever being interacted with.
+        hideCard("ignored");
+      }
+    }
+    function startCardTtl(ttlMs) {
+      clearCardTtl();
+      var ms = Number(ttlMs);
+      if (!Number.isFinite(ms) || ms <= 0) return; // no TTL — card stays until dismissed/CTA'd, same as before this feature
+      cardTtlTotalMs = ms;
+      cardTtlRemainingMs = ms;
+      cardTtlPaused = false;
+      cardTtlLastTick = Date.now();
+      if (cardBoxEl && cardBoxEl._ttlBar) {
+        cardBoxEl._ttlBar.style.display = "block";
+        if (cardBoxEl._ttlFill) cardBoxEl._ttlFill.style.width = "100%";
+      }
+      cardTtlTimer = setInterval(safe(tickCardTtl), 100);
     }
     // Diffed before write (perf/attribute-thrash defect class): called
     // unconditionally every 250ms while a card is showing, so writing
@@ -2287,7 +2839,7 @@
       if (box._cta.disabled !== nextDisabled) box._cta.disabled = nextDisabled;
       if (box._cta.style.display !== nextDisplay) box._cta.style.display = nextDisplay;
     }
-    function renderCard(card, actionId, target) {
+    function renderCard(card, actionId, target, ttlMs) {
       var box = ensureCardBox();
       cancelFade(box);
       box.classList.remove("is-target-occluded");
@@ -2314,9 +2866,11 @@
       positionCardNow();
       if (cardPollTimer) clearInterval(cardPollTimer);
       cardPollTimer = setInterval(safe(positionCardNow), 250);
+      startCardTtl(ttlMs);
     }
     // reason: outcome to report, default "dismiss" (× button).
     function hideCard(reason) {
+      clearCardTtl();
       if (cardBoxEl && cardBoxEl.style.display !== "none") {
         fadeOutBox(cardBoxEl);
         cardBoxEl.classList.remove("is-target-occluded");
@@ -2478,7 +3032,13 @@
         pendingActionInfo[a.id] = {
           action: a.action,
           target: a.target || null,
-          ctaKind: isCard && a.card.cta ? a.card.cta.kind : undefined
+          ctaKind: isCard && a.card.cta ? a.card.cta.kind : undefined,
+          // template (frequency-control brief, 2026-09-12): echoed back in
+          // agent_outcome.meta.template on dismiss so the server can record
+          // a per-session suppression against the SAME template
+          // (AGENT_SUPPRESS_AFTER_DISMISS, see server/policy.js). undefined
+          // for a free-text card or any non-card action.
+          template: isCard && a.card.template ? a.card.template : undefined
         };
       }
       state.suggestions.unshift(s);
@@ -2578,7 +3138,7 @@
           // Positioning (anchor-to-target or banner, including the
           // one-time off-screen scrollIntoView) is handled by renderCard
           // below — no separate scroll here.
-          renderCard(a.card, a.id, a.target || null);
+          renderCard(a.card, a.id, a.target || null, a.card_ttl_ms);
           syncTypingSuppression();
           break;
         }
@@ -3211,6 +3771,39 @@
       renderLauncherBadge();
     }
 
+    // Stale-session defect class: sessionStorage's tray/suggestions list
+    // survives a full page reload BY DESIGN (that's the whole point of
+    // persisting it), but nothing ever checked whether the SERVER still
+    // has a session by this id to back it up. A server restart (deploy,
+    // crash, dev-server bounce) drops all in-memory session state; a
+    // browser tab that already had cards in its tray then replays them on
+    // the very next boot as if they were live — no cooldown context,
+    // sometimes a promo/CTA the current store state no longer grounds —
+    // which looks exactly like "random unhelpful popup out of nowhere"
+    // (reported live 2026-09-12: a missed_discount NEXT10 card appeared
+    // before the shopper had even picked a product, because it was a
+    // leftover suggestion from a session the server no longer remembered).
+    // GET /state/<id> 404s when the server has no memory of a session
+    // (server/index.js) — that is the one-place signal this widget can
+    // check without inventing a new endpoint. Best-effort, same as every
+    // other network probe in this file (fetchDemoFixtures/probeDebug):
+    // silent no-op on network error, never blocks/delays boot.
+    function checkSessionStillLive() {
+      fetch(cfg.httpBase + "/state/" + encodeURIComponent(session), { method: "GET" })
+        .then(function (res) {
+          if (res.status === 404 && state.suggestions.length) {
+            state.suggestions = [];
+            saveSuggestions([]);
+            state.unseenCount = 0;
+            renderTray();
+            renderNoticed();
+            renderAssistControls();
+            renderLauncherBadge();
+          }
+        })
+        .catch(function () { /* network error — leave storage as-is */ });
+    }
+
     // markSuggestionResolved(actionId, outcome) — tray/badge-desync defect
     // class fix (finding B): called alongside every reportOutcomeOnce() for
     // a live-slot end condition (highlight/spotlight clear, card dismiss/
@@ -3319,6 +3912,7 @@
     renderNoticed();
     fetchDemoFixtures();
     probeDebug();
+    checkSessionStillLive();
 
     panelEls = ui;
     render(); // sync initial pill/panel state now that both are mounted
@@ -3402,7 +3996,7 @@
         "body.agx-dim::after{content:'';position:fixed;inset:0;background:rgba(20,20,20,.5);z-index:2147483000;pointer-events:none;}" +
         ".agx-spotlight{position:relative;z-index:2147483001;box-shadow:0 0 0 12px #fff;border-radius:4px;}" +
         "@media (prefers-reduced-motion: reduce){.agx-pulse{animation:none;}}" +
-        ".agx-message{position:fixed;left:24px;bottom:24px;z-index:2147483002;max-width:340px;background:#fff;border-left:3px solid #b5321e;padding:14px 16px;box-shadow:0 8px 30px rgba(0,0,0,.18);border-radius:3px;display:flex;gap:12px;align-items:flex-start;font:14px/1.4 system-ui,sans-serif;color:#1d1a17;}" +
+        ".agx-message{position:fixed;right:20px;bottom:84px;z-index:2147483002;max-width:340px;background:#fff;border-left:3px solid #b5321e;padding:14px 16px;box-shadow:0 8px 30px rgba(0,0,0,.18);border-radius:3px;display:flex;gap:12px;align-items:flex-start;font:14px/1.4 system-ui,sans-serif;color:#1d1a17;}" +
         ".agx-message button{background:none;border:0;color:#6f6a63;font-size:18px;line-height:1;padding:0;cursor:pointer;}" +
         /* Founder rule 2026-09-11: the card appears AT the thing the shopper
          * is looking at, not a fixed corner — .agx-page-card carries no
@@ -3418,6 +4012,8 @@
         ".agx-page-card.is-anchored.caret-bottom::before{bottom:-6px;border-left:0;border-top:0;}" +
         "@keyframes agx-card-in{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}" +
         "@media (prefers-reduced-motion: reduce){.agx-page-card{animation:none;}}" +
+        ".agx-page-card-ttlbar{margin-top:10px;height:3px;width:100%;background:rgba(181,50,30,.15);border-radius:2px;overflow:hidden;}" +
+        ".agx-page-card-ttlfill{height:100%;width:100%;background:#b5321e;transition:width 100ms linear;}" +
         // Exit-fade defect class: card/message used to vanish with a hard
         // display:none, no transition. .is-exiting plays a short fade-out
         // (see hideCard/hideMessage's fadeOutBox, which keeps the node

@@ -39,6 +39,65 @@ running, monitoring, and load-testing the server.
 | `AGENT_MAX_SESSIONS` | `5000` | Session-store cap. Beyond it, least-recently-active sessions (by server-receive-time last event) are evicted; their WebSocket connections are closed with code `1001`. |
 | `AGENT_STUB_DELAY_MS` | `0` | `decide/stub.js`-only, test-only: makes the stub decider resolve after this many ms instead of synchronously, simulating a slow (llm-speed) decider under `AGENT_MODE=stub` so `server/coalesce.test.js` can exercise decision coalescing deterministically without a real model call. `0` (default) is fully synchronous — zero behavior change for real usage. |
 | `AGENT_LIVE_RECORD` | unset | `1` → enables `live-record.js` (see `server/RESEARCH.md`) even when `AGENT_DEBUG` isn't set — every live session's events/decisions get written to `sessions/live/<sessionId>.json`. `AGENT_DEBUG=1` also enables it (so the research API always has something to read on a debug server); this var exists to enable recording WITHOUT also exposing the debug-only research routes. |
+| `AGENT_DB_URI` | unset | A Mongo connection string (e.g. `mongodb://127.0.0.1:27017/sara_agent`) → enables `persist.js`'s durable Mongo mirror of sessions/events/decisions/outcomes, so they survive a restart and `/sessions`\`/sessions/:id\` can serve them from the DB when memory/the live-record file has nothing. Unset (default): zero behavior change. See "Persistence" below. |
+
+## Persistence
+
+Off by default. Every durable artifact of the agent (session summaries, raw
+events, full decision traces, outcome events) normally lives only in
+`state.js`'s in-memory session Map (LRU-evicted at `AGENT_MAX_SESSIONS`) and,
+when recording is on, `live-record.js`'s per-session JSON files under
+`sessions/live/` — both gone on a restart (or, for the file store, on any
+non-persistent container filesystem). Setting `AGENT_DB_URI` (a full Mongo
+connection string, e.g. `mongodb://127.0.0.1:27017/sara_agent`) turns on a
+queryable Mongo mirror via `server/persist.js`, so decisions survive a
+restart and the `/sessions` research pages can serve them back.
+
+- **Off by default.** `AGENT_DB_URI` unset → every `persist.js` export is a
+  no-op returning `null`/`[]`; zero behavior change, zero added latency.
+- **Never on the critical path.** Every write (`saveEvent`, `saveDecision`,
+  `upsertSession`, `saveOutcome`) is fire-and-forget from `index.js` — never
+  `await`ed by the request handler or the decision loop, `.catch()`ed into a
+  `log.warn` so a slow/down Mongo can't block or crash anything.
+- **Degrades quietly.** A Mongo outage (unreachable at `init()`, or a write
+  failing later) logs ONE warning (`persist.js`'s `warnOnce()`) and behaves
+  exactly like `AGENT_DB_URI` being unset from then on — the in-memory/file
+  path is unaffected either way.
+- **Collections** (db name comes from the URI, default doc shown): `sessions`
+  (`_id: sessionId, site, firstSeen, lastSeen, eventCount, decisionCount,
+  lastPage, updatedAt`), `events` (`sessionId, i, ts, type, target, meta,
+  replay`), `decisions` (`sessionId, ts, eventIndex, trigger, decided,
+  reason, ms, action, trace, delivered, mode, model, page` — the full trace
+  a decision produced, whether it was a real decider call or a quiet-tick/
+  gate/overload-skip noop), `outcomes` (`sessionId, action_id, action,
+  target, cta_kind, outcome, ms_visible, ts`).
+- **Where it's wired** (`index.js`): `processEventCore()` → `saveEvent` +
+  `upsertSession` right after the existing `recordEvent()` call (event
+  accepted into session state); the single choke point at the end of
+  `decideAndBroadcast()` (right after the existing `recordDecision()` call,
+  which every decision path — real decider call, quiet tick, gate skip,
+  overload skip — funnels through) → `saveDecision` + `upsertSession`;
+  `handleOutcomeEvent()` → `saveOutcome`.
+- **Research pages fall back to DB.** `research-routes.js`'s `GET /sessions`
+  and `GET /sessions/:id` check the in-memory live-record file first, then
+  (only when `AGENT_DB_URI` is set and nothing was found there) Mongo — so a
+  session survives a restart even with no live-record file for it (e.g.
+  `AGENT_LIVE_RECORD`/`AGENT_DEBUG` wasn't set when it happened, or the
+  container's disk was wiped). Still requires `AGENT_DEBUG=1` to mount the
+  research routes at all — DB persistence doesn't change that gate.
+- **On boot:** nothing is preloaded from Mongo into memory — an unknown
+  session id just starts empty in `state.js` as today; only the research
+  pages read the DB, and only on a miss. (A live decision loop rehydrating
+  cooldown/`actedTargets`/dwell-bucket state from a prior process was
+  considered and skipped — those are in-process invariants a stale DB copy
+  could easily get subtly wrong, and nothing in the brief requires resuming
+  the SAME live session across a restart, only that its history survives to
+  be reviewed.)
+- **`/health`** reports `db: {enabled, connected}` (`enabled` = `AGENT_DB_URI`
+  was set; `connected` = a live Mongo connection is currently up).
+- **Tests:** `server/persist.test.js` (`node --test persist.test.js`) round-
+  trips every function against a real Mongo at `127.0.0.1:27017`, db
+  `sara_agent_test` (dropped before/after), plus the no-op-mode case.
 
 ## Decision coalescing (stub/llm mode)
 
@@ -148,6 +207,39 @@ alone would report `ok:true` even if the decider backend is completely dead.
    for the failure signature repeating.
 5. Once the backend recovers, restart with `AGENT_MODE=llm` again and re-check
    `/health/agent?force=1` before resuming the demo.
+
+## Fallback decider (never go silent)
+
+`server/decide/fallback.js` is a deterministic decider — no LLM call — wired
+into `server/decide/llm.js`'s failure paths: a backend error/timeout (the
+`catch` around `backendRun()`) or a shape-invalid response
+(`validateProposalShape`) now calls `decideFallback(state, {reason})` instead
+of returning `noop`, whenever `AGENT_FALLBACK` is unset or anything other
+than `off`. It walks `state.gateSignals` (the named context-aware trigger
+that passed the gate this tick, e.g. `variant_churn`), renders that signal's
+mapped template (`server/gate.js`'s `forSignalsMap()`) via
+`server/templates.js`'s `renderCard()` using only real `offers`/`product`/
+`business`/`facts` values, and falls through to the next signal if a slot
+isn't groundable. No signal renders → a grounded generic `message` keyed by
+page type (product: returns window; cart/checkout: best offer or the
+free-delivery gap; zero-result search: a plain "try a broader term" nudge).
+Nothing groundable at all → `noop`, same as the LLM path's own noop, with a
+trace explaining why. Every fallback trace's `why` starts with
+`"fallback: llm_<reason>"` (`reason` ∈ `timeout|error|bad_shape|mode`) —
+`server/index.js`'s `deriveReason()` checks that prefix (before the
+mode-name branches) so the decision log line and `/sessions` record both
+show `reason: "fallback"`, not `"llm"`. It goes through the exact same
+`policy.js` guards (cooldown, caps, template/slot grounding) as any other
+decider's proposal — no bypass.
+
+Two ways to exercise it:
+- Let it happen naturally: `AGENT_MODE=llm` with a backend that's
+  unreachable/erroring (bad key, `LLM_TIMEOUT_MS=1`, etc.).
+- Force it directly, no LLM involved at all: `AGENT_MODE=fallback`
+  (`server/decide/index.js`) — useful on a machine with no model key/CLI.
+
+`AGENT_FALLBACK=off` restores the old behavior (a bare `noop` on any llm.js
+failure) if you need to demo the *un*-mitigated failure mode.
 
 ## Behind a tunnel or reverse proxy
 

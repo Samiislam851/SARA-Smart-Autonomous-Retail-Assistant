@@ -23,6 +23,15 @@ import { run as runClaude } from "./backends/claude.js";
 import { run as runOpenAI } from "./backends/openai.js";
 import { run as runAnthropic } from "./backends/anthropic.js";
 import { run as runGemini } from "./backends/gemini.js";
+import { forSignalsMap } from "../gate.js";
+import { policyConfig } from "../policy-config.js";
+import { decideFallback } from "./fallback.js";
+
+// AGENT_FALLBACK=off disables the deterministic fallback decider entirely
+// (default on) — a judge/demo machine with no LLM key/CLI still gets a
+// grounded card/message instead of silence whenever the backend call
+// errors, times out, or returns a bad shape. See server/decide/fallback.js.
+const AGENT_FALLBACK_ENABLED = process.env.AGENT_FALLBACK !== "off";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -36,8 +45,54 @@ const LLM_MODEL_ENV = process.env.LLM_MODEL || null;
 const LLM_CACHE_ENABLED = process.env.LLM_CACHE !== "0";
 
 const PROMPTS_DIR = path.join(__dirname, "..", "prompts");
-const SYSTEM_PROMPT = fs.readFileSync(path.join(PROMPTS_DIR, "decide.md"), "utf8");
+const BASE_SYSTEM_PROMPT = fs.readFileSync(path.join(PROMPTS_DIR, "decide.md"), "utf8");
 const SCHEMA_SRC = path.join(PROMPTS_DIR, "schema.json");
+
+// AGENT_SENSITIVITY=demo prompt block — category fix (live finding: a 20min
+// scripted-friction demo session made 16 model calls, 15 of them noop, on a
+// prompt tuned for real-shopper restraint even though policy-config.js's
+// own "demo" sensitivity already shrinks tick.js's dwell-bucket windows to
+// call the model MORE often; the decide.md prompt itself never knew it was
+// running in a rehearsal, so every one of those extra calls still got
+// judged by the same "is this really strong enough" restraint bar written
+// for a real, unscripted shopper). Appended to the system prompt ONLY when
+// `policyConfig.sensitivity === "demo"` AND this call was itself let
+// through by a named context-aware trigger (`state.gateSignals`, set by
+// server/index.js from gate.js's signalsForReason()) — normal-mode calls,
+// and demo-mode calls that got through via the floor/page_moment/quiet-tick
+// bypass rather than a specific fired signal, are UNCHANGED, still judged
+// by decide.md's normal (conservative) bar.
+const FOR_SIGNALS = forSignalsMap();
+
+function demoSensitivityBlock(signalsFired) {
+  if (!signalsFired.length) return "";
+  const forSignalsLines = signalsFired.map((s) => `  - ${s} -> template "${FOR_SIGNALS[s] ?? "?"}"`).join("\n");
+  return `
+
+## Demo sensitivity mode (AGENT_SENSITIVITY=demo — this call only)
+
+This is a demo/rehearsal session, not a real shopper's own session — the
+merchant expects several meaningful cards across a short scripted session,
+not restraint tuned for a real shopper's patience. A NAMED friction signal
+already fired this exact call (this is not you re-deriving one):
+
+signals_fired: ${JSON.stringify(signalsFired)}
+for_signals:
+${forSignalsLines}
+
+Because a named signal fired AND this prompt still gives you real grounded
+facts (\`offers\`/\`product\`/\`business\`/\`facts\`) to fill the matching
+template's slots from, treat ACTING with that template as the EXPECTED
+outcome for this call — not one option among several to weigh against
+staying quiet. \`noop\` now needs a stated reason (no real fact grounds any
+slot the template needs, a guard would deny it anyway, etc.) — "the signal
+wasn't strong enough" is not a valid reason here, the same way it already
+isn't valid for a \`patterns\`-true call in normal mode (see "Deciding
+whether to act" above). This block changes ONLY how eagerly you act when a
+named signal already fired; it does not license inventing a slot value —
+every fact must still be real, copied verbatim from state, exactly as
+required everywhere else in this prompt.`;
+}
 const SCHEMA_JSON = JSON.parse(fs.readFileSync(SCHEMA_SRC, "utf8"));
 
 // ---- backend registry -------------------------------------------------
@@ -125,9 +180,28 @@ function buildUserMessage(state) {
   return `${JSON.stringify(state)}\nDecide.`;
 }
 
+/**
+ * buildSystemPrompt(state) → decide.md, plus the AGENT_SENSITIVITY=demo
+ * block (demoSensitivityBlock() above) appended ONLY when this session is
+ * running in demo mode AND `state.gateSignals` (server/index.js, from
+ * gate.js's signalsForReason()) names a fired context-aware trigger for
+ * THIS call. Every other call gets exactly decide.md, byte-for-byte, same
+ * as before this sensitivity block existed.
+ */
+export function buildSystemPrompt(state) {
+  if (policyConfig.sensitivity !== "demo") return BASE_SYSTEM_PROMPT;
+  const signalsFired = Array.isArray(state?.gateSignals) ? state.gateSignals.map((s) => s.name) : [];
+  return BASE_SYSTEM_PROMPT + demoSensitivityBlock(signalsFired);
+}
+
 function fingerprint(state) {
   const prompt = buildUserMessage(state);
-  return createHash("sha256").update(`${SYSTEM_PROMPT}\n\n---\n\n${prompt}`).digest("hex");
+  // Cache key includes the DYNAMIC system prompt, not just BASE_SYSTEM_PROMPT
+  // — otherwise a demo-mode call whose signals_fired differs from a
+  // previous call on the same page/cart/dwell bucket would wrongly hit the
+  // fingerprint cache and get back a proposal computed under a different
+  // (or absent) sensitivity block.
+  return createHash("sha256").update(`${buildSystemPrompt(state)}\n\n---\n\n${prompt}`).digest("hex");
 }
 
 function cacheGet(key) {
@@ -251,7 +325,7 @@ export async function decide(state, session) {
     const t0 = Date.now();
     try {
       ({ parsed, tokensIn, tokensOut, tokensTotalCodex } = await backendRun(prompt, {
-        systemPrompt: SYSTEM_PROMPT,
+        systemPrompt: buildSystemPrompt(state),
         schema: SCHEMA_JSON,
         model: LLM_MODEL,
         timeoutMs: LLM_TIMEOUT_MS,
@@ -259,6 +333,10 @@ export async function decide(state, session) {
     } catch (err) {
       metrics.inc("llmErrors");
       metrics.inc("llmMsTotal", Date.now() - t0);
+      if (AGENT_FALLBACK_ENABLED) {
+        const isTimeout = /timeout|timed out/i.test(String(err?.message ?? ""));
+        return decideFallback(state, { reason: isTimeout ? "timeout" : "error" });
+      }
       return NOOP_PROPOSAL(`llm error: ${String(err.message).slice(0, 150)}`, 0);
     }
     metrics.inc("llmMsTotal", Date.now() - t0);
@@ -272,6 +350,9 @@ export async function decide(state, session) {
       // successful, usable calls; errors, including a bad shape, are
       // llmErrors only.
       metrics.inc("llmErrors");
+      if (AGENT_FALLBACK_ENABLED) {
+        return decideFallback(state, { reason: "bad_shape" });
+      }
       return NOOP_PROPOSAL(`llm error: ${invalidReason}`, 0);
     }
 

@@ -167,6 +167,14 @@ function toCatalogEntry(product, similarBySlug) {
     fit_notes: null, // NextCart's product schema has no fit-note field — omitted, never invented
     in_stock: Boolean(product.isActive) && stock > 0,
     low_stock: Boolean(product.isActive) && stock > 0 && stock <= 5,
+    // "Undecided comparer" brief (2026-09-12): NextCart's productSchema has
+    // no structured attributes/specs/features/material field (see
+    // personal-nextcart src/lib/schemas/product.ts) — only these. Imported
+    // so server/store/index.js's specDiff() has real fields to diff between
+    // two same-category products instead of nothing at all.
+    brand: product.brand ?? null,
+    rating: typeof product.rating === "number" ? product.rating : null,
+    review_count: Number.isFinite(product.reviewCount) ? product.reviewCount : null,
   };
 }
 
