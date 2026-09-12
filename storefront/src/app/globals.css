@@ -1,0 +1,34 @@
+@import "tailwindcss";
+
+/**
+ * NextCart is a deliberately light-themed, Amazon-shaped storefront: a dark
+ * chrome bar over a white content area. It does NOT follow the OS colour
+ * scheme.
+ *
+ * The create-next-app boilerplate this replaces shipped a
+ * `prefers-color-scheme: dark` block that flipped `body` to #0a0a0a while
+ * every component kept its `text-slate-900` utility — near-black text on a
+ * near-black page for anyone with dark mode on. Worse, those `body` rules
+ * were emitted *unlayered*, and unlayered CSS outranks anything in
+ * `@layer utilities`, so they silently beat the `bg-white text-slate-900`
+ * classes on <body> in layout.tsx.
+ *
+ * Two rules follow from that, for every feature built on this shell:
+ *   1. App-level element styles go in `@layer base` so Tailwind utilities
+ *      can still override them.
+ *   2. Colour comes from utilities on the element, not from a global
+ *      `body` declaration.
+ */
+
+@theme inline {
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+}
+
+@layer base {
+  body {
+    /* Was `Arial, Helvetica, sans-serif`, which overrode the Geist fonts
+       that layout.tsx loads — they were downloaded and never applied. */
+    font-family: var(--font-sans);
+  }
+}

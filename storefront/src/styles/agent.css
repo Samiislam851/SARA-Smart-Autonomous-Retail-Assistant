@@ -1,0 +1,67 @@
+/**
+ * Inert styling reserved for a future behavioural-agent overlay.
+ *
+ * IMPORTANT: nothing in this codebase applies these classes yet. This file
+ * is imported (so the classes exist in the build) but never triggered —
+ * see BUILD-DECISIONS.md §0 HARD SCOPE BOUNDARY. Do not wire up any JS
+ * that adds/removes these classes as part of this feature.
+ */
+
+.agent-pulse {
+  animation: agent-pulse 1.6s ease-in-out infinite;
+}
+
+.agent-spotlight {
+  position: relative;
+  z-index: 60;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 0 4px rgba(255, 153, 0, 0.55);
+  animation: agent-spotlight-glow 1.8s ease-in-out infinite;
+}
+
+.agent-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background: rgba(15, 17, 23, 0.6);
+  animation: agent-backdrop-fade 0.2s ease-out;
+}
+
+@keyframes agent-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.04);
+    opacity: 0.85;
+  }
+}
+
+@keyframes agent-spotlight-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 0 4px rgba(255, 153, 0, 0.55);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(255, 153, 0, 0.25);
+  }
+}
+
+@keyframes agent-backdrop-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .agent-pulse,
+  .agent-spotlight,
+  .agent-backdrop {
+    animation: none !important;
+  }
+}
