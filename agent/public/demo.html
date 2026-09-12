@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <link rel="icon" href="data:,">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>The Daily Ember — a blog nobody agent-tagged</title>
+<style>
+  body { margin: 0; font-family: Georgia, "Times New Roman", serif; color: #222; background: #fdfcf9; }
+  header { padding: 24px 32px; border-bottom: 1px solid #ddd; display: flex; justify-content: space-between; align-items: baseline; }
+  header h1 { font-size: 22px; margin: 0; }
+  nav a { margin-left: 18px; color: #444; text-decoration: none; font-size: 14px; }
+  main { max-width: 760px; margin: 0 auto; padding: 32px; }
+  .search-row { display: flex; gap: 8px; margin-bottom: 32px; }
+  .search-row input { flex: 1; padding: 10px 12px; border: 1px solid #ccc; border-radius: 4px; font-size: 15px; }
+  .search-row button { padding: 10px 16px; border: 1px solid #222; background: #222; color: #fff; border-radius: 4px; }
+  .post-card { border: 1px solid #e5e0d8; border-radius: 6px; padding: 18px; margin-bottom: 20px; }
+  .post-card h2 { margin: 0 0 6px; font-size: 19px; }
+  .post-card p { color: #555; margin: 0 0 12px; }
+  .post-card a.read-more { color: #a5321e; text-decoration: none; font-weight: bold; }
+  .buy-box { border: 2px solid #a5321e; border-radius: 6px; padding: 20px; margin: 32px 0; text-align: center; }
+  .buy-box button { padding: 12px 28px; background: #a5321e; color: #fff; border: 0; border-radius: 4px; font-size: 16px; }
+  .cart-summary { border: 1px solid #e5e0d8; border-radius: 6px; padding: 20px; margin: 32px 0; background: #fbf9f5; }
+  .cart-summary h2 { margin: 0 0 14px; font-size: 17px; }
+  .cart-summary .row { display: flex; justify-content: space-between; padding: 6px 0; color: #444; font-size: 14px; }
+  .cart-summary .row.total { border-top: 1px solid #ddd; margin-top: 8px; padding-top: 10px; font-weight: bold; color: #222; font-size: 16px; }
+  .cart-summary .note { margin-top: 14px; font-size: 13px; color: #a5321e; }
+  .cart-summary .stock-note { margin-top: 4px; font-size: 13px; color: #7a6b1e; }
+  article.long-read { margin-top: 40px; line-height: 1.7; }
+  article.long-read h2 { margin-top: 36px; }
+  footer { padding: 40px 32px; color: #888; font-size: 13px; text-align: center; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>The Daily Ember</h1>
+  <nav>
+    <a href="#latest">Latest</a>
+    <a href="#opinion">Opinion</a>
+    <a href="#about">About</a>
+  </nav>
+</header>
+
+<main>
+  <div class="search-row">
+    <input type="search" name="site-search" placeholder="Search articles…" />
+    <button type="button" onclick="alert('search UI only, no backend here')">Search</button>
+  </div>
+
+  <section id="latest">
+    <div class="post-card">
+      <h2>Why coffee prices are up again this quarter</h2>
+      <p>A short look at supply routes, weather, and why your morning cup costs more than it did last year.</p>
+      <a class="read-more" href="#post-coffee">Read more →</a>
+    </div>
+    <div class="post-card">
+      <h2>Notes from a slow Sunday market</h2>
+      <p>Wandering a neighborhood market with no agenda, and what that taught the writer about pacing.</p>
+      <a class="read-more" href="#post-market">Read more →</a>
+    </div>
+    <div class="post-card">
+      <h2>The quiet return of the paperback</h2>
+      <p>Print sales tick up as readers look for a break from notifications.</p>
+      <a class="read-more" href="#post-paperback">Read more →</a>
+    </div>
+  </section>
+
+  <div class="buy-box">
+    <p>Enjoying The Daily Ember? Support us with a print subscription.</p>
+    <button type="button" onclick="alert('demo only')">Subscribe — ৳450/mo</button>
+  </div>
+
+  <!-- No data-agent-cart-total / window.__agentCart on purpose — this block
+       exists to exercise agent.js's DOM facts extractor (data-facts, default
+       "both"), not the explicit cart hooks. Expected AgentEmbed.facts():
+       keys.cart_total = 1950, keys.free_delivery_threshold = 2000,
+       keys.stock = "low_stock:3". -->
+  <div class="cart-summary">
+    <h2>Your cart</h2>
+    <div class="row"><span>Subtotal</span><span>৳ 1,800</span></div>
+    <div class="row"><span>Delivery</span><span>৳ 150</span></div>
+    <div class="row total"><span>Total</span><span>৳ 1,950</span></div>
+    <p class="note">Free delivery on orders over ৳ 2,000</p>
+    <p class="stock-note">Only 3 left</p>
+  </div>
+
+  <article class="long-read" id="post-coffee">
+    <h2>Why coffee prices are up again this quarter</h2>
+    <p>Coffee is one of the most heavily traded commodities in the world, and its price swings ripple
+    through cafés, supermarkets, and household budgets alike. This quarter's increase traces back to a
+    mix of weather disruption in major growing regions, higher shipping costs, and currency shifts that
+    make imports more expensive for buyers far from the equator.</p>
+    <p>Growers in the main producing belts reported an uneven rainy season, which shortened the harvest
+    window and reduced the yield of high-grade beans. Roasters who rely on consistent quality found
+    themselves competing harder for the same limited supply, and that competition shows up directly on
+    the price tag.</p>
+    <h2>What this means for your local café</h2>
+    <p>Most independent coffee shops operate on thin margins already, so even a modest per-kilogram
+    increase in green bean costs can force a menu price change. Some owners are holding prices steady
+    for now and absorbing the difference, betting that loyal customers will stick around through a rough
+    patch. Others have already adjusted, quietly bumping the price of a regular cup by a small amount.</p>
+    <p>Supply chain analysts expect prices to stabilize somewhat once the next harvest comes in, assuming
+    weather cooperates. Until then, expect more of the same: slightly pricier beans, and cafés finding
+    creative ways to keep customers happy without raising prices too far, too fast.</p>
+    <h2>A longer view</h2>
+    <p>Commodity price cycles for coffee are nothing new — the crop has gone through boom and bust
+    periods for decades. What is new this cycle is the added pressure from climate variability, which
+    is making harvests less predictable year over year. Buyers who used to lock in prices a year in
+    advance are now hedging over shorter windows, which adds its own volatility to the market.</p>
+    <p>For the average reader, the practical takeaway is simple: your coffee habit might cost a little
+    more for a while. Whether that's worth switching brands, brewing at home more often, or just
+    accepting the extra cost is a personal calculus every drinker has to make.</p>
+  </article>
+
+  <section id="opinion">
+    <h2>Opinion: slowness is not the enemy</h2>
+    <p>An essay on why not everything needs to move fast, illustrated with examples from print
+    journalism, home cooking, and long-distance running. The writer argues that some of the best work
+    people do happens specifically because they refused to rush it, and that a culture obsessed with
+    speed often mistakes haste for productivity.</p>
+  </section>
+
+  <section id="about">
+    <h2>About The Daily Ember</h2>
+    <p>The Daily Ember is a small independent publication covering food, culture, and slow living. This
+    page is a demo fixture with no real backend — every button here is inert except the ones the
+    embedded agent script discovers and instruments automatically.</p>
+  </section>
+</main>
+
+<footer>
+  &copy; 2026 The Daily Ember — demo fixture, not a real publication.
+</footer>
+
+<!-- No data-server attribute: agent.js defaults to its own script origin,
+     so this file works unmodified from localhost, Cloud Run, or anywhere
+     else the static server happens to be running. -->
+<script src="/agent.js" data-panel="true" data-site="blog-demo" data-targets="auto" defer></script>
+
+</body>
+</html>

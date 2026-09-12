@@ -1,0 +1,19 @@
+{
+  "name": "sizing-hesitation",
+  "session": "fx_sizing_hesitation",
+  "description": "Shopper stalls on jacket sizing, revisits the size chart repeatedly, expect a card targeting size-guide with a pick_size cta",
+  "expect": { "action": "card", "target": "size-guide" },
+  "events": [
+    { "delay_ms": 0, "type": "page_view", "target": "/product/khadi-field-jacket", "meta": { "targets": ["product-image", "size-picker", "size-guide", "cart-add", "shipping-banner", "cart-link"] } },
+    { "delay_ms": 1000, "type": "dwell", "target": "/product/khadi-field-jacket", "meta": { "ms": 5000 } },
+    { "delay_ms": 1000, "type": "dwell", "target": "size-guide", "meta": { "ms": 8000, "kind": "attention", "interactions": { "hover_ms": 3000, "focus_ms": 0, "clicks": 1, "scrolled_to": false } } },
+    { "delay_ms": 1000, "type": "dwell", "target": "size-guide", "meta": { "ms": 15000, "kind": "attention", "interactions": { "hover_ms": 3000, "focus_ms": 0, "clicks": 1, "scrolled_to": false } } },
+    { "delay_ms": 1000, "type": "dwell", "target": "size-guide", "meta": { "ms": 22000, "kind": "attention", "interactions": { "hover_ms": 3000, "focus_ms": 0, "clicks": 1, "scrolled_to": false } } },
+    { "delay_ms": 1000, "type": "dwell", "target": "/product/khadi-field-jacket", "meta": { "ms": 30000 } },
+    { "delay_ms": 1000, "type": "page_view", "target": "/product/khadi-field-jacket", "meta": { "targets": ["product-image", "size-picker", "size-guide", "cart-add", "shipping-banner", "cart-link"] } },
+    { "delay_ms": 1000, "type": "dwell", "target": "/product/khadi-field-jacket", "meta": { "ms": 5000 } },
+    { "delay_ms": 1000, "type": "back_nav", "target": "/" },
+    { "delay_ms": 1000, "type": "page_view", "target": "/product/khadi-field-jacket", "meta": { "targets": ["product-image", "size-picker", "size-guide", "cart-add", "shipping-banner", "cart-link"] } },
+    { "delay_ms": 1000, "type": "dwell", "target": "/product/khadi-field-jacket", "meta": { "ms": 6000 } }
+  ]
+}

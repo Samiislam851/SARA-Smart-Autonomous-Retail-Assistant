@@ -1,0 +1,41 @@
+[
+  {
+    "id": "jacket10",
+    "code": "JACKET10",
+    "kind": "percent",
+    "value": 10,
+    "applies": { "slugs": ["khadi-field-jacket"] },
+    "min_cart": null,
+    "starts_at": null,
+    "ends_at": null,
+    "ends_in_ms": 172800000,
+    "label": "10% off the Khadi Field Jacket",
+    "auto_apply": false
+  },
+  {
+    "id": "scarf15",
+    "code": null,
+    "kind": "percent",
+    "value": 15,
+    "applies": { "slugs": ["nakshi-kantha-scarf"] },
+    "min_cart": null,
+    "starts_at": null,
+    "ends_at": null,
+    "ends_in_ms": null,
+    "label": "15% off the Nakshi Kantha Scarf",
+    "auto_apply": true
+  },
+  {
+    "id": "saree200",
+    "code": "SAREE200",
+    "kind": "flat",
+    "value": 200,
+    "applies": { "slugs": ["jamdani-saree-classic"] },
+    "min_cart": 1500,
+    "starts_at": null,
+    "ends_at": null,
+    "ends_in_ms": null,
+    "label": "৳200 off the Jamdani Saree (min cart ৳1,500)",
+    "auto_apply": false
+  }
+]

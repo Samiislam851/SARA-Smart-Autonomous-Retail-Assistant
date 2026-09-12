@@ -1,0 +1,206 @@
+[
+  {
+    "action": {
+      "action": "noop",
+      "target": null,
+      "style": null,
+      "duration_ms": 0,
+      "message": null,
+      "card": null
+    },
+    "trace": {
+      "signals": [
+        "page_view / only",
+        "no dwell or interaction data",
+        "no offers, product, or search present"
+      ],
+      "hypothesis": "Shopper just landed on homepage, browsing normally with no hesitation or friction signal.",
+      "decision": "noop",
+      "confidence": 0.95,
+      "why": "No signal justifies intervention; homepage landing with zero dwell/interaction is normal browsing."
+    }
+  },
+  {
+    "action": {
+      "action": "card",
+      "target": "search",
+      "style": null,
+      "duration_ms": 20000,
+      "message": null,
+      "card": {
+        "title": "Found a match",
+        "body": "1 match for \"nakshi kanta scarf\": Nakshi Kantha Scarf.",
+        "cta": {
+          "kind": "search",
+          "label": "Search Nakshi Kantha Scarf",
+          "value": "Nakshi Kantha Scarf"
+        }
+      }
+    },
+    "trace": {
+      "signals": [
+        "search q=nakshi kanta scarf results=0",
+        "search_help offer with 1 candidate"
+      ],
+      "hypothesis": "Shopper misspelled scarf name and got zero results.",
+      "decision": "card search",
+      "confidence": 0.9,
+      "why": "search_help offer gives exact corrected query match, satisfies failed-search recipe."
+    }
+  },
+  {
+    "action": {
+      "action": "card",
+      "target": "search",
+      "style": null,
+      "duration_ms": 20000,
+      "message": null,
+      "card": {
+        "title": "Found a match",
+        "body": "1 match for \"nakshi kanta scarf\": Nakshi Kantha Scarf.",
+        "cta": {
+          "kind": "search",
+          "label": "Search Nakshi Kantha Scarf",
+          "value": "Nakshi Kantha Scarf"
+        }
+      }
+    },
+    "trace": {
+      "signals": [
+        "search q=nakshi kanta scarf results=0",
+        "search_help offer with 1 candidate"
+      ],
+      "hypothesis": "Shopper misspelled scarf name and got zero results.",
+      "decision": "card search",
+      "confidence": 0.85,
+      "why": "search_help offer gives exact 1-match candidate, satisfies failed-search recipe"
+    }
+  },
+  {
+    "action": {
+      "action": "noop",
+      "target": null,
+      "style": null,
+      "duration_ms": 0,
+      "message": null,
+      "card": null
+    },
+    "trace": {
+      "signals": [
+        "lastIntervention.target=search agoMs=7866 (<30000)",
+        "search_help offer available but cooldown active"
+      ],
+      "hypothesis": "Search help card was already surfaced moments ago for this same zero-result search; shopper hasn't had time to react yet.",
+      "decision": "noop",
+      "confidence": 0.9,
+      "why": "Cooldown rule bars intervening again within 30s of the last action, and target would repeat 'search' anyway."
+    }
+  },
+  {
+    "action": {
+      "action": "noop",
+      "target": null,
+      "style": null,
+      "duration_ms": 0,
+      "message": null,
+      "card": null
+    },
+    "trace": {
+      "signals": [
+        "single page_view /",
+        "no dwell data",
+        "no cart/offers/search"
+      ],
+      "hypothesis": "Shopper just landed on homepage, no behavior yet to act on.",
+      "decision": "noop",
+      "confidence": 0.95,
+      "why": "No hesitation, friction, or offer signal exists yet; browsing normally."
+    }
+  },
+  {
+    "action": {
+      "action": "card",
+      "target": "search",
+      "style": null,
+      "duration_ms": 20000,
+      "message": null,
+      "card": {
+        "template": "search_help",
+        "slots": {
+          "count": "1",
+          "name": "Nakshi Kantha Scarf"
+        },
+        "title": null,
+        "body": null,
+        "cta": {
+          "kind": "search",
+          "label": "Search Nakshi Kantha Scarf",
+          "value": "Nakshi Kantha Scarf"
+        }
+      }
+    },
+    "trace": {
+      "signals": [
+        "search q=\"nakshi kanta scarf\" results=0",
+        "offers has search_help with 1 candidate: Nakshi Kantha Scarf"
+      ],
+      "hypothesis": "Shopper misspelled scarf name and got zero results, but a clear catalog match exists.",
+      "decision": "card search_help",
+      "confidence": 0.9,
+      "why": "Zero-result search plus a concrete single candidate match justifies handing over the corrected search in one tap."
+    }
+  },
+  {
+    "action": {
+      "action": "card",
+      "target": "search",
+      "style": null,
+      "duration_ms": 20000,
+      "message": null,
+      "card": {
+        "template": "search_help",
+        "slots": {
+          "count": "1",
+          "name": "Nakshi Kantha Scarf"
+        },
+        "title": null,
+        "body": null,
+        "cta": {
+          "kind": "search",
+          "label": "Search Nakshi Kantha Scarf",
+          "value": "Nakshi Kantha Scarf"
+        }
+      }
+    },
+    "trace": {
+      "signals": [
+        "search q=\"nakshi kanta scarf\" results=0",
+        "search_help offer with 1 candidate: Nakshi Kantha Scarf"
+      ],
+      "hypothesis": "Shopper misspelled the product name and got zero results, but a clear catalog match exists.",
+      "decision": "card search_help target search",
+      "confidence": 0.85,
+      "why": "Zero-result search paired with a real single candidate is exactly the search_help recipe; one tap fixes the search."
+    }
+  },
+  {
+    "action": {
+      "action": "noop",
+      "target": null,
+      "style": null,
+      "duration_ms": 0,
+      "message": null,
+      "card": null
+    },
+    "trace": {
+      "signals": [
+        "lastIntervention target=search agoMs=9779",
+        "search_help offer available for 'nakshi kanta scarf'"
+      ],
+      "hypothesis": "Zero-result search has a real candidate but we just intervened on this same target under 30s ago.",
+      "decision": "noop",
+      "confidence": 0.9,
+      "why": "Cooldown rule: no intervention within 30s of last one, and repeat target would violate no-repeat rule too."
+    }
+  }
+]

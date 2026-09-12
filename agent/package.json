@@ -1,0 +1,36 @@
+{
+  "name": "agent-server",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "dev": "node --watch index.js",
+    "start": "node index.js",
+    "test": "node replay.js sessions/*.json",
+    "replay": "node replay.js",
+    "test:policy": "node probe-policy.test.js",
+    "test:gate": "node gate.test.js",
+    "test:coalesce": "node coalesce.test.js",
+    "test:state": "node state.test.js",
+    "test:research": "node research.test.js",
+    "test:outcome": "node outcome.test.js",
+    "test:store": "node store.test.js",
+    "test:templates": "node templates.test.js",
+    "test:stale": "node stale.test.js",
+    "test:stale-coalesce": "node stale-coalesce.test.js",
+    "test:llm": "AGENT_MODE=llm node replay.js sessions/*.json",
+    "cost": "node cost-compare.js",
+    "load": "node load-test.js"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.125.0",
+    "@google/genai": "^2.21.0",
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "mongodb": "^7.6.0",
+    "ws": "^8.18.0"
+  }
+}

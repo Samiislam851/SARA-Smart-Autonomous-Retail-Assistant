@@ -1,0 +1,12 @@
+{
+  "name": "zero-result-search",
+  "session": "fx_zero_result_search",
+  "description": "Shopper searches \"nakshi kanta scarf\" (typo of the real Nakshi Kantha Scarf) from the listing page; the store search returns 0 results (meta.results:0). server/store/index.js's search_help offer fuzzy-matches the query against the catalog and finds the real product — exactly ONE real candidate here, so per prompts/decide.md's updated 'Failed search' recipe (candidate-count-aware cta, live finding session final_nc_1219732343) the card's cta.kind should now be \"open_product\" (deep-link to nakshi-kantha-scarf), not \"search\" — the target stays \"search\" either way (that's still the offer's target_hint, cta kind is orthogonal to where the card anchors). Requires the real LLM loop (decide/stub.js has no search_help rule), so this fixture is NOT in check.sh's REQUIRED_STUB_FIXTURES list. cta.kind isn't checked by replay.js's matcher (action+target only) — eyeball the trace/action log during a live run to confirm it.",
+  "expect": { "action": "card", "target": "search" },
+  "events": [
+    { "delay_ms": 0, "type": "page_view", "target": "/", "meta": { "targets": ["search", "cart-link", "product-card-khadi-field-jacket", "product-card-jamdani-saree-classic", "product-card-nakshi-kantha-scarf", "product-card-leather-mojari-sandals"] } },
+    { "delay_ms": 1000, "type": "search", "target": "search", "meta": { "q": "nakshi kanta scarf", "results": 0 } },
+    { "delay_ms": 1000, "type": "dwell", "target": "/", "meta": { "ms": 3000 } },
+    { "delay_ms": 1000, "type": "dwell", "target": "search", "meta": { "ms": 6000, "kind": "attention", "interactions": { "focus_ms": 6000, "clicks": 1 } } }
+  ]
+}

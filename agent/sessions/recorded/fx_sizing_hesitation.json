@@ -1,0 +1,483 @@
+[
+  {
+    "action": {
+      "action": "noop",
+      "target": null,
+      "style": null,
+      "duration_ms": 0,
+      "message": null
+    },
+    "trace": {
+      "signals": [
+        "just arrived on product page",
+        "zero dwell time",
+        "no target interaction",
+        "no cart state",
+        "no friction signals"
+      ],
+      "hypothesis": "Shopper just landed on the khadi field jacket product page and is beginning to explore normally.",
+      "decision": "noop",
+      "confidence": 0.95,
+      "why": "(cached) First arrival with no dwell, engagement, or friction signals warrants no intervention; let natural browsing proceed.",
+      "ts": 1789082022682
+    }
+  },
+  {
+    "action": {
+      "action": "noop",
+      "target": null,
+      "style": null,
+      "duration_ms": 0,
+      "message": null
+    },
+    "trace": {
+      "signals": [
+        "page_view /product/khadi-field-jacket",
+        "dwell 5s total",
+        "no per-target dwell",
+        "no cart state",
+        "no friction signals"
+      ],
+      "hypothesis": "Shopper just landed on product page and is browsing normally.",
+      "decision": "noop",
+      "confidence": 0.95,
+      "why": "Initial page view with no hesitation, rage clicks, or repeated friction — normal browsing behavior requires no intervention."
+    }
+  },
+  {
+    "action": {
+      "action": "noop",
+      "target": null,
+      "style": null,
+      "duration_ms": 0,
+      "message": null
+    },
+    "trace": {
+      "signals": [
+        "dwell size-guide 8s",
+        "page view just started",
+        "no friction signals yet"
+      ],
+      "hypothesis": "Shopper is browsing the product page and reading size information as part of normal purchase consideration.",
+      "decision": "noop",
+      "confidence": 0.75,
+      "why": "A single 8-second dwell on the size guide during product browsing is normal; repeated hesitation (return visits, rage clicks, back nav) would justify highlight, but we don't have that evidence yet."
+    }
+  },
+  {
+    "action": {
+      "action": "card",
+      "target": "size-guide",
+      "style": null,
+      "duration_ms": 20000,
+      "message": null,
+      "card": {
+        "title": "Between sizes?",
+        "body": "Runs narrow through the shoulder — between sizes, take the larger. Returns are free within 7 days if it's not right.",
+        "cta": {
+          "kind": "pick_size",
+          "label": "Try size XL",
+          "value": "XL"
+        }
+      }
+    },
+    "trace": {
+      "signals": [
+        "dwell size-guide 23s cumulative",
+        "product page /khadi-field-jacket",
+        "no cart progression yet"
+      ],
+      "hypothesis": "Shopper is interested but hesitant about fit; extended focus on size-guide without opening it suggests sizing uncertainty.",
+      "decision": "card size-guide",
+      "confidence": 0.8,
+      "why": "Repeated dwell on size-guide (8s + 15s) signals sizing concern; a pick-size card is one tap instead of more reading."
+    }
+  },
+  {
+    "action": {
+      "action": "noop",
+      "target": null,
+      "style": null,
+      "duration_ms": 0,
+      "message": null
+    },
+    "trace": {
+      "signals": [
+        "dwell size-guide 22s total",
+        "repeated dwell events on size-guide",
+        "last intervention 504ms ago on size-guide",
+        "cooldown active (30s rule)"
+      ],
+      "hypothesis": "Shopper is hesitant about sizing; size-guide highlight from recent intervention (504ms ago) is still visible and active on page.",
+      "decision": "noop - cooldown active",
+      "confidence": 0.95,
+      "why": "Last intervention on size-guide was 504ms ago, well below the 30s cooldown threshold. The previous highlight is still fresh; must wait for cooldown to expire before reconsidering."
+    }
+  },
+  {
+    "action": {
+      "action": "noop",
+      "target": null,
+      "style": null,
+      "duration_ms": 0,
+      "message": null
+    },
+    "trace": {
+      "signals": [
+        "dwell size-guide 22s total",
+        "page dwell 30s",
+        "last intervention 20s ago"
+      ],
+      "hypothesis": "Shopper shows sizing hesitation, but intervention cooldown still active.",
+      "decision": "noop (cooldown active)",
+      "confidence": 0.95,
+      "why": "Cooldown rule forbids intervention within 30s of last action; 19.6s elapsed is below threshold."
+    }
+  },
+  {
+    "action": {
+      "action": "noop",
+      "target": null,
+      "style": null,
+      "duration_ms": 0,
+      "message": null
+    },
+    "trace": {
+      "signals": [
+        "repeated size-guide dwell (8s, 15s, 22s)",
+        "page_view after 35s away",
+        "size-guide target exhausted by prior intervention"
+      ],
+      "hypothesis": "Shopper returned to product page after dwelling heavily on size chart; likely reconsidering fit or revisiting details.",
+      "decision": "noop — target blocked",
+      "confidence": 0.92,
+      "why": "Last intervention on size-guide was 35s ago (cooldown cleared), but rules forbid repeating the same target. Shopper shows no rage clicks, cart updates, or new friction signals that would justify a different action. Silence is correct."
+    }
+  },
+  {
+    "action": {
+      "action": "noop",
+      "target": null,
+      "style": null,
+      "duration_ms": 0,
+      "message": null
+    },
+    "trace": {
+      "signals": [
+        "current page dwell 5s (brief, normal)",
+        "size-guide dwell 45s total (already resolved)",
+        "last intervention 51s ago on size-guide",
+        "no cart interaction",
+        "no rage/back-nav signals"
+      ],
+      "hypothesis": "Shopper finished size-guide exploration after previous intervention, now casually browsing product page; sizing hesitation appears resolved.",
+      "decision": "noop — calm browsing",
+      "confidence": 0.8,
+      "why": "Shopper moved past the size-guide fixation and is now browsing normally; brief 5s dwell is routine browser behavior, not hesitation; cooldown elapsed but no new friction marker justifies acting again."
+    }
+  },
+  {
+    "action": {
+      "action": "noop",
+      "target": null,
+      "style": null,
+      "duration_ms": 0,
+      "message": null
+    },
+    "trace": {
+      "signals": [
+        "size-guide dwell 45s cumulative",
+        "page revisited after initial dwell",
+        "just navigated back to home",
+        "last intervention 84s ago on same target"
+      ],
+      "hypothesis": "Shopper showed sizing hesitation that was already signaled and highlighted 84 seconds ago; they've since returned briefly and navigated away naturally, suggesting they're browsing normally or deciding offline.",
+      "decision": "noop",
+      "confidence": 0.85,
+      "why": "The sizing uncertainty was already addressed via highlight; revisiting the page and leaving naturally is normal browsing. Repeating the same target violates rules, and intervening on unrelated targets would misread the signal. Silence respects natural browsing rhythm."
+    }
+  },
+  {
+    "action": {
+      "action": "noop",
+      "target": null,
+      "style": null,
+      "duration_ms": 0,
+      "message": null
+    },
+    "trace": {
+      "signals": [
+        "returned after nav",
+        "prior size-guide hesitation 118s ago",
+        "just landed, no active dwell yet"
+      ],
+      "hypothesis": "Shopper reconsidering product after navigation; no active friction evident this visit.",
+      "decision": "noop — await signal",
+      "confidence": 0.85,
+      "why": "Returning to a page after leaving is normal browsing, not hesitation. Previous sizing help (size-guide highlight) was 118s ago; no active dwell signals friction right now. Intervene only when a clear signal justifies it."
+    }
+  },
+  {
+    "action": {
+      "action": "noop",
+      "target": null,
+      "style": null,
+      "duration_ms": 0,
+      "message": null
+    },
+    "trace": {
+      "signals": [
+        "returned to product after back_nav",
+        "6s dwell — normal browsing",
+        "size-guide intervention 144s ago",
+        "no cart issue",
+        "no new friction"
+      ],
+      "hypothesis": "Shopper is browsing the jacket product normally after returning; previous size-guide highlight is recent enough to remain helpful.",
+      "decision": "noop",
+      "confidence": 0.85,
+      "why": "Moderate dwell and normal browsing pattern do not justify action. Would repeat same target (size-guide), violating the no-repeat rule. Previous intervention is still within effective recency."
+    }
+  },
+  {
+    "action": {
+      "action": "noop",
+      "target": null,
+      "style": null,
+      "duration_ms": 0,
+      "message": null,
+      "card": null
+    },
+    "trace": {
+      "signals": [
+        "page_view only, dwell 0ms",
+        "no perTarget attention recorded",
+        "no cart/checkout state"
+      ],
+      "hypothesis": "Shopper just landed on product page, no hesitation signal yet.",
+      "decision": "noop",
+      "confidence": 0.9,
+      "why": "No attention or dwell signal on size-guide or elsewhere yet to justify any intervention."
+    }
+  },
+  {
+    "action": {
+      "action": "noop",
+      "target": null,
+      "style": null,
+      "duration_ms": 0,
+      "message": null,
+      "card": null
+    },
+    "trace": {
+      "signals": [
+        "pageMs 5000 only",
+        "perTarget empty - no attention on size-guide yet",
+        "no cart/search activity",
+        "no lastIntervention"
+      ],
+      "hypothesis": "Shopper just landed on product page and is browsing normally, no hesitation signal yet.",
+      "decision": "noop",
+      "confidence": 0.85,
+      "why": "dwell.perTarget is empty so there's no earned attention on size-guide or any element; 5s page dwell alone isn't hesitation."
+    }
+  },
+  {
+    "action": {
+      "action": "card",
+      "target": "size-guide",
+      "style": null,
+      "duration_ms": 20000,
+      "message": null,
+      "card": {
+        "template": "size_help",
+        "slots": {
+          "fit_notes": "Runs narrow through the shoulder — between sizes, take the larger.",
+          "returns_window_days": 7
+        },
+        "title": null,
+        "body": null,
+        "cta": {
+          "kind": "pick_size",
+          "label": "Try size L",
+          "value": "L"
+        }
+      }
+    },
+    "trace": {
+      "signals": [
+        "hover_ms 3000 on size-guide",
+        "1 click on size-guide",
+        "dwell size-guide 8000ms vs page 5000ms"
+      ],
+      "hypothesis": "Shopper is hesitating on sizing, actively engaging with the size guide element.",
+      "decision": "card size_help size-guide",
+      "confidence": 0.75,
+      "why": "Real attention (hover+click) on size-guide plus a concrete fit_notes fact and returns window justify a one-tap size recommendation."
+    }
+  },
+  {
+    "action": {
+      "action": "noop",
+      "target": null,
+      "style": null,
+      "duration_ms": 0,
+      "message": null,
+      "card": null
+    },
+    "trace": {
+      "signals": [
+        "lastIntervention target=size-guide agoMs=1",
+        "cooldown floor 30000ms not met"
+      ],
+      "hypothesis": "Sizing hesitation is real but we just intervened on size-guide moments ago.",
+      "decision": "noop",
+      "confidence": 0.9,
+      "why": "Cooldown rule: cannot act within 30s of last intervention, and same target size-guide cannot be repeated."
+    }
+  },
+  {
+    "action": {
+      "action": "noop",
+      "target": null,
+      "style": null,
+      "duration_ms": 0,
+      "message": null,
+      "card": null
+    },
+    "trace": {
+      "signals": [
+        "lastIntervention target=size-guide agoMs=7338",
+        "cooldown <30000ms",
+        "same target as last intervention"
+      ],
+      "hypothesis": "Sizing hesitation is real but we just intervened on size-guide 7s ago.",
+      "decision": "noop",
+      "confidence": 0.9,
+      "why": "Cooldown window not elapsed and target would repeat, both against policy."
+    }
+  },
+  {
+    "action": {
+      "action": "noop",
+      "target": null,
+      "style": null,
+      "duration_ms": 0,
+      "message": null,
+      "card": null
+    },
+    "trace": {
+      "signals": [
+        "lastIntervention target=size-guide agoMs=15571 (<30000)",
+        "repeated size-guide attention 22000ms"
+      ],
+      "hypothesis": "Sizing hesitation is real and strong but we already intervened on size-guide 15.5s ago.",
+      "decision": "noop",
+      "confidence": 0.9,
+      "why": "Cooldown rule: no intervention within 30s of last one, and can't repeat same target anyway."
+    }
+  },
+  {
+    "action": {
+      "action": "noop",
+      "target": null,
+      "style": null,
+      "duration_ms": 0,
+      "message": null,
+      "card": null
+    },
+    "trace": {
+      "signals": [
+        "lastIntervention target=size-guide agoMs=24017",
+        "repeated size-guide attention across two page_views"
+      ],
+      "hypothesis": "Sizing hesitation is real but we already intervened on size-guide 24s ago.",
+      "decision": "noop",
+      "confidence": 0.9,
+      "why": "Cooldown of 30s since last intervention (24017ms ago) hasn't elapsed and target would repeat size-guide, both disallowed."
+    }
+  },
+  {
+    "action": {
+      "action": "noop",
+      "target": null,
+      "style": null,
+      "duration_ms": 0,
+      "message": null,
+      "card": null
+    },
+    "trace": {
+      "signals": [
+        "repeated size-guide attention across two visits",
+        "lastIntervention.target=size-guide agoMs=31736"
+      ],
+      "hypothesis": "Shopper still has sizing hesitation on the jacket, but we already intervened on size-guide and must not repeat the same target.",
+      "decision": "noop",
+      "confidence": 0.7,
+      "why": "Only actionable offer (size_help) targets size-guide, which is the same target as the last intervention, so repeating it is disallowed."
+    }
+  },
+  {
+    "action": {
+      "action": "noop",
+      "target": null,
+      "style": null,
+      "duration_ms": 0,
+      "message": null,
+      "card": null
+    },
+    "trace": {
+      "signals": [
+        "repeated attention to size-guide across two visits",
+        "lastIntervention.target=size-guide agoMs=42592",
+        "back_nav to / then returned to product"
+      ],
+      "hypothesis": "Shopper still has sizing hesitation on the jacket, but we already intervened on size-guide and policy forbids repeating the same target.",
+      "decision": "noop",
+      "confidence": 0.7,
+      "why": "size_help card would target size-guide, which matches lastIntervention.target — repeating the same target is disallowed, and no other offer/signal justifies a different action right now."
+    }
+  },
+  {
+    "action": {
+      "action": "noop",
+      "target": null,
+      "style": null,
+      "duration_ms": 0,
+      "message": null,
+      "card": null
+    },
+    "trace": {
+      "signals": [
+        "repeated size-guide hover attention across two visits",
+        "back_nav then return to product",
+        "lastIntervention.target=size-guide"
+      ],
+      "hypothesis": "Shopper still has sizing hesitation, but we already intervened on size-guide and must not repeat the same target.",
+      "decision": "noop",
+      "confidence": 0.6,
+      "why": "Only actionable offer (size_help) targets size-guide, which was the last intervention target; rule forbids repeating same target so staying quiet is correct."
+    }
+  },
+  {
+    "action": {
+      "action": "noop",
+      "target": null,
+      "style": null,
+      "duration_ms": 0,
+      "message": null,
+      "card": null
+    },
+    "trace": {
+      "signals": [
+        "repeated size-guide hover/clicks across two visits (8s,15s,22s)",
+        "back_nav then re-view of product",
+        "lastIntervention.target=size-guide 64s ago"
+      ],
+      "hypothesis": "Shopper still hesitating on sizing for the jacket, same signal as last intervention.",
+      "decision": "noop",
+      "confidence": 0.7,
+      "why": "Rule forbids repeating an intervention on the same target (size-guide) already used; no other actionable offer or target justifies stepping in now."
+    }
+  }
+]

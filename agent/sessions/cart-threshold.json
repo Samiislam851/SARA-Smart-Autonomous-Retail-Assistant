@@ -1,0 +1,18 @@
+{
+  "name": "cart-threshold",
+  "session": "fx_cart_threshold",
+  "description": "Cart sits ৳50 under the ৳2,000 free-delivery threshold; shopper bounces to checkout and back, expect a card naming the item that closes the gap, targeting shipping-banner with an add_to_cart cta",
+  "expect": { "action": "card", "target": "shipping-banner" },
+  "events": [
+    { "delay_ms": 0, "type": "page_view", "target": "/cart", "meta": { "targets": ["cart-items", "cart-total", "shipping-banner", "checkout-btn", "cart-link"] } },
+    { "delay_ms": 1000, "type": "cart_view", "target": "/cart", "meta": { "total": 1950, "items": [{ "sku": "jamdani-saree-classic", "qty": 1, "price": 1950 }] } },
+    { "delay_ms": 1000, "type": "dwell", "target": "/cart", "meta": { "ms": 6000 } },
+    { "delay_ms": 1000, "type": "scroll_depth", "target": "/cart", "meta": { "pct": 60 } },
+    { "delay_ms": 1000, "type": "page_view", "target": "/checkout", "meta": { "targets": ["address-form", "payment-options", "place-order", "cart-link"] } },
+    { "delay_ms": 1000, "type": "dwell", "target": "/checkout", "meta": { "ms": 4000 } },
+    { "delay_ms": 1000, "type": "back_nav", "target": "/cart" },
+    { "delay_ms": 1000, "type": "page_view", "target": "/cart", "meta": { "targets": ["cart-items", "cart-total", "shipping-banner", "checkout-btn", "cart-link"] } },
+    { "delay_ms": 1000, "type": "cart_view", "target": "/cart", "meta": { "total": 1950, "items": [{ "sku": "jamdani-saree-classic", "qty": 1, "price": 1950 }] } },
+    { "delay_ms": 1000, "type": "dwell", "target": "/cart", "meta": { "ms": 8000 } }
+  ]
+}

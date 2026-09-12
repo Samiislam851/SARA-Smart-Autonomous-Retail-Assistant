@@ -1,0 +1,13 @@
+{
+  "currency": "BDT",
+  "delivery": { "free_over": 2000, "city": "Dhaka", "days": "1-2", "fee": 80 },
+  "returns": { "window_days": 7, "note": "Unworn items, tags attached, within 7 days of delivery." },
+  "payment": ["bKash", "COD", "card"],
+  "support": { "hours": "10am-7pm, Sat-Thu", "contact": "support@dokan.example" },
+  "routes": {
+    "product": ["/product/"],
+    "cart": ["/cart"],
+    "checkout": ["/checkout"],
+    "search": ["/search"]
+  }
+}

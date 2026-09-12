@@ -1,0 +1,15 @@
+{
+  "name": "reader-above-fold",
+  "session": "fx_reader_above_fold",
+  "description": "Shopper lands on the jacket page and reads for 25s. size-picker/size-guide/shipping-banner are all above the fold (visible at first paint) but never hovered, focused, tapped, or scrolled to — ZERO element attention, only page dwell. Then adds to cart. Expect noop: page dwell alone is never hesitation.",
+  "expect": { "action": "noop" },
+  "events": [
+    { "delay_ms": 0, "type": "page_view", "target": "/product/khadi-field-jacket", "meta": { "targets": ["product-image", "size-picker", "size-guide", "cart-add", "shipping-banner", "cart-link"] } },
+    { "delay_ms": 1000, "type": "dwell", "target": "/product/khadi-field-jacket", "meta": { "ms": 5000 } },
+    { "delay_ms": 5000, "type": "dwell", "target": "/product/khadi-field-jacket", "meta": { "ms": 10000 } },
+    { "delay_ms": 5000, "type": "dwell", "target": "/product/khadi-field-jacket", "meta": { "ms": 15000 } },
+    { "delay_ms": 5000, "type": "dwell", "target": "/product/khadi-field-jacket", "meta": { "ms": 20000 } },
+    { "delay_ms": 5000, "type": "dwell", "target": "/product/khadi-field-jacket", "meta": { "ms": 25000 } },
+    { "delay_ms": 1000, "type": "cart_update", "target": "cart-add", "meta": { "total": 3450, "items": [{ "sku": "khadi-field-jacket", "qty": 1, "price": 3450 }] } }
+  ]
+}

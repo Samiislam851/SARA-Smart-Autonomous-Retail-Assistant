@@ -1,0 +1,18 @@
+{
+  "currency": "USD",
+  "delivery": {
+    "free_over": 0,
+    "days": "5-7",
+    "fee": 0,
+    "express_fee": 9.99,
+    "express_days": "1-2"
+  },
+  "returns": {
+    "window_days": 30,
+    "note": "Unused items, in original packaging, within 30 days of delivery."
+  },
+  "payment": [
+    "COD"
+  ],
+  "support": null
+}

@@ -1,0 +1,48 @@
+{
+  "name": "facts-threshold",
+  "session": "fx_facts_threshold",
+  "description": "Same story as cart-threshold, but cart total (৳1,950) and the ৳2,000 free-delivery threshold arrive ONLY via page_view.meta.facts (keys + snippets) — no cart_* events at all. Shopper bounces cart -> checkout -> cart. Expect a single message targeting shipping-banner.",
+  "expect": { "action": "message", "target": "shipping-banner" },
+  "events": [
+    {
+      "delay_ms": 0,
+      "type": "page_view",
+      "target": "/cart",
+      "meta": {
+        "targets": ["cart-items", "cart-total", "shipping-banner", "checkout-btn", "cart-link"],
+        "facts": {
+          "keys": { "cart_total": 1950, "free_delivery_threshold": 2000, "stock": "in_stock" },
+          "snippets": [
+            "Subtotal ৳ 1,800",
+            "Delivery ৳ 150",
+            "Total ৳ 1,950",
+            "Free delivery on orders over ৳ 2,000"
+          ]
+        }
+      }
+    },
+    { "delay_ms": 1000, "type": "dwell", "target": "/cart", "meta": { "ms": 6000 } },
+    { "delay_ms": 1000, "type": "scroll_depth", "target": "/cart", "meta": { "pct": 60 } },
+    { "delay_ms": 1000, "type": "page_view", "target": "/checkout", "meta": { "targets": ["address-form", "payment-options", "place-order", "cart-link"] } },
+    { "delay_ms": 1000, "type": "dwell", "target": "/checkout", "meta": { "ms": 4000 } },
+    { "delay_ms": 1000, "type": "back_nav", "target": "/cart" },
+    {
+      "delay_ms": 1000,
+      "type": "page_view",
+      "target": "/cart",
+      "meta": {
+        "targets": ["cart-items", "cart-total", "shipping-banner", "checkout-btn", "cart-link"],
+        "facts": {
+          "keys": { "cart_total": 1950, "free_delivery_threshold": 2000, "stock": "in_stock" },
+          "snippets": [
+            "Subtotal ৳ 1,800",
+            "Delivery ৳ 150",
+            "Total ৳ 1,950",
+            "Free delivery on orders over ৳ 2,000"
+          ]
+        }
+      }
+    },
+    { "delay_ms": 1000, "type": "dwell", "target": "/cart", "meta": { "ms": 8000 } }
+  ]
+}

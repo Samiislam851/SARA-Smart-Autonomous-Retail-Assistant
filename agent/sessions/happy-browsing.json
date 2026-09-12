@@ -1,0 +1,22 @@
+{
+  "name": "happy-browsing",
+  "session": "fx_happy_browsing",
+  "description": "Shopper casually browses four products, adds one to cart, heads to checkout without friction, expect noop throughout",
+  "expect": { "action": "noop" },
+  "events": [
+    { "delay_ms": 0, "type": "page_view", "target": "/product/khadi-field-jacket", "meta": { "targets": ["product-image", "size-picker", "size-guide", "cart-add", "shipping-banner", "cart-link"] } },
+    { "delay_ms": 1000, "type": "scroll_depth", "target": "/product/khadi-field-jacket", "meta": { "pct": 40 } },
+    { "delay_ms": 1000, "type": "dwell", "target": "/product/khadi-field-jacket", "meta": { "ms": 9000 } },
+    { "delay_ms": 1000, "type": "page_view", "target": "/product/jamdani-saree-classic", "meta": { "targets": ["product-image", "size-picker", "size-guide", "cart-add", "shipping-banner", "cart-link"] } },
+    { "delay_ms": 1000, "type": "scroll_depth", "target": "/product/jamdani-saree-classic", "meta": { "pct": 55 } },
+    { "delay_ms": 1000, "type": "dwell", "target": "/product/jamdani-saree-classic", "meta": { "ms": 8000 } },
+    { "delay_ms": 1000, "type": "cart_update", "target": "cart-add", "meta": { "total": 1950, "items": [{ "sku": "jamdani-saree-classic", "qty": 1, "price": 1950 }] } },
+    { "delay_ms": 1000, "type": "page_view", "target": "/product/nakshi-kantha-scarf", "meta": { "targets": ["product-image", "size-picker", "size-guide", "cart-add", "shipping-banner", "cart-link"] } },
+    { "delay_ms": 1000, "type": "scroll_depth", "target": "/product/nakshi-kantha-scarf", "meta": { "pct": 50 } },
+    { "delay_ms": 1000, "type": "dwell", "target": "/product/nakshi-kantha-scarf", "meta": { "ms": 12000 } },
+    { "delay_ms": 1000, "type": "page_view", "target": "/product/leather-mojari-sandals", "meta": { "targets": ["product-image", "size-picker", "size-guide", "cart-add", "shipping-banner", "cart-link"] } },
+    { "delay_ms": 1000, "type": "scroll_depth", "target": "/product/leather-mojari-sandals", "meta": { "pct": 45 } },
+    { "delay_ms": 1000, "type": "dwell", "target": "/product/leather-mojari-sandals", "meta": { "ms": 10000 } },
+    { "delay_ms": 1000, "type": "page_view", "target": "/checkout", "meta": { "targets": ["address-form", "payment-options", "place-order", "cart-link"] } }
+  ]
+}

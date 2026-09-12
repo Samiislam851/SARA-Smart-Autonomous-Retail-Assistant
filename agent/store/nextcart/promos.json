@@ -1,0 +1,17 @@
+[
+  {
+    "id": "6aa4e13d9d8e955239f94cdd",
+    "code": "NEXT10",
+    "kind": "percent",
+    "value": 10,
+    "applies": {
+      "slugs": "all"
+    },
+    "min_cart": null,
+    "starts_at": null,
+    "ends_at": null,
+    "ends_in_ms": null,
+    "label": "10% off with code NEXT10",
+    "auto_apply": false
+  }
+]

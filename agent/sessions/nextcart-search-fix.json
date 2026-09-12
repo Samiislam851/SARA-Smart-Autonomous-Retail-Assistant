@@ -1,0 +1,20 @@
+{
+  "name": "nextcart-search-fix",
+  "session": "fx_nc_search_fix",
+  "description": "Condensed from a real live NextCart session (final_nc_1219732343, saved verbatim under server/sessions/samples/final_nc_1219732343.json) — a POSITIVE case: the model correctly fired a search_help card off a misspelled zero-result search (\"bluetoth headphnes\" -> 0 results, 3 real fuzzy candidates). Two live defects this fixture now regression-covers: (1) grammar — the live card's body read \"Found 3 match for Pulsegear...\" (server/prompts/templates.json's {count|match|matches} pluralization fix); (2) NextCart's search box carries data-agent-target=\"search-input\", not the \"search\" id server/store/index.js's search_help offer hardcodes as target_hint — the live model worked around this itself by picking the lookalike visible target directly (a rule violation policy.js never caught, since it doesn't cross-check target against offers[].target_hint); the anchor-fallback fix now makes this deterministic instead of luck-dependent, rewriting target_hint \"search\" to \"cart-link\" (universally present) since \"search\" itself is never a real NextCart target. 3 candidates -> cta.kind stays \"search\" (only exactly 1 candidate switches to open_product, per prompts/decide.md's updated Failed search recipe) — not independently exercised here, see sessions/search-open-product.json for that branch.",
+  "expect": [{ "action": "card", "target": "cart-link" }],
+  "events": [
+    { "delay_ms": 0, "type": "page_view", "target": "/", "meta": { "site": "nextcart", "targets": ["cart-link", "policies-link", "returns-policy", "search-input", "shipping-policy"] } },
+    { "delay_ms": 1000, "type": "dwell", "target": "/", "meta": { "ms": 4000 } },
+    { "delay_ms": 1000, "type": "page_view", "target": "/c/electronics", "meta": { "site": "nextcart", "targets": ["cart-link", "policies-link", "returns-policy", "search-input", "shipping-policy"] } },
+    { "delay_ms": 1000, "type": "dwell", "target": "/c/electronics", "meta": { "ms": 4000 } },
+    { "delay_ms": 1000, "type": "page_view", "target": "/p/pulsegear-braided-usb-c-charging-cable-max", "meta": { "site": "nextcart", "targets": ["add-to-cart", "cart-link", "policies-link", "price", "product-title", "returns-policy", "search-input", "shipping-info", "shipping-policy"] } },
+    { "delay_ms": 1000, "type": "dwell", "target": "/p/pulsegear-braided-usb-c-charging-cable-max", "meta": { "ms": 9000 } },
+    { "delay_ms": 1000, "type": "page_view", "target": "/search", "meta": { "site": "nextcart", "targets": ["cart-link", "policies-link", "returns-policy", "search-input", "shipping-policy"] } },
+    { "delay_ms": 1000, "type": "search", "target": "search-input", "meta": { "q": "bluetoth headphnes", "results": 0 } },
+    { "delay_ms": 1000, "type": "dwell", "target": "/search", "meta": { "ms": 4000 } },
+    { "delay_ms": 1000, "type": "dwell", "target": "/search", "meta": { "ms": 9000 } },
+    { "delay_ms": 1000, "type": "dwell", "target": "/search", "meta": { "ms": 14000 } },
+    { "delay_ms": 1000, "type": "dwell", "target": "/search", "meta": { "ms": 19000 } }
+  ]
+}

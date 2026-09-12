@@ -1,0 +1,35 @@
+{
+  "name": "acme-journey",
+  "session": "fx_tm_journey",
+  "description": "Condensed from a real live Acme session (final_tm_242431, saved verbatim under server/sessions/samples/final_tm_242431.json) that produced 0 interventions across 9 real LLM calls despite a genuine checkout bounce (checkout -> login wall -> checkout -> login -> /shop) and a cart (৳650) stuck well under the ৳1,500 free-delivery threshold while browsing /shop and product pages. Category (a)/(c) regression: state.js's patterns.checkoutBounce is deterministically true right after the bounce (verified directly against buildState(), not just via a live model call — see server/NOTES.md); the cart_under_threshold offer's fill_with gives the model a concrete one-tap fact to act on even mid-browse. Live (2026-09-12, 3 runs, LLM_CACHE=0): the model consistently acted on cart_under_threshold (target shipping-banner — its own real target_hint, legitimately visible on this store's product pages, so no anchor-fallback rewrite needed here; see sessions/nextcart-search-fix.json / templates.json's `anchor` field for a fixture that DOES exercise the fallback rewrite) but did not independently fire checkout_bounce within this compressed replay's ~2-minute window — real CLI backend latency (~11-20s/call) plus decision coalescing (max 1 in-flight + 1 pending per session) limits a replay to ~2-3 actual model calls in that time, versus the 9 the real 4-minute session got; by the time the 2nd call lands, cart_under_threshold's fresher/still-true signal wins out over the earlier bounce. This is an open prompt-tuning item (server/prompts/decide.md now explicitly tells the model to check `patterns.checkoutBounce` by name first), not a code defect — the flag itself computes correctly (see the buildState() unit check in server/NOTES.md's entry for this fix).",
+  "expect": [
+    { "action": "card", "target": "shipping-banner" }
+  ],
+  "events": [
+    { "delay_ms": 0, "type": "page_view", "target": "/", "meta": { "site": "acme", "targets": ["cart-link", "search"] } },
+    { "delay_ms": 1000, "type": "dwell", "target": "/", "meta": { "ms": 4000 } },
+    { "delay_ms": 1000, "type": "page_view", "target": "/shop", "meta": { "site": "acme", "targets": ["cart-link", "category-filter", "search", "shop-search"] } },
+    { "delay_ms": 1000, "type": "dwell", "target": "/shop", "meta": { "ms": 5000 } },
+    { "delay_ms": 1000, "type": "page_view", "target": "/products/rickshaw-art-tee", "meta": { "site": "acme", "targets": ["cart-add", "cart-link", "color-picker", "price", "product-image", "product-title", "quantity", "search", "shipping-banner", "size-guide", "size-option-L", "size-option-M", "size-option-S", "size-option-XL", "size-picker"] } },
+    { "delay_ms": 1000, "type": "dwell", "target": "product-title", "meta": { "ms": 3000, "kind": "attention", "interactions": { "hover_ms": 2500, "clicks": 0 } } },
+    { "delay_ms": 1000, "type": "cart_update", "target": "cart-add", "meta": { "total": 650, "items": [{ "name": "Rickshaw Art Tee", "size": "M", "color": "Black", "quantity": 1, "price": 650 }], "promo": null } },
+    { "delay_ms": 1000, "type": "dwell", "target": "/products/rickshaw-art-tee", "meta": { "ms": 6000 } },
+    { "delay_ms": 1000, "type": "page_view", "target": "/checkout", "meta": { "site": "acme", "targets": ["cart-link", "search"] } },
+    { "delay_ms": 1000, "type": "dwell", "target": "/checkout", "meta": { "ms": 1000 } },
+    { "delay_ms": 1000, "type": "page_view", "target": "/login", "meta": { "site": "acme", "targets": ["address-form", "cart-link", "checkout-total", "payment-options", "place-order", "promo-apply", "promo-code", "search"] } },
+    { "delay_ms": 1000, "type": "dwell", "target": "/login", "meta": { "ms": 7000 } },
+    { "delay_ms": 1000, "type": "back_nav", "target": "/checkout" },
+    { "delay_ms": 1000, "type": "page_view", "target": "/checkout", "meta": { "site": "acme", "targets": ["cart-link", "search"] } },
+    { "delay_ms": 1000, "type": "dwell", "target": "/checkout", "meta": { "ms": 1000 } },
+    { "delay_ms": 1000, "type": "page_view", "target": "/login", "meta": { "site": "acme", "targets": ["address-form", "cart-link", "checkout-total", "payment-options", "place-order", "promo-apply", "promo-code", "search"] } },
+    { "delay_ms": 1000, "type": "dwell", "target": "/login", "meta": { "ms": 3000 } },
+    { "delay_ms": 1000, "type": "page_view", "target": "/shop", "meta": { "site": "acme", "targets": ["cart-link", "category-filter", "search", "shop-search"] } },
+    { "delay_ms": 1000, "type": "dwell", "target": "/shop", "meta": { "ms": 4000 } },
+    { "delay_ms": 1000, "type": "dwell", "target": "shop-search", "meta": { "ms": 6000, "kind": "attention", "interactions": { "hover_ms": 6000, "clicks": 0 } } },
+    { "delay_ms": 30000, "type": "dwell", "target": "/shop", "meta": { "ms": 9000 } },
+    { "delay_ms": 1000, "type": "page_view", "target": "/products/chaa-break-mug", "meta": { "site": "acme", "targets": ["cart-add", "cart-link", "color-picker", "price", "product-image", "product-title", "quantity", "search", "shipping-banner", "size-guide", "size-option-One Size", "size-picker"] } },
+    { "delay_ms": 1000, "type": "dwell", "target": "/products/chaa-break-mug", "meta": { "ms": 8000 } },
+    { "delay_ms": 1000, "type": "page_view", "target": "/products/rickshaw-art-tee", "meta": { "site": "acme", "targets": ["cart-add", "cart-link", "color-picker", "price", "product-image", "product-title", "quantity", "search", "shipping-banner", "size-guide", "size-option-L", "size-option-M", "size-option-S", "size-option-XL", "size-picker"] } },
+    { "delay_ms": 1000, "type": "dwell", "target": "/products/rickshaw-art-tee", "meta": { "ms": 12000 } }
+  ]
+}

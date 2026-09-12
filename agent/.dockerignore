@@ -1,0 +1,19 @@
+node_modules
+npm-debug.log
+.git
+.gitignore
+*.md
+.env
+.env.*
+!.env.example
+# `*.md` above would also exclude prompts/decide.md — decide/llm.js
+# fs.readFileSync's it at runtime as SYSTEM_PROMPT, so excluding it silently
+# breaks the llm decider inside the container (empty/missing system prompt).
+# (Docker .dockerignore negation only works against the exact matched
+# pattern, not a whole re-included directory — `!prompts/*.md`, not
+# `!prompts/`, is what actually un-excludes the .md file here.)
+!prompts/*.md
+# sessions/*.json fixtures are read by replay.js and decide/cached.js
+# (recorded playback) — explicit keep so a future ignore-pattern addition
+# above doesn't accidentally sweep these up too.
+!sessions/**

@@ -1,0 +1,2451 @@
+{
+  "products_page_1": {
+    "total": 16,
+    "page": 1,
+    "limit": 100,
+    "data": [
+      {
+        "name": "Chaa Break Mug",
+        "slug": "chaa-break-mug",
+        "description": "\"Chaa Break\" printed mug, dishwasher safe ceramic.",
+        "base_price": 52000,
+        "is_featured": true,
+        "availability": {
+          "available": true,
+          "available_stock_total": 32,
+          "variant_count": 2,
+          "available_variant_count": 2
+        },
+        "variants": [
+          {
+            "id": "de1582f8-4f45-4332-b322-758c34b1a7da",
+            "sku": "DEMO-14-ONESIZE-WHITE",
+            "combination_key": "onesize-white",
+            "size": "One Size",
+            "color_name": "White",
+            "tshirt_type": "",
+            "resolved_price": 52000,
+            "available_stock": 18
+          },
+          {
+            "id": "f1bbfeb1-177d-441f-b5d1-6c66b6529dda",
+            "sku": "DEMO-14-ONESIZE-TERRACOTTA",
+            "combination_key": "onesize-terracotta",
+            "size": "One Size",
+            "color_name": "Terracotta",
+            "tshirt_type": "",
+            "resolved_price": 52000,
+            "available_stock": 14
+          }
+        ],
+        "images": [
+          {
+            "url": "https://picsum.photos/seed/chaa-break-mug-1/800/800",
+            "alt_text": "Chaa Break Mug",
+            "image_type": "gallery",
+            "sort_order": 0,
+            "is_primary": true
+          },
+          {
+            "url": "https://picsum.photos/seed/chaa-break-mug-2/800/800",
+            "alt_text": "Chaa Break Mug",
+            "image_type": "gallery",
+            "sort_order": 1,
+            "is_primary": false
+          }
+        ]
+      },
+      {
+        "name": "Adda Mug",
+        "slug": "adda-mug",
+        "description": "Ceramic mug for your evening cha-er-adda sessions.",
+        "base_price": 48000,
+        "is_featured": false,
+        "availability": {
+          "available": true,
+          "available_stock_total": 25,
+          "variant_count": 2,
+          "available_variant_count": 1
+        },
+        "variants": [
+          {
+            "id": "34625926-53e3-4850-8b87-b50d68b2c7fc",
+            "sku": "DEMO-13-ONESIZE-WHITE",
+            "combination_key": "onesize-white",
+            "size": "One Size",
+            "color_name": "White",
+            "tshirt_type": "",
+            "resolved_price": 48000,
+            "available_stock": 25
+          },
+          {
+            "id": "7686c9aa-6e12-403b-afd2-ffd26b4f442f",
+            "sku": "DEMO-13-ONESIZE-BLACK",
+            "combination_key": "onesize-black",
+            "size": "One Size",
+            "color_name": "Black",
+            "tshirt_type": "",
+            "resolved_price": 48000,
+            "available_stock": 0
+          }
+        ],
+        "images": [
+          {
+            "url": "https://picsum.photos/seed/adda-mug-1/800/800",
+            "alt_text": "Adda Mug",
+            "image_type": "gallery",
+            "sort_order": 0,
+            "is_primary": true
+          },
+          {
+            "url": "https://picsum.photos/seed/adda-mug-2/800/800",
+            "alt_text": "Adda Mug",
+            "image_type": "gallery",
+            "sort_order": 1,
+            "is_primary": false
+          }
+        ]
+      },
+      {
+        "name": "Bangla Cap Lal Sobuz",
+        "slug": "bangla-cap-lal-sobuz",
+        "description": "Red-green national pride cap, embroidered crest.",
+        "base_price": 50000,
+        "is_featured": false,
+        "availability": {
+          "available": true,
+          "available_stock_total": 20,
+          "variant_count": 1,
+          "available_variant_count": 1
+        },
+        "variants": [
+          {
+            "id": "8da37e34-82a2-4af3-ab72-e696fd6beaff",
+            "sku": "DEMO-12-ONESIZE-RED-GREEN",
+            "combination_key": "onesize-red-green",
+            "size": "One Size",
+            "color_name": "Red-Green",
+            "tshirt_type": "",
+            "resolved_price": 50000,
+            "available_stock": 20
+          }
+        ],
+        "images": [
+          {
+            "url": "https://picsum.photos/seed/bangla-cap-lal-sobuz-1/800/800",
+            "alt_text": "Bangla Cap Lal Sobuz",
+            "image_type": "gallery",
+            "sort_order": 0,
+            "is_primary": true
+          },
+          {
+            "url": "https://picsum.photos/seed/bangla-cap-lal-sobuz-2/800/800",
+            "alt_text": "Bangla Cap Lal Sobuz",
+            "image_type": "gallery",
+            "sort_order": 1,
+            "is_primary": false
+          }
+        ]
+      },
+      {
+        "name": "Rickshaw Painting Cap",
+        "slug": "rickshaw-painting-cap",
+        "description": "Adjustable cap featuring vibrant rickshaw art embroidery.",
+        "base_price": 45000,
+        "is_featured": true,
+        "availability": {
+          "available": true,
+          "available_stock_total": 33,
+          "variant_count": 4,
+          "available_variant_count": 3
+        },
+        "variants": [
+          {
+            "id": "847837af-c296-49cc-abb1-7f3626eefae4",
+            "sku": "DEMO-11-ONESIZE-BLACK",
+            "combination_key": "onesize-black",
+            "size": "One Size",
+            "color_name": "Black",
+            "tshirt_type": "",
+            "resolved_price": 45000,
+            "available_stock": 15
+          },
+          {
+            "id": "c040a34f-88a9-4afb-9e8c-09f3f6cfb2c8",
+            "sku": "DEMO-11-ONESIZE-YELLOW",
+            "combination_key": "onesize-yellow",
+            "size": "One Size",
+            "color_name": "Yellow",
+            "tshirt_type": "",
+            "resolved_price": 45000,
+            "available_stock": 10
+          },
+          {
+            "id": "e567d92a-e34a-49ac-a4ee-a9de65421f45",
+            "sku": "DEMO-11-ONESIZE-RED",
+            "combination_key": "onesize-red",
+            "size": "One Size",
+            "color_name": "Red",
+            "tshirt_type": "",
+            "resolved_price": 45000,
+            "available_stock": 8
+          },
+          {
+            "id": "fcada470-1c1d-4a9b-9e0b-cb2f63eac1f5",
+            "sku": "DEMO-11-ONESIZE-GREEN",
+            "combination_key": "onesize-green",
+            "size": "One Size",
+            "color_name": "Green",
+            "tshirt_type": "",
+            "resolved_price": 45000,
+            "available_stock": 0
+          }
+        ],
+        "images": [
+          {
+            "url": "https://picsum.photos/seed/rickshaw-painting-cap-1/800/800",
+            "alt_text": "Rickshaw Painting Cap",
+            "image_type": "gallery",
+            "sort_order": 0,
+            "is_primary": true
+          },
+          {
+            "url": "https://picsum.photos/seed/rickshaw-painting-cap-2/800/800",
+            "alt_text": "Rickshaw Painting Cap",
+            "image_type": "gallery",
+            "sort_order": 1,
+            "is_primary": false
+          }
+        ]
+      },
+      {
+        "name": "Monsoon Grey Hoodie",
+        "slug": "monsoon-grey-hoodie",
+        "description": "Cozy hoodie in monsoon-cloud grey, brushed fleece interior.",
+        "base_price": 195000,
+        "is_featured": false,
+        "availability": {
+          "available": true,
+          "available_stock_total": 15,
+          "variant_count": 4,
+          "available_variant_count": 3
+        },
+        "variants": [
+          {
+            "id": "d49670c2-f63c-4c88-8c54-b8d29e934a6d",
+            "sku": "DEMO-10-S-GREY",
+            "combination_key": "s-grey",
+            "size": "S",
+            "color_name": "Grey",
+            "tshirt_type": "",
+            "resolved_price": 195000,
+            "available_stock": 4
+          },
+          {
+            "id": "80dfc1e3-0402-46e5-9e29-a034037e495a",
+            "sku": "DEMO-10-M-GREY",
+            "combination_key": "m-grey",
+            "size": "M",
+            "color_name": "Grey",
+            "tshirt_type": "",
+            "resolved_price": 195000,
+            "available_stock": 6
+          },
+          {
+            "id": "a6c2b25d-4c44-4014-af78-79a7190807d8",
+            "sku": "DEMO-10-L-GREY",
+            "combination_key": "l-grey",
+            "size": "L",
+            "color_name": "Grey",
+            "tshirt_type": "",
+            "resolved_price": 195000,
+            "available_stock": 5
+          },
+          {
+            "id": "e975f704-79bd-4875-bafd-3fa9439c37d7",
+            "sku": "DEMO-10-XL-GREY",
+            "combination_key": "xl-grey",
+            "size": "XL",
+            "color_name": "Grey",
+            "tshirt_type": "",
+            "resolved_price": 195000,
+            "available_stock": 0
+          }
+        ],
+        "images": [
+          {
+            "url": "https://picsum.photos/seed/monsoon-grey-hoodie-1/800/800",
+            "alt_text": "Monsoon Grey Hoodie",
+            "image_type": "gallery",
+            "sort_order": 0,
+            "is_primary": true
+          },
+          {
+            "url": "https://picsum.photos/seed/monsoon-grey-hoodie-2/800/800",
+            "alt_text": "Monsoon Grey Hoodie",
+            "image_type": "gallery",
+            "sort_order": 1,
+            "is_primary": false
+          }
+        ]
+      },
+      {
+        "name": "Padma Bridge Hoodie",
+        "slug": "padma-bridge-hoodie",
+        "description": "Premium hoodie commemorating the Padma Bridge.",
+        "base_price": 210000,
+        "is_featured": false,
+        "availability": {
+          "available": true,
+          "available_stock_total": 29,
+          "variant_count": 6,
+          "available_variant_count": 6
+        },
+        "variants": [
+          {
+            "id": "50a8063c-316c-4135-b939-80f3ec140b5f",
+            "sku": "DEMO-09-M-NAVY",
+            "combination_key": "m-navy",
+            "size": "M",
+            "color_name": "Navy",
+            "tshirt_type": "",
+            "resolved_price": 210000,
+            "available_stock": 6
+          },
+          {
+            "id": "3fa3485e-385b-429c-a3af-ef9b84393724",
+            "sku": "DEMO-09-M-BLACK",
+            "combination_key": "m-black",
+            "size": "M",
+            "color_name": "Black",
+            "tshirt_type": "",
+            "resolved_price": 210000,
+            "available_stock": 7
+          },
+          {
+            "id": "4d18c3c4-68f8-4501-b43e-9b509168a074",
+            "sku": "DEMO-09-L-NAVY",
+            "combination_key": "l-navy",
+            "size": "L",
+            "color_name": "Navy",
+            "tshirt_type": "",
+            "resolved_price": 210000,
+            "available_stock": 3
+          },
+          {
+            "id": "b58ff1bb-6834-4f84-aacd-c23fc38b759f",
+            "sku": "DEMO-09-L-BLACK",
+            "combination_key": "l-black",
+            "size": "L",
+            "color_name": "Black",
+            "tshirt_type": "",
+            "resolved_price": 210000,
+            "available_stock": 5
+          },
+          {
+            "id": "798a93b1-12ba-4028-9090-79f196f429ec",
+            "sku": "DEMO-09-XL-NAVY",
+            "combination_key": "xl-navy",
+            "size": "XL",
+            "color_name": "Navy",
+            "tshirt_type": "",
+            "resolved_price": 210000,
+            "available_stock": 6
+          },
+          {
+            "id": "2b36b7d1-3947-48b6-ba06-e0c3e9d7f398",
+            "sku": "DEMO-09-XL-BLACK",
+            "combination_key": "xl-black",
+            "size": "XL",
+            "color_name": "Black",
+            "tshirt_type": "",
+            "resolved_price": 210000,
+            "available_stock": 2
+          }
+        ],
+        "images": [
+          {
+            "url": "https://picsum.photos/seed/padma-bridge-hoodie-1/800/800",
+            "alt_text": "Padma Bridge Hoodie",
+            "image_type": "gallery",
+            "sort_order": 0,
+            "is_primary": true
+          },
+          {
+            "url": "https://picsum.photos/seed/padma-bridge-hoodie-2/800/800",
+            "alt_text": "Padma Bridge Hoodie",
+            "image_type": "gallery",
+            "sort_order": 1,
+            "is_primary": false
+          }
+        ]
+      },
+      {
+        "name": "Dhaka Traffic Hoodie",
+        "slug": "dhaka-traffic-hoodie",
+        "description": "Satirical hoodie print about the legendary Dhaka jam.",
+        "base_price": 165000,
+        "is_featured": false,
+        "availability": {
+          "available": true,
+          "available_stock_total": 23,
+          "variant_count": 5,
+          "available_variant_count": 4
+        },
+        "variants": [
+          {
+            "id": "1c117ff3-1d3b-4b16-9aac-0f4606bd2995",
+            "sku": "DEMO-08-S-CHARCOAL",
+            "combination_key": "s-charcoal",
+            "size": "S",
+            "color_name": "Charcoal",
+            "tshirt_type": "",
+            "resolved_price": 165000,
+            "available_stock": 5
+          },
+          {
+            "id": "9a62cfe9-db52-4a70-9334-7ed36f34b5a5",
+            "sku": "DEMO-08-M-CHARCOAL",
+            "combination_key": "m-charcoal",
+            "size": "M",
+            "color_name": "Charcoal",
+            "tshirt_type": "",
+            "resolved_price": 165000,
+            "available_stock": 8
+          },
+          {
+            "id": "d2b4f62d-4548-450a-b263-c49a0a6983b4",
+            "sku": "DEMO-08-L-CHARCOAL",
+            "combination_key": "l-charcoal",
+            "size": "L",
+            "color_name": "Charcoal",
+            "tshirt_type": "",
+            "resolved_price": 165000,
+            "available_stock": 6
+          },
+          {
+            "id": "b0c9775a-2eef-44a5-b848-f23353b6448b",
+            "sku": "DEMO-08-XL-CHARCOAL",
+            "combination_key": "xl-charcoal",
+            "size": "XL",
+            "color_name": "Charcoal",
+            "tshirt_type": "",
+            "resolved_price": 165000,
+            "available_stock": 4
+          },
+          {
+            "id": "cdcc6b5f-6ba6-4e81-8fbe-2fedc6195151",
+            "sku": "DEMO-08-XXL-CHARCOAL",
+            "combination_key": "xxl-charcoal",
+            "size": "XXL",
+            "color_name": "Charcoal",
+            "tshirt_type": "",
+            "resolved_price": 165000,
+            "available_stock": 0
+          }
+        ],
+        "images": [
+          {
+            "url": "https://picsum.photos/seed/dhaka-traffic-hoodie-1/800/800",
+            "alt_text": "Dhaka Traffic Hoodie",
+            "image_type": "gallery",
+            "sort_order": 0,
+            "is_primary": true
+          },
+          {
+            "url": "https://picsum.photos/seed/dhaka-traffic-hoodie-2/800/800",
+            "alt_text": "Dhaka Traffic Hoodie",
+            "image_type": "gallery",
+            "sort_order": 1,
+            "is_primary": false
+          }
+        ]
+      },
+      {
+        "name": "Sundarban Tiger Hoodie",
+        "slug": "sundarban-tiger-hoodie",
+        "description": "Heavyweight fleece hoodie with royal bengal tiger print.",
+        "base_price": 180000,
+        "is_featured": true,
+        "availability": {
+          "available": true,
+          "available_stock_total": 41,
+          "variant_count": 8,
+          "available_variant_count": 7
+        },
+        "variants": [
+          {
+            "id": "9e7ad001-65d7-4c19-93fe-5d89cdd91e7e",
+            "sku": "DEMO-07-S-BLACK",
+            "combination_key": "s-black",
+            "size": "S",
+            "color_name": "Black",
+            "tshirt_type": "",
+            "resolved_price": 180000,
+            "available_stock": 6
+          },
+          {
+            "id": "3312f403-b525-4611-a35f-a075ede68d46",
+            "sku": "DEMO-07-S-GREY",
+            "combination_key": "s-grey",
+            "size": "S",
+            "color_name": "Grey",
+            "tshirt_type": "",
+            "resolved_price": 180000,
+            "available_stock": 9
+          },
+          {
+            "id": "7ad96ef8-d456-4856-9a16-7dcb000db948",
+            "sku": "DEMO-07-M-BLACK",
+            "combination_key": "m-black",
+            "size": "M",
+            "color_name": "Black",
+            "tshirt_type": "",
+            "resolved_price": 180000,
+            "available_stock": 7
+          },
+          {
+            "id": "87e2ff4c-30bd-44dd-926b-72e99a84ce71",
+            "sku": "DEMO-07-M-GREY",
+            "combination_key": "m-grey",
+            "size": "M",
+            "color_name": "Grey",
+            "tshirt_type": "",
+            "resolved_price": 180000,
+            "available_stock": 0
+          },
+          {
+            "id": "db8c6920-2227-4dc6-89e9-d713d00081ad",
+            "sku": "DEMO-07-L-BLACK",
+            "combination_key": "l-black",
+            "size": "L",
+            "color_name": "Black",
+            "tshirt_type": "",
+            "resolved_price": 180000,
+            "available_stock": 5
+          },
+          {
+            "id": "ad3c8679-685b-4d34-a02f-58a20cb607fe",
+            "sku": "DEMO-07-L-GREY",
+            "combination_key": "l-grey",
+            "size": "L",
+            "color_name": "Grey",
+            "tshirt_type": "",
+            "resolved_price": 180000,
+            "available_stock": 8
+          },
+          {
+            "id": "c35eb503-9957-4b92-905a-353bfd2dbc07",
+            "sku": "DEMO-07-XL-BLACK",
+            "combination_key": "xl-black",
+            "size": "XL",
+            "color_name": "Black",
+            "tshirt_type": "",
+            "resolved_price": 180000,
+            "available_stock": 4
+          },
+          {
+            "id": "96460680-a7cd-471c-a572-16146e3f221d",
+            "sku": "DEMO-07-XL-GREY",
+            "combination_key": "xl-grey",
+            "size": "XL",
+            "color_name": "Grey",
+            "tshirt_type": "",
+            "resolved_price": 180000,
+            "available_stock": 2
+          }
+        ],
+        "images": [
+          {
+            "url": "https://picsum.photos/seed/sundarban-tiger-hoodie-1/800/800",
+            "alt_text": "Sundarban Tiger Hoodie",
+            "image_type": "gallery",
+            "sort_order": 0,
+            "is_primary": true
+          },
+          {
+            "url": "https://picsum.photos/seed/sundarban-tiger-hoodie-2/800/800",
+            "alt_text": "Sundarban Tiger Hoodie",
+            "image_type": "gallery",
+            "sort_order": 1,
+            "is_primary": false
+          }
+        ]
+      },
+      {
+        "name": "Boishakhi Red Polo",
+        "slug": "boishakhi-red-polo",
+        "description": "Festive red polo for Pohela Boishakh celebrations.",
+        "base_price": 90000,
+        "is_featured": false,
+        "availability": {
+          "available": true,
+          "available_stock_total": 4,
+          "variant_count": 3,
+          "available_variant_count": 3
+        },
+        "variants": [
+          {
+            "id": "5a69caf3-3069-43c3-8876-4c33fbbbfaef",
+            "sku": "DEMO-06-S-RED",
+            "combination_key": "s-red",
+            "size": "S",
+            "color_name": "Red",
+            "tshirt_type": "",
+            "resolved_price": 90000,
+            "available_stock": 2
+          },
+          {
+            "id": "b515d02d-7fd7-48eb-8a26-a0da7baacac1",
+            "sku": "DEMO-06-M-RED",
+            "combination_key": "m-red",
+            "size": "M",
+            "color_name": "Red",
+            "tshirt_type": "",
+            "resolved_price": 90000,
+            "available_stock": 1
+          },
+          {
+            "id": "2d0f306e-12df-4cb7-a8b6-8f3020b9d474",
+            "sku": "DEMO-06-L-RED",
+            "combination_key": "l-red",
+            "size": "L",
+            "color_name": "Red",
+            "tshirt_type": "",
+            "resolved_price": 90000,
+            "available_stock": 1
+          }
+        ],
+        "images": [
+          {
+            "url": "https://picsum.photos/seed/boishakhi-red-polo-1/800/800",
+            "alt_text": "Boishakhi Red Polo",
+            "image_type": "gallery",
+            "sort_order": 0,
+            "is_primary": true
+          },
+          {
+            "url": "https://picsum.photos/seed/boishakhi-red-polo-2/800/800",
+            "alt_text": "Boishakhi Red Polo",
+            "image_type": "gallery",
+            "sort_order": 1,
+            "is_primary": false
+          }
+        ]
+      },
+      {
+        "name": "Desher Mati Polo",
+        "slug": "desher-mati-polo",
+        "description": "Earthy tone polo celebrating the soil of the homeland.",
+        "base_price": 85000,
+        "is_featured": false,
+        "availability": {
+          "available": true,
+          "available_stock_total": 40,
+          "variant_count": 6,
+          "available_variant_count": 6
+        },
+        "variants": [
+          {
+            "id": "7cdcc7fc-f7a8-4cd0-81fa-b18105624b58",
+            "sku": "DEMO-05-M-OLIVE",
+            "combination_key": "m-olive",
+            "size": "M",
+            "color_name": "Olive",
+            "tshirt_type": "",
+            "resolved_price": 85000,
+            "available_stock": 8
+          },
+          {
+            "id": "f251ab37-fa5d-4c2e-9467-096a0b2b2b5f",
+            "sku": "DEMO-05-M-BEIGE",
+            "combination_key": "m-beige",
+            "size": "M",
+            "color_name": "Beige",
+            "tshirt_type": "",
+            "resolved_price": 85000,
+            "available_stock": 10
+          },
+          {
+            "id": "0495cdcd-3c8a-462d-af67-943d7d931dbe",
+            "sku": "DEMO-05-L-OLIVE",
+            "combination_key": "l-olive",
+            "size": "L",
+            "color_name": "Olive",
+            "tshirt_type": "",
+            "resolved_price": 85000,
+            "available_stock": 6
+          },
+          {
+            "id": "78f010b8-0576-4101-8254-139a21ee02fc",
+            "sku": "DEMO-05-L-BEIGE",
+            "combination_key": "l-beige",
+            "size": "L",
+            "color_name": "Beige",
+            "tshirt_type": "",
+            "resolved_price": 85000,
+            "available_stock": 5
+          },
+          {
+            "id": "e8333f2f-5057-43b5-b453-ed9f44fbe5b5",
+            "sku": "DEMO-05-XL-OLIVE",
+            "combination_key": "xl-olive",
+            "size": "XL",
+            "color_name": "Olive",
+            "tshirt_type": "",
+            "resolved_price": 85000,
+            "available_stock": 7
+          },
+          {
+            "id": "9ea18450-6418-44cf-b83d-cd345eae9e80",
+            "sku": "DEMO-05-XL-BEIGE",
+            "combination_key": "xl-beige",
+            "size": "XL",
+            "color_name": "Beige",
+            "tshirt_type": "",
+            "resolved_price": 85000,
+            "available_stock": 4
+          }
+        ],
+        "images": [
+          {
+            "url": "https://picsum.photos/seed/desher-mati-polo-1/800/800",
+            "alt_text": "Desher Mati Polo",
+            "image_type": "gallery",
+            "sort_order": 0,
+            "is_primary": true
+          },
+          {
+            "url": "https://picsum.photos/seed/desher-mati-polo-2/800/800",
+            "alt_text": "Desher Mati Polo",
+            "image_type": "gallery",
+            "sort_order": 1,
+            "is_primary": false
+          }
+        ]
+      },
+      {
+        "name": "Chattogram Navy Polo",
+        "slug": "chattogram-navy-polo",
+        "description": "Port city inspired navy polo, breathable pique cotton.",
+        "base_price": 110000,
+        "is_featured": false,
+        "availability": {
+          "available": true,
+          "available_stock_total": 32,
+          "variant_count": 4,
+          "available_variant_count": 3
+        },
+        "variants": [
+          {
+            "id": "2c5c12e9-b75d-49ba-a00f-35cdc0309fb2",
+            "sku": "DEMO-04-S-NAVY",
+            "combination_key": "s-navy",
+            "size": "S",
+            "color_name": "Navy",
+            "tshirt_type": "",
+            "resolved_price": 110000,
+            "available_stock": 9
+          },
+          {
+            "id": "b99d0928-a306-4c5f-a783-65ffda364968",
+            "sku": "DEMO-04-M-NAVY",
+            "combination_key": "m-navy",
+            "size": "M",
+            "color_name": "Navy",
+            "tshirt_type": "",
+            "resolved_price": 110000,
+            "available_stock": 13
+          },
+          {
+            "id": "eb7e79ed-f5f2-4974-a964-492561e56d36",
+            "sku": "DEMO-04-L-NAVY",
+            "combination_key": "l-navy",
+            "size": "L",
+            "color_name": "Navy",
+            "tshirt_type": "",
+            "resolved_price": 110000,
+            "available_stock": 10
+          },
+          {
+            "id": "306252c7-5f91-4008-bba1-ceac30e08596",
+            "sku": "DEMO-04-XL-NAVY",
+            "combination_key": "xl-navy",
+            "size": "XL",
+            "color_name": "Navy",
+            "tshirt_type": "",
+            "resolved_price": 110000,
+            "available_stock": 0
+          }
+        ],
+        "images": [
+          {
+            "url": "https://picsum.photos/seed/chattogram-navy-polo-1/800/800",
+            "alt_text": "Chattogram Navy Polo",
+            "image_type": "gallery",
+            "sort_order": 0,
+            "is_primary": true
+          },
+          {
+            "url": "https://picsum.photos/seed/chattogram-navy-polo-2/800/800",
+            "alt_text": "Chattogram Navy Polo",
+            "image_type": "gallery",
+            "sort_order": 1,
+            "is_primary": false
+          }
+        ]
+      },
+      {
+        "name": "Ekushey Polo",
+        "slug": "ekushey-polo",
+        "description": "Tribute polo shirt honoring Ekushey February in deep black.",
+        "base_price": 95000,
+        "is_featured": true,
+        "availability": {
+          "available": true,
+          "available_stock_total": 65,
+          "variant_count": 8,
+          "available_variant_count": 8
+        },
+        "variants": [
+          {
+            "id": "57ee82ff-ceeb-451c-a109-ba9e8e5e52d9",
+            "sku": "DEMO-03-S-BLACK",
+            "combination_key": "s-black",
+            "size": "S",
+            "color_name": "Black",
+            "tshirt_type": "",
+            "resolved_price": 95000,
+            "available_stock": 10
+          },
+          {
+            "id": "7148d503-97a0-412a-9663-4842c3b5f20a",
+            "sku": "DEMO-03-S-WHITE",
+            "combination_key": "s-white",
+            "size": "S",
+            "color_name": "White",
+            "tshirt_type": "",
+            "resolved_price": 95000,
+            "available_stock": 14
+          },
+          {
+            "id": "a3ee0ae8-b350-4234-a673-4189ac38dbb5",
+            "sku": "DEMO-03-M-BLACK",
+            "combination_key": "m-black",
+            "size": "M",
+            "color_name": "Black",
+            "tshirt_type": "",
+            "resolved_price": 95000,
+            "available_stock": 11
+          },
+          {
+            "id": "99e9bfa3-7850-4105-8a44-46004a41a38f",
+            "sku": "DEMO-03-M-WHITE",
+            "combination_key": "m-white",
+            "size": "M",
+            "color_name": "White",
+            "tshirt_type": "",
+            "resolved_price": 95000,
+            "available_stock": 5
+          },
+          {
+            "id": "7220d263-6919-4a32-96f6-71595a0cff3e",
+            "sku": "DEMO-03-L-BLACK",
+            "combination_key": "l-black",
+            "size": "L",
+            "color_name": "Black",
+            "tshirt_type": "",
+            "resolved_price": 95000,
+            "available_stock": 6
+          },
+          {
+            "id": "a8fb588a-e6c6-4c71-8306-042d21192922",
+            "sku": "DEMO-03-L-WHITE",
+            "combination_key": "l-white",
+            "size": "L",
+            "color_name": "White",
+            "tshirt_type": "",
+            "resolved_price": 95000,
+            "available_stock": 9
+          },
+          {
+            "id": "8e9e0670-ee74-4f0c-a48b-792773f27465",
+            "sku": "DEMO-03-XL-BLACK",
+            "combination_key": "xl-black",
+            "size": "XL",
+            "color_name": "Black",
+            "tshirt_type": "",
+            "resolved_price": 95000,
+            "available_stock": 7
+          },
+          {
+            "id": "324e8b7b-2263-4ae3-838c-1bd3adde828f",
+            "sku": "DEMO-03-XL-WHITE",
+            "combination_key": "xl-white",
+            "size": "XL",
+            "color_name": "White",
+            "tshirt_type": "",
+            "resolved_price": 95000,
+            "available_stock": 3
+          }
+        ],
+        "images": [
+          {
+            "url": "https://picsum.photos/seed/ekushey-polo-1/800/800",
+            "alt_text": "Ekushey Polo",
+            "image_type": "gallery",
+            "sort_order": 0,
+            "is_primary": true
+          },
+          {
+            "url": "https://picsum.photos/seed/ekushey-polo-2/800/800",
+            "alt_text": "Ekushey Polo",
+            "image_type": "gallery",
+            "sort_order": 1,
+            "is_primary": false
+          }
+        ]
+      },
+      {
+        "name": "Ilish Bhaja Tee",
+        "slug": "ilish-bhaja-tee",
+        "description": "Fun hilsa-fry graphic tee for the true Bangladeshi foodie.",
+        "base_price": 55000,
+        "is_featured": false,
+        "availability": {
+          "available": true,
+          "available_stock_total": 41,
+          "variant_count": 5,
+          "available_variant_count": 4
+        },
+        "variants": [
+          {
+            "id": "9ada9dc6-acd1-49a0-8f5f-d52e87ef668b",
+            "sku": "DEMO-02-S-MAROON",
+            "combination_key": "s-maroon",
+            "size": "S",
+            "color_name": "Maroon",
+            "tshirt_type": "",
+            "resolved_price": 55000,
+            "available_stock": 8
+          },
+          {
+            "id": "489fb95b-8f3c-4525-a8c8-c664c49b442e",
+            "sku": "DEMO-02-M-MAROON",
+            "combination_key": "m-maroon",
+            "size": "M",
+            "color_name": "Maroon",
+            "tshirt_type": "",
+            "resolved_price": 55000,
+            "available_stock": 15
+          },
+          {
+            "id": "981fda90-5382-4d6c-9a9e-0d3dc5a19e60",
+            "sku": "DEMO-02-L-MAROON",
+            "combination_key": "l-maroon",
+            "size": "L",
+            "color_name": "Maroon",
+            "tshirt_type": "",
+            "resolved_price": 55000,
+            "available_stock": 12
+          },
+          {
+            "id": "d470ddf2-b2e1-4085-ad30-db2503093895",
+            "sku": "DEMO-02-XL-MAROON",
+            "combination_key": "xl-maroon",
+            "size": "XL",
+            "color_name": "Maroon",
+            "tshirt_type": "",
+            "resolved_price": 55000,
+            "available_stock": 6
+          },
+          {
+            "id": "f3c6c28a-7c7f-47ff-b8f8-c1b326c7ddb5",
+            "sku": "DEMO-02-XXL-MAROON",
+            "combination_key": "xxl-maroon",
+            "size": "XXL",
+            "color_name": "Maroon",
+            "tshirt_type": "",
+            "resolved_price": 55000,
+            "available_stock": 0
+          }
+        ],
+        "images": [
+          {
+            "url": "https://picsum.photos/seed/ilish-bhaja-tee-1/800/800",
+            "alt_text": "Ilish Bhaja Tee",
+            "image_type": "gallery",
+            "sort_order": 0,
+            "is_primary": true
+          },
+          {
+            "url": "https://picsum.photos/seed/ilish-bhaja-tee-2/800/800",
+            "alt_text": "Ilish Bhaja Tee",
+            "image_type": "gallery",
+            "sort_order": 1,
+            "is_primary": false
+          }
+        ]
+      },
+      {
+        "name": "Rickshaw Art Tee",
+        "slug": "rickshaw-art-tee",
+        "description": "Hand-painted rickshaw art printed on soft cotton.",
+        "base_price": 65000,
+        "is_featured": true,
+        "availability": {
+          "available": true,
+          "available_stock_total": 70,
+          "variant_count": 8,
+          "available_variant_count": 6
+        },
+        "variants": [
+          {
+            "id": "8d924a61-8fef-402b-95fc-3c21f976331c",
+            "sku": "DEMO-01-S-BLACK",
+            "combination_key": "s-black",
+            "size": "S",
+            "color_name": "Black",
+            "tshirt_type": "",
+            "resolved_price": 65000,
+            "available_stock": 10
+          },
+          {
+            "id": "53c37a63-a7cb-4ee1-9546-fc2a8c6c5623",
+            "sku": "DEMO-01-S-WHITE",
+            "combination_key": "s-white",
+            "size": "S",
+            "color_name": "White",
+            "tshirt_type": "",
+            "resolved_price": 65000,
+            "available_stock": 18
+          },
+          {
+            "id": "3f1eb4dd-9b98-4801-9883-63b878741836",
+            "sku": "DEMO-01-M-BLACK",
+            "combination_key": "m-black",
+            "size": "M",
+            "color_name": "Black",
+            "tshirt_type": "",
+            "resolved_price": 65000,
+            "available_stock": 14
+          },
+          {
+            "id": "ead6b3cb-7165-4386-9798-28a0888793b2",
+            "sku": "DEMO-01-M-WHITE",
+            "combination_key": "m-white",
+            "size": "M",
+            "color_name": "White",
+            "tshirt_type": "",
+            "resolved_price": 65000,
+            "available_stock": 0
+          },
+          {
+            "id": "87e7bea2-56ca-4101-8556-3e5882d1f7e5",
+            "sku": "DEMO-01-L-BLACK",
+            "combination_key": "l-black",
+            "size": "L",
+            "color_name": "Black",
+            "tshirt_type": "",
+            "resolved_price": 65000,
+            "available_stock": 7
+          },
+          {
+            "id": "2d0c4c25-3191-45d6-ae32-9c60369e4e7e",
+            "sku": "DEMO-01-L-WHITE",
+            "combination_key": "l-white",
+            "size": "L",
+            "color_name": "White",
+            "tshirt_type": "",
+            "resolved_price": 65000,
+            "available_stock": 12
+          },
+          {
+            "id": "7f7aed32-9ab2-479b-bc5c-0cb9bd7c5c08",
+            "sku": "DEMO-01-XL-BLACK",
+            "combination_key": "xl-black",
+            "size": "XL",
+            "color_name": "Black",
+            "tshirt_type": "",
+            "resolved_price": 65000,
+            "available_stock": 9
+          },
+          {
+            "id": "fd04a8da-4a41-4fd6-afde-a21f4ae0f671",
+            "sku": "DEMO-01-XL-WHITE",
+            "combination_key": "xl-white",
+            "size": "XL",
+            "color_name": "White",
+            "tshirt_type": "",
+            "resolved_price": 65000,
+            "available_stock": 0
+          }
+        ],
+        "images": [
+          {
+            "url": "https://picsum.photos/seed/rickshaw-art-tee-1/800/800",
+            "alt_text": "Rickshaw Art Tee",
+            "image_type": "gallery",
+            "sort_order": 0,
+            "is_primary": true
+          },
+          {
+            "url": "https://picsum.photos/seed/rickshaw-art-tee-2/800/800",
+            "alt_text": "Rickshaw Art Tee",
+            "image_type": "gallery",
+            "sort_order": 1,
+            "is_primary": false
+          }
+        ]
+      },
+      {
+        "name": "Neon Rickshaw Tee",
+        "slug": "neon-rickshaw-tee",
+        "description": "240 GSM heavy combed cotton.",
+        "base_price": 120000,
+        "is_featured": false,
+        "availability": {
+          "available": true,
+          "available_stock_total": 13,
+          "variant_count": 3,
+          "available_variant_count": 2
+        },
+        "variants": [
+          {
+            "id": "019f4c93-5d49-7ab8-a72f-51d7cee8026b",
+            "sku": "NEONRICK9726A1-LE8026B",
+            "combination_key": "legacy:019f4c93-5d49-7ab8-a72f-51d7cee8026b",
+            "size": "M",
+            "color_name": "Black",
+            "color_hex": "#111111",
+            "tshirt_type": "",
+            "resolved_price": 120000,
+            "available_stock": 10
+          },
+          {
+            "id": "019f4c93-5d58-77db-b0a8-8952e58cae9f",
+            "sku": "NEONRICK9726A1-L8CAE9F",
+            "combination_key": "legacy:019f4c93-5d58-77db-b0a8-8952e58cae9f",
+            "size": "L",
+            "color_name": "Black",
+            "color_hex": "#111111",
+            "tshirt_type": "",
+            "resolved_price": 120000,
+            "available_stock": 3
+          },
+          {
+            "id": "019f4c93-5d67-7389-bed1-9250f7963177",
+            "sku": "NEONRICK9726A1-L963177",
+            "combination_key": "legacy:019f4c93-5d67-7389-bed1-9250f7963177",
+            "size": "M",
+            "color_name": "White",
+            "color_hex": "#eeeeee",
+            "tshirt_type": "",
+            "resolved_price": 120000,
+            "available_stock": 0
+          }
+        ],
+        "images": [
+          {
+            "url": "https://picsum.photos/seed/neon-rickshaw-tee-1/800/800",
+            "alt_text": "Neon Rickshaw Tee",
+            "image_type": "gallery",
+            "sort_order": 0,
+            "is_primary": true
+          }
+        ]
+      },
+      {
+        "name": "Banana Tshirt",
+        "slug": "banana-tshirt",
+        "base_price": 30000,
+        "is_featured": false,
+        "availability": {
+          "available": true,
+          "available_stock_total": 10,
+          "variant_count": 1,
+          "available_variant_count": 1
+        },
+        "variants": [
+          {
+            "id": "019f4c7d-c7a4-7741-b049-128325f46965",
+            "sku": "BANANATS511A85-LF46965",
+            "combination_key": "default",
+            "size": "M",
+            "color_name": "Blue",
+            "color_hex": "#000080",
+            "tshirt_type": "",
+            "resolved_price": 30000,
+            "available_stock": 10
+          }
+        ],
+        "images": [
+          {
+            "url": "https://picsum.photos/seed/banana-tshirt-1/800/800",
+            "alt_text": "Banana Tshirt",
+            "image_type": "gallery",
+            "sort_order": 0,
+            "is_primary": true
+          }
+        ]
+      }
+    ]
+  },
+  "categories": [
+    {
+      "id": "019f4c93-5cc2-7f2b-ba6f-b2bcd5aeda37",
+      "name": "Caps & Mugs",
+      "slug": "caps-mugs",
+      "description": "Caps and ceramic mugs",
+      "sort_order": 0,
+      "status": "active",
+      "created_at": "2026-07-10T21:09:13.795021+06:00",
+      "updated_at": "2026-07-10T21:09:13.795021+06:00"
+    },
+    {
+      "id": "019f56f1-5f1a-7751-93fa-8e848b21461d",
+      "name": "Hoodies",
+      "slug": "hoodies",
+      "description": "Fleece pullover hoodies",
+      "sort_order": 0,
+      "status": "active",
+      "created_at": "2026-07-12T21:28:06.938489+06:00",
+      "updated_at": "2026-07-12T21:28:06.938489+06:00"
+    },
+    {
+      "id": "019f56f1-1f62-75aa-af06-409d11bf4980",
+      "name": "Polos",
+      "slug": "polos",
+      "description": "Pique cotton polo shirts",
+      "sort_order": 0,
+      "status": "active",
+      "created_at": "2026-07-12T21:27:50.626386+06:00",
+      "updated_at": "2026-07-12T21:27:50.626386+06:00"
+    },
+    {
+      "id": "019f4c7b-8305-79fd-ad05-5e8a8a61c5f4",
+      "name": "T-Shirts",
+      "slug": "t-shirts",
+      "description": "Printed cotton t-shirts",
+      "sort_order": 0,
+      "status": "active",
+      "created_at": "2026-07-10T20:43:10.725669+06:00",
+      "updated_at": "2026-07-10T20:43:10.725669+06:00"
+    }
+  ],
+  "products_by_category": {
+    "caps-mugs": {
+      "total": 4,
+      "page": 1,
+      "limit": 100,
+      "data": [
+        {
+          "name": "Chaa Break Mug",
+          "slug": "chaa-break-mug",
+          "description": "\"Chaa Break\" printed mug, dishwasher safe ceramic.",
+          "base_price": 52000,
+          "is_featured": true,
+          "availability": {
+            "available": true,
+            "available_stock_total": 32,
+            "variant_count": 2,
+            "available_variant_count": 2
+          },
+          "variants": [
+            {
+              "id": "de1582f8-4f45-4332-b322-758c34b1a7da",
+              "sku": "DEMO-14-ONESIZE-WHITE",
+              "combination_key": "onesize-white",
+              "size": "One Size",
+              "color_name": "White",
+              "tshirt_type": "",
+              "resolved_price": 52000,
+              "available_stock": 18
+            },
+            {
+              "id": "f1bbfeb1-177d-441f-b5d1-6c66b6529dda",
+              "sku": "DEMO-14-ONESIZE-TERRACOTTA",
+              "combination_key": "onesize-terracotta",
+              "size": "One Size",
+              "color_name": "Terracotta",
+              "tshirt_type": "",
+              "resolved_price": 52000,
+              "available_stock": 14
+            }
+          ],
+          "images": [
+            {
+              "url": "https://picsum.photos/seed/chaa-break-mug-1/800/800",
+              "alt_text": "Chaa Break Mug",
+              "image_type": "gallery",
+              "sort_order": 0,
+              "is_primary": true
+            },
+            {
+              "url": "https://picsum.photos/seed/chaa-break-mug-2/800/800",
+              "alt_text": "Chaa Break Mug",
+              "image_type": "gallery",
+              "sort_order": 1,
+              "is_primary": false
+            }
+          ]
+        },
+        {
+          "name": "Adda Mug",
+          "slug": "adda-mug",
+          "description": "Ceramic mug for your evening cha-er-adda sessions.",
+          "base_price": 48000,
+          "is_featured": false,
+          "availability": {
+            "available": true,
+            "available_stock_total": 25,
+            "variant_count": 2,
+            "available_variant_count": 1
+          },
+          "variants": [
+            {
+              "id": "34625926-53e3-4850-8b87-b50d68b2c7fc",
+              "sku": "DEMO-13-ONESIZE-WHITE",
+              "combination_key": "onesize-white",
+              "size": "One Size",
+              "color_name": "White",
+              "tshirt_type": "",
+              "resolved_price": 48000,
+              "available_stock": 25
+            },
+            {
+              "id": "7686c9aa-6e12-403b-afd2-ffd26b4f442f",
+              "sku": "DEMO-13-ONESIZE-BLACK",
+              "combination_key": "onesize-black",
+              "size": "One Size",
+              "color_name": "Black",
+              "tshirt_type": "",
+              "resolved_price": 48000,
+              "available_stock": 0
+            }
+          ],
+          "images": [
+            {
+              "url": "https://picsum.photos/seed/adda-mug-1/800/800",
+              "alt_text": "Adda Mug",
+              "image_type": "gallery",
+              "sort_order": 0,
+              "is_primary": true
+            },
+            {
+              "url": "https://picsum.photos/seed/adda-mug-2/800/800",
+              "alt_text": "Adda Mug",
+              "image_type": "gallery",
+              "sort_order": 1,
+              "is_primary": false
+            }
+          ]
+        },
+        {
+          "name": "Bangla Cap Lal Sobuz",
+          "slug": "bangla-cap-lal-sobuz",
+          "description": "Red-green national pride cap, embroidered crest.",
+          "base_price": 50000,
+          "is_featured": false,
+          "availability": {
+            "available": true,
+            "available_stock_total": 20,
+            "variant_count": 1,
+            "available_variant_count": 1
+          },
+          "variants": [
+            {
+              "id": "8da37e34-82a2-4af3-ab72-e696fd6beaff",
+              "sku": "DEMO-12-ONESIZE-RED-GREEN",
+              "combination_key": "onesize-red-green",
+              "size": "One Size",
+              "color_name": "Red-Green",
+              "tshirt_type": "",
+              "resolved_price": 50000,
+              "available_stock": 20
+            }
+          ],
+          "images": [
+            {
+              "url": "https://picsum.photos/seed/bangla-cap-lal-sobuz-1/800/800",
+              "alt_text": "Bangla Cap Lal Sobuz",
+              "image_type": "gallery",
+              "sort_order": 0,
+              "is_primary": true
+            },
+            {
+              "url": "https://picsum.photos/seed/bangla-cap-lal-sobuz-2/800/800",
+              "alt_text": "Bangla Cap Lal Sobuz",
+              "image_type": "gallery",
+              "sort_order": 1,
+              "is_primary": false
+            }
+          ]
+        },
+        {
+          "name": "Rickshaw Painting Cap",
+          "slug": "rickshaw-painting-cap",
+          "description": "Adjustable cap featuring vibrant rickshaw art embroidery.",
+          "base_price": 45000,
+          "is_featured": true,
+          "availability": {
+            "available": true,
+            "available_stock_total": 33,
+            "variant_count": 4,
+            "available_variant_count": 3
+          },
+          "variants": [
+            {
+              "id": "847837af-c296-49cc-abb1-7f3626eefae4",
+              "sku": "DEMO-11-ONESIZE-BLACK",
+              "combination_key": "onesize-black",
+              "size": "One Size",
+              "color_name": "Black",
+              "tshirt_type": "",
+              "resolved_price": 45000,
+              "available_stock": 15
+            },
+            {
+              "id": "c040a34f-88a9-4afb-9e8c-09f3f6cfb2c8",
+              "sku": "DEMO-11-ONESIZE-YELLOW",
+              "combination_key": "onesize-yellow",
+              "size": "One Size",
+              "color_name": "Yellow",
+              "tshirt_type": "",
+              "resolved_price": 45000,
+              "available_stock": 10
+            },
+            {
+              "id": "e567d92a-e34a-49ac-a4ee-a9de65421f45",
+              "sku": "DEMO-11-ONESIZE-RED",
+              "combination_key": "onesize-red",
+              "size": "One Size",
+              "color_name": "Red",
+              "tshirt_type": "",
+              "resolved_price": 45000,
+              "available_stock": 8
+            },
+            {
+              "id": "fcada470-1c1d-4a9b-9e0b-cb2f63eac1f5",
+              "sku": "DEMO-11-ONESIZE-GREEN",
+              "combination_key": "onesize-green",
+              "size": "One Size",
+              "color_name": "Green",
+              "tshirt_type": "",
+              "resolved_price": 45000,
+              "available_stock": 0
+            }
+          ],
+          "images": [
+            {
+              "url": "https://picsum.photos/seed/rickshaw-painting-cap-1/800/800",
+              "alt_text": "Rickshaw Painting Cap",
+              "image_type": "gallery",
+              "sort_order": 0,
+              "is_primary": true
+            },
+            {
+              "url": "https://picsum.photos/seed/rickshaw-painting-cap-2/800/800",
+              "alt_text": "Rickshaw Painting Cap",
+              "image_type": "gallery",
+              "sort_order": 1,
+              "is_primary": false
+            }
+          ]
+        }
+      ]
+    },
+    "hoodies": {
+      "total": 4,
+      "page": 1,
+      "limit": 100,
+      "data": [
+        {
+          "name": "Monsoon Grey Hoodie",
+          "slug": "monsoon-grey-hoodie",
+          "description": "Cozy hoodie in monsoon-cloud grey, brushed fleece interior.",
+          "base_price": 195000,
+          "is_featured": false,
+          "availability": {
+            "available": true,
+            "available_stock_total": 15,
+            "variant_count": 4,
+            "available_variant_count": 3
+          },
+          "variants": [
+            {
+              "id": "d49670c2-f63c-4c88-8c54-b8d29e934a6d",
+              "sku": "DEMO-10-S-GREY",
+              "combination_key": "s-grey",
+              "size": "S",
+              "color_name": "Grey",
+              "tshirt_type": "",
+              "resolved_price": 195000,
+              "available_stock": 4
+            },
+            {
+              "id": "80dfc1e3-0402-46e5-9e29-a034037e495a",
+              "sku": "DEMO-10-M-GREY",
+              "combination_key": "m-grey",
+              "size": "M",
+              "color_name": "Grey",
+              "tshirt_type": "",
+              "resolved_price": 195000,
+              "available_stock": 6
+            },
+            {
+              "id": "a6c2b25d-4c44-4014-af78-79a7190807d8",
+              "sku": "DEMO-10-L-GREY",
+              "combination_key": "l-grey",
+              "size": "L",
+              "color_name": "Grey",
+              "tshirt_type": "",
+              "resolved_price": 195000,
+              "available_stock": 5
+            },
+            {
+              "id": "e975f704-79bd-4875-bafd-3fa9439c37d7",
+              "sku": "DEMO-10-XL-GREY",
+              "combination_key": "xl-grey",
+              "size": "XL",
+              "color_name": "Grey",
+              "tshirt_type": "",
+              "resolved_price": 195000,
+              "available_stock": 0
+            }
+          ],
+          "images": [
+            {
+              "url": "https://picsum.photos/seed/monsoon-grey-hoodie-1/800/800",
+              "alt_text": "Monsoon Grey Hoodie",
+              "image_type": "gallery",
+              "sort_order": 0,
+              "is_primary": true
+            },
+            {
+              "url": "https://picsum.photos/seed/monsoon-grey-hoodie-2/800/800",
+              "alt_text": "Monsoon Grey Hoodie",
+              "image_type": "gallery",
+              "sort_order": 1,
+              "is_primary": false
+            }
+          ]
+        },
+        {
+          "name": "Padma Bridge Hoodie",
+          "slug": "padma-bridge-hoodie",
+          "description": "Premium hoodie commemorating the Padma Bridge.",
+          "base_price": 210000,
+          "is_featured": false,
+          "availability": {
+            "available": true,
+            "available_stock_total": 29,
+            "variant_count": 6,
+            "available_variant_count": 6
+          },
+          "variants": [
+            {
+              "id": "50a8063c-316c-4135-b939-80f3ec140b5f",
+              "sku": "DEMO-09-M-NAVY",
+              "combination_key": "m-navy",
+              "size": "M",
+              "color_name": "Navy",
+              "tshirt_type": "",
+              "resolved_price": 210000,
+              "available_stock": 6
+            },
+            {
+              "id": "3fa3485e-385b-429c-a3af-ef9b84393724",
+              "sku": "DEMO-09-M-BLACK",
+              "combination_key": "m-black",
+              "size": "M",
+              "color_name": "Black",
+              "tshirt_type": "",
+              "resolved_price": 210000,
+              "available_stock": 7
+            },
+            {
+              "id": "4d18c3c4-68f8-4501-b43e-9b509168a074",
+              "sku": "DEMO-09-L-NAVY",
+              "combination_key": "l-navy",
+              "size": "L",
+              "color_name": "Navy",
+              "tshirt_type": "",
+              "resolved_price": 210000,
+              "available_stock": 3
+            },
+            {
+              "id": "b58ff1bb-6834-4f84-aacd-c23fc38b759f",
+              "sku": "DEMO-09-L-BLACK",
+              "combination_key": "l-black",
+              "size": "L",
+              "color_name": "Black",
+              "tshirt_type": "",
+              "resolved_price": 210000,
+              "available_stock": 5
+            },
+            {
+              "id": "798a93b1-12ba-4028-9090-79f196f429ec",
+              "sku": "DEMO-09-XL-NAVY",
+              "combination_key": "xl-navy",
+              "size": "XL",
+              "color_name": "Navy",
+              "tshirt_type": "",
+              "resolved_price": 210000,
+              "available_stock": 6
+            },
+            {
+              "id": "2b36b7d1-3947-48b6-ba06-e0c3e9d7f398",
+              "sku": "DEMO-09-XL-BLACK",
+              "combination_key": "xl-black",
+              "size": "XL",
+              "color_name": "Black",
+              "tshirt_type": "",
+              "resolved_price": 210000,
+              "available_stock": 2
+            }
+          ],
+          "images": [
+            {
+              "url": "https://picsum.photos/seed/padma-bridge-hoodie-1/800/800",
+              "alt_text": "Padma Bridge Hoodie",
+              "image_type": "gallery",
+              "sort_order": 0,
+              "is_primary": true
+            },
+            {
+              "url": "https://picsum.photos/seed/padma-bridge-hoodie-2/800/800",
+              "alt_text": "Padma Bridge Hoodie",
+              "image_type": "gallery",
+              "sort_order": 1,
+              "is_primary": false
+            }
+          ]
+        },
+        {
+          "name": "Dhaka Traffic Hoodie",
+          "slug": "dhaka-traffic-hoodie",
+          "description": "Satirical hoodie print about the legendary Dhaka jam.",
+          "base_price": 165000,
+          "is_featured": false,
+          "availability": {
+            "available": true,
+            "available_stock_total": 23,
+            "variant_count": 5,
+            "available_variant_count": 4
+          },
+          "variants": [
+            {
+              "id": "1c117ff3-1d3b-4b16-9aac-0f4606bd2995",
+              "sku": "DEMO-08-S-CHARCOAL",
+              "combination_key": "s-charcoal",
+              "size": "S",
+              "color_name": "Charcoal",
+              "tshirt_type": "",
+              "resolved_price": 165000,
+              "available_stock": 5
+            },
+            {
+              "id": "9a62cfe9-db52-4a70-9334-7ed36f34b5a5",
+              "sku": "DEMO-08-M-CHARCOAL",
+              "combination_key": "m-charcoal",
+              "size": "M",
+              "color_name": "Charcoal",
+              "tshirt_type": "",
+              "resolved_price": 165000,
+              "available_stock": 8
+            },
+            {
+              "id": "d2b4f62d-4548-450a-b263-c49a0a6983b4",
+              "sku": "DEMO-08-L-CHARCOAL",
+              "combination_key": "l-charcoal",
+              "size": "L",
+              "color_name": "Charcoal",
+              "tshirt_type": "",
+              "resolved_price": 165000,
+              "available_stock": 6
+            },
+            {
+              "id": "b0c9775a-2eef-44a5-b848-f23353b6448b",
+              "sku": "DEMO-08-XL-CHARCOAL",
+              "combination_key": "xl-charcoal",
+              "size": "XL",
+              "color_name": "Charcoal",
+              "tshirt_type": "",
+              "resolved_price": 165000,
+              "available_stock": 4
+            },
+            {
+              "id": "cdcc6b5f-6ba6-4e81-8fbe-2fedc6195151",
+              "sku": "DEMO-08-XXL-CHARCOAL",
+              "combination_key": "xxl-charcoal",
+              "size": "XXL",
+              "color_name": "Charcoal",
+              "tshirt_type": "",
+              "resolved_price": 165000,
+              "available_stock": 0
+            }
+          ],
+          "images": [
+            {
+              "url": "https://picsum.photos/seed/dhaka-traffic-hoodie-1/800/800",
+              "alt_text": "Dhaka Traffic Hoodie",
+              "image_type": "gallery",
+              "sort_order": 0,
+              "is_primary": true
+            },
+            {
+              "url": "https://picsum.photos/seed/dhaka-traffic-hoodie-2/800/800",
+              "alt_text": "Dhaka Traffic Hoodie",
+              "image_type": "gallery",
+              "sort_order": 1,
+              "is_primary": false
+            }
+          ]
+        },
+        {
+          "name": "Sundarban Tiger Hoodie",
+          "slug": "sundarban-tiger-hoodie",
+          "description": "Heavyweight fleece hoodie with royal bengal tiger print.",
+          "base_price": 180000,
+          "is_featured": true,
+          "availability": {
+            "available": true,
+            "available_stock_total": 41,
+            "variant_count": 8,
+            "available_variant_count": 7
+          },
+          "variants": [
+            {
+              "id": "9e7ad001-65d7-4c19-93fe-5d89cdd91e7e",
+              "sku": "DEMO-07-S-BLACK",
+              "combination_key": "s-black",
+              "size": "S",
+              "color_name": "Black",
+              "tshirt_type": "",
+              "resolved_price": 180000,
+              "available_stock": 6
+            },
+            {
+              "id": "3312f403-b525-4611-a35f-a075ede68d46",
+              "sku": "DEMO-07-S-GREY",
+              "combination_key": "s-grey",
+              "size": "S",
+              "color_name": "Grey",
+              "tshirt_type": "",
+              "resolved_price": 180000,
+              "available_stock": 9
+            },
+            {
+              "id": "7ad96ef8-d456-4856-9a16-7dcb000db948",
+              "sku": "DEMO-07-M-BLACK",
+              "combination_key": "m-black",
+              "size": "M",
+              "color_name": "Black",
+              "tshirt_type": "",
+              "resolved_price": 180000,
+              "available_stock": 7
+            },
+            {
+              "id": "87e2ff4c-30bd-44dd-926b-72e99a84ce71",
+              "sku": "DEMO-07-M-GREY",
+              "combination_key": "m-grey",
+              "size": "M",
+              "color_name": "Grey",
+              "tshirt_type": "",
+              "resolved_price": 180000,
+              "available_stock": 0
+            },
+            {
+              "id": "db8c6920-2227-4dc6-89e9-d713d00081ad",
+              "sku": "DEMO-07-L-BLACK",
+              "combination_key": "l-black",
+              "size": "L",
+              "color_name": "Black",
+              "tshirt_type": "",
+              "resolved_price": 180000,
+              "available_stock": 5
+            },
+            {
+              "id": "ad3c8679-685b-4d34-a02f-58a20cb607fe",
+              "sku": "DEMO-07-L-GREY",
+              "combination_key": "l-grey",
+              "size": "L",
+              "color_name": "Grey",
+              "tshirt_type": "",
+              "resolved_price": 180000,
+              "available_stock": 8
+            },
+            {
+              "id": "c35eb503-9957-4b92-905a-353bfd2dbc07",
+              "sku": "DEMO-07-XL-BLACK",
+              "combination_key": "xl-black",
+              "size": "XL",
+              "color_name": "Black",
+              "tshirt_type": "",
+              "resolved_price": 180000,
+              "available_stock": 4
+            },
+            {
+              "id": "96460680-a7cd-471c-a572-16146e3f221d",
+              "sku": "DEMO-07-XL-GREY",
+              "combination_key": "xl-grey",
+              "size": "XL",
+              "color_name": "Grey",
+              "tshirt_type": "",
+              "resolved_price": 180000,
+              "available_stock": 2
+            }
+          ],
+          "images": [
+            {
+              "url": "https://picsum.photos/seed/sundarban-tiger-hoodie-1/800/800",
+              "alt_text": "Sundarban Tiger Hoodie",
+              "image_type": "gallery",
+              "sort_order": 0,
+              "is_primary": true
+            },
+            {
+              "url": "https://picsum.photos/seed/sundarban-tiger-hoodie-2/800/800",
+              "alt_text": "Sundarban Tiger Hoodie",
+              "image_type": "gallery",
+              "sort_order": 1,
+              "is_primary": false
+            }
+          ]
+        }
+      ]
+    },
+    "polos": {
+      "total": 4,
+      "page": 1,
+      "limit": 100,
+      "data": [
+        {
+          "name": "Boishakhi Red Polo",
+          "slug": "boishakhi-red-polo",
+          "description": "Festive red polo for Pohela Boishakh celebrations.",
+          "base_price": 90000,
+          "is_featured": false,
+          "availability": {
+            "available": true,
+            "available_stock_total": 4,
+            "variant_count": 3,
+            "available_variant_count": 3
+          },
+          "variants": [
+            {
+              "id": "5a69caf3-3069-43c3-8876-4c33fbbbfaef",
+              "sku": "DEMO-06-S-RED",
+              "combination_key": "s-red",
+              "size": "S",
+              "color_name": "Red",
+              "tshirt_type": "",
+              "resolved_price": 90000,
+              "available_stock": 2
+            },
+            {
+              "id": "b515d02d-7fd7-48eb-8a26-a0da7baacac1",
+              "sku": "DEMO-06-M-RED",
+              "combination_key": "m-red",
+              "size": "M",
+              "color_name": "Red",
+              "tshirt_type": "",
+              "resolved_price": 90000,
+              "available_stock": 1
+            },
+            {
+              "id": "2d0f306e-12df-4cb7-a8b6-8f3020b9d474",
+              "sku": "DEMO-06-L-RED",
+              "combination_key": "l-red",
+              "size": "L",
+              "color_name": "Red",
+              "tshirt_type": "",
+              "resolved_price": 90000,
+              "available_stock": 1
+            }
+          ],
+          "images": [
+            {
+              "url": "https://picsum.photos/seed/boishakhi-red-polo-1/800/800",
+              "alt_text": "Boishakhi Red Polo",
+              "image_type": "gallery",
+              "sort_order": 0,
+              "is_primary": true
+            },
+            {
+              "url": "https://picsum.photos/seed/boishakhi-red-polo-2/800/800",
+              "alt_text": "Boishakhi Red Polo",
+              "image_type": "gallery",
+              "sort_order": 1,
+              "is_primary": false
+            }
+          ]
+        },
+        {
+          "name": "Desher Mati Polo",
+          "slug": "desher-mati-polo",
+          "description": "Earthy tone polo celebrating the soil of the homeland.",
+          "base_price": 85000,
+          "is_featured": false,
+          "availability": {
+            "available": true,
+            "available_stock_total": 40,
+            "variant_count": 6,
+            "available_variant_count": 6
+          },
+          "variants": [
+            {
+              "id": "7cdcc7fc-f7a8-4cd0-81fa-b18105624b58",
+              "sku": "DEMO-05-M-OLIVE",
+              "combination_key": "m-olive",
+              "size": "M",
+              "color_name": "Olive",
+              "tshirt_type": "",
+              "resolved_price": 85000,
+              "available_stock": 8
+            },
+            {
+              "id": "f251ab37-fa5d-4c2e-9467-096a0b2b2b5f",
+              "sku": "DEMO-05-M-BEIGE",
+              "combination_key": "m-beige",
+              "size": "M",
+              "color_name": "Beige",
+              "tshirt_type": "",
+              "resolved_price": 85000,
+              "available_stock": 10
+            },
+            {
+              "id": "0495cdcd-3c8a-462d-af67-943d7d931dbe",
+              "sku": "DEMO-05-L-OLIVE",
+              "combination_key": "l-olive",
+              "size": "L",
+              "color_name": "Olive",
+              "tshirt_type": "",
+              "resolved_price": 85000,
+              "available_stock": 6
+            },
+            {
+              "id": "78f010b8-0576-4101-8254-139a21ee02fc",
+              "sku": "DEMO-05-L-BEIGE",
+              "combination_key": "l-beige",
+              "size": "L",
+              "color_name": "Beige",
+              "tshirt_type": "",
+              "resolved_price": 85000,
+              "available_stock": 5
+            },
+            {
+              "id": "e8333f2f-5057-43b5-b453-ed9f44fbe5b5",
+              "sku": "DEMO-05-XL-OLIVE",
+              "combination_key": "xl-olive",
+              "size": "XL",
+              "color_name": "Olive",
+              "tshirt_type": "",
+              "resolved_price": 85000,
+              "available_stock": 7
+            },
+            {
+              "id": "9ea18450-6418-44cf-b83d-cd345eae9e80",
+              "sku": "DEMO-05-XL-BEIGE",
+              "combination_key": "xl-beige",
+              "size": "XL",
+              "color_name": "Beige",
+              "tshirt_type": "",
+              "resolved_price": 85000,
+              "available_stock": 4
+            }
+          ],
+          "images": [
+            {
+              "url": "https://picsum.photos/seed/desher-mati-polo-1/800/800",
+              "alt_text": "Desher Mati Polo",
+              "image_type": "gallery",
+              "sort_order": 0,
+              "is_primary": true
+            },
+            {
+              "url": "https://picsum.photos/seed/desher-mati-polo-2/800/800",
+              "alt_text": "Desher Mati Polo",
+              "image_type": "gallery",
+              "sort_order": 1,
+              "is_primary": false
+            }
+          ]
+        },
+        {
+          "name": "Chattogram Navy Polo",
+          "slug": "chattogram-navy-polo",
+          "description": "Port city inspired navy polo, breathable pique cotton.",
+          "base_price": 110000,
+          "is_featured": false,
+          "availability": {
+            "available": true,
+            "available_stock_total": 32,
+            "variant_count": 4,
+            "available_variant_count": 3
+          },
+          "variants": [
+            {
+              "id": "2c5c12e9-b75d-49ba-a00f-35cdc0309fb2",
+              "sku": "DEMO-04-S-NAVY",
+              "combination_key": "s-navy",
+              "size": "S",
+              "color_name": "Navy",
+              "tshirt_type": "",
+              "resolved_price": 110000,
+              "available_stock": 9
+            },
+            {
+              "id": "b99d0928-a306-4c5f-a783-65ffda364968",
+              "sku": "DEMO-04-M-NAVY",
+              "combination_key": "m-navy",
+              "size": "M",
+              "color_name": "Navy",
+              "tshirt_type": "",
+              "resolved_price": 110000,
+              "available_stock": 13
+            },
+            {
+              "id": "eb7e79ed-f5f2-4974-a964-492561e56d36",
+              "sku": "DEMO-04-L-NAVY",
+              "combination_key": "l-navy",
+              "size": "L",
+              "color_name": "Navy",
+              "tshirt_type": "",
+              "resolved_price": 110000,
+              "available_stock": 10
+            },
+            {
+              "id": "306252c7-5f91-4008-bba1-ceac30e08596",
+              "sku": "DEMO-04-XL-NAVY",
+              "combination_key": "xl-navy",
+              "size": "XL",
+              "color_name": "Navy",
+              "tshirt_type": "",
+              "resolved_price": 110000,
+              "available_stock": 0
+            }
+          ],
+          "images": [
+            {
+              "url": "https://picsum.photos/seed/chattogram-navy-polo-1/800/800",
+              "alt_text": "Chattogram Navy Polo",
+              "image_type": "gallery",
+              "sort_order": 0,
+              "is_primary": true
+            },
+            {
+              "url": "https://picsum.photos/seed/chattogram-navy-polo-2/800/800",
+              "alt_text": "Chattogram Navy Polo",
+              "image_type": "gallery",
+              "sort_order": 1,
+              "is_primary": false
+            }
+          ]
+        },
+        {
+          "name": "Ekushey Polo",
+          "slug": "ekushey-polo",
+          "description": "Tribute polo shirt honoring Ekushey February in deep black.",
+          "base_price": 95000,
+          "is_featured": true,
+          "availability": {
+            "available": true,
+            "available_stock_total": 65,
+            "variant_count": 8,
+            "available_variant_count": 8
+          },
+          "variants": [
+            {
+              "id": "57ee82ff-ceeb-451c-a109-ba9e8e5e52d9",
+              "sku": "DEMO-03-S-BLACK",
+              "combination_key": "s-black",
+              "size": "S",
+              "color_name": "Black",
+              "tshirt_type": "",
+              "resolved_price": 95000,
+              "available_stock": 10
+            },
+            {
+              "id": "7148d503-97a0-412a-9663-4842c3b5f20a",
+              "sku": "DEMO-03-S-WHITE",
+              "combination_key": "s-white",
+              "size": "S",
+              "color_name": "White",
+              "tshirt_type": "",
+              "resolved_price": 95000,
+              "available_stock": 14
+            },
+            {
+              "id": "a3ee0ae8-b350-4234-a673-4189ac38dbb5",
+              "sku": "DEMO-03-M-BLACK",
+              "combination_key": "m-black",
+              "size": "M",
+              "color_name": "Black",
+              "tshirt_type": "",
+              "resolved_price": 95000,
+              "available_stock": 11
+            },
+            {
+              "id": "99e9bfa3-7850-4105-8a44-46004a41a38f",
+              "sku": "DEMO-03-M-WHITE",
+              "combination_key": "m-white",
+              "size": "M",
+              "color_name": "White",
+              "tshirt_type": "",
+              "resolved_price": 95000,
+              "available_stock": 5
+            },
+            {
+              "id": "7220d263-6919-4a32-96f6-71595a0cff3e",
+              "sku": "DEMO-03-L-BLACK",
+              "combination_key": "l-black",
+              "size": "L",
+              "color_name": "Black",
+              "tshirt_type": "",
+              "resolved_price": 95000,
+              "available_stock": 6
+            },
+            {
+              "id": "a8fb588a-e6c6-4c71-8306-042d21192922",
+              "sku": "DEMO-03-L-WHITE",
+              "combination_key": "l-white",
+              "size": "L",
+              "color_name": "White",
+              "tshirt_type": "",
+              "resolved_price": 95000,
+              "available_stock": 9
+            },
+            {
+              "id": "8e9e0670-ee74-4f0c-a48b-792773f27465",
+              "sku": "DEMO-03-XL-BLACK",
+              "combination_key": "xl-black",
+              "size": "XL",
+              "color_name": "Black",
+              "tshirt_type": "",
+              "resolved_price": 95000,
+              "available_stock": 7
+            },
+            {
+              "id": "324e8b7b-2263-4ae3-838c-1bd3adde828f",
+              "sku": "DEMO-03-XL-WHITE",
+              "combination_key": "xl-white",
+              "size": "XL",
+              "color_name": "White",
+              "tshirt_type": "",
+              "resolved_price": 95000,
+              "available_stock": 3
+            }
+          ],
+          "images": [
+            {
+              "url": "https://picsum.photos/seed/ekushey-polo-1/800/800",
+              "alt_text": "Ekushey Polo",
+              "image_type": "gallery",
+              "sort_order": 0,
+              "is_primary": true
+            },
+            {
+              "url": "https://picsum.photos/seed/ekushey-polo-2/800/800",
+              "alt_text": "Ekushey Polo",
+              "image_type": "gallery",
+              "sort_order": 1,
+              "is_primary": false
+            }
+          ]
+        }
+      ]
+    },
+    "t-shirts": {
+      "total": 4,
+      "page": 1,
+      "limit": 100,
+      "data": [
+        {
+          "name": "Ilish Bhaja Tee",
+          "slug": "ilish-bhaja-tee",
+          "description": "Fun hilsa-fry graphic tee for the true Bangladeshi foodie.",
+          "base_price": 55000,
+          "is_featured": false,
+          "availability": {
+            "available": true,
+            "available_stock_total": 41,
+            "variant_count": 5,
+            "available_variant_count": 4
+          },
+          "variants": [
+            {
+              "id": "9ada9dc6-acd1-49a0-8f5f-d52e87ef668b",
+              "sku": "DEMO-02-S-MAROON",
+              "combination_key": "s-maroon",
+              "size": "S",
+              "color_name": "Maroon",
+              "tshirt_type": "",
+              "resolved_price": 55000,
+              "available_stock": 8
+            },
+            {
+              "id": "489fb95b-8f3c-4525-a8c8-c664c49b442e",
+              "sku": "DEMO-02-M-MAROON",
+              "combination_key": "m-maroon",
+              "size": "M",
+              "color_name": "Maroon",
+              "tshirt_type": "",
+              "resolved_price": 55000,
+              "available_stock": 15
+            },
+            {
+              "id": "981fda90-5382-4d6c-9a9e-0d3dc5a19e60",
+              "sku": "DEMO-02-L-MAROON",
+              "combination_key": "l-maroon",
+              "size": "L",
+              "color_name": "Maroon",
+              "tshirt_type": "",
+              "resolved_price": 55000,
+              "available_stock": 12
+            },
+            {
+              "id": "d470ddf2-b2e1-4085-ad30-db2503093895",
+              "sku": "DEMO-02-XL-MAROON",
+              "combination_key": "xl-maroon",
+              "size": "XL",
+              "color_name": "Maroon",
+              "tshirt_type": "",
+              "resolved_price": 55000,
+              "available_stock": 6
+            },
+            {
+              "id": "f3c6c28a-7c7f-47ff-b8f8-c1b326c7ddb5",
+              "sku": "DEMO-02-XXL-MAROON",
+              "combination_key": "xxl-maroon",
+              "size": "XXL",
+              "color_name": "Maroon",
+              "tshirt_type": "",
+              "resolved_price": 55000,
+              "available_stock": 0
+            }
+          ],
+          "images": [
+            {
+              "url": "https://picsum.photos/seed/ilish-bhaja-tee-1/800/800",
+              "alt_text": "Ilish Bhaja Tee",
+              "image_type": "gallery",
+              "sort_order": 0,
+              "is_primary": true
+            },
+            {
+              "url": "https://picsum.photos/seed/ilish-bhaja-tee-2/800/800",
+              "alt_text": "Ilish Bhaja Tee",
+              "image_type": "gallery",
+              "sort_order": 1,
+              "is_primary": false
+            }
+          ]
+        },
+        {
+          "name": "Rickshaw Art Tee",
+          "slug": "rickshaw-art-tee",
+          "description": "Hand-painted rickshaw art printed on soft cotton.",
+          "base_price": 65000,
+          "is_featured": true,
+          "availability": {
+            "available": true,
+            "available_stock_total": 70,
+            "variant_count": 8,
+            "available_variant_count": 6
+          },
+          "variants": [
+            {
+              "id": "8d924a61-8fef-402b-95fc-3c21f976331c",
+              "sku": "DEMO-01-S-BLACK",
+              "combination_key": "s-black",
+              "size": "S",
+              "color_name": "Black",
+              "tshirt_type": "",
+              "resolved_price": 65000,
+              "available_stock": 10
+            },
+            {
+              "id": "53c37a63-a7cb-4ee1-9546-fc2a8c6c5623",
+              "sku": "DEMO-01-S-WHITE",
+              "combination_key": "s-white",
+              "size": "S",
+              "color_name": "White",
+              "tshirt_type": "",
+              "resolved_price": 65000,
+              "available_stock": 18
+            },
+            {
+              "id": "3f1eb4dd-9b98-4801-9883-63b878741836",
+              "sku": "DEMO-01-M-BLACK",
+              "combination_key": "m-black",
+              "size": "M",
+              "color_name": "Black",
+              "tshirt_type": "",
+              "resolved_price": 65000,
+              "available_stock": 14
+            },
+            {
+              "id": "ead6b3cb-7165-4386-9798-28a0888793b2",
+              "sku": "DEMO-01-M-WHITE",
+              "combination_key": "m-white",
+              "size": "M",
+              "color_name": "White",
+              "tshirt_type": "",
+              "resolved_price": 65000,
+              "available_stock": 0
+            },
+            {
+              "id": "87e7bea2-56ca-4101-8556-3e5882d1f7e5",
+              "sku": "DEMO-01-L-BLACK",
+              "combination_key": "l-black",
+              "size": "L",
+              "color_name": "Black",
+              "tshirt_type": "",
+              "resolved_price": 65000,
+              "available_stock": 7
+            },
+            {
+              "id": "2d0c4c25-3191-45d6-ae32-9c60369e4e7e",
+              "sku": "DEMO-01-L-WHITE",
+              "combination_key": "l-white",
+              "size": "L",
+              "color_name": "White",
+              "tshirt_type": "",
+              "resolved_price": 65000,
+              "available_stock": 12
+            },
+            {
+              "id": "7f7aed32-9ab2-479b-bc5c-0cb9bd7c5c08",
+              "sku": "DEMO-01-XL-BLACK",
+              "combination_key": "xl-black",
+              "size": "XL",
+              "color_name": "Black",
+              "tshirt_type": "",
+              "resolved_price": 65000,
+              "available_stock": 9
+            },
+            {
+              "id": "fd04a8da-4a41-4fd6-afde-a21f4ae0f671",
+              "sku": "DEMO-01-XL-WHITE",
+              "combination_key": "xl-white",
+              "size": "XL",
+              "color_name": "White",
+              "tshirt_type": "",
+              "resolved_price": 65000,
+              "available_stock": 0
+            }
+          ],
+          "images": [
+            {
+              "url": "https://picsum.photos/seed/rickshaw-art-tee-1/800/800",
+              "alt_text": "Rickshaw Art Tee",
+              "image_type": "gallery",
+              "sort_order": 0,
+              "is_primary": true
+            },
+            {
+              "url": "https://picsum.photos/seed/rickshaw-art-tee-2/800/800",
+              "alt_text": "Rickshaw Art Tee",
+              "image_type": "gallery",
+              "sort_order": 1,
+              "is_primary": false
+            }
+          ]
+        },
+        {
+          "name": "Neon Rickshaw Tee",
+          "slug": "neon-rickshaw-tee",
+          "description": "240 GSM heavy combed cotton.",
+          "base_price": 120000,
+          "is_featured": false,
+          "availability": {
+            "available": true,
+            "available_stock_total": 13,
+            "variant_count": 3,
+            "available_variant_count": 2
+          },
+          "variants": [
+            {
+              "id": "019f4c93-5d49-7ab8-a72f-51d7cee8026b",
+              "sku": "NEONRICK9726A1-LE8026B",
+              "combination_key": "legacy:019f4c93-5d49-7ab8-a72f-51d7cee8026b",
+              "size": "M",
+              "color_name": "Black",
+              "color_hex": "#111111",
+              "tshirt_type": "",
+              "resolved_price": 120000,
+              "available_stock": 10
+            },
+            {
+              "id": "019f4c93-5d58-77db-b0a8-8952e58cae9f",
+              "sku": "NEONRICK9726A1-L8CAE9F",
+              "combination_key": "legacy:019f4c93-5d58-77db-b0a8-8952e58cae9f",
+              "size": "L",
+              "color_name": "Black",
+              "color_hex": "#111111",
+              "tshirt_type": "",
+              "resolved_price": 120000,
+              "available_stock": 3
+            },
+            {
+              "id": "019f4c93-5d67-7389-bed1-9250f7963177",
+              "sku": "NEONRICK9726A1-L963177",
+              "combination_key": "legacy:019f4c93-5d67-7389-bed1-9250f7963177",
+              "size": "M",
+              "color_name": "White",
+              "color_hex": "#eeeeee",
+              "tshirt_type": "",
+              "resolved_price": 120000,
+              "available_stock": 0
+            }
+          ],
+          "images": [
+            {
+              "url": "https://picsum.photos/seed/neon-rickshaw-tee-1/800/800",
+              "alt_text": "Neon Rickshaw Tee",
+              "image_type": "gallery",
+              "sort_order": 0,
+              "is_primary": true
+            }
+          ]
+        },
+        {
+          "name": "Banana Tshirt",
+          "slug": "banana-tshirt",
+          "base_price": 30000,
+          "is_featured": false,
+          "availability": {
+            "available": true,
+            "available_stock_total": 10,
+            "variant_count": 1,
+            "available_variant_count": 1
+          },
+          "variants": [
+            {
+              "id": "019f4c7d-c7a4-7741-b049-128325f46965",
+              "sku": "BANANATS511A85-LF46965",
+              "combination_key": "default",
+              "size": "M",
+              "color_name": "Blue",
+              "color_hex": "#000080",
+              "tshirt_type": "",
+              "resolved_price": 30000,
+              "available_stock": 10
+            }
+          ],
+          "images": [
+            {
+              "url": "https://picsum.photos/seed/banana-tshirt-1/800/800",
+              "alt_text": "Banana Tshirt",
+              "image_type": "gallery",
+              "sort_order": 0,
+              "is_primary": true
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

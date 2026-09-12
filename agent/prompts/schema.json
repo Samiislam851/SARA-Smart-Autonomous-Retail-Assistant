@@ -1,0 +1,61 @@
+{
+  "type": "object",
+  "properties": {
+    "action": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string",
+          "enum": ["highlight", "scroll_to", "message", "spotlight", "card", "noop"]
+        },
+        "target": { "type": ["string", "null"] },
+        "style": { "type": ["string", "null"], "enum": ["pulse", "outline", null] },
+        "duration_ms": { "type": ["number", "null"] },
+        "message": { "type": ["string", "null"] },
+        "card": {
+          "type": ["object", "null"],
+          "properties": {
+            "template": { "type": ["string", "null"] },
+            "slots": { "type": ["object", "null"] },
+            "title": { "type": ["string", "null"] },
+            "body": { "type": ["string", "null"] },
+            "cta": {
+              "type": "object",
+              "properties": {
+                "kind": {
+                  "type": "string",
+                  "enum": ["pick_size", "add_to_cart", "apply_code", "open_product", "search", "none"]
+                },
+                "label": { "type": "string" },
+                "value": { "type": ["string", "null"] }
+              },
+              "required": ["kind", "label", "value"],
+              "additionalProperties": false
+            }
+          },
+          "required": ["template", "slots", "title", "body", "cta"],
+          "additionalProperties": false
+        }
+      },
+      "required": ["action", "target", "style", "duration_ms", "message", "card"],
+      "additionalProperties": false
+    },
+    "trace": {
+      "type": "object",
+      "properties": {
+        "signals": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "hypothesis": { "type": "string" },
+        "decision": { "type": "string" },
+        "confidence": { "type": "number" },
+        "why": { "type": "string" }
+      },
+      "required": ["signals", "hypothesis", "decision", "confidence", "why"],
+      "additionalProperties": false
+    }
+  },
+  "required": ["action", "trace"],
+  "additionalProperties": false
+}

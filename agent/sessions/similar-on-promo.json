@@ -1,0 +1,13 @@
+{
+  "name": "similar-on-promo",
+  "session": "fx_similar_on_promo",
+  "description": "Sandals have no promo of their own, but their `similar` item (Nakshi Kantha Scarf) has an active auto-apply promo. Shopper views the sandals, some attention on the product image, leaves to the listing, returns with renewed attention. Expect a card pointing at the similar item, targeting similar-products with an open_product cta.",
+  "expect": { "action": "card", "target": "similar-products" },
+  "events": [
+    { "delay_ms": 0, "type": "page_view", "target": "/product/leather-mojari-sandals", "meta": { "targets": ["product-image", "size-picker", "cart-add", "shipping-banner", "cart-link", "similar-products"] } },
+    { "delay_ms": 1000, "type": "dwell", "target": "product-image", "meta": { "ms": 2000, "kind": "attention", "interactions": { "hover_ms": 2000, "clicks": 0 } } },
+    { "delay_ms": 1000, "type": "page_view", "target": "/", "meta": { "targets": ["product-card-khadi-field-jacket", "product-card-jamdani-saree-classic", "product-card-nakshi-kantha-scarf", "product-card-leather-mojari-sandals"] } },
+    { "delay_ms": 1000, "type": "page_view", "target": "/product/leather-mojari-sandals", "meta": { "targets": ["product-image", "size-picker", "cart-add", "shipping-banner", "cart-link", "similar-products"] } },
+    { "delay_ms": 1000, "type": "dwell", "target": "product-image", "meta": { "ms": 3500, "kind": "attention", "interactions": { "hover_ms": 3500, "clicks": 0 } } }
+  ]
+}

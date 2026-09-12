@@ -1,0 +1,19 @@
+{
+  "name": "gap-over-promo",
+  "session": "fx_gap_over_promo",
+  "description": "Cart holds the Jamdani Saree (৳1,950, gap ৳50 under the ৳2,000 free-delivery threshold) which ALSO has an active unapplied SAREE200 code (min_cart ৳1,500 met) — both delivery_gap and missed_discount offers qualify at once. Shopper bounces checkout -> cart (back_nav), the priority rule in prompts/decide.md says the delivery_gap card must win over the generic SAREE200 promo card (promo-code). Live finding 2026-09-12: SAREE200 fired first, the real gap card came ~45s late. Requires the real LLM loop — decide/stub.js has no promo/gap priority rule — so this fixture is NOT in check.sh's REQUIRED_STUB_FIXTURES list. `target` deliberately left unchecked here (was `shipping-banner`): with the anchor-fallback fix, a decide() call that happens to resolve while still on /checkout (this fixture's own /checkout page never lists shipping-banner as a target — only /cart does) correctly anchors delivery_gap to `cart-link` instead of failing closed; a call that resolves after the back_nav back to /cart still gets `shipping-banner` directly. Both are correct outcomes of the SAME priority decision — eyeball the trace's `decision`/`why` (should say `delivery_gap`, never `missed_discount`) to confirm the priority rule itself, not just the target.",
+  "expect": { "action": "card" },
+  "events": [
+    { "delay_ms": 0, "type": "page_view", "target": "/product/jamdani-saree-classic", "meta": { "targets": ["product-image", "cart-add", "shipping-banner", "cart-link"] } },
+    { "delay_ms": 1000, "type": "cart_update", "target": "cart-add", "meta": { "total": 1950, "items": [{ "sku": "jamdani-saree-classic", "qty": 1, "price": 1950 }], "promo": null } },
+    { "delay_ms": 1000, "type": "page_view", "target": "/cart", "meta": { "targets": ["cart-items", "cart-total", "shipping-banner", "checkout-btn", "cart-link", "promo-code"] } },
+    { "delay_ms": 1000, "type": "cart_view", "target": "/cart", "meta": { "total": 1950, "items": [{ "sku": "jamdani-saree-classic", "qty": 1, "price": 1950 }], "promo": null } },
+    { "delay_ms": 1000, "type": "dwell", "target": "/cart", "meta": { "ms": 2000 } },
+    { "delay_ms": 1000, "type": "page_view", "target": "/checkout", "meta": { "targets": ["address-form", "payment-options", "place-order", "cart-link"] } },
+    { "delay_ms": 1000, "type": "dwell", "target": "/checkout", "meta": { "ms": 10000 } },
+    { "delay_ms": 1000, "type": "back_nav", "target": "/cart" },
+    { "delay_ms": 1000, "type": "page_view", "target": "/cart", "meta": { "targets": ["cart-items", "cart-total", "shipping-banner", "checkout-btn", "cart-link", "promo-code"] } },
+    { "delay_ms": 1000, "type": "cart_view", "target": "/cart", "meta": { "total": 1950, "items": [{ "sku": "jamdani-saree-classic", "qty": 1, "price": 1950 }], "promo": null } },
+    { "delay_ms": 1000, "type": "dwell", "target": "/cart", "meta": { "ms": 9000 } }
+  ]
+}

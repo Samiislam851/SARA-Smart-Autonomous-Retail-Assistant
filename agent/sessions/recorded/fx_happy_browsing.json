@@ -1,0 +1,309 @@
+[
+  {
+    "action": {
+      "action": "noop",
+      "target": null,
+      "style": null,
+      "duration_ms": 0,
+      "message": null
+    },
+    "trace": {
+      "signals": [
+        "just arrived on product page",
+        "zero dwell time",
+        "no target interaction",
+        "no cart state",
+        "no friction signals"
+      ],
+      "hypothesis": "Shopper just landed on the khadi field jacket product page and is beginning to explore normally.",
+      "decision": "noop",
+      "confidence": 0.95,
+      "why": "First arrival with no dwell, engagement, or friction signals warrants no intervention; let natural browsing proceed."
+    }
+  },
+  {
+    "action": {
+      "action": "noop",
+      "target": null,
+      "style": null,
+      "duration_ms": 0,
+      "message": null
+    },
+    "trace": {
+      "signals": [
+        "page_view",
+        "scroll_depth 40%",
+        "no dwell yet"
+      ],
+      "hypothesis": "Shopper just arrived at product page and is exploring normally.",
+      "decision": "noop",
+      "confidence": 0.95,
+      "why": "Normal browsing without hesitation or friction signals does not warrant intervention; silence is the default."
+    }
+  },
+  {
+    "action": {
+      "action": "noop",
+      "target": null,
+      "style": null,
+      "duration_ms": 0,
+      "message": null
+    },
+    "trace": {
+      "signals": [
+        "page_view khadi-jacket",
+        "dwell 9s",
+        "scroll 40%",
+        "no target hesitation",
+        "empty cart"
+      ],
+      "hypothesis": "Shopper is browsing the product page normally in the initial discovery phase.",
+      "decision": "noop",
+      "confidence": 0.85,
+      "why": "Normal product exploration with typical dwell and scroll—no repeated hesitation, no cart threshold concern, no friction signals yet."
+    }
+  },
+  {
+    "action": {
+      "action": "noop",
+      "target": null,
+      "style": null,
+      "duration_ms": 0,
+      "message": null
+    },
+    "trace": {
+      "signals": [
+        "page_view jamdani-saree-classic",
+        "pageMs 0 (just arrived)",
+        "prior dwell 9s on khadi-jacket (normal)",
+        "prior scroll 40% (normal)",
+        "no cart state",
+        "no hesitation pattern"
+      ],
+      "hypothesis": "Shopper browsing normally, just landed on new product page. No friction, no near-threshold cart, no repeated hesitation.",
+      "decision": "noop",
+      "confidence": 0.95,
+      "why": "Normal browsing behavior is not a signal. Shopper arrived seconds ago with no dwell, cart, or selection friction yet. Silence is preferred."
+    }
+  },
+  {
+    "action": {
+      "action": "noop",
+      "target": null,
+      "style": null,
+      "duration_ms": 0,
+      "message": null
+    },
+    "trace": {
+      "signals": [
+        "normal browsing",
+        "just arrived at product",
+        "55% scroll depth",
+        "cart empty",
+        "no dwell yet",
+        "no target dwell"
+      ],
+      "hypothesis": "Shopper is exploring products normally across the catalog.",
+      "decision": "noop",
+      "confidence": 0.95,
+      "why": "Normal product navigation with immediate engagement (already scrolled 55%) and no hesitation, friction, or threshold signals; arriving at a page and scrolling naturally is not a reason to intervene."
+    }
+  },
+  {
+    "action": {
+      "action": "noop",
+      "target": null,
+      "style": null,
+      "duration_ms": 0,
+      "message": null
+    },
+    "trace": {
+      "signals": [
+        "product browse sequence (jacket → saree)",
+        "dwell 8–9s per product",
+        "scroll 40–55% depth",
+        "empty cart",
+        "no hesitation loop"
+      ],
+      "hypothesis": "Shopper is in normal discovery mode, evaluating two products without friction or hesitation.",
+      "decision": "noop",
+      "confidence": 0.95,
+      "why": "Normal browsing with moderate engagement, no repeated hesitation, no near-threshold condition, and no friction signals warrant intervention."
+    }
+  },
+  {
+    "action": {
+      "action": "noop",
+      "target": null,
+      "style": null,
+      "duration_ms": 0,
+      "message": null
+    },
+    "trace": {
+      "signals": [
+        "added to cart (৳1,950)",
+        "browsing product page",
+        "cart ৳50 from ৳2,000 free-delivery threshold",
+        "normal dwell (8s)",
+        "no cart/checkout page visit yet"
+      ],
+      "hypothesis": "Shopper is in normal browsing mode after adding a saree; cart is near free-delivery threshold but no hesitation signal present yet.",
+      "decision": "noop",
+      "confidence": 0.95,
+      "why": "Rules require both cart/checkout page visit AND hesitation (dwell or bounce) before messaging about threshold. Browsing products with a near-threshold cart is not hesitation — wait for shopper to enter cart/checkout to assess."
+    }
+  },
+  {
+    "action": {
+      "action": "noop",
+      "target": null,
+      "style": null,
+      "duration_ms": 0,
+      "message": null
+    },
+    "trace": {
+      "signals": [
+        "on product page, not cart/checkout",
+        "dwell 0ms (just arrived)",
+        "cart ৳1950, ৳50 below threshold",
+        "normal browsing, no hesitation"
+      ],
+      "hypothesis": "Shopper is exploring products normally; cart is near the free-delivery threshold but they haven't reached checkout yet.",
+      "decision": "noop—wait for cart/checkout arrival",
+      "confidence": 0.95,
+      "why": "Message rule requires BOTH cart/checkout page AND hesitation signal; browsing a product page with a near-threshold cart is explicitly not a trigger. Let the shopper continue exploring."
+    }
+  },
+  {
+    "action": {
+      "action": "noop",
+      "target": null,
+      "style": null,
+      "duration_ms": 0,
+      "message": null
+    },
+    "trace": {
+      "signals": [
+        "normal browsing (3 product views)",
+        "moderate dwell times (8–9s per page)",
+        "cart at ৳1,950 (৳50 below threshold)",
+        "on product page, not cart/checkout",
+        "no hesitation markers"
+      ],
+      "hypothesis": "Shopper is actively browsing products; cart is near free-delivery threshold but no friction shown yet.",
+      "decision": "noop — no intervention",
+      "confidence": 0.95,
+      "why": "Guidelines require BOTH near-threshold cart AND cart/checkout hesitation to message. Shopper is browsing normally; intervene only if they visit cart and show dwelling or bouncing."
+    }
+  },
+  {
+    "action": {
+      "action": "noop",
+      "target": null,
+      "style": null,
+      "duration_ms": 0,
+      "message": null
+    },
+    "trace": {
+      "signals": [
+        "browsing product normally (12s dwell)",
+        "cart ৳50 below free delivery threshold",
+        "just added 1 item, not yet on cart/checkout page",
+        "no hesitation shown yet"
+      ],
+      "hypothesis": "Shopper is casually browsing; cart is near ৳2k threshold but they show no hesitation on cart or checkout pages yet.",
+      "decision": "noop",
+      "confidence": 0.95,
+      "why": "Near-threshold cart during product browsing is not a trigger without hesitation on cart/checkout page. Per rules, silence is preferred for normal browsing."
+    }
+  },
+  {
+    "action": {
+      "action": "noop",
+      "target": null,
+      "style": null,
+      "duration_ms": 0,
+      "message": null
+    },
+    "trace": {
+      "signals": [
+        "browsing normally across 4+ products",
+        "just arrived on page (dwell 0ms)",
+        "cart ৳50 below ৳2k threshold",
+        "no cart/checkout hesitation",
+        "normal scroll/dwell pattern (8–12s per product)"
+      ],
+      "hypothesis": "Shopper is happily exploring the storefront. Being close to free delivery is not a signal when still actively browsing, not deliberating at checkout.",
+      "decision": "noop",
+      "confidence": 0.95,
+      "why": "Rules state: browsing products with a near-threshold cart is not hesitation. Intervention requires BOTH cart proximity AND hesitation on cart/checkout page (dwelling, bouncing). Silent observation is the right choice here."
+    }
+  },
+  {
+    "action": {
+      "action": "noop",
+      "target": null,
+      "style": null,
+      "duration_ms": 0,
+      "message": null
+    },
+    "trace": {
+      "signals": [
+        "browsing 4 products sequentially",
+        "cart at ৳1950 (৳50 from threshold)",
+        "normal dwell 8–12s",
+        "scroll depths 40–55%",
+        "just arrived on page"
+      ],
+      "hypothesis": "Shopper is happily browsing; added one item to cart and continues exploring. Cart is near free-delivery threshold but shows no hesitation.",
+      "decision": "noop",
+      "confidence": 0.95,
+      "why": "Browsing products with a near-threshold cart is not a hesitation signal; message requires both cart/checkout page AND dwell-based hesitation, neither present. Silent browsing is the default."
+    }
+  },
+  {
+    "action": {
+      "action": "noop",
+      "target": null,
+      "style": null,
+      "duration_ms": 0,
+      "message": null
+    },
+    "trace": {
+      "signals": [
+        "normal browsing pattern",
+        "consistent dwell 8–12s per product",
+        "cart ৳50 below threshold",
+        "on product page, not checkout",
+        "no hesitation or friction shown"
+      ],
+      "hypothesis": "Shopper is in steady discovery phase, viewing multiple products with healthy engagement; cart proximity to free delivery is incidental, not a decision point yet.",
+      "decision": "noop",
+      "confidence": 0.95,
+      "why": "Browsing normally with no hesitation; per rules, near-threshold cart alone requires cart/checkout presence AND hesitation to justify a message. Neither condition met."
+    }
+  },
+  {
+    "action": {
+      "action": "noop",
+      "target": null,
+      "style": null,
+      "duration_ms": 0,
+      "message": null
+    },
+    "trace": {
+      "signals": [
+        "checkout arrival",
+        "cart ৳1950 vs threshold ৳2000 (gap ৳50)",
+        "dwell 0ms on checkout page",
+        "normal browsing pattern (4 products, 8–12s each)",
+        "no back-and-forth bouncing",
+        "single cart add"
+      ],
+      "hypothesis": "Shopper at checkout with near-threshold cart but no hesitation yet; may complete at ৳1,950 or return to browse.",
+      "decision": "noop",
+      "confidence": 0.95,
+      "why": "Rules require both threshold proximity AND hesitation (dwell or bouncing) on cart/checkout page to message. Only proximity is present; shopper just arrived with zero dwell. Wait for hesitation signal."
+    }
+  }
+]

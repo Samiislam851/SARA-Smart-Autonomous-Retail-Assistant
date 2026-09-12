@@ -1,0 +1,16 @@
+{
+  "name": "page-switch-no-leak",
+  "session": "fx_page_switch_no_leak",
+  "description": "Shopper dwells 13s on the sandals size-picker, then navigates to a one-size saree page with no size-* targets at all; a straggler dwell for the old page's size-picker still lands after the new page_view (the observed leak). Per-element dwell must not carry over the page_view boundary and no target off the new page may ever be acted on — expect noop.",
+  "expect": { "action": "noop" },
+  "events": [
+    { "delay_ms": 0, "type": "page_view", "target": "/product/leather-mojari-sandals", "meta": { "targets": ["product-image", "size-picker", "cart-add", "shipping-banner", "cart-link"] } },
+    { "delay_ms": 1000, "type": "dwell", "target": "/product/leather-mojari-sandals", "meta": { "ms": 5000 } },
+    { "delay_ms": 1000, "type": "dwell", "target": "size-picker", "meta": { "ms": 8000, "kind": "attention", "interactions": { "hover_ms": 8000, "focus_ms": 0, "clicks": 0, "scrolled_to": false } } },
+    { "delay_ms": 1000, "type": "dwell", "target": "size-picker", "meta": { "ms": 13000, "kind": "attention", "interactions": { "hover_ms": 13000, "focus_ms": 0, "clicks": 0, "scrolled_to": false } } },
+    { "delay_ms": 1000, "type": "page_view", "target": "/product/jamdani-saree-classic", "meta": { "targets": ["product-image", "fabric-note", "cart-add", "shipping-banner", "cart-link"] } },
+    { "delay_ms": 500, "type": "dwell", "target": "size-picker", "meta": { "ms": 13000, "kind": "attention", "interactions": { "hover_ms": 13000, "focus_ms": 0, "clicks": 0, "scrolled_to": false } } },
+    { "delay_ms": 1000, "type": "dwell", "target": "/product/jamdani-saree-classic", "meta": { "ms": 5000 } },
+    { "delay_ms": 1000, "type": "dwell", "target": "/product/jamdani-saree-classic", "meta": { "ms": 10000 } }
+  ]
+}

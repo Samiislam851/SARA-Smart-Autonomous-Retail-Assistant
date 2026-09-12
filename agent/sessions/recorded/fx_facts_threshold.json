@@ -1,0 +1,169 @@
+[
+  {
+    "action": {
+      "action": "noop",
+      "target": null,
+      "style": null,
+      "duration_ms": 0,
+      "message": null
+    },
+    "trace": {
+      "signals": [
+        "Just arrived on /cart",
+        "Page dwell is 0ms",
+        "No repeated navigation or friction"
+      ],
+      "hypothesis": "The shopper has just opened the cart and has not shown hesitation.",
+      "decision": "noop",
+      "confidence": 0.99,
+      "why": "A near-threshold cart alone does not justify intervention without hesitation on the cart or checkout page."
+    }
+  },
+  {
+    "action": {
+      "action": "noop",
+      "target": null,
+      "style": null,
+      "duration_ms": 0,
+      "message": null
+    },
+    "trace": {
+      "signals": [
+        "Cart page viewed once",
+        "Cart dwell is 6 seconds",
+        "Parsed cart total is ৳1,950",
+        "Free-delivery information is already on screen"
+      ],
+      "hypothesis": "The shopper appears to be reviewing the cart normally without clear hesitation.",
+      "decision": "noop",
+      "confidence": 0.94,
+      "why": "A near-threshold cart and a brief visit do not establish hesitation or justify repeating visible delivery information."
+    }
+  },
+  {
+    "action": {
+      "action": "noop",
+      "target": null,
+      "style": null,
+      "duration_ms": 0,
+      "message": null
+    },
+    "trace": {
+      "signals": [
+        "Cart total ৳1,950",
+        "৳50 below free-delivery threshold",
+        "Cart dwell 6 seconds",
+        "Scrolled to 60%",
+        "No cart-checkout bouncing"
+      ],
+      "hypothesis": "The shopper appears to be reviewing the cart normally without clear hesitation.",
+      "decision": "noop",
+      "confidence": 0.9,
+      "why": "A near-threshold cart and brief dwell do not establish enough hesitation to justify an intervention."
+    }
+  },
+  {
+    "action": {
+      "action": "noop",
+      "target": null,
+      "style": null,
+      "duration_ms": 0,
+      "message": null
+    },
+    "trace": {
+      "signals": [
+        "First checkout arrival",
+        "Checkout dwell is 0 ms",
+        "Cart dwell was 6000 ms",
+        "No cart total or page facts available"
+      ],
+      "hypothesis": "The shopper is progressing normally from cart to checkout without clear hesitation.",
+      "decision": "noop",
+      "confidence": 0.98,
+      "why": "A single checkout arrival with no dwell or repeated back-navigation does not justify intervention."
+    }
+  },
+  {
+    "action": {
+      "action": "noop",
+      "target": null,
+      "style": null,
+      "duration_ms": 0,
+      "message": null
+    },
+    "trace": {
+      "signals": [
+        "Cart dwell: 6 seconds",
+        "Checkout dwell: 4 seconds",
+        "Single transition from cart to checkout",
+        "No cart total or page facts available"
+      ],
+      "hypothesis": "The shopper appears to be progressing normally through checkout.",
+      "decision": "noop",
+      "confidence": 0.96,
+      "why": "Brief dwell and a single checkout visit show no clear hesitation or friction requiring help."
+    }
+  },
+  {
+    "action": {
+      "action": "noop",
+      "target": null,
+      "style": null,
+      "duration_ms": 0,
+      "message": null
+    },
+    "trace": {
+      "signals": [
+        "Cart-to-checkout navigation followed by back-nav",
+        "Checkout dwell 4000ms",
+        "Cart total and page facts unavailable",
+        "No target-specific friction"
+      ],
+      "hypothesis": "The shopper may be reviewing their order, but no specific obstacle is evident.",
+      "decision": "noop",
+      "confidence": 0.93,
+      "why": "Brief navigation between cart and checkout without a known delivery gap or clear friction does not justify an intervention."
+    }
+  },
+  {
+    "action": {
+      "action": "message",
+      "target": "shipping-banner",
+      "style": null,
+      "duration_ms": 5000,
+      "message": "You're ৳50 away from the ৳2,000 free-delivery threshold."
+    },
+    "trace": {
+      "signals": [
+        "Cart total ৳1,950",
+        "Free-delivery threshold ৳2,000",
+        "Returned to cart from checkout",
+        "No previous intervention"
+      ],
+      "hypothesis": "The shopper may be hesitating over delivery costs after reviewing checkout.",
+      "decision": "message delivery gap",
+      "confidence": 0.86,
+      "why": "The cart-to-checkout return shows hesitation, and the parsed totals give an exact ৳50 gap not stated on screen."
+    }
+  },
+  {
+    "action": {
+      "action": "noop",
+      "target": null,
+      "style": null,
+      "duration_ms": 0,
+      "message": null
+    },
+    "trace": {
+      "signals": [
+        "Cart–checkout back-navigation suggests hesitation",
+        "Parsed cart total ৳1,950; threshold ৳2,000",
+        "Shipping-banner intervention 1,008ms ago"
+      ],
+      "hypothesis": "The shopper may be hesitating over delivery costs but has just received help.",
+      "decision": "noop",
+      "confidence": 1,
+      "why": "The last intervention was less than 30 seconds ago, and another delivery nudge would repeat the shipping-banner target."
+    }
+  }
+]

@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="bn">
+<head>
+  <link rel="icon" href="data:,">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Bhalo Bazar — messy markup fixture, no data-agent attributes</title>
+<!--
+  Expected agent.js facts extraction (data-facts default "both"):
+  - keys.cart_total = 1950            (Bangla digits ১,৯৫০, split symbol/number, inside a <table>)
+  - keys.free_delivery_threshold = 2000  (main-content sentence; footer's competing
+    "free shipping ... over ৳500" must NOT win — main-content wins)
+  - keys.cart_count = 2               (nav "Cart (2)")
+  - keys.stock = "out_of_stock"       (badge span)
+  - keys.size_selected = "true" | "false" (radio-based size picker, >=3 options)
+  - snippets: up to 10 short strings mentioning delivery/shipping/total/stock/size/
+    return/refund/coupon/discount/offer, drawn from non-nav/footer elements only,
+    e.g. the free-delivery sentence and the out-of-stock badge text.
+-->
+<style>
+  body { margin: 0; font-family: system-ui, sans-serif; color: #222; background: #fff; }
+  header { padding: 16px 24px; border-bottom: 1px solid #ddd; display: flex; justify-content: space-between; }
+  nav a { margin-left: 14px; color: #444; text-decoration: none; font-size: 14px; }
+  main { max-width: 760px; margin: 0 auto; padding: 24px; }
+  table.order-summary { border-collapse: collapse; margin: 20px 0; }
+  table.order-summary td { padding: 4px 10px; font-size: 14px; }
+  .badge-oos { display: inline-block; background: #b5321e; color: #fff; font-size: 12px; padding: 2px 8px; border-radius: 3px; }
+  .size-picker { display: flex; gap: 8px; margin: 16px 0; }
+  .size-picker label { border: 1px solid #ccc; border-radius: 4px; padding: 6px 10px; cursor: pointer; }
+  .size-picker input { position: absolute; opacity: 0; }
+  .size-picker label.is-checked { border-color: #a5321e; background: #fdece8; }
+  footer { padding: 30px 24px; color: #888; font-size: 12px; text-align: center; }
+</style>
+</head>
+<body>
+
+<header>
+  <span>Bhalo Bazar</span>
+  <nav>
+    <a href="#">Home</a>
+    <a href="#">Cart (2)</a>
+  </nav>
+</header>
+
+<main>
+  <h1>জামদানি শাড়ি — Jamdani Saree Classic</h1>
+
+  <span class="badge-oos">out of stock</span>
+
+  <p>Choose a size:</p>
+  <div class="size-picker">
+    <label class="is-checked"><input type="radio" name="size" value="S" checked /> S</label>
+    <label><input type="radio" name="size" value="M" /> M</label>
+    <label><input type="radio" name="size" value="L" /> L</label>
+    <label><input type="radio" name="size" value="XL" /> XL</label>
+  </div>
+
+  <table class="order-summary">
+    <tr><td>Subtotal</td><td><span>৳</span><span>১,৮০০</span></td></tr>
+    <tr><td>Delivery</td><td><span>৳</span><span>১৫০</span></td></tr>
+    <tr><td>Total</td><td><span>৳</span><span>১,৯৫০</span></td></tr>
+  </table>
+
+  <p>Free delivery on orders over ৳ 2,000 — Dhaka only.</p>
+
+  <p>Returns accepted within 7 days. No refund on discounted or coupon items.</p>
+</main>
+
+<footer>
+  &copy; 2026 Bhalo Bazar. Enjoy free shipping on orders over ৳ 500 today only — terms apply.
+</footer>
+
+<script src="/agent.js" data-panel="true" data-site="messy-demo" data-targets="auto" defer></script>
+
+</body>
+</html>

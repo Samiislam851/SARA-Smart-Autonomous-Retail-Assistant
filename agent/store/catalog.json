@@ -1,0 +1,42 @@
+[
+  {
+    "slug": "khadi-field-jacket",
+    "name": "Khadi Field Jacket",
+    "price": 3450,
+    "sizes": ["S", "M", "L", "XL"],
+    "category": "outerwear",
+    "tags": ["handloom", "outerwear"],
+    "similar": ["nakshi-kantha-scarf"],
+    "fit_notes": "Runs narrow through the shoulder — between sizes, take the larger."
+  },
+  {
+    "slug": "jamdani-saree-classic",
+    "name": "Jamdani Saree — Classic",
+    "price": 1950,
+    "sizes": [],
+    "category": "saree",
+    "tags": ["handloom"],
+    "similar": ["nakshi-kantha-scarf"],
+    "fit_notes": "One size, draped to fit."
+  },
+  {
+    "slug": "nakshi-kantha-scarf",
+    "name": "Nakshi Kantha Scarf",
+    "price": 850,
+    "sizes": [],
+    "category": "scarf",
+    "tags": ["handloom", "outerwear"],
+    "similar": ["khadi-field-jacket", "jamdani-saree-classic"],
+    "fit_notes": "One size, fits all."
+  },
+  {
+    "slug": "leather-mojari-sandals",
+    "name": "Leather Mojari Sandals",
+    "price": 1450,
+    "sizes": ["38", "40", "42", "44"],
+    "category": "footwear",
+    "tags": ["footwear"],
+    "similar": ["nakshi-kantha-scarf"],
+    "fit_notes": "True to size — break in over a week."
+  }
+]

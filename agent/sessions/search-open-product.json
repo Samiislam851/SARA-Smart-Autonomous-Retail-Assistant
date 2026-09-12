@@ -1,0 +1,12 @@
+{
+  "name": "search-open-product",
+  "session": "fx_search_open_product",
+  "description": "Category (c)/live-finding fix regression: search_help's cta.kind must be candidate-count-aware (prompts/decide.md 'Failed search' recipe) — re-running a store's own search with a full product name as the query can match on generic words and return dozens of unrelated results (live finding, NextCart session final_nc_1219732343: a 3-word product name query came back with 31 results). Query \"mojari sandles\" (typo) fuzzy-matches exactly ONE real catalog product (Leather Mojari Sandals) — server/store/index.js's searchCandidates('mojari sandles', ...) returns a single candidate — so the model should deep-link with cta.kind:\"open_product\" (value the real slug) instead of cta.kind:\"search\". Not independently checkable by replay.js's action/target matcher (it only checks action+target, not cta), so this fixture's PASS is necessary-but-not-sufficient; the cta.kind itself must be eyeballed in the trace/action log during a live run.",
+  "expect": { "action": "card", "target": "search" },
+  "events": [
+    { "delay_ms": 0, "type": "page_view", "target": "/", "meta": { "targets": ["search", "cart-link", "product-card-khadi-field-jacket", "product-card-jamdani-saree-classic", "product-card-nakshi-kantha-scarf", "product-card-leather-mojari-sandals"] } },
+    { "delay_ms": 1000, "type": "search", "target": "search", "meta": { "q": "mojari sandles", "results": 0 } },
+    { "delay_ms": 1000, "type": "dwell", "target": "/", "meta": { "ms": 3000 } },
+    { "delay_ms": 1000, "type": "dwell", "target": "search", "meta": { "ms": 6000, "kind": "attention", "interactions": { "focus_ms": 6000, "clicks": 1 } } }
+  ]
+}

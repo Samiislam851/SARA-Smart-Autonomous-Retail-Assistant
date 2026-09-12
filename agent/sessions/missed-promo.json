@@ -1,0 +1,19 @@
+{
+  "name": "missed-promo",
+  "session": "fx_missed_promo",
+  "description": "Jacket (with an active JACKET10 code, not yet applied) is added to cart. Shopper bounces cart -> checkout -> cart and dwells on the cart page. Expect a card naming the code, targeting promo-code with an apply_code cta.",
+  "expect": { "action": "card", "target": "promo-code" },
+  "events": [
+    { "delay_ms": 0, "type": "page_view", "target": "/product/khadi-field-jacket", "meta": { "targets": ["product-image", "size-picker", "size-guide", "cart-add", "shipping-banner", "cart-link"] } },
+    { "delay_ms": 1000, "type": "cart_update", "target": "cart-add", "meta": { "total": 3450, "items": [{ "sku": "khadi-field-jacket", "qty": 1, "price": 3450 }], "promo": null } },
+    { "delay_ms": 1000, "type": "page_view", "target": "/cart", "meta": { "targets": ["cart-items", "cart-total", "shipping-banner", "checkout-btn", "cart-link", "promo-code"] } },
+    { "delay_ms": 1000, "type": "cart_view", "target": "/cart", "meta": { "total": 3450, "items": [{ "sku": "khadi-field-jacket", "qty": 1, "price": 3450 }], "promo": null } },
+    { "delay_ms": 1000, "type": "dwell", "target": "/cart", "meta": { "ms": 2000 } },
+    { "delay_ms": 1000, "type": "page_view", "target": "/checkout", "meta": { "targets": ["address-form", "payment-options", "place-order", "cart-link"] } },
+    { "delay_ms": 1000, "type": "dwell", "target": "/checkout", "meta": { "ms": 10000 } },
+    { "delay_ms": 1000, "type": "back_nav", "target": "/cart" },
+    { "delay_ms": 1000, "type": "page_view", "target": "/cart", "meta": { "targets": ["cart-items", "cart-total", "shipping-banner", "checkout-btn", "cart-link", "promo-code"] } },
+    { "delay_ms": 1000, "type": "cart_view", "target": "/cart", "meta": { "total": 3450, "items": [{ "sku": "khadi-field-jacket", "qty": 1, "price": 3450 }], "promo": null } },
+    { "delay_ms": 1000, "type": "dwell", "target": "/cart", "meta": { "ms": 9000 } }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "currency": "BDT",
+  "delivery": {
+    "free_over": 1500,
+    "city": "Dhaka",
+    "days": "2-4",
+    "fee": 80,
+    "fee_outside_dhaka": 130
+  },
+  "returns": {
+    "window_days": 7,
+    "note": "Unworn items, tags attached, within 7 days of delivery."
+  },
+  "payment": [
+    "bKash",
+    "COD",
+    "card"
+  ],
+  "support": {
+    "hours": "10am-7pm, Sat-Thu",
+    "contact": "support@acme.example"
+  },
+  "size_guide": {
+    "note": "No size-chart data available from the API — point the shopper to the merchant's size-guide modal instead of quoting numeric measurements."
+  },
+  "routes": {
+    "product": ["/products/"],
+    "cart": ["/cart"],
+    "checkout": ["/checkout"],
+    "search": ["/search"]
+  }
+}

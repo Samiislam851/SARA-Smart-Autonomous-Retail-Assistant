@@ -1,0 +1,5027 @@
+[
+  {
+    "slug": "wavecrest-noise-isolating-wireless-earbuds-2-0",
+    "name": "Wavecrest Noise-Isolating Wireless Earbuds 2.0",
+    "price": 53.99,
+    "sizes": [],
+    "category": "electronics",
+    "tags": [
+      "electronics"
+    ],
+    "similar": [
+      "nexbeam-bluetooth-speaker",
+      "arclight-smart-watch"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "nexbeam-bluetooth-speaker",
+    "name": "Nexbeam Bluetooth Speaker",
+    "price": 99.99,
+    "sizes": [],
+    "category": "electronics",
+    "tags": [
+      "electronics"
+    ],
+    "similar": [
+      "wavecrest-noise-isolating-wireless-earbuds-2-0",
+      "arclight-smart-watch"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "arclight-smart-watch",
+    "name": "Arclight Smart Watch",
+    "price": 182.99,
+    "sizes": [],
+    "category": "electronics",
+    "tags": [
+      "electronics"
+    ],
+    "similar": [
+      "wavecrest-noise-isolating-wireless-earbuds-2-0",
+      "nexbeam-bluetooth-speaker"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "sonique-hdr-streaming-media-player",
+    "name": "Sonique HDR Streaming Media Player",
+    "price": 48.99,
+    "sizes": [],
+    "category": "electronics",
+    "tags": [
+      "electronics"
+    ],
+    "similar": [
+      "wavecrest-noise-isolating-wireless-earbuds-2-0",
+      "nexbeam-bluetooth-speaker"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "pulsegear-noise-cancelling-headphones-pro",
+    "name": "Pulsegear Noise-Cancelling Headphones Pro",
+    "price": 221.99,
+    "sizes": [],
+    "category": "electronics",
+    "tags": [
+      "electronics"
+    ],
+    "similar": [
+      "wavecrest-noise-isolating-wireless-earbuds-2-0",
+      "nexbeam-bluetooth-speaker"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "kryotech-braided-usb-c-charging-cable",
+    "name": "Kryotech Braided USB-C Charging Cable",
+    "price": 14.99,
+    "sizes": [],
+    "category": "electronics",
+    "tags": [
+      "electronics"
+    ],
+    "similar": [
+      "wavecrest-noise-isolating-wireless-earbuds-2-0",
+      "nexbeam-bluetooth-speaker"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "voltara-smart-led-light-bulb-4-pack",
+    "name": "Voltara Smart LED Light Bulb 4-Pack",
+    "price": 24.99,
+    "sizes": [],
+    "category": "electronics",
+    "tags": [
+      "electronics"
+    ],
+    "similar": [
+      "wavecrest-noise-isolating-wireless-earbuds-2-0",
+      "nexbeam-bluetooth-speaker"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "sonique-1080p-home-security-camera",
+    "name": "Sonique 1080p Home Security Camera",
+    "price": 36.99,
+    "sizes": [],
+    "category": "electronics",
+    "tags": [
+      "electronics"
+    ],
+    "similar": [
+      "wavecrest-noise-isolating-wireless-earbuds-2-0",
+      "nexbeam-bluetooth-speaker"
+    ],
+    "fit_notes": null,
+    "in_stock": false,
+    "low_stock": false
+  },
+  {
+    "slug": "nexbeam-noise-isolating-wireless-earbuds",
+    "name": "Nexbeam Noise-Isolating Wireless Earbuds",
+    "price": 76.99,
+    "sizes": [],
+    "category": "electronics",
+    "tags": [
+      "electronics"
+    ],
+    "similar": [
+      "wavecrest-noise-isolating-wireless-earbuds-2-0",
+      "nexbeam-bluetooth-speaker"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "pulsegear-waterproof-bluetooth-speaker-max",
+    "name": "Pulsegear Waterproof Bluetooth Speaker Max",
+    "price": 102.99,
+    "sizes": [],
+    "category": "electronics",
+    "tags": [
+      "electronics"
+    ],
+    "similar": [
+      "wavecrest-noise-isolating-wireless-earbuds-2-0",
+      "nexbeam-bluetooth-speaker"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "wavecrest-always-on-display-smart-watch-2-0",
+    "name": "Wavecrest Always-on Display Smart Watch 2.0",
+    "price": 162.99,
+    "sizes": [],
+    "category": "electronics",
+    "tags": [
+      "electronics"
+    ],
+    "similar": [
+      "wavecrest-noise-isolating-wireless-earbuds-2-0",
+      "nexbeam-bluetooth-speaker"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "arclight-hdr-streaming-media-player",
+    "name": "Arclight HDR Streaming Media Player",
+    "price": 38.99,
+    "sizes": [],
+    "category": "electronics",
+    "tags": [
+      "electronics"
+    ],
+    "similar": [
+      "wavecrest-noise-isolating-wireless-earbuds-2-0",
+      "nexbeam-bluetooth-speaker"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "voltara-studio-noise-cancelling-headphones-2-0",
+    "name": "Voltara Studio Noise-Cancelling Headphones 2.0",
+    "price": 228.99,
+    "sizes": [],
+    "category": "electronics",
+    "tags": [
+      "electronics"
+    ],
+    "similar": [
+      "wavecrest-noise-isolating-wireless-earbuds-2-0",
+      "nexbeam-bluetooth-speaker"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "arclight-portable-power-bank-plus",
+    "name": "Arclight Portable Power Bank Plus",
+    "price": 40.99,
+    "sizes": [],
+    "category": "electronics",
+    "tags": [
+      "electronics"
+    ],
+    "similar": [
+      "wavecrest-noise-isolating-wireless-earbuds-2-0",
+      "nexbeam-bluetooth-speaker"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "voltara-usb-c-charging-cable",
+    "name": "Voltara USB-C Charging Cable",
+    "price": 8.99,
+    "sizes": [],
+    "category": "electronics",
+    "tags": [
+      "electronics"
+    ],
+    "similar": [
+      "wavecrest-noise-isolating-wireless-earbuds-2-0",
+      "nexbeam-bluetooth-speaker"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "nexbeam-colour-changing-smart-led-light-bulb-4-pack",
+    "name": "Nexbeam Colour-Changing Smart LED Light Bulb 4-Pack",
+    "price": 33.99,
+    "sizes": [],
+    "category": "electronics",
+    "tags": [
+      "electronics"
+    ],
+    "similar": [
+      "wavecrest-noise-isolating-wireless-earbuds-2-0",
+      "nexbeam-bluetooth-speaker"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "voltara-keychain-bluetooth-tracker-tag-pro",
+    "name": "Voltara Keychain Bluetooth Tracker Tag Pro",
+    "price": 21.99,
+    "sizes": [],
+    "category": "electronics",
+    "tags": [
+      "electronics"
+    ],
+    "similar": [
+      "wavecrest-noise-isolating-wireless-earbuds-2-0",
+      "nexbeam-bluetooth-speaker"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "kryotech-home-security-camera-plus",
+    "name": "Kryotech Home Security Camera Plus",
+    "price": 66.99,
+    "sizes": [],
+    "category": "electronics",
+    "tags": [
+      "electronics"
+    ],
+    "similar": [
+      "wavecrest-noise-isolating-wireless-earbuds-2-0",
+      "nexbeam-bluetooth-speaker"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": true
+  },
+  {
+    "slug": "sonique-noise-isolating-wireless-earbuds",
+    "name": "Sonique Noise-Isolating Wireless Earbuds",
+    "price": 61.99,
+    "sizes": [],
+    "category": "electronics",
+    "tags": [
+      "electronics"
+    ],
+    "similar": [
+      "wavecrest-noise-isolating-wireless-earbuds-2-0",
+      "nexbeam-bluetooth-speaker"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "nexbeam-portable-bluetooth-speaker-mini",
+    "name": "Nexbeam Portable Bluetooth Speaker Mini",
+    "price": 110.99,
+    "sizes": [],
+    "category": "electronics",
+    "tags": [
+      "electronics"
+    ],
+    "similar": [
+      "wavecrest-noise-isolating-wireless-earbuds-2-0",
+      "nexbeam-bluetooth-speaker"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "sonique-always-on-display-smart-watch",
+    "name": "Sonique Always-on Display Smart Watch",
+    "price": 245.99,
+    "sizes": [],
+    "category": "electronics",
+    "tags": [
+      "electronics"
+    ],
+    "similar": [
+      "wavecrest-noise-isolating-wireless-earbuds-2-0",
+      "nexbeam-bluetooth-speaker"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "nexbeam-streaming-media-player",
+    "name": "Nexbeam Streaming Media Player",
+    "price": 36.99,
+    "sizes": [],
+    "category": "electronics",
+    "tags": [
+      "electronics"
+    ],
+    "similar": [
+      "wavecrest-noise-isolating-wireless-earbuds-2-0",
+      "nexbeam-bluetooth-speaker"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "sonique-studio-noise-cancelling-headphones",
+    "name": "Sonique Studio Noise-Cancelling Headphones",
+    "price": 128.99,
+    "sizes": [],
+    "category": "electronics",
+    "tags": [
+      "electronics"
+    ],
+    "similar": [
+      "wavecrest-noise-isolating-wireless-earbuds-2-0",
+      "nexbeam-bluetooth-speaker"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "nexbeam-portable-power-bank-pro",
+    "name": "Nexbeam Portable Power Bank Pro",
+    "price": 30.99,
+    "sizes": [],
+    "category": "electronics",
+    "tags": [
+      "electronics"
+    ],
+    "similar": [
+      "wavecrest-noise-isolating-wireless-earbuds-2-0",
+      "nexbeam-bluetooth-speaker"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "pulsegear-braided-usb-c-charging-cable-max",
+    "name": "Pulsegear Braided USB-C Charging Cable Max",
+    "price": 9.99,
+    "sizes": [],
+    "category": "electronics",
+    "tags": [
+      "electronics"
+    ],
+    "similar": [
+      "wavecrest-noise-isolating-wireless-earbuds-2-0",
+      "nexbeam-bluetooth-speaker"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "kryotech-smart-led-light-bulb-4-pack",
+    "name": "Kryotech Smart LED Light Bulb 4-Pack",
+    "price": 33.99,
+    "sizes": [],
+    "category": "electronics",
+    "tags": [
+      "electronics"
+    ],
+    "similar": [
+      "wavecrest-noise-isolating-wireless-earbuds-2-0",
+      "nexbeam-bluetooth-speaker"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "pulsegear-compact-bluetooth-tracker-tag",
+    "name": "Pulsegear Compact Bluetooth Tracker Tag",
+    "price": 12.99,
+    "sizes": [],
+    "category": "electronics",
+    "tags": [
+      "electronics"
+    ],
+    "similar": [
+      "wavecrest-noise-isolating-wireless-earbuds-2-0",
+      "nexbeam-bluetooth-speaker"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": true
+  },
+  {
+    "slug": "pulsegear-1080p-home-security-camera-2-0",
+    "name": "Pulsegear 1080p Home Security Camera 2.0",
+    "price": 35,
+    "sizes": [],
+    "category": "electronics",
+    "tags": [
+      "electronics"
+    ],
+    "similar": [
+      "wavecrest-noise-isolating-wireless-earbuds-2-0",
+      "nexbeam-bluetooth-speaker"
+    ],
+    "fit_notes": null,
+    "in_stock": false,
+    "low_stock": false
+  },
+  {
+    "slug": "byteforge-wireless-mouse",
+    "name": "Byteforge Wireless Mouse",
+    "price": 27.99,
+    "sizes": [],
+    "category": "computers-accessories",
+    "tags": [
+      "computers-accessories"
+    ],
+    "similar": [
+      "byteforge-mechanical-keyboard-mini",
+      "nordwork-usb-c-hub-7-in-1-2-0"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "byteforge-mechanical-keyboard-mini",
+    "name": "Byteforge Mechanical Keyboard Mini",
+    "price": 145.99,
+    "sizes": [],
+    "category": "computers-accessories",
+    "tags": [
+      "computers-accessories"
+    ],
+    "similar": [
+      "byteforge-wireless-mouse",
+      "nordwork-usb-c-hub-7-in-1-2-0"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "nordwork-usb-c-hub-7-in-1-2-0",
+    "name": "Nordwork USB-C Hub 7-in-1 2.0",
+    "price": 51.99,
+    "sizes": [],
+    "category": "computers-accessories",
+    "tags": [
+      "computers-accessories"
+    ],
+    "similar": [
+      "byteforge-wireless-mouse",
+      "byteforge-mechanical-keyboard-mini"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "circuiq-27-inch-monitor",
+    "name": "Circuiq 27-Inch Monitor",
+    "price": 196.99,
+    "sizes": [],
+    "category": "computers-accessories",
+    "tags": [
+      "computers-accessories"
+    ],
+    "similar": [
+      "byteforge-wireless-mouse",
+      "byteforge-mechanical-keyboard-mini"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "circuiq-laptop-backpack-max",
+    "name": "Circuiq Laptop Backpack Max",
+    "price": 44.99,
+    "sizes": [],
+    "category": "computers-accessories",
+    "tags": [
+      "computers-accessories"
+    ],
+    "similar": [
+      "byteforge-wireless-mouse",
+      "byteforge-mechanical-keyboard-mini"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "pixeldock-shock-resistant-external-ssd-1tb-max",
+    "name": "Pixeldock Shock-Resistant External SSD 1TB Max",
+    "price": 70.99,
+    "sizes": [],
+    "category": "computers-accessories",
+    "tags": [
+      "computers-accessories"
+    ],
+    "similar": [
+      "byteforge-wireless-mouse",
+      "byteforge-mechanical-keyboard-mini"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "pixeldock-autofocus-1080p-webcam",
+    "name": "Pixeldock Autofocus 1080p Webcam",
+    "price": 29.99,
+    "sizes": [],
+    "category": "computers-accessories",
+    "tags": [
+      "computers-accessories"
+    ],
+    "similar": [
+      "byteforge-wireless-mouse",
+      "byteforge-mechanical-keyboard-mini"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "quantera-aluminum-laptop-stand",
+    "name": "Quantera Aluminum Laptop Stand",
+    "price": 31.99,
+    "sizes": [],
+    "category": "computers-accessories",
+    "tags": [
+      "computers-accessories"
+    ],
+    "similar": [
+      "byteforge-wireless-mouse",
+      "byteforge-mechanical-keyboard-mini"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "circuiq-wireless-charging-pad-max",
+    "name": "Circuiq Wireless Charging Pad Max",
+    "price": 22.99,
+    "sizes": [],
+    "category": "computers-accessories",
+    "tags": [
+      "computers-accessories"
+    ],
+    "similar": [
+      "byteforge-wireless-mouse",
+      "byteforge-mechanical-keyboard-mini"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "byteforge-cable-management-kit",
+    "name": "Byteforge Cable Management Kit",
+    "price": 17.99,
+    "sizes": [],
+    "category": "computers-accessories",
+    "tags": [
+      "computers-accessories"
+    ],
+    "similar": [
+      "byteforge-wireless-mouse",
+      "byteforge-mechanical-keyboard-mini"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "byteforge-wireless-mouse-max",
+    "name": "Byteforge Wireless Mouse Max",
+    "price": 44.99,
+    "sizes": [],
+    "category": "computers-accessories",
+    "tags": [
+      "computers-accessories"
+    ],
+    "similar": [
+      "byteforge-wireless-mouse",
+      "byteforge-mechanical-keyboard-mini"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "coreline-mechanical-keyboard",
+    "name": "Coreline Mechanical Keyboard",
+    "price": 129.99,
+    "sizes": [],
+    "category": "computers-accessories",
+    "tags": [
+      "computers-accessories"
+    ],
+    "similar": [
+      "byteforge-wireless-mouse",
+      "byteforge-mechanical-keyboard-mini"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "nordwork-aluminum-usb-c-hub-7-in-1",
+    "name": "Nordwork Aluminum USB-C Hub 7-in-1",
+    "price": 42.99,
+    "sizes": [],
+    "category": "computers-accessories",
+    "tags": [
+      "computers-accessories"
+    ],
+    "similar": [
+      "byteforge-wireless-mouse",
+      "byteforge-mechanical-keyboard-mini"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "coreline-qhd-27-inch-monitor-max",
+    "name": "Coreline QHD 27-Inch Monitor Max",
+    "price": 333.99,
+    "sizes": [],
+    "category": "computers-accessories",
+    "tags": [
+      "computers-accessories"
+    ],
+    "similar": [
+      "byteforge-wireless-mouse",
+      "byteforge-mechanical-keyboard-mini"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "pixeldock-laptop-backpack-pro",
+    "name": "Pixeldock Laptop Backpack Pro",
+    "price": 61.99,
+    "sizes": [],
+    "category": "computers-accessories",
+    "tags": [
+      "computers-accessories"
+    ],
+    "similar": [
+      "byteforge-wireless-mouse",
+      "byteforge-mechanical-keyboard-mini"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "quantera-external-ssd-1tb",
+    "name": "Quantera External SSD 1TB",
+    "price": 65.99,
+    "sizes": [],
+    "category": "computers-accessories",
+    "tags": [
+      "computers-accessories"
+    ],
+    "similar": [
+      "byteforge-wireless-mouse",
+      "byteforge-mechanical-keyboard-mini"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "nordwork-1080p-webcam",
+    "name": "Nordwork 1080p Webcam",
+    "price": 56.99,
+    "sizes": [],
+    "category": "computers-accessories",
+    "tags": [
+      "computers-accessories"
+    ],
+    "similar": [
+      "byteforge-wireless-mouse",
+      "byteforge-mechanical-keyboard-mini"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "byteforge-aluminum-laptop-stand-max",
+    "name": "Byteforge Aluminum Laptop Stand Max",
+    "price": 44.99,
+    "sizes": [],
+    "category": "computers-accessories",
+    "tags": [
+      "computers-accessories"
+    ],
+    "similar": [
+      "byteforge-wireless-mouse",
+      "byteforge-mechanical-keyboard-mini"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "nordwork-wireless-charging-pad-mini",
+    "name": "Nordwork Wireless Charging Pad Mini",
+    "price": 15.99,
+    "sizes": [],
+    "category": "computers-accessories",
+    "tags": [
+      "computers-accessories"
+    ],
+    "similar": [
+      "byteforge-wireless-mouse",
+      "byteforge-mechanical-keyboard-mini"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "nordwork-under-desk-cable-management-kit-elite",
+    "name": "Nordwork Under-Desk Cable Management Kit Elite",
+    "price": 20.99,
+    "sizes": [],
+    "category": "computers-accessories",
+    "tags": [
+      "computers-accessories"
+    ],
+    "similar": [
+      "byteforge-wireless-mouse",
+      "byteforge-mechanical-keyboard-mini"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "nordwork-silent-click-wireless-mouse",
+    "name": "Nordwork Silent-Click Wireless Mouse",
+    "price": 41.99,
+    "sizes": [],
+    "category": "computers-accessories",
+    "tags": [
+      "computers-accessories"
+    ],
+    "similar": [
+      "byteforge-wireless-mouse",
+      "byteforge-mechanical-keyboard-mini"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": true
+  },
+  {
+    "slug": "coreline-backlit-mechanical-keyboard-pro",
+    "name": "Coreline Backlit Mechanical Keyboard Pro",
+    "price": 131.99,
+    "sizes": [],
+    "category": "computers-accessories",
+    "tags": [
+      "computers-accessories"
+    ],
+    "similar": [
+      "byteforge-wireless-mouse",
+      "byteforge-mechanical-keyboard-mini"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "pixeldock-compact-usb-c-hub-7-in-1",
+    "name": "Pixeldock Compact USB-C Hub 7-in-1",
+    "price": 40.99,
+    "sizes": [],
+    "category": "computers-accessories",
+    "tags": [
+      "computers-accessories"
+    ],
+    "similar": [
+      "byteforge-wireless-mouse",
+      "byteforge-mechanical-keyboard-mini"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "nordwork-qhd-27-inch-monitor",
+    "name": "Nordwork QHD 27-Inch Monitor",
+    "price": 265.99,
+    "sizes": [],
+    "category": "computers-accessories",
+    "tags": [
+      "computers-accessories"
+    ],
+    "similar": [
+      "byteforge-wireless-mouse",
+      "byteforge-mechanical-keyboard-mini"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "byteforge-laptop-backpack",
+    "name": "Byteforge Laptop Backpack",
+    "price": 38.99,
+    "sizes": [],
+    "category": "computers-accessories",
+    "tags": [
+      "computers-accessories"
+    ],
+    "similar": [
+      "byteforge-wireless-mouse",
+      "byteforge-mechanical-keyboard-mini"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "circuiq-portable-external-ssd-1tb-2-0",
+    "name": "Circuiq Portable External SSD 1TB 2.0",
+    "price": 71.99,
+    "sizes": [],
+    "category": "computers-accessories",
+    "tags": [
+      "computers-accessories"
+    ],
+    "similar": [
+      "byteforge-wireless-mouse",
+      "byteforge-mechanical-keyboard-mini"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "nordwork-autofocus-1080p-webcam",
+    "name": "Nordwork Autofocus 1080p Webcam",
+    "price": 40.99,
+    "sizes": [],
+    "category": "computers-accessories",
+    "tags": [
+      "computers-accessories"
+    ],
+    "similar": [
+      "byteforge-wireless-mouse",
+      "byteforge-mechanical-keyboard-mini"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "coreline-adjustable-aluminum-laptop-stand-elite",
+    "name": "Coreline Adjustable Aluminum Laptop Stand Elite",
+    "price": 25.99,
+    "sizes": [],
+    "category": "computers-accessories",
+    "tags": [
+      "computers-accessories"
+    ],
+    "similar": [
+      "byteforge-wireless-mouse",
+      "byteforge-mechanical-keyboard-mini"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "coreline-fast-wireless-charging-pad-max",
+    "name": "Coreline Fast Wireless Charging Pad Max",
+    "price": 15,
+    "sizes": [],
+    "category": "computers-accessories",
+    "tags": [
+      "computers-accessories"
+    ],
+    "similar": [
+      "byteforge-wireless-mouse",
+      "byteforge-mechanical-keyboard-mini"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "quantera-desk-cable-management-kit",
+    "name": "Quantera Desk Cable Management Kit",
+    "price": 15.99,
+    "sizes": [],
+    "category": "computers-accessories",
+    "tags": [
+      "computers-accessories"
+    ],
+    "similar": [
+      "byteforge-wireless-mouse",
+      "byteforge-mechanical-keyboard-mini"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "millbrook-stainless-steel-cookware-set-10-piece-deluxe",
+    "name": "Millbrook Stainless Steel Cookware Set 10-Piece Deluxe",
+    "price": 124.99,
+    "sizes": [],
+    "category": "home-kitchen",
+    "tags": [
+      "home-kitchen"
+    ],
+    "similar": [
+      "vessel-co-cordless-electric-kettle-classic",
+      "millbrook-tilt-head-stand-mixer-classic"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "vessel-co-cordless-electric-kettle-classic",
+    "name": "Vessel & Co Cordless Electric Kettle Classic",
+    "price": 42.99,
+    "sizes": [],
+    "category": "home-kitchen",
+    "tags": [
+      "home-kitchen"
+    ],
+    "similar": [
+      "millbrook-stainless-steel-cookware-set-10-piece-deluxe",
+      "millbrook-tilt-head-stand-mixer-classic"
+    ],
+    "fit_notes": null,
+    "in_stock": false,
+    "low_stock": false
+  },
+  {
+    "slug": "millbrook-tilt-head-stand-mixer-classic",
+    "name": "Millbrook Tilt-Head Stand Mixer Classic",
+    "price": 283.99,
+    "sizes": [],
+    "category": "home-kitchen",
+    "tags": [
+      "home-kitchen"
+    ],
+    "similar": [
+      "millbrook-stainless-steel-cookware-set-10-piece-deluxe",
+      "vessel-co-cordless-electric-kettle-classic"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": true
+  },
+  {
+    "slug": "hearthstone-scratch-resistant-nonstick-frying-pan",
+    "name": "Hearthstone Scratch-Resistant Nonstick Frying Pan",
+    "price": 20.99,
+    "sizes": [],
+    "category": "home-kitchen",
+    "tags": [
+      "home-kitchen"
+    ],
+    "similar": [
+      "millbrook-stainless-steel-cookware-set-10-piece-deluxe",
+      "vessel-co-cordless-electric-kettle-classic"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "hearthstone-ceramic-dinnerware-set-16-piece",
+    "name": "Hearthstone Ceramic Dinnerware Set 16-Piece",
+    "price": 74.99,
+    "sizes": [],
+    "category": "home-kitchen",
+    "tags": [
+      "home-kitchen"
+    ],
+    "similar": [
+      "millbrook-stainless-steel-cookware-set-10-piece-deluxe",
+      "vessel-co-cordless-electric-kettle-classic"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "kindred-home-memory-foam-pillow-2-pack-classic",
+    "name": "Kindred Home Memory Foam Pillow 2-Pack Classic",
+    "price": 45.99,
+    "sizes": [],
+    "category": "home-kitchen",
+    "tags": [
+      "home-kitchen"
+    ],
+    "similar": [
+      "millbrook-stainless-steel-cookware-set-10-piece-deluxe",
+      "vessel-co-cordless-electric-kettle-classic"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "vessel-co-room-darkening-blackout-curtain-pair",
+    "name": "Vessel & Co Room-Darkening Blackout Curtain Pair",
+    "price": 26.99,
+    "sizes": [],
+    "category": "home-kitchen",
+    "tags": [
+      "home-kitchen"
+    ],
+    "similar": [
+      "millbrook-stainless-steel-cookware-set-10-piece-deluxe",
+      "vessel-co-cordless-electric-kettle-classic"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "hearthstone-air-fryer-classic",
+    "name": "Hearthstone Air Fryer Classic",
+    "price": 65.99,
+    "sizes": [],
+    "category": "home-kitchen",
+    "tags": [
+      "home-kitchen"
+    ],
+    "similar": [
+      "millbrook-stainless-steel-cookware-set-10-piece-deluxe",
+      "vessel-co-cordless-electric-kettle-classic"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": true
+  },
+  {
+    "slug": "kindred-home-3-piece-bamboo-cutting-board-set",
+    "name": "Kindred Home 3-Piece Bamboo Cutting Board Set",
+    "price": 24.99,
+    "sizes": [],
+    "category": "home-kitchen",
+    "tags": [
+      "home-kitchen"
+    ],
+    "similar": [
+      "millbrook-stainless-steel-cookware-set-10-piece-deluxe",
+      "vessel-co-cordless-electric-kettle-classic"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "kindred-home-induction-ready-stainless-steel-cookware-set-10-piece-xl",
+    "name": "Kindred Home Induction-Ready Stainless Steel Cookware Set 10-Piece XL",
+    "price": 196.99,
+    "sizes": [],
+    "category": "home-kitchen",
+    "tags": [
+      "home-kitchen"
+    ],
+    "similar": [
+      "millbrook-stainless-steel-cookware-set-10-piece-deluxe",
+      "vessel-co-cordless-electric-kettle-classic"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "millbrook-cordless-electric-kettle",
+    "name": "Millbrook Cordless Electric Kettle",
+    "price": 39.99,
+    "sizes": [],
+    "category": "home-kitchen",
+    "tags": [
+      "home-kitchen"
+    ],
+    "similar": [
+      "millbrook-stainless-steel-cookware-set-10-piece-deluxe",
+      "vessel-co-cordless-electric-kettle-classic"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "vessel-co-stand-mixer",
+    "name": "Vessel & Co Stand Mixer",
+    "price": 227.99,
+    "sizes": [],
+    "category": "home-kitchen",
+    "tags": [
+      "home-kitchen"
+    ],
+    "similar": [
+      "millbrook-stainless-steel-cookware-set-10-piece-deluxe",
+      "vessel-co-cordless-electric-kettle-classic"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "copperlane-scratch-resistant-nonstick-frying-pan",
+    "name": "Copperlane Scratch-Resistant Nonstick Frying Pan",
+    "price": 22.99,
+    "sizes": [],
+    "category": "home-kitchen",
+    "tags": [
+      "home-kitchen"
+    ],
+    "similar": [
+      "millbrook-stainless-steel-cookware-set-10-piece-deluxe",
+      "vessel-co-cordless-electric-kettle-classic"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "vessel-co-stoneware-ceramic-dinnerware-set-16-piece",
+    "name": "Vessel & Co Stoneware Ceramic Dinnerware Set 16-Piece",
+    "price": 88.99,
+    "sizes": [],
+    "category": "home-kitchen",
+    "tags": [
+      "home-kitchen"
+    ],
+    "similar": [
+      "millbrook-stainless-steel-cookware-set-10-piece-deluxe",
+      "vessel-co-cordless-electric-kettle-classic"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": true
+  },
+  {
+    "slug": "millbrook-memory-foam-pillow-2-pack",
+    "name": "Millbrook Memory Foam Pillow 2-Pack",
+    "price": 49.99,
+    "sizes": [],
+    "category": "home-kitchen",
+    "tags": [
+      "home-kitchen"
+    ],
+    "similar": [
+      "millbrook-stainless-steel-cookware-set-10-piece-deluxe",
+      "vessel-co-cordless-electric-kettle-classic"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "northgrain-thermal-blackout-curtain-pair-pro",
+    "name": "Northgrain Thermal Blackout Curtain Pair Pro",
+    "price": 51.99,
+    "sizes": [],
+    "category": "home-kitchen",
+    "tags": [
+      "home-kitchen"
+    ],
+    "similar": [
+      "millbrook-stainless-steel-cookware-set-10-piece-deluxe",
+      "vessel-co-cordless-electric-kettle-classic"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": true
+  },
+  {
+    "slug": "vessel-co-compact-digital-kitchen-scale",
+    "name": "Vessel & Co Compact Digital Kitchen Scale",
+    "price": 18.99,
+    "sizes": [],
+    "category": "home-kitchen",
+    "tags": [
+      "home-kitchen"
+    ],
+    "similar": [
+      "millbrook-stainless-steel-cookware-set-10-piece-deluxe",
+      "vessel-co-cordless-electric-kettle-classic"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "copperlane-air-fryer-deluxe",
+    "name": "Copperlane Air Fryer Deluxe",
+    "price": 144.99,
+    "sizes": [],
+    "category": "home-kitchen",
+    "tags": [
+      "home-kitchen"
+    ],
+    "similar": [
+      "millbrook-stainless-steel-cookware-set-10-piece-deluxe",
+      "vessel-co-cordless-electric-kettle-classic"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "hearthstone-3-piece-bamboo-cutting-board-set",
+    "name": "Hearthstone 3-Piece Bamboo Cutting Board Set",
+    "price": 25.99,
+    "sizes": [],
+    "category": "home-kitchen",
+    "tags": [
+      "home-kitchen"
+    ],
+    "similar": [
+      "millbrook-stainless-steel-cookware-set-10-piece-deluxe",
+      "vessel-co-cordless-electric-kettle-classic"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "millbrook-induction-ready-stainless-steel-cookware-set-10-piece-pro",
+    "name": "Millbrook Induction-Ready Stainless Steel Cookware Set 10-Piece Pro",
+    "price": 206.99,
+    "sizes": [],
+    "category": "home-kitchen",
+    "tags": [
+      "home-kitchen"
+    ],
+    "similar": [
+      "millbrook-stainless-steel-cookware-set-10-piece-deluxe",
+      "vessel-co-cordless-electric-kettle-classic"
+    ],
+    "fit_notes": null,
+    "in_stock": false,
+    "low_stock": false
+  },
+  {
+    "slug": "millbrook-rapid-boil-electric-kettle",
+    "name": "Millbrook Rapid-Boil Electric Kettle",
+    "price": 29.99,
+    "sizes": [],
+    "category": "home-kitchen",
+    "tags": [
+      "home-kitchen"
+    ],
+    "similar": [
+      "millbrook-stainless-steel-cookware-set-10-piece-deluxe",
+      "vessel-co-cordless-electric-kettle-classic"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "millbrook-stand-mixer",
+    "name": "Millbrook Stand Mixer",
+    "price": 238.99,
+    "sizes": [],
+    "category": "home-kitchen",
+    "tags": [
+      "home-kitchen"
+    ],
+    "similar": [
+      "millbrook-stainless-steel-cookware-set-10-piece-deluxe",
+      "vessel-co-cordless-electric-kettle-classic"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "hearthstone-nonstick-frying-pan-pro",
+    "name": "Hearthstone Nonstick Frying Pan Pro",
+    "price": 18,
+    "sizes": [],
+    "category": "home-kitchen",
+    "tags": [
+      "home-kitchen"
+    ],
+    "similar": [
+      "millbrook-stainless-steel-cookware-set-10-piece-deluxe",
+      "vessel-co-cordless-electric-kettle-classic"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "northgrain-ceramic-dinnerware-set-16-piece",
+    "name": "Northgrain Ceramic Dinnerware Set 16-Piece",
+    "price": 67.99,
+    "sizes": [],
+    "category": "home-kitchen",
+    "tags": [
+      "home-kitchen"
+    ],
+    "similar": [
+      "millbrook-stainless-steel-cookware-set-10-piece-deluxe",
+      "vessel-co-cordless-electric-kettle-classic"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "kindred-home-cooling-gel-memory-foam-pillow-2-pack",
+    "name": "Kindred Home Cooling Gel Memory Foam Pillow 2-Pack",
+    "price": 57.99,
+    "sizes": [],
+    "category": "home-kitchen",
+    "tags": [
+      "home-kitchen"
+    ],
+    "similar": [
+      "millbrook-stainless-steel-cookware-set-10-piece-deluxe",
+      "vessel-co-cordless-electric-kettle-classic"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "millbrook-blackout-curtain-pair",
+    "name": "Millbrook Blackout Curtain Pair",
+    "price": 42.99,
+    "sizes": [],
+    "category": "home-kitchen",
+    "tags": [
+      "home-kitchen"
+    ],
+    "similar": [
+      "millbrook-stainless-steel-cookware-set-10-piece-deluxe",
+      "vessel-co-cordless-electric-kettle-classic"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "vessel-co-precision-digital-kitchen-scale",
+    "name": "Vessel & Co Precision Digital Kitchen Scale",
+    "price": 12,
+    "sizes": [],
+    "category": "home-kitchen",
+    "tags": [
+      "home-kitchen"
+    ],
+    "similar": [
+      "millbrook-stainless-steel-cookware-set-10-piece-deluxe",
+      "vessel-co-cordless-electric-kettle-classic"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "vessel-co-digital-air-fryer",
+    "name": "Vessel & Co Digital Air Fryer",
+    "price": 75.99,
+    "sizes": [],
+    "category": "home-kitchen",
+    "tags": [
+      "home-kitchen"
+    ],
+    "similar": [
+      "millbrook-stainless-steel-cookware-set-10-piece-deluxe",
+      "vessel-co-cordless-electric-kettle-classic"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "kindred-home-bamboo-cutting-board-set",
+    "name": "Kindred Home Bamboo Cutting Board Set",
+    "price": 26.99,
+    "sizes": [],
+    "category": "home-kitchen",
+    "tags": [
+      "home-kitchen"
+    ],
+    "similar": [
+      "millbrook-stainless-steel-cookware-set-10-piece-deluxe",
+      "vessel-co-cordless-electric-kettle-classic"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "the-long-meadow",
+    "name": "The Long Meadow",
+    "price": 16.99,
+    "sizes": [],
+    "category": "books",
+    "tags": [
+      "books"
+    ],
+    "similar": [
+      "the-everyday-table",
+      "focus-by-design"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "the-everyday-table",
+    "name": "The Everyday Table",
+    "price": 24.99,
+    "sizes": [],
+    "category": "books",
+    "tags": [
+      "books"
+    ],
+    "similar": [
+      "the-long-meadow",
+      "focus-by-design"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "focus-by-design",
+    "name": "Focus by Design",
+    "price": 23.99,
+    "sizes": [],
+    "category": "books",
+    "tags": [
+      "books"
+    ],
+    "similar": [
+      "the-long-meadow",
+      "the-everyday-table"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "luna-and-the-hidden-hollow",
+    "name": "Luna and the Hidden Hollow",
+    "price": 11.99,
+    "sizes": [],
+    "category": "books",
+    "tags": [
+      "books"
+    ],
+    "similar": [
+      "the-long-meadow",
+      "the-everyday-table"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "the-wild-years",
+    "name": "The Wild Years",
+    "price": 14,
+    "sizes": [],
+    "category": "books",
+    "tags": [
+      "books"
+    ],
+    "similar": [
+      "the-long-meadow",
+      "the-everyday-table"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "birds-a-field-guide",
+    "name": "Birds: A Field Guide",
+    "price": 31.99,
+    "sizes": [],
+    "category": "books",
+    "tags": [
+      "books"
+    ],
+    "similar": [
+      "the-long-meadow",
+      "the-everyday-table"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "the-river-chronicles",
+    "name": "The River Chronicles",
+    "price": 18.99,
+    "sizes": [],
+    "category": "books",
+    "tags": [
+      "books"
+    ],
+    "similar": [
+      "the-long-meadow",
+      "the-everyday-table"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": true
+  },
+  {
+    "slug": "bone-and-ash",
+    "name": "Bone and Ash",
+    "price": 14.99,
+    "sizes": [],
+    "category": "books",
+    "tags": [
+      "books"
+    ],
+    "similar": [
+      "the-long-meadow",
+      "the-everyday-table"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "golden-roads-exploring-the-scottish-highlands",
+    "name": "Golden Roads: Exploring the Scottish Highlands",
+    "price": 21.99,
+    "sizes": [],
+    "category": "books",
+    "tags": [
+      "books"
+    ],
+    "similar": [
+      "the-long-meadow",
+      "the-everyday-table"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "the-long-road-a-history-of-the-silk-road",
+    "name": "The Long Road: A History of the Silk Road",
+    "price": 25.99,
+    "sizes": [],
+    "category": "books",
+    "tags": [
+      "books"
+    ],
+    "similar": [
+      "the-long-meadow",
+      "the-everyday-table"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "the-last-horizon",
+    "name": "The Last Horizon",
+    "price": 15.99,
+    "sizes": [],
+    "category": "books",
+    "tags": [
+      "books"
+    ],
+    "similar": [
+      "the-long-meadow",
+      "the-everyday-table"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": true
+  },
+  {
+    "slug": "the-mediterranean-table",
+    "name": "The Mediterranean Table",
+    "price": 24.99,
+    "sizes": [],
+    "category": "books",
+    "tags": [
+      "books"
+    ],
+    "similar": [
+      "the-long-meadow",
+      "the-everyday-table"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": true
+  },
+  {
+    "slug": "the-focus-mindset",
+    "name": "The Focus Mindset",
+    "price": 20.99,
+    "sizes": [],
+    "category": "books",
+    "tags": [
+      "books"
+    ],
+    "similar": [
+      "the-long-meadow",
+      "the-everyday-table"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": true
+  },
+  {
+    "slug": "zoe-and-the-orchard",
+    "name": "Zoe and the Orchard",
+    "price": 13.99,
+    "sizes": [],
+    "category": "books",
+    "tags": [
+      "books"
+    ],
+    "similar": [
+      "the-long-meadow",
+      "the-everyday-table"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "a-long-life",
+    "name": "A Long Life",
+    "price": 16.99,
+    "sizes": [],
+    "category": "books",
+    "tags": [
+      "books"
+    ],
+    "similar": [
+      "the-long-meadow",
+      "the-everyday-table"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "the-backyard-native-plants-of-the-mediterranean",
+    "name": "The Backyard Native Plants of the Mediterranean",
+    "price": 29.99,
+    "sizes": [],
+    "category": "books",
+    "tags": [
+      "books"
+    ],
+    "similar": [
+      "the-long-meadow",
+      "the-everyday-table"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": true
+  },
+  {
+    "slug": "amber-horizon-volume-one",
+    "name": "Amber Horizon: Volume One",
+    "price": 19.99,
+    "sizes": [],
+    "category": "books",
+    "tags": [
+      "books"
+    ],
+    "similar": [
+      "the-long-meadow",
+      "the-everyday-table"
+    ],
+    "fit_notes": null,
+    "in_stock": false,
+    "low_stock": false
+  },
+  {
+    "slug": "the-weight-of-dust",
+    "name": "The Weight of Dust",
+    "price": 12.99,
+    "sizes": [],
+    "category": "books",
+    "tags": [
+      "books"
+    ],
+    "similar": [
+      "the-long-meadow",
+      "the-everyday-table"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "northern-italy-the-complete-traveler-s-guide",
+    "name": "Northern Italy: The Complete Traveler's Guide",
+    "price": 15.99,
+    "sizes": [],
+    "category": "books",
+    "tags": [
+      "books"
+    ],
+    "similar": [
+      "the-long-meadow",
+      "the-everyday-table"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "forgotten-empire-the-story-of-the-age-of-sail",
+    "name": "Forgotten Empire: The Story of the Age of Sail",
+    "price": 21.99,
+    "sizes": [],
+    "category": "books",
+    "tags": [
+      "books"
+    ],
+    "similar": [
+      "the-long-meadow",
+      "the-everyday-table"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "the-silent-hour",
+    "name": "The Silent Hour",
+    "price": 15.99,
+    "sizes": [],
+    "category": "books",
+    "tags": [
+      "books"
+    ],
+    "similar": [
+      "the-long-meadow",
+      "the-everyday-table"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "the-weeknight-kitchen",
+    "name": "The Weeknight Kitchen",
+    "price": 29.99,
+    "sizes": [],
+    "category": "books",
+    "tags": [
+      "books"
+    ],
+    "similar": [
+      "the-long-meadow",
+      "the-everyday-table"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "the-momentum-advantage",
+    "name": "The Momentum Advantage",
+    "price": 21.99,
+    "sizes": [],
+    "category": "books",
+    "tags": [
+      "books"
+    ],
+    "similar": [
+      "the-long-meadow",
+      "the-everyday-table"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "goodnight-leo",
+    "name": "Goodnight, Leo",
+    "price": 12.99,
+    "sizes": [],
+    "category": "books",
+    "tags": [
+      "books"
+    ],
+    "similar": [
+      "the-long-meadow",
+      "the-everyday-table"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": true
+  },
+  {
+    "slug": "becoming-endless",
+    "name": "Becoming Endless",
+    "price": 24.99,
+    "sizes": [],
+    "category": "books",
+    "tags": [
+      "books"
+    ],
+    "similar": [
+      "the-long-meadow",
+      "the-everyday-table"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "constellations-a-field-guide",
+    "name": "Constellations: A Field Guide",
+    "price": 29.99,
+    "sizes": [],
+    "category": "books",
+    "tags": [
+      "books"
+    ],
+    "similar": [
+      "the-long-meadow",
+      "the-everyday-table"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "restless-storm-book-one",
+    "name": "Restless Storm: Book One",
+    "price": 21.99,
+    "sizes": [],
+    "category": "books",
+    "tags": [
+      "books"
+    ],
+    "similar": [
+      "the-long-meadow",
+      "the-everyday-table"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "what-the-rain-knows",
+    "name": "What the Rain Knows",
+    "price": 10,
+    "sizes": [],
+    "category": "books",
+    "tags": [
+      "books"
+    ],
+    "similar": [
+      "the-long-meadow",
+      "the-everyday-table"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "morocco-the-complete-traveler-s-guide",
+    "name": "Morocco: The Complete Traveler's Guide",
+    "price": 17.99,
+    "sizes": [],
+    "category": "books",
+    "tags": [
+      "books"
+    ],
+    "similar": [
+      "the-long-meadow",
+      "the-everyday-table"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "the-rise-and-fall-of-the-steel-industry",
+    "name": "The Rise and Fall of the Steel Industry",
+    "price": 17.99,
+    "sizes": [],
+    "category": "books",
+    "tags": [
+      "books"
+    ],
+    "similar": [
+      "the-long-meadow",
+      "the-everyday-table"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "cascade-co-runner",
+    "name": "Cascade & Co Runner",
+    "price": 67.99,
+    "sizes": [
+      "US 7",
+      "US 8",
+      "US 9",
+      "US 10",
+      "US 11",
+      "US 12"
+    ],
+    "category": "clothing-shoes",
+    "tags": [
+      "clothing-shoes"
+    ],
+    "similar": [
+      "summit-trail-insulated-trailblazer-boot",
+      "aurora-organic-cotton-classic-tee"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "summit-trail-insulated-trailblazer-boot",
+    "name": "Summit Trail Insulated Trailblazer Boot",
+    "price": 110.99,
+    "sizes": [
+      "US 7",
+      "US 8",
+      "US 9",
+      "US 10",
+      "US 11",
+      "US 12"
+    ],
+    "category": "clothing-shoes",
+    "tags": [
+      "clothing-shoes"
+    ],
+    "similar": [
+      "cascade-co-runner",
+      "aurora-organic-cotton-classic-tee"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "aurora-organic-cotton-classic-tee",
+    "name": "Aurora Organic Cotton Classic Tee",
+    "price": 17.99,
+    "sizes": [
+      "Small",
+      "Medium",
+      "Large",
+      "X-Large"
+    ],
+    "category": "clothing-shoes",
+    "tags": [
+      "clothing-shoes"
+    ],
+    "similar": [
+      "cascade-co-runner",
+      "summit-trail-insulated-trailblazer-boot"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "ridgeline-trucker-jacket-high",
+    "name": "Ridgeline Trucker Jacket High",
+    "price": 79.99,
+    "sizes": [
+      "Small",
+      "Medium",
+      "Large",
+      "X-Large"
+    ],
+    "category": "clothing-shoes",
+    "tags": [
+      "clothing-shoes"
+    ],
+    "similar": [
+      "cascade-co-runner",
+      "summit-trail-insulated-trailblazer-boot"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "northfield-crewneck-sweater",
+    "name": "Northfield Crewneck Sweater",
+    "price": 45,
+    "sizes": [
+      "Small",
+      "Medium",
+      "Large",
+      "X-Large"
+    ],
+    "category": "clothing-shoes",
+    "tags": [
+      "clothing-shoes"
+    ],
+    "similar": [
+      "cascade-co-runner",
+      "summit-trail-insulated-trailblazer-boot"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "aurora-four-way-stretch-flex-leggings",
+    "name": "Aurora Four-Way Stretch Flex Leggings",
+    "price": 30,
+    "sizes": [
+      "Small",
+      "Medium",
+      "Large",
+      "X-Large"
+    ],
+    "category": "clothing-shoes",
+    "tags": [
+      "clothing-shoes"
+    ],
+    "similar": [
+      "cascade-co-runner",
+      "summit-trail-insulated-trailblazer-boot"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "cascade-co-insulated-puffer-parka-pro",
+    "name": "Cascade & Co Insulated Puffer Parka Pro",
+    "price": 84.99,
+    "sizes": [
+      "Small",
+      "Medium",
+      "Large",
+      "X-Large"
+    ],
+    "category": "clothing-shoes",
+    "tags": [
+      "clothing-shoes"
+    ],
+    "similar": [
+      "cascade-co-runner",
+      "summit-trail-insulated-trailblazer-boot"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "driftwood-low-top-court-sneaker-high",
+    "name": "Driftwood Low-Top Court Sneaker High",
+    "price": 46.99,
+    "sizes": [
+      "US 7",
+      "US 8",
+      "US 9",
+      "US 10",
+      "US 11",
+      "US 12"
+    ],
+    "category": "clothing-shoes",
+    "tags": [
+      "clothing-shoes"
+    ],
+    "similar": [
+      "cascade-co-runner",
+      "summit-trail-insulated-trailblazer-boot"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "aurora-brushed-cotton-flannel-shirt-low",
+    "name": "Aurora Brushed Cotton Flannel Shirt Low",
+    "price": 36.99,
+    "sizes": [
+      "Small",
+      "Medium",
+      "Large",
+      "X-Large"
+    ],
+    "category": "clothing-shoes",
+    "tags": [
+      "clothing-shoes"
+    ],
+    "similar": [
+      "cascade-co-runner",
+      "summit-trail-insulated-trailblazer-boot"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "ridgeline-slim-fit-chino-pants-elite",
+    "name": "Ridgeline Slim-Fit Chino Pants Elite",
+    "price": 63.99,
+    "sizes": [
+      "Small",
+      "Medium",
+      "Large",
+      "X-Large"
+    ],
+    "category": "clothing-shoes",
+    "tags": [
+      "clothing-shoes"
+    ],
+    "similar": [
+      "cascade-co-runner",
+      "summit-trail-insulated-trailblazer-boot"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "aurora-lightweight-runner",
+    "name": "Aurora Lightweight Runner",
+    "price": 66.99,
+    "sizes": [
+      "US 7",
+      "US 8",
+      "US 9",
+      "US 10",
+      "US 11",
+      "US 12"
+    ],
+    "category": "clothing-shoes",
+    "tags": [
+      "clothing-shoes"
+    ],
+    "similar": [
+      "cascade-co-runner",
+      "summit-trail-insulated-trailblazer-boot"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "aurora-trailblazer-boot",
+    "name": "Aurora Trailblazer Boot",
+    "price": 83.99,
+    "sizes": [
+      "US 7",
+      "US 8",
+      "US 9",
+      "US 10",
+      "US 11",
+      "US 12"
+    ],
+    "category": "clothing-shoes",
+    "tags": [
+      "clothing-shoes"
+    ],
+    "similar": [
+      "cascade-co-runner",
+      "summit-trail-insulated-trailblazer-boot"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "driftwood-classic-tee-elite",
+    "name": "Driftwood Classic Tee Elite",
+    "price": 25.99,
+    "sizes": [
+      "Small",
+      "Medium",
+      "Large",
+      "X-Large"
+    ],
+    "category": "clothing-shoes",
+    "tags": [
+      "clothing-shoes"
+    ],
+    "similar": [
+      "cascade-co-runner",
+      "summit-trail-insulated-trailblazer-boot"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "cascade-co-stonewash-trucker-jacket-high",
+    "name": "Cascade & Co Stonewash Trucker Jacket High",
+    "price": 100.99,
+    "sizes": [
+      "Small",
+      "Medium",
+      "Large",
+      "X-Large"
+    ],
+    "category": "clothing-shoes",
+    "tags": [
+      "clothing-shoes"
+    ],
+    "similar": [
+      "cascade-co-runner",
+      "summit-trail-insulated-trailblazer-boot"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": true
+  },
+  {
+    "slug": "northfield-merino-wool-crewneck-sweater-elite",
+    "name": "Northfield Merino Wool Crewneck Sweater Elite",
+    "price": 86.99,
+    "sizes": [
+      "Small",
+      "Medium",
+      "Large",
+      "X-Large"
+    ],
+    "category": "clothing-shoes",
+    "tags": [
+      "clothing-shoes"
+    ],
+    "similar": [
+      "cascade-co-runner",
+      "summit-trail-insulated-trailblazer-boot"
+    ],
+    "fit_notes": null,
+    "in_stock": false,
+    "low_stock": false
+  },
+  {
+    "slug": "ridgeline-high-waist-flex-leggings-low",
+    "name": "Ridgeline High-Waist Flex Leggings Low",
+    "price": 49.99,
+    "sizes": [
+      "Small",
+      "Medium",
+      "Large",
+      "X-Large"
+    ],
+    "category": "clothing-shoes",
+    "tags": [
+      "clothing-shoes"
+    ],
+    "similar": [
+      "cascade-co-runner",
+      "summit-trail-insulated-trailblazer-boot"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "summit-trail-court-sneaker",
+    "name": "Summit Trail Court Sneaker",
+    "price": 70.99,
+    "sizes": [
+      "US 7",
+      "US 8",
+      "US 9",
+      "US 10",
+      "US 11",
+      "US 12"
+    ],
+    "category": "clothing-shoes",
+    "tags": [
+      "clothing-shoes"
+    ],
+    "similar": [
+      "cascade-co-runner",
+      "summit-trail-insulated-trailblazer-boot"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "northfield-flannel-shirt-low",
+    "name": "Northfield Flannel Shirt Low",
+    "price": 45.99,
+    "sizes": [
+      "Small",
+      "Medium",
+      "Large",
+      "X-Large"
+    ],
+    "category": "clothing-shoes",
+    "tags": [
+      "clothing-shoes"
+    ],
+    "similar": [
+      "cascade-co-runner",
+      "summit-trail-insulated-trailblazer-boot"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "ridgeline-slim-fit-chino-pants-low",
+    "name": "Ridgeline Slim-Fit Chino Pants Low",
+    "price": 47.99,
+    "sizes": [
+      "Small",
+      "Medium",
+      "Large",
+      "X-Large"
+    ],
+    "category": "clothing-shoes",
+    "tags": [
+      "clothing-shoes"
+    ],
+    "similar": [
+      "cascade-co-runner",
+      "summit-trail-insulated-trailblazer-boot"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "summit-trail-breathable-runner",
+    "name": "Summit Trail Breathable Runner",
+    "price": 55.99,
+    "sizes": [
+      "US 7",
+      "US 8",
+      "US 9",
+      "US 10",
+      "US 11",
+      "US 12"
+    ],
+    "category": "clothing-shoes",
+    "tags": [
+      "clothing-shoes"
+    ],
+    "similar": [
+      "cascade-co-runner",
+      "summit-trail-insulated-trailblazer-boot"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "cascade-co-insulated-trailblazer-boot-low",
+    "name": "Cascade & Co Insulated Trailblazer Boot Low",
+    "price": 98.99,
+    "sizes": [
+      "US 7",
+      "US 8",
+      "US 9",
+      "US 10",
+      "US 11",
+      "US 12"
+    ],
+    "category": "clothing-shoes",
+    "tags": [
+      "clothing-shoes"
+    ],
+    "similar": [
+      "cascade-co-runner",
+      "summit-trail-insulated-trailblazer-boot"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "summit-trail-classic-tee-high",
+    "name": "Summit Trail Classic Tee High",
+    "price": 27.99,
+    "sizes": [
+      "Small",
+      "Medium",
+      "Large",
+      "X-Large"
+    ],
+    "category": "clothing-shoes",
+    "tags": [
+      "clothing-shoes"
+    ],
+    "similar": [
+      "cascade-co-runner",
+      "summit-trail-insulated-trailblazer-boot"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "aurora-stonewash-trucker-jacket-low",
+    "name": "Aurora Stonewash Trucker Jacket Low",
+    "price": 70.99,
+    "sizes": [
+      "Small",
+      "Medium",
+      "Large",
+      "X-Large"
+    ],
+    "category": "clothing-shoes",
+    "tags": [
+      "clothing-shoes"
+    ],
+    "similar": [
+      "cascade-co-runner",
+      "summit-trail-insulated-trailblazer-boot"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "cascade-co-crewneck-sweater-se",
+    "name": "Cascade & Co Crewneck Sweater SE",
+    "price": 83.99,
+    "sizes": [
+      "Small",
+      "Medium",
+      "Large",
+      "X-Large"
+    ],
+    "category": "clothing-shoes",
+    "tags": [
+      "clothing-shoes"
+    ],
+    "similar": [
+      "cascade-co-runner",
+      "summit-trail-insulated-trailblazer-boot"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "cascade-co-high-waist-flex-leggings-pro",
+    "name": "Cascade & Co High-Waist Flex Leggings Pro",
+    "price": 57.99,
+    "sizes": [
+      "Small",
+      "Medium",
+      "Large",
+      "X-Large"
+    ],
+    "category": "clothing-shoes",
+    "tags": [
+      "clothing-shoes"
+    ],
+    "similar": [
+      "cascade-co-runner",
+      "summit-trail-insulated-trailblazer-boot"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "cascade-co-puffer-parka-elite",
+    "name": "Cascade & Co Puffer Parka Elite",
+    "price": 72.99,
+    "sizes": [
+      "Small",
+      "Medium",
+      "Large",
+      "X-Large"
+    ],
+    "category": "clothing-shoes",
+    "tags": [
+      "clothing-shoes"
+    ],
+    "similar": [
+      "cascade-co-runner",
+      "summit-trail-insulated-trailblazer-boot"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "aurora-canvas-court-sneaker-se",
+    "name": "Aurora Canvas Court Sneaker SE",
+    "price": 43.99,
+    "sizes": [
+      "US 7",
+      "US 8",
+      "US 9",
+      "US 10",
+      "US 11",
+      "US 12"
+    ],
+    "category": "clothing-shoes",
+    "tags": [
+      "clothing-shoes"
+    ],
+    "similar": [
+      "cascade-co-runner",
+      "summit-trail-insulated-trailblazer-boot"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "aurora-flannel-shirt-mid",
+    "name": "Aurora Flannel Shirt Mid",
+    "price": 31.99,
+    "sizes": [
+      "Small",
+      "Medium",
+      "Large",
+      "X-Large"
+    ],
+    "category": "clothing-shoes",
+    "tags": [
+      "clothing-shoes"
+    ],
+    "similar": [
+      "cascade-co-runner",
+      "summit-trail-insulated-trailblazer-boot"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "summit-trail-chino-pants-high",
+    "name": "Summit Trail Chino Pants High",
+    "price": 37.99,
+    "sizes": [
+      "Small",
+      "Medium",
+      "Large",
+      "X-Large"
+    ],
+    "category": "clothing-shoes",
+    "tags": [
+      "clothing-shoes"
+    ],
+    "similar": [
+      "cascade-co-runner",
+      "summit-trail-insulated-trailblazer-boot"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "summit-peak-yoga-mat-2-0",
+    "name": "Summit Peak Yoga Mat 2.0",
+    "price": 38.99,
+    "sizes": [],
+    "category": "sports-outdoors",
+    "tags": [
+      "sports-outdoors"
+    ],
+    "similar": [
+      "rivergrade-space-saving-adjustable-dumbbell-set",
+      "pinecrest-3-season-camping-tent-2-person-elite"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": true
+  },
+  {
+    "slug": "rivergrade-space-saving-adjustable-dumbbell-set",
+    "name": "Rivergrade Space-Saving Adjustable Dumbbell Set",
+    "price": 172.99,
+    "sizes": [],
+    "category": "sports-outdoors",
+    "tags": [
+      "sports-outdoors"
+    ],
+    "similar": [
+      "summit-peak-yoga-mat-2-0",
+      "pinecrest-3-season-camping-tent-2-person-elite"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "pinecrest-3-season-camping-tent-2-person-elite",
+    "name": "Pinecrest 3-Season Camping Tent 2-Person Elite",
+    "price": 131.99,
+    "sizes": [],
+    "category": "sports-outdoors",
+    "tags": [
+      "sports-outdoors"
+    ],
+    "similar": [
+      "summit-peak-yoga-mat-2-0",
+      "rivergrade-space-saving-adjustable-dumbbell-set"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "pinecrest-insulated-water-bottle",
+    "name": "Pinecrest Insulated Water Bottle",
+    "price": 15.99,
+    "sizes": [],
+    "category": "sports-outdoors",
+    "tags": [
+      "sports-outdoors"
+    ],
+    "similar": [
+      "summit-peak-yoga-mat-2-0",
+      "rivergrade-space-saving-adjustable-dumbbell-set"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "rivergrade-5-level-resistance-band-set",
+    "name": "Rivergrade 5-Level Resistance Band Set",
+    "price": 13.99,
+    "sizes": [],
+    "category": "sports-outdoors",
+    "tags": [
+      "sports-outdoors"
+    ],
+    "similar": [
+      "summit-peak-yoga-mat-2-0",
+      "rivergrade-space-saving-adjustable-dumbbell-set"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "trailforge-hiking-backpack-30l-xl",
+    "name": "Trailforge Hiking Backpack 30L XL",
+    "price": 49.99,
+    "sizes": [],
+    "category": "sports-outdoors",
+    "tags": [
+      "sports-outdoors"
+    ],
+    "similar": [
+      "summit-peak-yoga-mat-2-0",
+      "rivergrade-space-saving-adjustable-dumbbell-set"
+    ],
+    "fit_notes": null,
+    "in_stock": false,
+    "low_stock": false
+  },
+  {
+    "slug": "stridewell-adjustable-fit-bicycle-helmet-pro",
+    "name": "Stridewell Adjustable-Fit Bicycle Helmet Pro",
+    "price": 41.99,
+    "sizes": [],
+    "category": "sports-outdoors",
+    "tags": [
+      "sports-outdoors"
+    ],
+    "similar": [
+      "summit-peak-yoga-mat-2-0",
+      "rivergrade-space-saving-adjustable-dumbbell-set"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "trailforge-travel-fishing-rod-and-reel-combo-pro",
+    "name": "Trailforge Travel Fishing Rod and Reel Combo Pro",
+    "price": 35.99,
+    "sizes": [],
+    "category": "sports-outdoors",
+    "tags": [
+      "sports-outdoors"
+    ],
+    "similar": [
+      "summit-peak-yoga-mat-2-0",
+      "rivergrade-space-saving-adjustable-dumbbell-set"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "summit-peak-mummy-style-sleeping-bag-3-season-2-0",
+    "name": "Summit Peak Mummy-Style Sleeping Bag 3-Season 2.0",
+    "price": 47.99,
+    "sizes": [],
+    "category": "sports-outdoors",
+    "tags": [
+      "sports-outdoors"
+    ],
+    "similar": [
+      "summit-peak-yoga-mat-2-0",
+      "rivergrade-space-saving-adjustable-dumbbell-set"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "summit-peak-foam-roller",
+    "name": "Summit Peak Foam Roller",
+    "price": 20.99,
+    "sizes": [],
+    "category": "sports-outdoors",
+    "tags": [
+      "sports-outdoors"
+    ],
+    "similar": [
+      "summit-peak-yoga-mat-2-0",
+      "rivergrade-space-saving-adjustable-dumbbell-set"
+    ],
+    "fit_notes": null,
+    "in_stock": false,
+    "low_stock": false
+  },
+  {
+    "slug": "summit-peak-extra-thick-yoga-mat",
+    "name": "Summit Peak Extra-Thick Yoga Mat",
+    "price": 29.99,
+    "sizes": [],
+    "category": "sports-outdoors",
+    "tags": [
+      "sports-outdoors"
+    ],
+    "similar": [
+      "summit-peak-yoga-mat-2-0",
+      "rivergrade-space-saving-adjustable-dumbbell-set"
+    ],
+    "fit_notes": null,
+    "in_stock": false,
+    "low_stock": false
+  },
+  {
+    "slug": "trailforge-adjustable-dumbbell-set",
+    "name": "Trailforge Adjustable Dumbbell Set",
+    "price": 154.99,
+    "sizes": [],
+    "category": "sports-outdoors",
+    "tags": [
+      "sports-outdoors"
+    ],
+    "similar": [
+      "summit-peak-yoga-mat-2-0",
+      "rivergrade-space-saving-adjustable-dumbbell-set"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "pinecrest-32oz-insulated-water-bottle",
+    "name": "Pinecrest 32oz Insulated Water Bottle",
+    "price": 17.99,
+    "sizes": [],
+    "category": "sports-outdoors",
+    "tags": [
+      "sports-outdoors"
+    ],
+    "similar": [
+      "summit-peak-yoga-mat-2-0",
+      "rivergrade-space-saving-adjustable-dumbbell-set"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "altitude-co-5-level-resistance-band-set",
+    "name": "Altitude Co 5-Level Resistance Band Set",
+    "price": 13.99,
+    "sizes": [],
+    "category": "sports-outdoors",
+    "tags": [
+      "sports-outdoors"
+    ],
+    "similar": [
+      "summit-peak-yoga-mat-2-0",
+      "rivergrade-space-saving-adjustable-dumbbell-set"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "trailforge-ventilated-hiking-backpack-30l-2-0",
+    "name": "Trailforge Ventilated Hiking Backpack 30L 2.0",
+    "price": 60.99,
+    "sizes": [],
+    "category": "sports-outdoors",
+    "tags": [
+      "sports-outdoors"
+    ],
+    "similar": [
+      "summit-peak-yoga-mat-2-0",
+      "rivergrade-space-saving-adjustable-dumbbell-set"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "trailforge-adjustable-fit-bicycle-helmet",
+    "name": "Trailforge Adjustable-Fit Bicycle Helmet",
+    "price": 44.99,
+    "sizes": [],
+    "category": "sports-outdoors",
+    "tags": [
+      "sports-outdoors"
+    ],
+    "similar": [
+      "summit-peak-yoga-mat-2-0",
+      "rivergrade-space-saving-adjustable-dumbbell-set"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "trailforge-fishing-rod-and-reel-combo-xl",
+    "name": "Trailforge Fishing Rod and Reel Combo XL",
+    "price": 55.99,
+    "sizes": [],
+    "category": "sports-outdoors",
+    "tags": [
+      "sports-outdoors"
+    ],
+    "similar": [
+      "summit-peak-yoga-mat-2-0",
+      "rivergrade-space-saving-adjustable-dumbbell-set"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "altitude-co-mummy-style-sleeping-bag-3-season",
+    "name": "Altitude Co Mummy-Style Sleeping Bag 3-Season",
+    "price": 69.99,
+    "sizes": [],
+    "category": "sports-outdoors",
+    "tags": [
+      "sports-outdoors"
+    ],
+    "similar": [
+      "summit-peak-yoga-mat-2-0",
+      "rivergrade-space-saving-adjustable-dumbbell-set"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "trailforge-high-density-foam-roller",
+    "name": "Trailforge High-Density Foam Roller",
+    "price": 23.99,
+    "sizes": [],
+    "category": "sports-outdoors",
+    "tags": [
+      "sports-outdoors"
+    ],
+    "similar": [
+      "summit-peak-yoga-mat-2-0",
+      "rivergrade-space-saving-adjustable-dumbbell-set"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": true
+  },
+  {
+    "slug": "pinecrest-non-slip-yoga-mat",
+    "name": "Pinecrest Non-Slip Yoga Mat",
+    "price": 20.99,
+    "sizes": [],
+    "category": "sports-outdoors",
+    "tags": [
+      "sports-outdoors"
+    ],
+    "similar": [
+      "summit-peak-yoga-mat-2-0",
+      "rivergrade-space-saving-adjustable-dumbbell-set"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "trailforge-space-saving-adjustable-dumbbell-set-elite",
+    "name": "Trailforge Space-Saving Adjustable Dumbbell Set Elite",
+    "price": 88.99,
+    "sizes": [],
+    "category": "sports-outdoors",
+    "tags": [
+      "sports-outdoors"
+    ],
+    "similar": [
+      "summit-peak-yoga-mat-2-0",
+      "rivergrade-space-saving-adjustable-dumbbell-set"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "summit-peak-quick-pitch-camping-tent-2-person",
+    "name": "Summit Peak Quick-Pitch Camping Tent 2-Person",
+    "price": 127.99,
+    "sizes": [],
+    "category": "sports-outdoors",
+    "tags": [
+      "sports-outdoors"
+    ],
+    "similar": [
+      "summit-peak-yoga-mat-2-0",
+      "rivergrade-space-saving-adjustable-dumbbell-set"
+    ],
+    "fit_notes": null,
+    "in_stock": false,
+    "low_stock": false
+  },
+  {
+    "slug": "stridewell-double-wall-insulated-water-bottle-elite",
+    "name": "Stridewell Double-Wall Insulated Water Bottle Elite",
+    "price": 30.99,
+    "sizes": [],
+    "category": "sports-outdoors",
+    "tags": [
+      "sports-outdoors"
+    ],
+    "similar": [
+      "summit-peak-yoga-mat-2-0",
+      "rivergrade-space-saving-adjustable-dumbbell-set"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "stridewell-5-level-resistance-band-set",
+    "name": "Stridewell 5-Level Resistance Band Set",
+    "price": 14.99,
+    "sizes": [],
+    "category": "sports-outdoors",
+    "tags": [
+      "sports-outdoors"
+    ],
+    "similar": [
+      "summit-peak-yoga-mat-2-0",
+      "rivergrade-space-saving-adjustable-dumbbell-set"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "trailforge-trail-ready-hiking-backpack-30l-elite",
+    "name": "Trailforge Trail-Ready Hiking Backpack 30L Elite",
+    "price": 52.99,
+    "sizes": [],
+    "category": "sports-outdoors",
+    "tags": [
+      "sports-outdoors"
+    ],
+    "similar": [
+      "summit-peak-yoga-mat-2-0",
+      "rivergrade-space-saving-adjustable-dumbbell-set"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "pinecrest-bicycle-helmet-xl",
+    "name": "Pinecrest Bicycle Helmet XL",
+    "price": 48.99,
+    "sizes": [],
+    "category": "sports-outdoors",
+    "tags": [
+      "sports-outdoors"
+    ],
+    "similar": [
+      "summit-peak-yoga-mat-2-0",
+      "rivergrade-space-saving-adjustable-dumbbell-set"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": true
+  },
+  {
+    "slug": "stridewell-travel-fishing-rod-and-reel-combo",
+    "name": "Stridewell Travel Fishing Rod and Reel Combo",
+    "price": 74.99,
+    "sizes": [],
+    "category": "sports-outdoors",
+    "tags": [
+      "sports-outdoors"
+    ],
+    "similar": [
+      "summit-peak-yoga-mat-2-0",
+      "rivergrade-space-saving-adjustable-dumbbell-set"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "pinecrest-sleeping-bag-3-season-pro",
+    "name": "Pinecrest Sleeping Bag 3-Season Pro",
+    "price": 45.99,
+    "sizes": [],
+    "category": "sports-outdoors",
+    "tags": [
+      "sports-outdoors"
+    ],
+    "similar": [
+      "summit-peak-yoga-mat-2-0",
+      "rivergrade-space-saving-adjustable-dumbbell-set"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "trailforge-high-density-foam-roller-elite",
+    "name": "Trailforge High-Density Foam Roller Elite",
+    "price": 17.99,
+    "sizes": [],
+    "category": "sports-outdoors",
+    "tags": [
+      "sports-outdoors"
+    ],
+    "similar": [
+      "summit-peak-yoga-mat-2-0",
+      "rivergrade-space-saving-adjustable-dumbbell-set"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "lumen-co-long-wear-matte-liquid-lipstick",
+    "name": "Lumen & Co Long-Wear Matte Liquid Lipstick",
+    "price": 17.99,
+    "sizes": [],
+    "category": "beauty-personal-care",
+    "tags": [
+      "beauty-personal-care"
+    ],
+    "similar": [
+      "lumen-co-brightening-vitamin-c-serum",
+      "clearwater-beauty-sonic-electric-toothbrush"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "lumen-co-brightening-vitamin-c-serum",
+    "name": "Lumen & Co Brightening Vitamin C Serum",
+    "price": 16.99,
+    "sizes": [],
+    "category": "beauty-personal-care",
+    "tags": [
+      "beauty-personal-care"
+    ],
+    "similar": [
+      "lumen-co-long-wear-matte-liquid-lipstick",
+      "clearwater-beauty-sonic-electric-toothbrush"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "clearwater-beauty-sonic-electric-toothbrush",
+    "name": "Clearwater Beauty Sonic Electric Toothbrush",
+    "price": 44.99,
+    "sizes": [],
+    "category": "beauty-personal-care",
+    "tags": [
+      "beauty-personal-care"
+    ],
+    "similar": [
+      "lumen-co-long-wear-matte-liquid-lipstick",
+      "lumen-co-brightening-vitamin-c-serum"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "lumen-co-ionic-hair-dryer-mini",
+    "name": "Lumen & Co Ionic Hair Dryer Mini",
+    "price": 38.99,
+    "sizes": [],
+    "category": "beauty-personal-care",
+    "tags": [
+      "beauty-personal-care"
+    ],
+    "similar": [
+      "lumen-co-long-wear-matte-liquid-lipstick",
+      "lumen-co-brightening-vitamin-c-serum"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "clearwater-beauty-facial-cleansing-brush-pro",
+    "name": "Clearwater Beauty Facial Cleansing Brush Pro",
+    "price": 25.99,
+    "sizes": [],
+    "category": "beauty-personal-care",
+    "tags": [
+      "beauty-personal-care"
+    ],
+    "similar": [
+      "lumen-co-long-wear-matte-liquid-lipstick",
+      "lumen-co-brightening-vitamin-c-serum"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "velvet-bloom-eau-de-parfum-mini",
+    "name": "Velvet Bloom Eau de Parfum Mini",
+    "price": 51.99,
+    "sizes": [],
+    "category": "beauty-personal-care",
+    "tags": [
+      "beauty-personal-care"
+    ],
+    "similar": [
+      "lumen-co-long-wear-matte-liquid-lipstick",
+      "lumen-co-brightening-vitamin-c-serum"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "clearwater-beauty-beard-trimmer-kit",
+    "name": "Clearwater Beauty Beard Trimmer Kit",
+    "price": 25.99,
+    "sizes": [],
+    "category": "beauty-personal-care",
+    "tags": [
+      "beauty-personal-care"
+    ],
+    "similar": [
+      "lumen-co-long-wear-matte-liquid-lipstick",
+      "lumen-co-brightening-vitamin-c-serum"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "glowfield-6-piece-bath-bomb-gift-set",
+    "name": "Glowfield 6-Piece Bath Bomb Gift Set",
+    "price": 15.99,
+    "sizes": [],
+    "category": "beauty-personal-care",
+    "tags": [
+      "beauty-personal-care"
+    ],
+    "similar": [
+      "lumen-co-long-wear-matte-liquid-lipstick",
+      "lumen-co-brightening-vitamin-c-serum"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "clearwater-beauty-nail-polish-set-6-piece",
+    "name": "Clearwater Beauty Nail Polish Set 6-Piece",
+    "price": 16.99,
+    "sizes": [],
+    "category": "beauty-personal-care",
+    "tags": [
+      "beauty-personal-care"
+    ],
+    "similar": [
+      "lumen-co-long-wear-matte-liquid-lipstick",
+      "lumen-co-brightening-vitamin-c-serum"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "marbleleaf-brightening-vitamin-c-serum-pro",
+    "name": "Marbleleaf Brightening Vitamin C Serum Pro",
+    "price": 20.99,
+    "sizes": [],
+    "category": "beauty-personal-care",
+    "tags": [
+      "beauty-personal-care"
+    ],
+    "similar": [
+      "lumen-co-long-wear-matte-liquid-lipstick",
+      "lumen-co-brightening-vitamin-c-serum"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": true
+  },
+  {
+    "slug": "lumen-co-electric-toothbrush-deluxe",
+    "name": "Lumen & Co Electric Toothbrush Deluxe",
+    "price": 33.99,
+    "sizes": [],
+    "category": "beauty-personal-care",
+    "tags": [
+      "beauty-personal-care"
+    ],
+    "similar": [
+      "lumen-co-long-wear-matte-liquid-lipstick",
+      "lumen-co-brightening-vitamin-c-serum"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "lumen-co-fast-drying-ionic-hair-dryer",
+    "name": "Lumen & Co Fast-Drying Ionic Hair Dryer",
+    "price": 50.99,
+    "sizes": [],
+    "category": "beauty-personal-care",
+    "tags": [
+      "beauty-personal-care"
+    ],
+    "similar": [
+      "lumen-co-long-wear-matte-liquid-lipstick",
+      "lumen-co-brightening-vitamin-c-serum"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "pure-meridian-facial-cleansing-brush",
+    "name": "Pure Meridian Facial Cleansing Brush",
+    "price": 36.99,
+    "sizes": [],
+    "category": "beauty-personal-care",
+    "tags": [
+      "beauty-personal-care"
+    ],
+    "similar": [
+      "lumen-co-long-wear-matte-liquid-lipstick",
+      "lumen-co-brightening-vitamin-c-serum"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": true
+  },
+  {
+    "slug": "glowfield-lightweight-daily-moisturizer-spf-30",
+    "name": "Glowfield Lightweight Daily Moisturizer SPF 30",
+    "price": 21.99,
+    "sizes": [],
+    "category": "beauty-personal-care",
+    "tags": [
+      "beauty-personal-care"
+    ],
+    "similar": [
+      "lumen-co-long-wear-matte-liquid-lipstick",
+      "lumen-co-brightening-vitamin-c-serum"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "glowfield-eau-de-parfum",
+    "name": "Glowfield Eau de Parfum",
+    "price": 55.99,
+    "sizes": [],
+    "category": "beauty-personal-care",
+    "tags": [
+      "beauty-personal-care"
+    ],
+    "similar": [
+      "lumen-co-long-wear-matte-liquid-lipstick",
+      "lumen-co-brightening-vitamin-c-serum"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "clearwater-beauty-cordless-beard-trimmer-kit",
+    "name": "Clearwater Beauty Cordless Beard Trimmer Kit",
+    "price": 41.99,
+    "sizes": [],
+    "category": "beauty-personal-care",
+    "tags": [
+      "beauty-personal-care"
+    ],
+    "similar": [
+      "lumen-co-long-wear-matte-liquid-lipstick",
+      "lumen-co-brightening-vitamin-c-serum"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "lumen-co-6-piece-bath-bomb-gift-set",
+    "name": "Lumen & Co 6-Piece Bath Bomb Gift Set",
+    "price": 15.99,
+    "sizes": [],
+    "category": "beauty-personal-care",
+    "tags": [
+      "beauty-personal-care"
+    ],
+    "similar": [
+      "lumen-co-long-wear-matte-liquid-lipstick",
+      "lumen-co-brightening-vitamin-c-serum"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "clearwater-beauty-nail-polish-set-6-piece-deluxe",
+    "name": "Clearwater Beauty Nail Polish Set 6-Piece Deluxe",
+    "price": 18.99,
+    "sizes": [],
+    "category": "beauty-personal-care",
+    "tags": [
+      "beauty-personal-care"
+    ],
+    "similar": [
+      "lumen-co-long-wear-matte-liquid-lipstick",
+      "lumen-co-brightening-vitamin-c-serum"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "pure-meridian-matte-liquid-lipstick-pro",
+    "name": "Pure Meridian Matte Liquid Lipstick Pro",
+    "price": 13.99,
+    "sizes": [],
+    "category": "beauty-personal-care",
+    "tags": [
+      "beauty-personal-care"
+    ],
+    "similar": [
+      "lumen-co-long-wear-matte-liquid-lipstick",
+      "lumen-co-brightening-vitamin-c-serum"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "pure-meridian-brightening-vitamin-c-serum",
+    "name": "Pure Meridian Brightening Vitamin C Serum",
+    "price": 19.99,
+    "sizes": [],
+    "category": "beauty-personal-care",
+    "tags": [
+      "beauty-personal-care"
+    ],
+    "similar": [
+      "lumen-co-long-wear-matte-liquid-lipstick",
+      "lumen-co-brightening-vitamin-c-serum"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "glowfield-rechargeable-electric-toothbrush",
+    "name": "Glowfield Rechargeable Electric Toothbrush",
+    "price": 69.99,
+    "sizes": [],
+    "category": "beauty-personal-care",
+    "tags": [
+      "beauty-personal-care"
+    ],
+    "similar": [
+      "lumen-co-long-wear-matte-liquid-lipstick",
+      "lumen-co-brightening-vitamin-c-serum"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "glowfield-fast-drying-ionic-hair-dryer",
+    "name": "Glowfield Fast-Drying Ionic Hair Dryer",
+    "price": 45.99,
+    "sizes": [],
+    "category": "beauty-personal-care",
+    "tags": [
+      "beauty-personal-care"
+    ],
+    "similar": [
+      "lumen-co-long-wear-matte-liquid-lipstick",
+      "lumen-co-brightening-vitamin-c-serum"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "marbleleaf-silicone-facial-cleansing-brush-mini",
+    "name": "Marbleleaf Silicone Facial Cleansing Brush Mini",
+    "price": 31.99,
+    "sizes": [],
+    "category": "beauty-personal-care",
+    "tags": [
+      "beauty-personal-care"
+    ],
+    "similar": [
+      "lumen-co-long-wear-matte-liquid-lipstick",
+      "lumen-co-brightening-vitamin-c-serum"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "marbleleaf-eau-de-parfum",
+    "name": "Marbleleaf Eau de Parfum",
+    "price": 36.99,
+    "sizes": [],
+    "category": "beauty-personal-care",
+    "tags": [
+      "beauty-personal-care"
+    ],
+    "similar": [
+      "lumen-co-long-wear-matte-liquid-lipstick",
+      "lumen-co-brightening-vitamin-c-serum"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": true
+  },
+  {
+    "slug": "glowfield-cordless-beard-trimmer-kit-pro",
+    "name": "Glowfield Cordless Beard Trimmer Kit Pro",
+    "price": 20.99,
+    "sizes": [],
+    "category": "beauty-personal-care",
+    "tags": [
+      "beauty-personal-care"
+    ],
+    "similar": [
+      "lumen-co-long-wear-matte-liquid-lipstick",
+      "lumen-co-brightening-vitamin-c-serum"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "velvet-bloom-6-piece-bath-bomb-gift-set-pro",
+    "name": "Velvet Bloom 6-Piece Bath Bomb Gift Set Pro",
+    "price": 17.99,
+    "sizes": [],
+    "category": "beauty-personal-care",
+    "tags": [
+      "beauty-personal-care"
+    ],
+    "similar": [
+      "lumen-co-long-wear-matte-liquid-lipstick",
+      "lumen-co-brightening-vitamin-c-serum"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "lumen-co-nail-polish-set-6-piece",
+    "name": "Lumen & Co Nail Polish Set 6-Piece",
+    "price": 10,
+    "sizes": [],
+    "category": "beauty-personal-care",
+    "tags": [
+      "beauty-personal-care"
+    ],
+    "similar": [
+      "lumen-co-long-wear-matte-liquid-lipstick",
+      "lumen-co-brightening-vitamin-c-serum"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "jollywood-building-block-set-500-piece-2-0",
+    "name": "Jollywood Building Block Set 500-Piece 2.0",
+    "price": 48.99,
+    "sizes": [],
+    "category": "toys-games",
+    "tags": [
+      "toys-games"
+    ],
+    "similar": [
+      "tinker-tales-high-speed-remote-control-car-deluxe",
+      "brightbrick-strategy-board-game"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "tinker-tales-high-speed-remote-control-car-deluxe",
+    "name": "Tinker Tales High-Speed Remote Control Car Deluxe",
+    "price": 50.99,
+    "sizes": [],
+    "category": "toys-games",
+    "tags": [
+      "toys-games"
+    ],
+    "similar": [
+      "jollywood-building-block-set-500-piece-2-0",
+      "brightbrick-strategy-board-game"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "brightbrick-strategy-board-game",
+    "name": "Brightbrick Strategy Board Game",
+    "price": 40.99,
+    "sizes": [],
+    "category": "toys-games",
+    "tags": [
+      "toys-games"
+    ],
+    "similar": [
+      "jollywood-building-block-set-500-piece-2-0",
+      "tinker-tales-high-speed-remote-control-car-deluxe"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": true
+  },
+  {
+    "slug": "funhouse-kids-soft-plush-stuffed-animal-deluxe",
+    "name": "Funhouse Kids Soft Plush Stuffed Animal Deluxe",
+    "price": 17.99,
+    "sizes": [],
+    "category": "toys-games",
+    "tags": [
+      "toys-games"
+    ],
+    "similar": [
+      "jollywood-building-block-set-500-piece-2-0",
+      "tinker-tales-high-speed-remote-control-car-deluxe"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "funhouse-kids-puzzle-1000-piece-deluxe",
+    "name": "Funhouse Kids Puzzle 1000-Piece Deluxe",
+    "price": 20.99,
+    "sizes": [],
+    "category": "toys-games",
+    "tags": [
+      "toys-games"
+    ],
+    "similar": [
+      "jollywood-building-block-set-500-piece-2-0",
+      "tinker-tales-high-speed-remote-control-car-deluxe"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "tinker-tales-washable-kids-art-supply-kit-deluxe",
+    "name": "Tinker Tales Washable Kids' Art Supply Kit Deluxe",
+    "price": 25.99,
+    "sizes": [],
+    "category": "toys-games",
+    "tags": [
+      "toys-games"
+    ],
+    "similar": [
+      "jollywood-building-block-set-500-piece-2-0",
+      "tinker-tales-high-speed-remote-control-car-deluxe"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "brightbrick-poseable-action-figure",
+    "name": "Brightbrick Poseable Action Figure",
+    "price": 10,
+    "sizes": [],
+    "category": "toys-games",
+    "tags": [
+      "toys-games"
+    ],
+    "similar": [
+      "jollywood-building-block-set-500-piece-2-0",
+      "tinker-tales-high-speed-remote-control-car-deluxe"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "playnest-stem-robot-building-kit-2-0",
+    "name": "Playnest STEM Robot Building Kit 2.0",
+    "price": 61.99,
+    "sizes": [],
+    "category": "toys-games",
+    "tags": [
+      "toys-games"
+    ],
+    "similar": [
+      "jollywood-building-block-set-500-piece-2-0",
+      "tinker-tales-high-speed-remote-control-car-deluxe"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "jollywood-party-card-game",
+    "name": "Jollywood Party Card Game",
+    "price": 17.99,
+    "sizes": [],
+    "category": "toys-games",
+    "tags": [
+      "toys-games"
+    ],
+    "similar": [
+      "jollywood-building-block-set-500-piece-2-0",
+      "tinker-tales-high-speed-remote-control-car-deluxe"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "playnest-battery-powered-ride-on-toy-car",
+    "name": "Playnest Battery-Powered Ride-on Toy Car",
+    "price": 94.99,
+    "sizes": [],
+    "category": "toys-games",
+    "tags": [
+      "toys-games"
+    ],
+    "similar": [
+      "jollywood-building-block-set-500-piece-2-0",
+      "tinker-tales-high-speed-remote-control-car-deluxe"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "tinker-tales-stackable-building-block-set-500-piece-2-0",
+    "name": "Tinker Tales Stackable Building Block Set 500-Piece 2.0",
+    "price": 36.99,
+    "sizes": [],
+    "category": "toys-games",
+    "tags": [
+      "toys-games"
+    ],
+    "similar": [
+      "jollywood-building-block-set-500-piece-2-0",
+      "tinker-tales-high-speed-remote-control-car-deluxe"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "brightbrick-high-speed-remote-control-car-deluxe",
+    "name": "Brightbrick High-Speed Remote Control Car Deluxe",
+    "price": 52.99,
+    "sizes": [],
+    "category": "toys-games",
+    "tags": [
+      "toys-games"
+    ],
+    "similar": [
+      "jollywood-building-block-set-500-piece-2-0",
+      "tinker-tales-high-speed-remote-control-car-deluxe"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "playnest-oversized-plush-stuffed-animal-deluxe",
+    "name": "Playnest Oversized Plush Stuffed Animal Deluxe",
+    "price": 26.99,
+    "sizes": [],
+    "category": "toys-games",
+    "tags": [
+      "toys-games"
+    ],
+    "similar": [
+      "jollywood-building-block-set-500-piece-2-0",
+      "tinker-tales-high-speed-remote-control-car-deluxe"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "funhouse-kids-jigsaw-puzzle-1000-piece",
+    "name": "Funhouse Kids Jigsaw Puzzle 1000-Piece",
+    "price": 14,
+    "sizes": [],
+    "category": "toys-games",
+    "tags": [
+      "toys-games"
+    ],
+    "similar": [
+      "jollywood-building-block-set-500-piece-2-0",
+      "tinker-tales-high-speed-remote-control-car-deluxe"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "playnest-kids-art-supply-kit",
+    "name": "Playnest Kids' Art Supply Kit",
+    "price": 25.99,
+    "sizes": [],
+    "category": "toys-games",
+    "tags": [
+      "toys-games"
+    ],
+    "similar": [
+      "jollywood-building-block-set-500-piece-2-0",
+      "tinker-tales-high-speed-remote-control-car-deluxe"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "playnest-action-figure",
+    "name": "Playnest Action Figure",
+    "price": 10,
+    "sizes": [],
+    "category": "toys-games",
+    "tags": [
+      "toys-games"
+    ],
+    "similar": [
+      "jollywood-building-block-set-500-piece-2-0",
+      "tinker-tales-high-speed-remote-control-car-deluxe"
+    ],
+    "fit_notes": null,
+    "in_stock": false,
+    "low_stock": false
+  },
+  {
+    "slug": "funhouse-kids-stem-robot-building-kit",
+    "name": "Funhouse Kids STEM Robot Building Kit",
+    "price": 77.99,
+    "sizes": [],
+    "category": "toys-games",
+    "tags": [
+      "toys-games"
+    ],
+    "similar": [
+      "jollywood-building-block-set-500-piece-2-0",
+      "tinker-tales-high-speed-remote-control-car-deluxe"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "playnest-party-card-game",
+    "name": "Playnest Party Card Game",
+    "price": 16.99,
+    "sizes": [],
+    "category": "toys-games",
+    "tags": [
+      "toys-games"
+    ],
+    "similar": [
+      "jollywood-building-block-set-500-piece-2-0",
+      "tinker-tales-high-speed-remote-control-car-deluxe"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "brightbrick-battery-powered-ride-on-toy-car",
+    "name": "Brightbrick Battery-Powered Ride-on Toy Car",
+    "price": 62.99,
+    "sizes": [],
+    "category": "toys-games",
+    "tags": [
+      "toys-games"
+    ],
+    "similar": [
+      "jollywood-building-block-set-500-piece-2-0",
+      "tinker-tales-high-speed-remote-control-car-deluxe"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "funhouse-kids-building-block-set-500-piece",
+    "name": "Funhouse Kids Building Block Set 500-Piece",
+    "price": 37.99,
+    "sizes": [],
+    "category": "toys-games",
+    "tags": [
+      "toys-games"
+    ],
+    "similar": [
+      "jollywood-building-block-set-500-piece-2-0",
+      "tinker-tales-high-speed-remote-control-car-deluxe"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "brightbrick-remote-control-car",
+    "name": "Brightbrick Remote Control Car",
+    "price": 33.99,
+    "sizes": [],
+    "category": "toys-games",
+    "tags": [
+      "toys-games"
+    ],
+    "similar": [
+      "jollywood-building-block-set-500-piece-2-0",
+      "tinker-tales-high-speed-remote-control-car-deluxe"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "tinker-tales-strategy-board-game",
+    "name": "Tinker Tales Strategy Board Game",
+    "price": 32.99,
+    "sizes": [],
+    "category": "toys-games",
+    "tags": [
+      "toys-games"
+    ],
+    "similar": [
+      "jollywood-building-block-set-500-piece-2-0",
+      "tinker-tales-high-speed-remote-control-car-deluxe"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "wondercraft-soft-plush-stuffed-animal-2-0",
+    "name": "Wondercraft Soft Plush Stuffed Animal 2.0",
+    "price": 16.99,
+    "sizes": [],
+    "category": "toys-games",
+    "tags": [
+      "toys-games"
+    ],
+    "similar": [
+      "jollywood-building-block-set-500-piece-2-0",
+      "tinker-tales-high-speed-remote-control-car-deluxe"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "funhouse-kids-puzzle-1000-piece",
+    "name": "Funhouse Kids Puzzle 1000-Piece",
+    "price": 14,
+    "sizes": [],
+    "category": "toys-games",
+    "tags": [
+      "toys-games"
+    ],
+    "similar": [
+      "jollywood-building-block-set-500-piece-2-0",
+      "tinker-tales-high-speed-remote-control-car-deluxe"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "playnest-washable-kids-art-supply-kit",
+    "name": "Playnest Washable Kids' Art Supply Kit",
+    "price": 15.99,
+    "sizes": [],
+    "category": "toys-games",
+    "tags": [
+      "toys-games"
+    ],
+    "similar": [
+      "jollywood-building-block-set-500-piece-2-0",
+      "tinker-tales-high-speed-remote-control-car-deluxe"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "funhouse-kids-poseable-action-figure",
+    "name": "Funhouse Kids Poseable Action Figure",
+    "price": 22.99,
+    "sizes": [],
+    "category": "toys-games",
+    "tags": [
+      "toys-games"
+    ],
+    "similar": [
+      "jollywood-building-block-set-500-piece-2-0",
+      "tinker-tales-high-speed-remote-control-car-deluxe"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "wondercraft-stem-robot-building-kit-xl",
+    "name": "Wondercraft STEM Robot Building Kit XL",
+    "price": 37.99,
+    "sizes": [],
+    "category": "toys-games",
+    "tags": [
+      "toys-games"
+    ],
+    "similar": [
+      "jollywood-building-block-set-500-piece-2-0",
+      "tinker-tales-high-speed-remote-control-car-deluxe"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "funhouse-kids-quick-play-party-card-game-xl",
+    "name": "Funhouse Kids Quick-Play Party Card Game XL",
+    "price": 18.99,
+    "sizes": [],
+    "category": "toys-games",
+    "tags": [
+      "toys-games"
+    ],
+    "similar": [
+      "jollywood-building-block-set-500-piece-2-0",
+      "tinker-tales-high-speed-remote-control-car-deluxe"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "playnest-ride-on-toy-car-xl",
+    "name": "Playnest Ride-on Toy Car XL",
+    "price": 81.99,
+    "sizes": [],
+    "category": "toys-games",
+    "tags": [
+      "toys-games"
+    ],
+    "similar": [
+      "jollywood-building-block-set-500-piece-2-0",
+      "tinker-tales-high-speed-remote-control-car-deluxe"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "pure-origin-organic-coffee-beans-12oz",
+    "name": "Pure Origin Organic Coffee Beans 12oz",
+    "price": 12.99,
+    "sizes": [],
+    "category": "grocery",
+    "tags": [
+      "grocery"
+    ],
+    "similar": [
+      "harvest-sun-raw-honey-16oz",
+      "pure-origin-almond-butter-16oz"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "harvest-sun-raw-honey-16oz",
+    "name": "Harvest & Sun Raw Honey 16oz",
+    "price": 9.99,
+    "sizes": [],
+    "category": "grocery",
+    "tags": [
+      "grocery"
+    ],
+    "similar": [
+      "pure-origin-organic-coffee-beans-12oz",
+      "pure-origin-almond-butter-16oz"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "pure-origin-almond-butter-16oz",
+    "name": "Pure Origin Almond Butter 16oz",
+    "price": 13.99,
+    "sizes": [],
+    "category": "grocery",
+    "tags": [
+      "grocery"
+    ],
+    "similar": [
+      "pure-origin-organic-coffee-beans-12oz",
+      "harvest-sun-raw-honey-16oz"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "golden-field-green-tea-bags-100-count",
+    "name": "Golden Field Green Tea Bags 100-Count",
+    "price": 10.99,
+    "sizes": [],
+    "category": "grocery",
+    "tags": [
+      "grocery"
+    ],
+    "similar": [
+      "pure-origin-organic-coffee-beans-12oz",
+      "harvest-sun-raw-honey-16oz"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "northgrain-pantry-no-sugar-added-trail-mix-2lb",
+    "name": "Northgrain Pantry No Sugar Added Trail Mix 2lb",
+    "price": 10.99,
+    "sizes": [],
+    "category": "grocery",
+    "tags": [
+      "grocery"
+    ],
+    "similar": [
+      "pure-origin-organic-coffee-beans-12oz",
+      "harvest-sun-raw-honey-16oz"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "golden-field-dry-pasta-16oz",
+    "name": "Golden Field Dry Pasta 16oz",
+    "price": 3.99,
+    "sizes": [],
+    "category": "grocery",
+    "tags": [
+      "grocery"
+    ],
+    "similar": [
+      "pure-origin-organic-coffee-beans-12oz",
+      "harvest-sun-raw-honey-16oz"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "harvest-sun-dark-chocolate-bar-multi-pack",
+    "name": "Harvest & Sun Dark Chocolate Bar Multi-Pack",
+    "price": 15.99,
+    "sizes": [],
+    "category": "grocery",
+    "tags": [
+      "grocery"
+    ],
+    "similar": [
+      "pure-origin-organic-coffee-beans-12oz",
+      "harvest-sun-raw-honey-16oz"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": true
+  },
+  {
+    "slug": "golden-field-protein-powder-2lb",
+    "name": "Golden Field Protein Powder 2lb",
+    "price": 29.99,
+    "sizes": [],
+    "category": "grocery",
+    "tags": [
+      "grocery"
+    ],
+    "similar": [
+      "pure-origin-organic-coffee-beans-12oz",
+      "harvest-sun-raw-honey-16oz"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": true
+  },
+  {
+    "slug": "pure-origin-organic-quinoa-32oz",
+    "name": "Pure Origin Organic Quinoa 32oz",
+    "price": 10.99,
+    "sizes": [],
+    "category": "grocery",
+    "tags": [
+      "grocery"
+    ],
+    "similar": [
+      "pure-origin-organic-coffee-beans-12oz",
+      "harvest-sun-raw-honey-16oz"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "wildroot-organic-coffee-beans-12oz",
+    "name": "Wildroot Organic Coffee Beans 12oz",
+    "price": 14.99,
+    "sizes": [],
+    "category": "grocery",
+    "tags": [
+      "grocery"
+    ],
+    "similar": [
+      "pure-origin-organic-coffee-beans-12oz",
+      "harvest-sun-raw-honey-16oz"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "harvest-sun-extra-virgin-olive-oil-500ml",
+    "name": "Harvest & Sun Extra Virgin Olive Oil 500ml",
+    "price": 16.99,
+    "sizes": [],
+    "category": "grocery",
+    "tags": [
+      "grocery"
+    ],
+    "similar": [
+      "pure-origin-organic-coffee-beans-12oz",
+      "harvest-sun-raw-honey-16oz"
+    ],
+    "fit_notes": null,
+    "in_stock": false,
+    "low_stock": false
+  },
+  {
+    "slug": "pure-origin-unfiltered-raw-honey-16oz",
+    "name": "Pure Origin Unfiltered Raw Honey 16oz",
+    "price": 10.99,
+    "sizes": [],
+    "category": "grocery",
+    "tags": [
+      "grocery"
+    ],
+    "similar": [
+      "pure-origin-organic-coffee-beans-12oz",
+      "harvest-sun-raw-honey-16oz"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "northgrain-pantry-almond-butter-16oz",
+    "name": "Northgrain Pantry Almond Butter 16oz",
+    "price": 14.99,
+    "sizes": [],
+    "category": "grocery",
+    "tags": [
+      "grocery"
+    ],
+    "similar": [
+      "pure-origin-organic-coffee-beans-12oz",
+      "harvest-sun-raw-honey-16oz"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "meadowbrook-organic-green-tea-bags-100-count",
+    "name": "Meadowbrook Organic Green Tea Bags 100-Count",
+    "price": 10.99,
+    "sizes": [],
+    "category": "grocery",
+    "tags": [
+      "grocery"
+    ],
+    "similar": [
+      "pure-origin-organic-coffee-beans-12oz",
+      "harvest-sun-raw-honey-16oz"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "golden-field-trail-mix-2lb",
+    "name": "Golden Field Trail Mix 2lb",
+    "price": 14.99,
+    "sizes": [],
+    "category": "grocery",
+    "tags": [
+      "grocery"
+    ],
+    "similar": [
+      "pure-origin-organic-coffee-beans-12oz",
+      "harvest-sun-raw-honey-16oz"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "meadowbrook-70-cacao-dark-chocolate-bar-multi-pack",
+    "name": "Meadowbrook 70% Cacao Dark Chocolate Bar Multi-Pack",
+    "price": 8.99,
+    "sizes": [],
+    "category": "grocery",
+    "tags": [
+      "grocery"
+    ],
+    "similar": [
+      "pure-origin-organic-coffee-beans-12oz",
+      "harvest-sun-raw-honey-16oz"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "pure-origin-unflavoured-protein-powder-2lb",
+    "name": "Pure Origin Unflavoured Protein Powder 2lb",
+    "price": 30.99,
+    "sizes": [],
+    "category": "grocery",
+    "tags": [
+      "grocery"
+    ],
+    "similar": [
+      "pure-origin-organic-coffee-beans-12oz",
+      "harvest-sun-raw-honey-16oz"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "pure-origin-quinoa-32oz",
+    "name": "Pure Origin Quinoa 32oz",
+    "price": 11.99,
+    "sizes": [],
+    "category": "grocery",
+    "tags": [
+      "grocery"
+    ],
+    "similar": [
+      "pure-origin-organic-coffee-beans-12oz",
+      "harvest-sun-raw-honey-16oz"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "harvest-sun-single-origin-organic-coffee-beans-12oz",
+    "name": "Harvest & Sun Single-Origin Organic Coffee Beans 12oz",
+    "price": 9,
+    "sizes": [],
+    "category": "grocery",
+    "tags": [
+      "grocery"
+    ],
+    "similar": [
+      "pure-origin-organic-coffee-beans-12oz",
+      "harvest-sun-raw-honey-16oz"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "golden-field-cold-pressed-extra-virgin-olive-oil-500ml",
+    "name": "Golden Field Cold-Pressed Extra Virgin Olive Oil 500ml",
+    "price": 19.99,
+    "sizes": [],
+    "category": "grocery",
+    "tags": [
+      "grocery"
+    ],
+    "similar": [
+      "pure-origin-organic-coffee-beans-12oz",
+      "harvest-sun-raw-honey-16oz"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "northgrain-pantry-unfiltered-raw-honey-16oz",
+    "name": "Northgrain Pantry Unfiltered Raw Honey 16oz",
+    "price": 8,
+    "sizes": [],
+    "category": "grocery",
+    "tags": [
+      "grocery"
+    ],
+    "similar": [
+      "pure-origin-organic-coffee-beans-12oz",
+      "harvest-sun-raw-honey-16oz"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": true
+  },
+  {
+    "slug": "pure-origin-unsalted-almond-butter-16oz",
+    "name": "Pure Origin Unsalted Almond Butter 16oz",
+    "price": 12.99,
+    "sizes": [],
+    "category": "grocery",
+    "tags": [
+      "grocery"
+    ],
+    "similar": [
+      "pure-origin-organic-coffee-beans-12oz",
+      "harvest-sun-raw-honey-16oz"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "pure-origin-green-tea-bags-100-count",
+    "name": "Pure Origin Green Tea Bags 100-Count",
+    "price": 10.99,
+    "sizes": [],
+    "category": "grocery",
+    "tags": [
+      "grocery"
+    ],
+    "similar": [
+      "pure-origin-organic-coffee-beans-12oz",
+      "harvest-sun-raw-honey-16oz"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "meadowbrook-no-sugar-added-trail-mix-2lb",
+    "name": "Meadowbrook No Sugar Added Trail Mix 2lb",
+    "price": 17.99,
+    "sizes": [],
+    "category": "grocery",
+    "tags": [
+      "grocery"
+    ],
+    "similar": [
+      "pure-origin-organic-coffee-beans-12oz",
+      "harvest-sun-raw-honey-16oz"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "pure-origin-dry-pasta-16oz",
+    "name": "Pure Origin Dry Pasta 16oz",
+    "price": 2.99,
+    "sizes": [],
+    "category": "grocery",
+    "tags": [
+      "grocery"
+    ],
+    "similar": [
+      "pure-origin-organic-coffee-beans-12oz",
+      "harvest-sun-raw-honey-16oz"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": true
+  },
+  {
+    "slug": "northgrain-pantry-dark-chocolate-bar-multi-pack",
+    "name": "Northgrain Pantry Dark Chocolate Bar Multi-Pack",
+    "price": 10.99,
+    "sizes": [],
+    "category": "grocery",
+    "tags": [
+      "grocery"
+    ],
+    "similar": [
+      "pure-origin-organic-coffee-beans-12oz",
+      "harvest-sun-raw-honey-16oz"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "wildroot-protein-powder-2lb",
+    "name": "Wildroot Protein Powder 2lb",
+    "price": 42.99,
+    "sizes": [],
+    "category": "grocery",
+    "tags": [
+      "grocery"
+    ],
+    "similar": [
+      "pure-origin-organic-coffee-beans-12oz",
+      "harvest-sun-raw-honey-16oz"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "meadowbrook-tri-colour-quinoa-32oz",
+    "name": "Meadowbrook Tri-Colour Quinoa 32oz",
+    "price": 8,
+    "sizes": [],
+    "category": "grocery",
+    "tags": [
+      "grocery"
+    ],
+    "similar": [
+      "pure-origin-organic-coffee-beans-12oz",
+      "harvest-sun-raw-honey-16oz"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "autopeak-car-phone-mount",
+    "name": "Autopeak Car Phone Mount",
+    "price": 18.99,
+    "sizes": [],
+    "category": "automotive",
+    "tags": [
+      "automotive"
+    ],
+    "similar": [
+      "torquewell-microfiber-detailing-towels-12-pack",
+      "roadgrip-12v-portable-tire-inflator-pro"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "torquewell-microfiber-detailing-towels-12-pack",
+    "name": "Torquewell Microfiber Detailing Towels 12-Pack",
+    "price": 10,
+    "sizes": [],
+    "category": "automotive",
+    "tags": [
+      "automotive"
+    ],
+    "similar": [
+      "autopeak-car-phone-mount",
+      "roadgrip-12v-portable-tire-inflator-pro"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "roadgrip-12v-portable-tire-inflator-pro",
+    "name": "Roadgrip 12V Portable Tire Inflator Pro",
+    "price": 30.99,
+    "sizes": [],
+    "category": "automotive",
+    "tags": [
+      "automotive"
+    ],
+    "similar": [
+      "autopeak-car-phone-mount",
+      "torquewell-microfiber-detailing-towels-12-pack"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "autopeak-night-vision-1080p-dash-cam-pro",
+    "name": "Autopeak Night-Vision 1080p Dash Cam Pro",
+    "price": 43.99,
+    "sizes": [],
+    "category": "automotive",
+    "tags": [
+      "automotive"
+    ],
+    "similar": [
+      "autopeak-car-phone-mount",
+      "torquewell-microfiber-detailing-towels-12-pack"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "torquewell-all-weather-floor-mats",
+    "name": "Torquewell All-Weather Floor Mats",
+    "price": 38.99,
+    "sizes": [],
+    "category": "automotive",
+    "tags": [
+      "automotive"
+    ],
+    "similar": [
+      "autopeak-car-phone-mount",
+      "torquewell-microfiber-detailing-towels-12-pack"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": true
+  },
+  {
+    "slug": "autopeak-handheld-car-vacuum",
+    "name": "Autopeak Handheld Car Vacuum",
+    "price": 51.99,
+    "sizes": [],
+    "category": "automotive",
+    "tags": [
+      "automotive"
+    ],
+    "similar": [
+      "autopeak-car-phone-mount",
+      "torquewell-microfiber-detailing-towels-12-pack"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "driftline-12v-jump-starter-power-pack-xl",
+    "name": "Driftline 12V Jump Starter Power Pack XL",
+    "price": 69.99,
+    "sizes": [],
+    "category": "automotive",
+    "tags": [
+      "automotive"
+    ],
+    "similar": [
+      "autopeak-car-phone-mount",
+      "torquewell-microfiber-detailing-towels-12-pack"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "autopeak-windshield-sun-shade",
+    "name": "Autopeak Windshield Sun Shade",
+    "price": 13.99,
+    "sizes": [],
+    "category": "automotive",
+    "tags": [
+      "automotive"
+    ],
+    "similar": [
+      "autopeak-car-phone-mount",
+      "torquewell-microfiber-detailing-towels-12-pack"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "driftline-long-lasting-ceramic-car-wax-kit",
+    "name": "Driftline Long-Lasting Ceramic Car Wax Kit",
+    "price": 18,
+    "sizes": [],
+    "category": "automotive",
+    "tags": [
+      "automotive"
+    ],
+    "similar": [
+      "autopeak-car-phone-mount",
+      "torquewell-microfiber-detailing-towels-12-pack"
+    ],
+    "fit_notes": null,
+    "in_stock": false,
+    "low_stock": false
+  },
+  {
+    "slug": "trailhitch-magnetic-car-phone-mount-xl",
+    "name": "Trailhitch Magnetic Car Phone Mount XL",
+    "price": 12.99,
+    "sizes": [],
+    "category": "automotive",
+    "tags": [
+      "automotive"
+    ],
+    "similar": [
+      "autopeak-car-phone-mount",
+      "torquewell-microfiber-detailing-towels-12-pack"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "ironclad-microfiber-detailing-towels-12-pack-max",
+    "name": "Ironclad Microfiber Detailing Towels 12-Pack Max",
+    "price": 14.99,
+    "sizes": [],
+    "category": "automotive",
+    "tags": [
+      "automotive"
+    ],
+    "similar": [
+      "autopeak-car-phone-mount",
+      "torquewell-microfiber-detailing-towels-12-pack"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": true
+  },
+  {
+    "slug": "trailhitch-portable-tire-inflator",
+    "name": "Trailhitch Portable Tire Inflator",
+    "price": 58.99,
+    "sizes": [],
+    "category": "automotive",
+    "tags": [
+      "automotive"
+    ],
+    "similar": [
+      "autopeak-car-phone-mount",
+      "torquewell-microfiber-detailing-towels-12-pack"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "trailhitch-loop-recording-1080p-dash-cam",
+    "name": "Trailhitch Loop-Recording 1080p Dash Cam",
+    "price": 83.99,
+    "sizes": [],
+    "category": "automotive",
+    "tags": [
+      "automotive"
+    ],
+    "similar": [
+      "autopeak-car-phone-mount",
+      "torquewell-microfiber-detailing-towels-12-pack"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "torquewell-heavy-duty-all-weather-floor-mats",
+    "name": "Torquewell Heavy-Duty All-Weather Floor Mats",
+    "price": 35.99,
+    "sizes": [],
+    "category": "automotive",
+    "tags": [
+      "automotive"
+    ],
+    "similar": [
+      "autopeak-car-phone-mount",
+      "torquewell-microfiber-detailing-towels-12-pack"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "ironclad-cordless-handheld-car-vacuum",
+    "name": "Ironclad Cordless Handheld Car Vacuum",
+    "price": 40.99,
+    "sizes": [],
+    "category": "automotive",
+    "tags": [
+      "automotive"
+    ],
+    "similar": [
+      "autopeak-car-phone-mount",
+      "torquewell-microfiber-detailing-towels-12-pack"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "torquewell-portable-jump-starter-power-pack-max",
+    "name": "Torquewell Portable Jump Starter Power Pack Max",
+    "price": 96.99,
+    "sizes": [],
+    "category": "automotive",
+    "tags": [
+      "automotive"
+    ],
+    "similar": [
+      "autopeak-car-phone-mount",
+      "torquewell-microfiber-detailing-towels-12-pack"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "torquewell-universal-fit-car-seat-cover-pair-xl",
+    "name": "Torquewell Universal-Fit Car Seat Cover Pair XL",
+    "price": 35.99,
+    "sizes": [],
+    "category": "automotive",
+    "tags": [
+      "automotive"
+    ],
+    "similar": [
+      "autopeak-car-phone-mount",
+      "torquewell-microfiber-detailing-towels-12-pack"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "driftline-windshield-sun-shade-pro",
+    "name": "Driftline Windshield Sun Shade Pro",
+    "price": 22.99,
+    "sizes": [],
+    "category": "automotive",
+    "tags": [
+      "automotive"
+    ],
+    "similar": [
+      "autopeak-car-phone-mount",
+      "torquewell-microfiber-detailing-towels-12-pack"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "autopeak-ceramic-car-wax-kit-max",
+    "name": "Autopeak Ceramic Car Wax Kit Max",
+    "price": 18.99,
+    "sizes": [],
+    "category": "automotive",
+    "tags": [
+      "automotive"
+    ],
+    "similar": [
+      "autopeak-car-phone-mount",
+      "torquewell-microfiber-detailing-towels-12-pack"
+    ],
+    "fit_notes": null,
+    "in_stock": false,
+    "low_stock": false
+  },
+  {
+    "slug": "autopeak-magnetic-car-phone-mount-max",
+    "name": "Autopeak Magnetic Car Phone Mount Max",
+    "price": 22.99,
+    "sizes": [],
+    "category": "automotive",
+    "tags": [
+      "automotive"
+    ],
+    "similar": [
+      "autopeak-car-phone-mount",
+      "torquewell-microfiber-detailing-towels-12-pack"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "trailhitch-lint-free-microfiber-detailing-towels-12-pack-xl",
+    "name": "Trailhitch Lint-Free Microfiber Detailing Towels 12-Pack XL",
+    "price": 15.99,
+    "sizes": [],
+    "category": "automotive",
+    "tags": [
+      "automotive"
+    ],
+    "similar": [
+      "autopeak-car-phone-mount",
+      "torquewell-microfiber-detailing-towels-12-pack"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "driftline-portable-tire-inflator",
+    "name": "Driftline Portable Tire Inflator",
+    "price": 41.99,
+    "sizes": [],
+    "category": "automotive",
+    "tags": [
+      "automotive"
+    ],
+    "similar": [
+      "autopeak-car-phone-mount",
+      "torquewell-microfiber-detailing-towels-12-pack"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "ironclad-loop-recording-1080p-dash-cam-max",
+    "name": "Ironclad Loop-Recording 1080p Dash Cam Max",
+    "price": 74.99,
+    "sizes": [],
+    "category": "automotive",
+    "tags": [
+      "automotive"
+    ],
+    "similar": [
+      "autopeak-car-phone-mount",
+      "torquewell-microfiber-detailing-towels-12-pack"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "torquewell-heavy-duty-all-weather-floor-mats-pro",
+    "name": "Torquewell Heavy-Duty All-Weather Floor Mats Pro",
+    "price": 48.99,
+    "sizes": [],
+    "category": "automotive",
+    "tags": [
+      "automotive"
+    ],
+    "similar": [
+      "autopeak-car-phone-mount",
+      "torquewell-microfiber-detailing-towels-12-pack"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "torquewell-handheld-car-vacuum",
+    "name": "Torquewell Handheld Car Vacuum",
+    "price": 41.99,
+    "sizes": [],
+    "category": "automotive",
+    "tags": [
+      "automotive"
+    ],
+    "similar": [
+      "autopeak-car-phone-mount",
+      "torquewell-microfiber-detailing-towels-12-pack"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "torquewell-portable-jump-starter-power-pack",
+    "name": "Torquewell Portable Jump Starter Power Pack",
+    "price": 61.99,
+    "sizes": [],
+    "category": "automotive",
+    "tags": [
+      "automotive"
+    ],
+    "similar": [
+      "autopeak-car-phone-mount",
+      "torquewell-microfiber-detailing-towels-12-pack"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "driftline-car-seat-cover-pair",
+    "name": "Driftline Car Seat Cover Pair",
+    "price": 45.99,
+    "sizes": [],
+    "category": "automotive",
+    "tags": [
+      "automotive"
+    ],
+    "similar": [
+      "autopeak-car-phone-mount",
+      "torquewell-microfiber-detailing-towels-12-pack"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  }
+]

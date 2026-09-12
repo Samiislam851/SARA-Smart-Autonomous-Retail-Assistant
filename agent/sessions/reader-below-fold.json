@@ -1,0 +1,18 @@
+{
+  "name": "reader-below-fold",
+  "session": "fx_reader_below_fold",
+  "description": "Shopper reads the jacket page for 25s. size-guide is BELOW the fold at first paint (eligibleForScroll) and gets scrolled into view early on, then stays visible for the rest of the visit — but is never hovered, focused, tapped, or clicked. The client's one-shot SCROLL_CREDIT_MS (5000ms) caps attention earned from mere visibility, so size-guide's own dwell.perTarget number flatlines at 5000ms even though it stays on screen the whole time; the stub's highlight rule requires >=6000ms of element attention (a deliberate margin over the 5000ms cap — see decide/stub.js). Expect noop: a defect-relocated-below-the-fold element must not accrue unbounded viewport-time attention.",
+  "expect": { "action": "noop" },
+  "events": [
+    { "delay_ms": 0, "type": "page_view", "target": "/product/khadi-field-jacket", "meta": { "targets": ["product-image", "size-picker", "size-guide", "cart-add", "shipping-banner", "cart-link"] } },
+    { "delay_ms": 1000, "type": "dwell", "target": "/product/khadi-field-jacket", "meta": { "ms": 5000 } },
+    { "delay_ms": 0, "type": "dwell", "target": "size-guide", "meta": { "ms": 0, "kind": "attention", "interactions": { "hover_ms": 0, "focus_ms": 0, "clicks": 0, "scrolled_to": true } } },
+    { "delay_ms": 5000, "type": "dwell", "target": "/product/khadi-field-jacket", "meta": { "ms": 10000 } },
+    { "delay_ms": 0, "type": "dwell", "target": "size-guide", "meta": { "ms": 5000, "kind": "attention", "interactions": { "hover_ms": 0, "focus_ms": 0, "clicks": 0, "scrolled_to": true } } },
+    { "delay_ms": 5000, "type": "dwell", "target": "/product/khadi-field-jacket", "meta": { "ms": 15000 } },
+    { "delay_ms": 0, "type": "dwell", "target": "size-guide", "meta": { "ms": 5000, "kind": "attention", "interactions": { "hover_ms": 0, "focus_ms": 0, "clicks": 0, "scrolled_to": true } } },
+    { "delay_ms": 5000, "type": "dwell", "target": "/product/khadi-field-jacket", "meta": { "ms": 20000 } },
+    { "delay_ms": 5000, "type": "dwell", "target": "/product/khadi-field-jacket", "meta": { "ms": 25000 } },
+    { "delay_ms": 0, "type": "dwell", "target": "size-guide", "meta": { "ms": 5000, "kind": "attention", "interactions": { "hover_ms": 0, "focus_ms": 0, "clicks": 0, "scrolled_to": true } } }
+  ]
+}

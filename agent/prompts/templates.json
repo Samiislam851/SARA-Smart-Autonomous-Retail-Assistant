@@ -1,0 +1,119 @@
+{
+  "size_help": {
+    "when": "Real attention on size-guide/size-picker (not just page dwell).",
+    "title": "Between sizes?",
+    "body": "{fit_notes} Returns are free within {returns_window_days} days.",
+    "cta": { "kind": ["pick_size"] },
+    "slots": {
+      "fit_notes": { "max_len": 140 },
+      "returns_window_days": { "max_len": 4 }
+    },
+    "tone": "Direct, reassuring, no exclamation marks."
+  },
+  "missed_discount": {
+    "when": "A missed_discount offer exists (a code not yet applied) and there's hesitation on cart/checkout.",
+    "title": "Save on your order",
+    "body": "Use {code} to save ৳{saving} on your order.",
+    "cta": { "kind": ["apply_code"] },
+    "slots": {
+      "code": { "max_len": 20 },
+      "saving": { "max_len": 8 }
+    },
+    "tone": "Plain, exact amount, no hype.",
+    "anchor": ["promo-code", "cart-link", "search", "agent-banner"]
+  },
+  "auto_discount_active": {
+    "when": "An auto_discount_active offer exists (already applied automatically) — informational only, no code to mention.",
+    "title": "Discount applied",
+    "body": "{label} is already applied — you're saving ৳{saving}.",
+    "cta": { "kind": ["none"] },
+    "slots": {
+      "label": { "max_len": 60 },
+      "saving": { "max_len": 8 }
+    },
+    "tone": "Reassuring confirmation, not a pitch.",
+    "anchor": ["promo-code", "cart-link", "search", "agent-banner"]
+  },
+  "similar_on_promo": {
+    "when": "A similar_on_promo offer exists and there's real attention or a return visit on the current (non-promo) product.",
+    "title": "Worth a look",
+    "body": "{label} — save ৳{saving} in the same collection.",
+    "cta": { "kind": ["open_product"] },
+    "slots": {
+      "label": { "max_len": 80 },
+      "saving": { "max_len": 8 }
+    },
+    "tone": "Helpful comparison, not pushy.",
+    "anchor": ["similar-products", "cart-link", "search", "agent-banner"]
+  },
+  "delivery_gap": {
+    "when": "A delivery_gap offer exists with a real hesitation signal (cart/checkout page + dwelling or bouncing).",
+    "title": "Almost free delivery",
+    "body": "Add {fill_with_name} (৳{fill_with_price}) and delivery is free — you're ৳{gap} away.",
+    "cta": { "kind": ["add_to_cart"] },
+    "slots": {
+      "fill_with_name": { "max_len": 60 },
+      "fill_with_price": { "max_len": 8 },
+      "gap": { "max_len": 8 }
+    },
+    "tone": "Concrete, exact amounts, one clear ask.",
+    "anchor": ["shipping-banner", "cart-link", "search", "agent-banner"]
+  },
+  "cart_under_threshold": {
+    "when": "A cart_under_threshold offer exists (an open cart under the free-delivery threshold, any gap size) while the shopper is BROWSING (not already on cart/checkout — that's delivery_gap's recipe instead).",
+    "title": "Free delivery is close",
+    "body": "Add {fill_with_name} (৳{fill_with_price}) and delivery is free — you're ৳{gap} away.",
+    "cta": { "kind": ["add_to_cart"] },
+    "slots": {
+      "fill_with_name": { "max_len": 60 },
+      "fill_with_price": { "max_len": 8 },
+      "gap": { "max_len": 8 }
+    },
+    "tone": "Concrete, exact amounts, one clear ask — same voice as delivery_gap.",
+    "anchor": ["shipping-banner", "cart-link", "search", "agent-banner"]
+  },
+  "checkout_bounce": {
+    "when": "patterns.checkoutBounce is true — the shopper reached checkout and then left to a different page (a login wall, a back-nav to cart/shop) without a later checkout visit.",
+    "title": "Still want it?",
+    "body": "Your cart is saved — pick up where you left off.",
+    "cta": { "kind": ["apply_code", "open_product", "none"] },
+    "slots": {},
+    "tone": "Reassuring, no blame, one clear next step.",
+    "anchor": ["cart-link", "search", "agent-banner"]
+  },
+  "search_help": {
+    "when": "search.results is exactly 0 for the shopper's current search.q AND the store found 1-3 real catalog matches (offers[].candidates).",
+    "title": "Found a match",
+    "body": "Found {count} {count|match|matches} for {name}.",
+    "cta": { "kind": ["open_product", "search"] },
+    "slots": {
+      "count": { "max_len": 2 },
+      "name": { "max_len": 60 }
+    },
+    "tone": "Factual, names the match count.",
+    "anchor": ["search", "cart-link", "agent-banner"]
+  },
+  "stuck_checkout": {
+    "when": "Rage clicks or repeated form-field friction on /checkout with no concrete offer fact to hand over.",
+    "title": "Trouble checking out?",
+    "body": "You can also complete payment via {payment_method} if this isn't working.",
+    "cta": { "kind": ["none"] },
+    "slots": {
+      "payment_method": { "max_len": 30 }
+    },
+    "tone": "Calm, offers an alternative, no blame.",
+    "anchor": ["checkout-btn", "cart-link", "agent-banner"]
+  },
+  "low_stock": {
+    "when": "facts.keys.stock is low for the current product/selected variant — a concrete near-miss fact.",
+    "title": "Almost gone",
+    "body": "Only {stock} left in {size_selected} — grab it before it's out.",
+    "cta": { "kind": ["add_to_cart", "pick_size"] },
+    "slots": {
+      "stock": { "max_len": 4 },
+      "size_selected": { "max_len": 10 }
+    },
+    "tone": "Urgent but factual, one concrete number.",
+    "anchor": ["cart-add", "cart-link", "agent-banner"]
+  }
+}

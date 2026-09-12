@@ -1,0 +1,816 @@
+[
+  {
+    "action": {
+      "action": "noop",
+      "target": null,
+      "style": null,
+      "duration_ms": 0,
+      "message": null,
+      "card": null
+    },
+    "trace": {
+      "signals": [
+        "page_view only",
+        "dwell.pageMs=0",
+        "no offers present",
+        "no cart state"
+      ],
+      "hypothesis": "Shopper just landed on product page, no attention or hesitation signal yet.",
+      "decision": "noop",
+      "confidence": 0.95,
+      "why": "No dwell, no repeated visits, no offers to ground a card - browsing normally, silence preferred."
+    }
+  },
+  {
+    "action": {
+      "action": "noop",
+      "target": null,
+      "style": null,
+      "duration_ms": 0,
+      "message": null,
+      "card": null
+    },
+    "trace": {
+      "signals": [
+        "page_view product page, dwellMs=0",
+        "cart_update just added item, total ৳1950",
+        "no hesitation signal (no dwell/back_nav/bounce)"
+      ],
+      "hypothesis": "Shopper just added the saree to cart and is still on the product page; no sign of hesitation on cart/checkout yet.",
+      "decision": "noop",
+      "confidence": 0.75,
+      "why": "delivery_gap and missed_discount cards require cart/checkout hesitation (dwelling or bouncing), but shopper is still on product page with zero dwell — acting now would be premature."
+    }
+  },
+  {
+    "action": {
+      "action": "noop",
+      "target": null,
+      "style": null,
+      "duration_ms": 0,
+      "message": null,
+      "card": null
+    },
+    "trace": {
+      "signals": [
+        "page_view /cart just fired",
+        "dwell.pageMs=0",
+        "no dwell/hover attention recorded on shipping-banner or promo-code yet"
+      ],
+      "hypothesis": "Shopper just landed on cart after adding the saree; no hesitation signal yet despite a near-miss delivery gap and a live discount code.",
+      "decision": "noop",
+      "confidence": 0.7,
+      "why": "Delivery-gap and discount cards require a real hesitation/dwell signal on cart per policy, and dwell is 0ms — acting this instant would be a guess, not a response to behavior."
+    }
+  },
+  {
+    "action": {
+      "action": "noop",
+      "target": null,
+      "style": null,
+      "duration_ms": 0,
+      "message": null,
+      "card": null
+    },
+    "trace": {
+      "signals": [
+        "dwell.pageMs=0, just landed on /cart",
+        "cart_view event only, no repeated cart/checkout bounce",
+        "delivery_gap (৳50) and missed_discount (SAREE200) offers both present but no hesitation signal yet"
+      ],
+      "hypothesis": "Shopper just arrived at cart after adding the saree; no dwelling, bouncing, or repeated visits yet to indicate hesitation.",
+      "decision": "noop",
+      "confidence": 0.75,
+      "why": "Dwell is zero and there's no cart/checkout friction pattern in recent history, so acting now would be premature — wait for a real hesitation signal before surfacing the delivery gap or discount."
+    }
+  },
+  {
+    "action": {
+      "action": "noop",
+      "target": null,
+      "style": null,
+      "duration_ms": 0,
+      "message": null,
+      "card": null
+    },
+    "trace": {
+      "signals": [
+        "cart dwell only 2000ms",
+        "just arrived from product add, no bounce/back_nav yet",
+        "perTarget empty - no attention signal"
+      ],
+      "hypothesis": "Shopper just added item and landed on cart; hasn't shown hesitation or friction yet despite being ৳50 from free delivery.",
+      "decision": "noop",
+      "confidence": 0.6,
+      "why": "2s of page dwell with no perTarget attention or checkout bounce is normal browsing, not hesitation; acting now on the delivery_gap would be premature per silence-preferred rule."
+    }
+  },
+  {
+    "action": {
+      "action": "noop",
+      "target": null,
+      "style": null,
+      "duration_ms": 0,
+      "message": null,
+      "card": null
+    },
+    "trace": {
+      "signals": [
+        "just landed on /checkout, dwell.pageMs=0",
+        "no perTarget attention yet",
+        "cart total 1950, free delivery at 2000 (gap 50)"
+      ],
+      "hypothesis": "Shopper just arrived at checkout; no dwelling, bouncing, or friction signal yet despite a near-miss delivery gap and a missed discount existing.",
+      "decision": "noop",
+      "confidence": 0.7,
+      "why": "Delivery-gap and discount cards require an actual hesitation signal (dwell/bounce) on cart/checkout, and none exists yet on this fresh page load."
+    }
+  },
+  {
+    "action": {
+      "action": "noop",
+      "target": null,
+      "style": null,
+      "duration_ms": 0,
+      "message": null,
+      "card": null
+    },
+    "trace": {
+      "signals": [
+        "checkout page, dwell 10000ms, no perTarget attention",
+        "cart total 1950, gap 50 from free delivery",
+        "offers target_hints (shipping-banner, promo-code) not in visibleTargets",
+        "no checkout->cart back_nav or bounce in recent"
+      ],
+      "hypothesis": "Shopper just arrived at checkout and is reading the form normally; no hesitation or friction signal yet, and the relevant offer anchors aren't even visible on this page.",
+      "decision": "noop",
+      "confidence": 0.75,
+      "why": "10s of plain dwell with zero perTarget attention isn't hesitation, and neither actionable offer's target_hint is in visibleTargets, so no compliant card can be shown yet."
+    }
+  },
+  {
+    "action": {
+      "action": "noop",
+      "target": null,
+      "style": null,
+      "duration_ms": 0,
+      "message": null,
+      "card": null
+    },
+    "trace": {
+      "signals": [
+        "back_nav from /checkout to /cart",
+        "delivery_gap offer ৳50 away",
+        "missed_discount offer SAREE200 present",
+        "neither offer's target_hint (shipping-banner/promo-code) is in current visibleTargets"
+      ],
+      "hypothesis": "Shopper bounced checkout->cart likely due to the ৳50 delivery gap or discount, but current visibleTargets are checkout-page fields only, so the offer's anchor element isn't rendered here",
+      "decision": "noop",
+      "confidence": 0.6,
+      "why": "cannot ground delivery_gap or missed_discount card on a target that's actually in visibleTargets, so acting would violate the target rule; better to wait for a page where shipping-banner or promo-code is visible"
+    }
+  },
+  {
+    "action": {
+      "action": "card",
+      "target": "shipping-banner",
+      "style": null,
+      "duration_ms": 20000,
+      "message": null,
+      "card": {
+        "title": "৳50 from free delivery",
+        "body": "Add the Nakshi Kantha Scarf (৳850) and delivery is free — you're ৳50 away.",
+        "cta": {
+          "kind": "add_to_cart",
+          "label": "Add Nakshi Kantha Scarf",
+          "value": "nakshi-kantha-scarf"
+        }
+      }
+    },
+    "trace": {
+      "signals": [
+        "cart total 1950, free delivery at 2000",
+        "checkout->cart back_nav then page_view /cart",
+        "delivery_gap offer gap 50",
+        "missed_discount offer also present"
+      ],
+      "hypothesis": "Shopper bounced from checkout back to cart, likely hesitating over the ৳50 delivery fee.",
+      "decision": "card shipping-banner (delivery_gap)",
+      "confidence": 0.8,
+      "why": "Priority rule: delivery_gap over promo when checkout->cart friction present, and gap is concrete/near-miss."
+    }
+  },
+  {
+    "action": {
+      "action": "noop",
+      "target": null,
+      "style": null,
+      "duration_ms": 0,
+      "message": null,
+      "card": null
+    },
+    "trace": {
+      "signals": [
+        "lastIntervention.target=shipping-banner agoMs=1",
+        "checkout->cart bounce present"
+      ],
+      "hypothesis": "Just intervened on the delivery gap moments ago; shopper hasn't had time to react yet.",
+      "decision": "noop",
+      "confidence": 0.9,
+      "why": "Cooldown rule: lastIntervention.agoMs (1ms) is far under the 30000ms floor, so acting again now would violate the cooldown."
+    }
+  },
+  {
+    "action": {
+      "action": "noop",
+      "target": null,
+      "style": null,
+      "duration_ms": 0,
+      "message": null,
+      "card": null
+    },
+    "trace": {
+      "signals": [
+        "lastIntervention.target=shipping-banner agoMs=9336",
+        "cooldown floor is 30000ms",
+        "checkout->cart back_nav present with delivery_gap+missed_discount both qualifying"
+      ],
+      "hypothesis": "Shopper bounced checkout->cart over the ৳50 delivery gap, but we already intervened on shipping-banner 9.3s ago, well inside the 30s cooldown.",
+      "decision": "noop",
+      "confidence": 0.9,
+      "why": "Cooldown of 30s since last intervention hasn't elapsed and target would repeat shipping-banner, so must stay silent this tick."
+    }
+  },
+  {
+    "action": {
+      "action": "noop",
+      "target": null,
+      "style": null,
+      "duration_ms": 0,
+      "message": null,
+      "card": null
+    },
+    "trace": {
+      "signals": [
+        "page_view only, pageMs 0",
+        "no dwell/perTarget data",
+        "no offers",
+        "no cart"
+      ],
+      "hypothesis": "Shopper just landed on the product page, no attention or hesitation signal yet.",
+      "decision": "noop",
+      "confidence": 0.95,
+      "why": "No hesitation, offer, or friction signal exists yet to justify any intervention."
+    }
+  },
+  {
+    "action": {
+      "action": "noop",
+      "target": null,
+      "style": null,
+      "duration_ms": 0,
+      "message": null,
+      "card": null
+    },
+    "trace": {
+      "signals": [
+        "dwell.pageMs=0",
+        "just added to cart, on product page not cart/checkout",
+        "no perTarget attention recorded"
+      ],
+      "hypothesis": "Shopper just added item to cart and is still on product page; no hesitation or friction signal yet despite a real delivery_gap and missed_discount offer existing.",
+      "decision": "noop",
+      "confidence": 0.75,
+      "why": "delivery_gap and missed_discount cards require cart/checkout dwelling or bouncing per policy; shopper hasn't even navigated to cart yet, so acting now would be premature."
+    }
+  },
+  {
+    "action": {
+      "action": "noop",
+      "target": null,
+      "style": null,
+      "duration_ms": 0,
+      "message": null,
+      "card": null
+    },
+    "trace": {
+      "signals": [
+        "dwell.pageMs=0",
+        "perTarget empty",
+        "just landed on /cart after cart_update"
+      ],
+      "hypothesis": "Shopper just added the saree and arrived at cart; no dwelling or bounce yet to signal hesitation about the ৳50 delivery gap.",
+      "decision": "noop",
+      "confidence": 0.7,
+      "why": "delivery_gap offer qualifies on cart page but recipe requires a real hesitation signal (dwelling/bouncing) which hasn't occurred yet — acting on zero dwell risks interrupting normal browsing"
+    }
+  },
+  {
+    "action": {
+      "action": "noop",
+      "target": null,
+      "style": null,
+      "duration_ms": 0,
+      "message": null,
+      "card": null
+    },
+    "trace": {
+      "signals": [
+        "dwell.pageMs=0",
+        "just landed on /cart",
+        "no bounce/back_nav pattern in recent"
+      ],
+      "hypothesis": "Shopper just arrived at cart, no dwelling or hesitation signal yet despite delivery_gap and missed_discount offers being available.",
+      "decision": "noop",
+      "confidence": 0.75,
+      "why": "No real hesitation signal (zero dwell, no cart/checkout bounce) to justify surfacing delivery_gap or promo card yet; wait for actual attention or friction."
+    }
+  },
+  {
+    "action": {
+      "action": "card",
+      "target": "shipping-banner",
+      "style": null,
+      "duration_ms": 20000,
+      "message": null,
+      "card": {
+        "template": "delivery_gap",
+        "slots": {
+          "fill_with_name": "Nakshi Kantha Scarf",
+          "fill_with_price": 850,
+          "gap": 50
+        },
+        "title": null,
+        "body": null,
+        "cta": {
+          "kind": "add_to_cart",
+          "label": "Add Nakshi Kantha Scarf",
+          "value": "nakshi-kantha-scarf"
+        }
+      }
+    },
+    "trace": {
+      "signals": [
+        "cart page, total ৳1950",
+        "delivery_gap offer: ৳50 from free delivery",
+        "cheapest fill item ৳850 Nakshi Kantha Scarf"
+      ],
+      "hypothesis": "Shopper is on cart just below free delivery threshold and may check out without noticing the ৳50 gap.",
+      "decision": "card shipping-banner delivery_gap",
+      "confidence": 0.62,
+      "why": "Concrete near-miss threshold on cart page with a real fill item is a one-tap actionable fact, prioritized per policy over the standing promo code."
+    }
+  },
+  {
+    "action": {
+      "action": "noop",
+      "target": null,
+      "style": null,
+      "duration_ms": 0,
+      "message": null,
+      "card": null
+    },
+    "trace": {
+      "signals": [
+        "lastIntervention.target=shipping-banner agoMs=0",
+        "cart→checkout bounce pattern present",
+        "delivery_gap offer would repeat same target"
+      ],
+      "hypothesis": "Shopper is on checkout at ৳1,950, ৳50 short of free delivery; we already just surfaced the shipping-banner intervention moments ago.",
+      "decision": "noop",
+      "confidence": 0.9,
+      "why": "Cooldown rule: agoMs<30000 and same target as lastIntervention (shipping-banner) forbids re-firing; no other qualifying signal changed since."
+    }
+  },
+  {
+    "action": {
+      "action": "noop",
+      "target": null,
+      "style": null,
+      "duration_ms": 0,
+      "message": null,
+      "card": null
+    },
+    "trace": {
+      "signals": [
+        "page_view only",
+        "pageMs 0",
+        "no offers",
+        "no dwell/attention data"
+      ],
+      "hypothesis": "Shopper just landed on product page, no hesitation or actionable signal yet.",
+      "decision": "noop",
+      "confidence": 0.95,
+      "why": "No attention, cart, or offer data to act on; browsing normally."
+    }
+  },
+  {
+    "action": {
+      "action": "noop",
+      "target": null,
+      "style": null,
+      "duration_ms": 0,
+      "message": null,
+      "card": null
+    },
+    "trace": {
+      "signals": [
+        "page /product/jamdani-saree-classic",
+        "dwell.perTarget empty",
+        "offers empty",
+        "recent shows a past /checkout dwell of 10000ms"
+      ],
+      "hypothesis": "Shopper is on the product page with no measurable attention on any element; a prior checkout visit exists but there's no cart data or delivery_gap offer to ground a helpful card.",
+      "decision": "noop",
+      "confidence": 0.75,
+      "why": "No offers are present and facts/cart are null, so there's no concrete fact (gap amount, code, similar item) to hand over; acting would require fabricating a number."
+    }
+  },
+  {
+    "action": {
+      "action": "card",
+      "target": "shipping-banner",
+      "style": null,
+      "duration_ms": 20000,
+      "message": null,
+      "card": {
+        "template": "delivery_gap",
+        "slots": {
+          "fill_with_name": "Nakshi Kantha Scarf",
+          "fill_with_price": 850,
+          "gap": 50
+        },
+        "title": null,
+        "body": null,
+        "cta": {
+          "kind": "add_to_cart",
+          "label": "Add Nakshi Kantha Scarf",
+          "value": "nakshi-kantha-scarf"
+        }
+      }
+    },
+    "trace": {
+      "signals": [
+        "cart_total 1950 vs free_over 2000",
+        "dwell /checkout then back to product/cart",
+        "delivery_gap offer target shipping-banner visible"
+      ],
+      "hypothesis": "Shopper bounced off checkout with cart just ৳50 short of free delivery threshold.",
+      "decision": "card delivery_gap shipping-banner",
+      "confidence": 0.78,
+      "why": "Concrete near-miss gap plus checkout friction outweighs the missed_discount offer per priority rule, and a single cheap add-on closes it."
+    }
+  },
+  {
+    "action": {
+      "action": "card",
+      "target": "shipping-banner",
+      "style": null,
+      "duration_ms": 20000,
+      "message": null,
+      "card": {
+        "template": "delivery_gap",
+        "slots": {
+          "fill_with_name": "Nakshi Kantha Scarf",
+          "fill_with_price": 850,
+          "gap": 50
+        },
+        "title": null,
+        "body": null,
+        "cta": {
+          "kind": "add_to_cart",
+          "label": "Add Nakshi Kantha Scarf",
+          "value": "nakshi-kantha-scarf"
+        }
+      }
+    },
+    "trace": {
+      "signals": [
+        "cart total ৳1950, free delivery at ৳2000 (gap ৳50)",
+        "dwell /checkout 10000ms then back_nav to /cart",
+        "missed_discount offer also present but lower priority"
+      ],
+      "hypothesis": "Shopper bounced from checkout back to cart, likely hesitating over the ৳50 gap to free delivery.",
+      "decision": "card shipping-banner (delivery_gap)",
+      "confidence": 0.82,
+      "why": "Checkout→cart friction plus a concrete near-miss delivery gap outranks the standing promo code per priority rule."
+    }
+  },
+  {
+    "action": {
+      "action": "noop",
+      "target": null,
+      "style": null,
+      "duration_ms": 0,
+      "message": null,
+      "card": null
+    },
+    "trace": {
+      "signals": [
+        "lastIntervention.target=shipping-banner agoMs=1",
+        "cooldown <30000ms",
+        "cart back from checkout, gap ৳50"
+      ],
+      "hypothesis": "Shopper just bounced cart→checkout→cart near free delivery threshold, but we already intervened on shipping-banner a moment ago.",
+      "decision": "noop",
+      "confidence": 0.9,
+      "why": "Policy forbids acting within 30s of last intervention and forbids repeating the same target (shipping-banner)."
+    }
+  },
+  {
+    "action": {
+      "action": "noop",
+      "target": null,
+      "style": null,
+      "duration_ms": 0,
+      "message": null,
+      "card": null
+    },
+    "trace": {
+      "signals": [
+        "lastIntervention.agoMs=10148 <30000 cooldown",
+        "cart bounced from checkout back to cart",
+        "delivery_gap offer already surfaced on shipping-banner"
+      ],
+      "hypothesis": "Shopper bounced checkout->cart over the ৳50 delivery gap, already nudged on shipping-banner 10s ago.",
+      "decision": "noop",
+      "confidence": 0.9,
+      "why": "30s cooldown since last intervention on shipping-banner not yet elapsed, and repeating same target is disallowed anyway."
+    }
+  },
+  {
+    "action": {
+      "action": "noop",
+      "target": null,
+      "style": null,
+      "duration_ms": 0,
+      "message": null,
+      "card": null
+    },
+    "trace": {
+      "signals": [
+        "lastIntervention agoMs=8699 on shipping-banner",
+        "cooldown floor is 30000ms",
+        "cart back at /cart after checkout bounce"
+      ],
+      "hypothesis": "Shopper bounced checkout->cart again but we already intervened on the delivery gap 8.7s ago; too soon to act again.",
+      "decision": "noop",
+      "confidence": 0.9,
+      "why": "Global 30s cooldown since last intervention hasn't elapsed, so no new action regardless of which offer would otherwise apply."
+    }
+  },
+  {
+    "action": {
+      "action": "noop",
+      "target": null,
+      "style": null,
+      "duration_ms": 0,
+      "message": null,
+      "card": null
+    },
+    "trace": {
+      "signals": [
+        "lastIntervention.target=shipping-banner agoMs=18768",
+        "cooldown floor 30000ms not met"
+      ],
+      "hypothesis": "Shopper is still near free-delivery threshold but we just intervened on this same target under 30s ago.",
+      "decision": "noop",
+      "confidence": 0.9,
+      "why": "Cooldown rule forbids acting again within 30s of last intervention, especially on the same target."
+    }
+  },
+  {
+    "action": {
+      "action": "noop",
+      "target": null,
+      "style": null,
+      "duration_ms": 0,
+      "message": null,
+      "card": null
+    },
+    "trace": {
+      "signals": [
+        "lastIntervention.target=shipping-banner agoMs=19355 <30000 cooldown",
+        "cart bounced checkout->cart, same delivery_gap offer as before"
+      ],
+      "hypothesis": "Same delivery gap already surfaced very recently on same target; still within cooldown window.",
+      "decision": "noop",
+      "confidence": 0.9,
+      "why": "30s cooldown not elapsed since last intervention on shipping-banner and repeating same target is disallowed."
+    }
+  },
+  {
+    "action": {
+      "action": "noop",
+      "target": null,
+      "style": null,
+      "duration_ms": 0,
+      "message": null,
+      "card": null
+    },
+    "trace": {
+      "signals": [
+        "lastIntervention.target=shipping-banner agoMs=27090",
+        "cart/checkout bounce with delivery_gap offer"
+      ],
+      "hypothesis": "Shopper still near free-delivery gap after checkout->cart bounce, but we just intervened on this same target under 30s ago.",
+      "decision": "noop",
+      "confidence": 0.9,
+      "why": "Cooldown rule: agoMs 27090 < 30000 floor, and same target shipping-banner was just used, so must wait before acting again."
+    }
+  },
+  {
+    "action": {
+      "action": "noop",
+      "target": null,
+      "style": null,
+      "duration_ms": 0,
+      "message": null,
+      "card": null
+    },
+    "trace": {
+      "signals": [
+        "lastIntervention agoMs 27961 < 30000 cooldown",
+        "lastIntervention target shipping-banner",
+        "delivery_gap offer still relevant but on cooldown"
+      ],
+      "hypothesis": "Shopper bounced checkout->cart again but we already nudged on the delivery gap 28s ago, within the 30s cooldown window.",
+      "decision": "noop",
+      "confidence": 0.9,
+      "why": "Cooldown of 30s since last intervention hasn't elapsed (27961ms), and policy forbids repeating the same target anyway, so must stay silent this tick."
+    }
+  },
+  {
+    "action": {
+      "action": "card",
+      "target": "promo-code",
+      "style": null,
+      "duration_ms": 20000,
+      "message": null,
+      "card": {
+        "template": "missed_discount",
+        "slots": {
+          "code": "SAREE200",
+          "saving": 200
+        },
+        "title": null,
+        "body": null,
+        "cta": {
+          "kind": "apply_code",
+          "label": "Apply SAREE200",
+          "value": "SAREE200"
+        }
+      }
+    },
+    "trace": {
+      "signals": [
+        "cart↔checkout bounce",
+        "dwell checkout 10s",
+        "missed_discount offer SAREE200 unused",
+        "lastIntervention target=shipping-banner 35.8s ago"
+      ],
+      "hypothesis": "Shopper bouncing between cart and checkout on a ৳1,950 saree order hasn't applied an available discount code.",
+      "decision": "card promo-code (missed_discount)",
+      "confidence": 0.72,
+      "why": "Delivery_gap offer exists too but its target (shipping-banner) was just used and must not repeat, so the next best concrete actionable fact is the unused SAREE200 code."
+    }
+  },
+  {
+    "action": {
+      "action": "card",
+      "target": "promo-code",
+      "style": null,
+      "duration_ms": 20000,
+      "message": null,
+      "card": {
+        "template": "missed_discount",
+        "slots": {
+          "code": "SAREE200",
+          "saving": 200
+        },
+        "title": null,
+        "body": null,
+        "cta": {
+          "kind": "apply_code",
+          "label": "Apply SAREE200",
+          "value": "SAREE200"
+        }
+      }
+    },
+    "trace": {
+      "signals": [
+        "cart<->checkout bounce twice",
+        "delivery_gap offer target shipping-banner already used (lastIntervention)",
+        "missed_discount offer SAREE200 available on cart item",
+        "dwell checkout 10s"
+      ],
+      "hypothesis": "Shopper is hesitating on checkout, bouncing back to cart; already nudged about free delivery gap so repeating that target is barred.",
+      "decision": "card promo-code missed_discount",
+      "confidence": 0.72,
+      "why": "delivery_gap would normally take priority but its target shipping-banner was just used, so the next best concrete actionable fact is the SAREE200 code saving ৳200."
+    }
+  },
+  {
+    "action": {
+      "action": "card",
+      "target": "promo-code",
+      "style": null,
+      "duration_ms": 20000,
+      "message": null,
+      "card": {
+        "template": "missed_discount",
+        "slots": {
+          "code": "SAREE200",
+          "saving": 200
+        },
+        "title": null,
+        "body": null,
+        "cta": {
+          "kind": "apply_code",
+          "label": "Apply SAREE200",
+          "value": "SAREE200"
+        }
+      }
+    },
+    "trace": {
+      "signals": [
+        "cart→checkout→cart bounce",
+        "missed_discount offer SAREE200 unused",
+        "delivery_gap offer already surfaced on shipping-banner 59s ago"
+      ],
+      "hypothesis": "Shopper bounced off checkout without applying available saree discount, likely still deciding.",
+      "decision": "card promo-code (missed_discount)",
+      "confidence": 0.7,
+      "why": "delivery_gap would normally win on checkout→cart bounce but its target shipping-banner was just used by lastIntervention, so acting on the other qualifying offer (missed_discount) respects the no-repeat-target rule."
+    }
+  },
+  {
+    "action": {
+      "action": "card",
+      "target": "promo-code",
+      "style": null,
+      "duration_ms": 20000,
+      "message": null,
+      "card": {
+        "template": "missed_discount",
+        "slots": {
+          "code": "SAREE200",
+          "saving": 200
+        },
+        "title": null,
+        "body": null,
+        "cta": {
+          "kind": "apply_code",
+          "label": "Apply SAREE200",
+          "value": "SAREE200"
+        }
+      }
+    },
+    "trace": {
+      "signals": [
+        "cart<->checkout bounce twice",
+        "shipping-banner already used 70862ms ago",
+        "missed_discount offer SAREE200 ৳200 off active",
+        "cart total ৳1950"
+      ],
+      "hypothesis": "Shopper bouncing between cart and checkout is hesitating on price; delivery_gap would normally take priority but its target was already used and can't repeat.",
+      "decision": "card promo-code (missed_discount)",
+      "confidence": 0.62,
+      "why": "Delivery gap card is blocked by anti-repeat-target rule (shipping-banner used 70s ago), so the next best concrete offer with checkout friction is the SAREE200 discount."
+    }
+  },
+  {
+    "action": {
+      "action": "card",
+      "target": "promo-code",
+      "style": null,
+      "duration_ms": 20000,
+      "message": null,
+      "card": {
+        "template": "missed_discount",
+        "slots": {
+          "code": "SAREE200",
+          "saving": 200
+        },
+        "title": null,
+        "body": null,
+        "cta": {
+          "kind": "apply_code",
+          "label": "Apply SAREE200",
+          "value": "SAREE200"
+        }
+      }
+    },
+    "trace": {
+      "signals": [
+        "cart↔checkout bounce twice",
+        "missed_discount offer SAREE200 unused",
+        "delivery_gap offer already targeted shipping-banner 83.6s ago"
+      ],
+      "hypothesis": "Shopper is hesitating between cart and checkout without applying an available discount code.",
+      "decision": "card promo-code",
+      "confidence": 0.7,
+      "why": "delivery_gap would normally win on checkout-cart friction but its target shipping-banner was already used and must not repeat, so the next best concrete offer (SAREE200 code) is surfaced."
+    }
+  }
+]

@@ -1,0 +1,328 @@
+[
+  {
+    "slug": "chaa-break-mug",
+    "name": "Chaa Break Mug",
+    "price": 520,
+    "sizes": [],
+    "category": "caps-mugs",
+    "tags": [
+      "caps-mugs"
+    ],
+    "similar": [
+      "adda-mug",
+      "bangla-cap-lal-sobuz"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "adda-mug",
+    "name": "Adda Mug",
+    "price": 480,
+    "sizes": [],
+    "category": "caps-mugs",
+    "tags": [
+      "caps-mugs"
+    ],
+    "similar": [
+      "chaa-break-mug",
+      "bangla-cap-lal-sobuz"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "bangla-cap-lal-sobuz",
+    "name": "Bangla Cap Lal Sobuz",
+    "price": 500,
+    "sizes": [],
+    "category": "caps-mugs",
+    "tags": [
+      "caps-mugs"
+    ],
+    "similar": [
+      "chaa-break-mug",
+      "adda-mug"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "rickshaw-painting-cap",
+    "name": "Rickshaw Painting Cap",
+    "price": 450,
+    "sizes": [],
+    "category": "caps-mugs",
+    "tags": [
+      "caps-mugs"
+    ],
+    "similar": [
+      "chaa-break-mug",
+      "adda-mug"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "monsoon-grey-hoodie",
+    "name": "Monsoon Grey Hoodie",
+    "price": 1950,
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "category": "hoodies",
+    "tags": [
+      "hoodies"
+    ],
+    "similar": [
+      "padma-bridge-hoodie",
+      "dhaka-traffic-hoodie"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "padma-bridge-hoodie",
+    "name": "Padma Bridge Hoodie",
+    "price": 2100,
+    "sizes": [
+      "M",
+      "L",
+      "XL"
+    ],
+    "category": "hoodies",
+    "tags": [
+      "hoodies"
+    ],
+    "similar": [
+      "monsoon-grey-hoodie",
+      "dhaka-traffic-hoodie"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "dhaka-traffic-hoodie",
+    "name": "Dhaka Traffic Hoodie",
+    "price": 1650,
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "category": "hoodies",
+    "tags": [
+      "hoodies"
+    ],
+    "similar": [
+      "monsoon-grey-hoodie",
+      "padma-bridge-hoodie"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "sundarban-tiger-hoodie",
+    "name": "Sundarban Tiger Hoodie",
+    "price": 1800,
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "category": "hoodies",
+    "tags": [
+      "hoodies"
+    ],
+    "similar": [
+      "monsoon-grey-hoodie",
+      "padma-bridge-hoodie"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "boishakhi-red-polo",
+    "name": "Boishakhi Red Polo",
+    "price": 900,
+    "sizes": [
+      "S",
+      "M",
+      "L"
+    ],
+    "category": "polos",
+    "tags": [
+      "polos"
+    ],
+    "similar": [
+      "desher-mati-polo",
+      "chattogram-navy-polo"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": true
+  },
+  {
+    "slug": "desher-mati-polo",
+    "name": "Desher Mati Polo",
+    "price": 850,
+    "sizes": [
+      "M",
+      "L",
+      "XL"
+    ],
+    "category": "polos",
+    "tags": [
+      "polos"
+    ],
+    "similar": [
+      "boishakhi-red-polo",
+      "chattogram-navy-polo"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "chattogram-navy-polo",
+    "name": "Chattogram Navy Polo",
+    "price": 1100,
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "category": "polos",
+    "tags": [
+      "polos"
+    ],
+    "similar": [
+      "boishakhi-red-polo",
+      "desher-mati-polo"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "ekushey-polo",
+    "name": "Ekushey Polo",
+    "price": 950,
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "category": "polos",
+    "tags": [
+      "polos"
+    ],
+    "similar": [
+      "boishakhi-red-polo",
+      "desher-mati-polo"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "ilish-bhaja-tee",
+    "name": "Ilish Bhaja Tee",
+    "price": 550,
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "category": "t-shirts",
+    "tags": [
+      "t-shirts"
+    ],
+    "similar": [
+      "rickshaw-art-tee",
+      "neon-rickshaw-tee"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "rickshaw-art-tee",
+    "name": "Rickshaw Art Tee",
+    "price": 650,
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "category": "t-shirts",
+    "tags": [
+      "t-shirts"
+    ],
+    "similar": [
+      "ilish-bhaja-tee",
+      "neon-rickshaw-tee"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "neon-rickshaw-tee",
+    "name": "Neon Rickshaw Tee",
+    "price": 1200,
+    "sizes": [
+      "M",
+      "L"
+    ],
+    "category": "t-shirts",
+    "tags": [
+      "t-shirts"
+    ],
+    "similar": [
+      "ilish-bhaja-tee",
+      "rickshaw-art-tee"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  },
+  {
+    "slug": "banana-tshirt",
+    "name": "Banana Tshirt",
+    "price": 300,
+    "sizes": [
+      "M"
+    ],
+    "category": "t-shirts",
+    "tags": [
+      "t-shirts"
+    ],
+    "similar": [
+      "ilish-bhaja-tee",
+      "rickshaw-art-tee"
+    ],
+    "fit_notes": null,
+    "in_stock": true,
+    "low_stock": false
+  }
+]
