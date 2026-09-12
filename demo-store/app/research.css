@@ -1,0 +1,323 @@
+/* Research page (`/sessions`, `/sessions/[id]`) — utilitarian, information
+   dense, tool not landing page. Deliberately its own stylesheet, separate
+   from globals.css (storefront look), since this UI is for the team, not
+   shoppers. System font stack + tabular numerics; monospace for ids/targets. */
+
+.research-page {
+  max-width: 1400px;
+  min-width: 1024px;
+  margin: 0 auto;
+  padding: 24px 28px 80px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  line-height: 1.4;
+  color: #1a1a1a;
+}
+
+.research-page h1 {
+  font-size: 18px;
+  margin: 0 0 4px;
+}
+
+.research-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 16px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 12px;
+  margin-bottom: 16px;
+}
+
+.research-filters {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  font-size: 12px;
+}
+.research-filters label {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  padding: 3px 8px;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  cursor: pointer;
+}
+.research-filter-on {
+  background: #eef4ff;
+  border-color: #9db9e8 !important;
+}
+
+/* Outcomes (server/RESEARCH.md "Outcomes" section) — GET /sessions/stats
+   rates strip above the sessions table, and the per-session outcome chip
+   in the table itself. */
+.research-stats-strip {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  font-size: 12px;
+  color: #555;
+  background: #fafafa;
+  border: 1px solid #eee;
+  border-radius: 3px;
+  padding: 6px 10px;
+  margin-bottom: 12px;
+}
+.research-outcome-chip {
+  font-size: 11px;
+  color: #555;
+  white-space: nowrap;
+}
+
+.research-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.research-actions button {
+  font: inherit;
+  font-size: 12px;
+  padding: 6px 10px;
+  border: 1px solid #999;
+  border-radius: 3px;
+  background: #f6f6f6;
+  cursor: pointer;
+}
+.research-actions button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+.research-danger {
+  border-color: #b5321e !important;
+  color: #b5321e;
+}
+
+.research-mono,
+.research-num {
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+}
+.research-num {
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+.research-muted {
+  color: #777;
+}
+
+/* ---- sessions table -------------------------------------------------- */
+
+.research-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12.5px;
+}
+.research-table th,
+.research-table td {
+  padding: 6px 10px;
+  border-bottom: 1px solid #eee;
+  text-align: left;
+  vertical-align: top;
+}
+.research-table th {
+  color: #777;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 10.5px;
+  letter-spacing: 0.03em;
+}
+.research-highlight {
+  color: #b5321e;
+  font-weight: 600;
+}
+
+.research-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.research-chip {
+  background: #f0f0f0;
+  border-radius: 3px;
+  padding: 1px 6px;
+  font-size: 11px;
+}
+
+.research-tag-yes {
+  color: #1a6b2f;
+  font-weight: 600;
+}
+.research-tag-no {
+  color: #777;
+}
+.research-tag {
+  background: #eee;
+  border-radius: 3px;
+  padding: 0 5px;
+  font-size: 11px;
+}
+
+/* ---- empty states ------------------------------------------------------ */
+
+.research-empty {
+  border: 1px dashed #ccc;
+  border-radius: 4px;
+  padding: 32px;
+  text-align: center;
+  color: #444;
+}
+.research-empty-hint {
+  color: #888;
+  font-size: 12px;
+}
+.research-empty-warn {
+  border-color: #d8a13a;
+  background: #fdf7ea;
+}
+.research-empty-error {
+  border-color: #b5321e;
+  background: #fdf0ee;
+}
+
+/* ---- timeline ------------------------------------------------------- */
+
+.research-timeline {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid #ddd;
+}
+.research-timeline-head {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: #777;
+  padding: 6px 0;
+  border-bottom: 1px solid #ddd;
+  position: sticky;
+  top: 0;
+  background: #fff;
+}
+.research-timeline-head.research-3col,
+.research-row.research-3col {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.research-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  padding: 6px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+.research-row-collapsed {
+  background: #fafafa;
+}
+
+.research-cell-event,
+.research-cell-decision {
+  min-width: 0;
+  word-break: break-word;
+}
+
+.research-label-actions {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  margin-top: 3px;
+}
+.research-label-actions button {
+  font-size: 10.5px;
+  padding: 1px 6px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  background: #fafafa;
+  cursor: pointer;
+}
+.research-note-input {
+  font-size: 11px;
+  padding: 1px 5px;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  width: 120px;
+}
+
+.research-labels {
+  display: flex;
+  gap: 6px;
+  margin-top: 3px;
+  flex-wrap: wrap;
+}
+.research-label-help,
+.research-label-quiet {
+  border-radius: 3px;
+  padding: 1px 6px;
+  font-size: 10.5px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.research-label-help {
+  background: #e6f4ea;
+  color: #1a6b2f;
+}
+.research-label-quiet {
+  background: #eef0f2;
+  color: #555;
+}
+.research-labels button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: inherit;
+  font-size: 11px;
+  padding: 0;
+}
+
+.research-decision {
+  border-left: 3px solid #ccc;
+  padding-left: 6px;
+  margin-bottom: 4px;
+}
+.research-decision-acted {
+  border-left-color: #b5321e;
+}
+.research-decision-head {
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+  flex-wrap: wrap;
+}
+.research-decision-detail {
+  color: #666;
+  font-size: 11.5px;
+}
+.research-badge-delivered {
+  color: #1a6b2f;
+  font-size: 10.5px;
+}
+.research-badge-suppressed {
+  color: #999;
+  font-size: 10.5px;
+}
+.research-badge-replay {
+  background: #eef4ff;
+  color: #345;
+  border-radius: 3px;
+  padding: 0 5px;
+  font-size: 10px;
+  margin-left: 4px;
+}
+
+.research-replay-panel {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+}
+.research-diff-summary {
+  color: #345;
+}
