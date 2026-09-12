@@ -993,6 +993,7 @@ export function buildState(session) {
     recent,
     dwell,
     lastIntervention,
+    sessionId: session.id, // lets deciders keep per-session memory (fallback no-repeat)
     // NOTE: named `page_context` (not `page`) — `state.page` is already the
     // plain page-path STRING relied on throughout gate.js/tick.js/decide.md;
     // reusing that key for this new fact block would silently break every

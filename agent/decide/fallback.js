@@ -252,39 +252,111 @@ const SIGNAL_BUILDERS = {
 
 // ---- generic (no-signal) grounded message, by page type -----------------
 
-function genericMessage(state) {
+// Per-session memory of generic messages already shown, so a shopper never
+// sees the same fact twice (owner finding 2026-09-12: every product page said
+// "Returns are free within 30 days"). Bounded; sessions are evicted FIFO.
+const shownGeneric = new Map();
+const SHOWN_GENERIC_MAX_SESSIONS = 2000;
+function rememberShown(sid, key) {
+  if (!sid) return;
+  if (!shownGeneric.has(sid)) {
+    if (shownGeneric.size >= SHOWN_GENERIC_MAX_SESSIONS) shownGeneric.delete(shownGeneric.keys().next().value);
+    shownGeneric.set(sid, new Set());
+  }
+  shownGeneric.get(sid).add(key);
+}
+function sessionKey(state) {
+  return state?.sessionId ?? state?.session_id ?? state?.session ?? null;
+}
+
+/**
+ * genericCandidates(state) -> ordered [{key, target, message}] built ONLY
+ * from grounded facts (page scan, catalog product, cart economics, offers,
+ * comparison, business policies). Most page-specific first; the caller
+ * picks the first one not already shown in this session.
+ */
+function genericCandidates(state) {
   const page = state.page || "";
   const currency = state.business?.currency;
+  const pc = state.page_context || null;
+  const prod = state.product || null;
+  const pcProd = pc?.product || null;
+  const title = pcProd?.title || prod?.title || prod?.name || null;
+  const price = pcProd?.price ?? prod?.price ?? null;
+  const out = [];
+  const add = (key, target, message) => { if (message) out.push({ key, target, message }); };
+  const isProduct = page.startsWith("/product") || page.startsWith("/p/") || pc?.type === "product";
+  const isCart = page === "/cart" || page.startsWith("/checkout") || pc?.type === "cart" || pc?.type === "checkout";
 
-  if (page.startsWith("/product")) {
-    const days = state.business?.returns?.window_days ?? state.product?.returns_window_days;
-    if (days) return { target: null, message: `Returns are free within ${days} days if it's not right.` };
+  if (isProduct) {
+    const low = pc?.stock?.lowStockN;
+    if (low != null && low > 0 && low <= 10) add("low_stock", "add-to-cart", `Only ${low} left${title ? ` of the ${title}` : ""} — it may not be here tomorrow.`);
+    if (pc?.variants?.unavailableJoined && pc?.variants?.availableJoined) add("size_avail", "size-picker", `${pc.variants.unavailableJoined} is sold out here; ${pc.variants.availableJoined} still in stock.`);
+    const rating = pc?.rating;
+    const rv = rating && typeof rating === "object" ? rating.value ?? rating.rating : rating;
+    const rc = rating && typeof rating === "object" ? rating.count ?? rating.reviews : null;
+    if (rv != null && rc) add("rating", "product-title", `Rated ${rv} by ${rc} shoppers — a safe pick if you're unsure.`);
+    else if (rv != null) add("rating", "product-title", `Rated ${rv} by other shoppers.`);
+    const cmp = Array.isArray(state.comparison) ? state.comparison.find((c) => c && c.title && c.delta != null && c.delta !== 0) : null;
+    if (cmp) add("compare_" + (cmp.slug || cmp.title), "price", cmp.delta > 0
+      ? `The ${cmp.title} you looked at is ${formatMoney(Math.abs(cmp.delta), currency)} cheaper than this one.`
+      : `This is ${formatMoney(Math.abs(cmp.delta), currency)} cheaper than the ${cmp.title} you looked at.`);
+    if (pc?.delivery?.text) add("delivery_text", "shipping-info", pc.delivery.text.slice(0, 120));
+    const sizes = Array.isArray(prod?.sizes) ? prod.sizes : null;
+    if (sizes && sizes.length > 1) add("sizes", "size-picker", `Comes in ${sizes.length} sizes (${sizes.slice(0, 5).join(", ")}). Between two? Take the larger one — returns are free.`);
+    if (prod?.fit_notes) add("fit_notes", "size-picker", String(prod.fit_notes).slice(0, 140));
+    if (Array.isArray(pc?.badges) && pc.badges.length) add("badge", "product-title", `Marked "${pc.badges[0]}" in this store.`);
+    const freeOver = state.business?.delivery?.free_over;
+    if (freeOver === 0) add("free_delivery", "shipping-info", `Delivery is free on this order — no minimum.`);
+    else if (freeOver && price != null && price < freeOver) add("free_over_gap", "shipping-info", `Add ${formatMoney(freeOver - price, currency)} more and delivery is free.`);
+    const days = state.business?.returns?.window_days ?? prod?.returns_window_days;
+    if (days) add("returns", null, `Returns are free within ${days} days if it's not right.`);
   }
 
-  if (page === "/cart" || page === "/checkout") {
+  if (isCart) {
     const missed = firstOffer(state, "missed_discount");
-    if (missed?.code && missed.saving != null) {
-      return { target: "promo-code", message: `Use ${missed.code} to save ${formatMoney(missed.saving, currency)} on your order.` };
-    }
+    if (missed?.code && missed.saving != null) add("promo_" + missed.code, "promo-code", `Use ${missed.code} to save ${formatMoney(missed.saving, currency)} on your order.`);
     const gap = firstOffer(state, "delivery_gap") || firstOffer(state, "cart_under_threshold");
-    if (gap?.gap != null) {
-      return { target: gap.target_hint || "shipping-banner", message: `You're ${formatMoney(gap.gap, currency)} away from free delivery.` };
-    }
+    if (gap?.gap != null && gap.gap > 0) add("delivery_gap", gap.target_hint || "cart-total", `You're ${formatMoney(gap.gap, currency)} away from free delivery.`);
+    const ce = state.cart_economics || null;
+    if (ce && ce.item_count != null && ce.subtotal != null) add("cart_summary", "cart-total", `${ce.item_count} item${ce.item_count === 1 ? "" : "s"}, ${formatMoney(ce.subtotal, currency)} — ${ce.gap === 0 || state.business?.delivery?.free_over === 0 ? "delivery is free" : "shipping is calculated at checkout"}.`);
     const freeOver = state.business?.delivery?.free_over;
-    if (freeOver) return { target: "shipping-banner", message: `Free delivery on orders over ${formatMoney(freeOver, currency)}.` };
+    if (freeOver === 0) add("free_delivery_cart", "cart-total", `Delivery on this order is free.`);
+    else if (freeOver) add("free_over", "shipping-banner", `Free delivery on orders over ${formatMoney(freeOver, currency)}.`);
+    if (pc?.delivery?.text) add("delivery_text_cart", "cart-total", pc.delivery.text.slice(0, 120));
+    const days = state.business?.returns?.window_days;
+    if (days) add("returns_cart", null, `Everything here can be returned free within ${days} days.`);
   }
 
   if (state.search && state.search.results === 0 && !firstOffer(state, "search_help")) {
-    return { target: null, message: "Try a broader search term." };
+    add("search_broader", null, `No matches for "${state.search.q ?? "that"}" — try a broader term or browse a category.`);
+  }
+  if (pc?.type === "category" && pc?.category) {
+    const c = pc.category;
+    if (c.count != null) add("category_count", null, `${c.count} items in ${c.name || "this category"} — filters are at the top.`);
   }
 
+  // Site-wide facts last, so they only show when nothing page-specific is left.
   const freeOver = state.business?.delivery?.free_over;
-  if (freeOver) return { target: "shipping-banner", message: `Free delivery on orders over ${formatMoney(freeOver, currency)}.` };
+  if (freeOver === 0) add("free_delivery_any", null, `Delivery is free in this store — no minimum.`);
+  else if (freeOver) add("free_over_any", "shipping-banner", `Free delivery on orders over ${formatMoney(freeOver, currency)}.`);
   const days = state.business?.returns?.window_days;
-  if (days) return { target: null, message: `Returns are free within ${days} days if it's not right.` };
-
-  return null;
+  if (days) add("returns_any", null, `Returns are free within ${days} days if it's not right.`);
+  return out;
 }
+
+function genericMessage(state) {
+  const sid = sessionKey(state);
+  const seen = (sid && shownGeneric.get(sid)) || new Set();
+  const candidates = genericCandidates(state);
+  const pick = candidates.find((c) => !seen.has(c.key) && !seen.has("msg:" + c.message));
+  if (!pick) return null; // every grounded fact already shown: stay quiet rather than repeat
+  rememberShown(sid, pick.key);
+  rememberShown(sid, "msg:" + pick.message);
+  return { target: pick.target, message: pick.message, factKey: pick.key };
+}
+
+export { genericCandidates, genericMessage };
 
 /**
  * decideFallback(state, { reason } = {}) -> { action, trace }
