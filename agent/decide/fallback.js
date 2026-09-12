@@ -259,60 +259,6 @@ const SIGNAL_BUILDERS = {
  * comparison, business policies). Most page-specific first; the caller
  * picks the first one not already shown in this session.
  */
-// AGENT_SHOWCASE=1: scripted, page-specific lines shown FIRST (stage-safe demo
-// copy; not derived from live store facts — see OPS.md "Showcase mode").
-const SHOWCASE = process.env.AGENT_SHOWCASE === "1";
-function showcaseCandidates(state, add) {
-  const page = state.page || "";
-  const pc = state.page_context || null;
-  const title = pc?.product?.title || state.product?.title || null;
-  const short = title ? String(title).replace(/\s+(High|Mid|Low|Pro|SE|2\.0)$/i, "") : null;
-  const onThe = short ? ` on the ${short}` : "";
-  const name = short || "this one";
-  const isProduct = page.startsWith("/product") || page.startsWith("/p/") || pc?.type === "product";
-  const isCart = page === "/cart" || pc?.type === "cart";
-  const isCheckout = page.startsWith("/checkout") || pc?.type === "checkout";
-  const isSearch = page.startsWith("/search") || pc?.type === "search";
-  const isCategory = page.startsWith("/c/") || pc?.type === "category";
-  const isHome = page === "/" || pc?.type === "home";
-  // card(target, title, body, cta) -> anchored card next to the element; toasts are add(key,target,msg)
-  const card = (key, target, ttl, body, cta) => add(key, target, body, { title: ttl, body, cta: cta || { kind: "none", label: "Got it", value: null } });
-  if (isHome) {
-    add("sc_h1", null, `Welcome back. Clothing & Shoes has 29 new arrivals this week — most shoppers start there.`);
-    add("sc_h2", null, `Free delivery on every order today, no minimum. Cash on delivery available.`);
-  }
-  if (isCategory) {
-    add("sc_g1", null, `Most shoppers here start with the Summit Trail Chino — 1,255 reviews, 4.0 stars.`);
-    add("sc_g2", null, `Sort by rating to see the two items with 4.5+ stars first.`);
-  }
-  if (isProduct) {
-    const sizes = (Array.isArray(state.product?.sizes) ? state.product.sizes : []).map((x) => String(x).toUpperCase());
-    const pcSizes = (pc?.variants?.options || []).map((v) => String(v?.name || "").toUpperCase());
-    const hasL = sizes.includes("L") || pcSizes.includes("L");
-    card("sc_p1", "size-picker", "Between two sizes?", `Most buyers at your height took L${onThe} — and returns are free either way.`, hasL ? { kind: "pick_size", label: "Try size L", value: "L" } : null);
-    add("sc_p2", "add-to-cart", `Only 3 left in L for the ${name}. Order in the next 2 hours and it ships tomorrow.`);
-    add("sc_p3", "product-title", `${name} is rated 4.0 by 1,255 shoppers — the safe pick in this category.`);
-    card("sc_p4", "shipping-info", "Delivery & returns", `${name} ships free in 5–7 days. Express 1–2 days at checkout. 30-day free returns.`);
-    add("sc_p5", "price", `Price check: ${name} is at its lowest price in 30 days.`);
-    add("sc_p6", "color-picker", `Forest Green is the best seller in this style; Slate Grey restocked yesterday.`);
-  }
-  if (isCart) {
-    card("sc_c1", "promo-code", "You have a code", `NEXT10 takes 10% off this order. Want me to apply it?`, { kind: "apply_code", label: "Apply NEXT10", value: "NEXT10" });
-    add("sc_c2", "cart-total", `Delivery on this order is free. Arrives in 5–7 days.`);
-    card("sc_c3", "begin-checkout", "Almost there", `Checkout takes about 40 seconds — cash on delivery, no card needed.`);
-    add("sc_c4", "cart-items", `Everything in your cart can be returned free within 30 days.`);
-  }
-  if (isCheckout) {
-    card("sc_k1", "address-form", "Delivery estimate", `Orders placed before 6 pm ship the same day. Dhaka addresses arrive in 2–3 days.`);
-    add("sc_k2", "payment-options", `Cash on delivery is the most used option here — no card details needed.`);
-    add("sc_k3", "checkout-total", `Your NEXT10 discount is applied. Total includes free delivery.`);
-  }
-  if (isSearch) {
-    add("sc_s1", "search-input", `Nothing matched that. Try a shorter word, or browse Clothing & Shoes — 29 items.`);
-    add("sc_s2", null, `Tip: search by brand — "Summit Trail" or "Aurora" — to jump straight to a collection.`);
-  }
-}
-
 function genericCandidates(state) {
   const page = state.page || "";
   const currency = state.business?.currency;
@@ -323,7 +269,6 @@ function genericCandidates(state) {
   const price = pcProd?.price ?? prod?.price ?? null;
   const out = [];
   const add = (key, target, message, cardSpec) => { if (message) out.push({ key, target, message, card: cardSpec || null }); };
-  if (SHOWCASE) showcaseCandidates(state, add);
   const isProduct = page.startsWith("/product") || page.startsWith("/p/") || pc?.type === "product";
   const isCart = page === "/cart" || page.startsWith("/checkout") || pc?.type === "cart" || pc?.type === "checkout";
 
