@@ -268,28 +268,48 @@ function showcaseCandidates(state, add) {
   const title = pc?.product?.title || state.product?.title || null;
   const short = title ? String(title).replace(/\s+(High|Mid|Low|Pro|SE|2\.0)$/i, "") : null;
   const onThe = short ? ` on the ${short}` : "";
+  const name = short || "this one";
   const isProduct = page.startsWith("/product") || page.startsWith("/p/") || pc?.type === "product";
-  const isCart = page === "/cart" || page.startsWith("/checkout") || pc?.type === "cart";
+  const isCart = page === "/cart" || pc?.type === "cart";
+  const isCheckout = page.startsWith("/checkout") || pc?.type === "checkout";
   const isSearch = page.startsWith("/search") || pc?.type === "search";
   const isCategory = page.startsWith("/c/") || pc?.type === "category";
-  if (isProduct) {
-    add("sc_p1", "size-picker", `Torn between M and L${onThe}? Most buyers at your height took L — and returns are free.`);
-    add("sc_p2", "add-to-cart", `Only 3 left in L. Order in the next 2 hours and it ships tomorrow.`);
-    add("sc_p3", "product-title", `Rated 4.0 by 1,255 shoppers — the safe pick in this category.`);
-    add("sc_p4", "shipping-info", `Free delivery, 5–7 days. Need it faster? Express 1–2 days at checkout.`);
-    add("sc_p5", "price", `Price check: this is the lowest it's been in 30 days.`);
-  }
-  if (isCart) {
-    add("sc_c1", "promo-code", `Use NEXT10 to save 10% on this order — type it in the promo box.`);
-    add("sc_c2", "cart-total", `Delivery on this order is free. Arrives in 5–7 days.`);
-    add("sc_c3", "begin-checkout", `Checkout takes about 40 seconds — cash on delivery, no card needed.`);
-    add("sc_c4", "cart-items", `Everything in your cart can be returned free within 30 days.`);
-  }
-  if (isSearch) {
-    add("sc_s1", "search-input", `Nothing matched that. Try a shorter word, or browse Clothing & Shoes — 29 items.`);
+  const isHome = page === "/" || pc?.type === "home";
+  // card(target, title, body, cta) -> anchored card next to the element; toasts are add(key,target,msg)
+  const card = (key, target, ttl, body, cta) => add(key, target, body, { title: ttl, body, cta: cta || { kind: "none", label: "Got it", value: null } });
+  if (isHome) {
+    add("sc_h1", null, `Welcome back. Clothing & Shoes has 29 new arrivals this week — most shoppers start there.`);
+    add("sc_h2", null, `Free delivery on every order today, no minimum. Cash on delivery available.`);
   }
   if (isCategory) {
     add("sc_g1", null, `Most shoppers here start with the Summit Trail Chino — 1,255 reviews, 4.0 stars.`);
+    add("sc_g2", null, `Sort by rating to see the two items with 4.5+ stars first.`);
+  }
+  if (isProduct) {
+    const sizes = (Array.isArray(state.product?.sizes) ? state.product.sizes : []).map((x) => String(x).toUpperCase());
+    const pcSizes = (pc?.variants?.options || []).map((v) => String(v?.name || "").toUpperCase());
+    const hasL = sizes.includes("L") || pcSizes.includes("L");
+    card("sc_p1", "size-picker", "Between two sizes?", `Most buyers at your height took L${onThe} — and returns are free either way.`, hasL ? { kind: "pick_size", label: "Try size L", value: "L" } : null);
+    add("sc_p2", "add-to-cart", `Only 3 left in L for the ${name}. Order in the next 2 hours and it ships tomorrow.`);
+    add("sc_p3", "product-title", `${name} is rated 4.0 by 1,255 shoppers — the safe pick in this category.`);
+    card("sc_p4", "shipping-info", "Delivery & returns", `${name} ships free in 5–7 days. Express 1–2 days at checkout. 30-day free returns.`);
+    add("sc_p5", "price", `Price check: ${name} is at its lowest price in 30 days.`);
+    add("sc_p6", "color-picker", `Forest Green is the best seller in this style; Slate Grey restocked yesterday.`);
+  }
+  if (isCart) {
+    card("sc_c1", "promo-code", "You have a code", `NEXT10 takes 10% off this order. Want me to apply it?`, { kind: "apply_code", label: "Apply NEXT10", value: "NEXT10" });
+    add("sc_c2", "cart-total", `Delivery on this order is free. Arrives in 5–7 days.`);
+    card("sc_c3", "begin-checkout", "Almost there", `Checkout takes about 40 seconds — cash on delivery, no card needed.`);
+    add("sc_c4", "cart-items", `Everything in your cart can be returned free within 30 days.`);
+  }
+  if (isCheckout) {
+    card("sc_k1", "address-form", "Delivery estimate", `Orders placed before 6 pm ship the same day. Dhaka addresses arrive in 2–3 days.`);
+    add("sc_k2", "payment-options", `Cash on delivery is the most used option here — no card details needed.`);
+    add("sc_k3", "checkout-total", `Your NEXT10 discount is applied. Total includes free delivery.`);
+  }
+  if (isSearch) {
+    add("sc_s1", "search-input", `Nothing matched that. Try a shorter word, or browse Clothing & Shoes — 29 items.`);
+    add("sc_s2", null, `Tip: search by brand — "Summit Trail" or "Aurora" — to jump straight to a collection.`);
   }
 }
 
@@ -302,7 +322,7 @@ function genericCandidates(state) {
   const title = pcProd?.title || prod?.title || prod?.name || null;
   const price = pcProd?.price ?? prod?.price ?? null;
   const out = [];
-  const add = (key, target, message) => { if (message) out.push({ key, target, message }); };
+  const add = (key, target, message, cardSpec) => { if (message) out.push({ key, target, message, card: cardSpec || null }); };
   if (SHOWCASE) showcaseCandidates(state, add);
   const isProduct = page.startsWith("/product") || page.startsWith("/p/") || pc?.type === "product";
   const isCart = page === "/cart" || page.startsWith("/checkout") || pc?.type === "cart" || pc?.type === "checkout";
@@ -371,7 +391,7 @@ function genericMessage(state) {
   // denies are NOT remembered (they never reached the screen).
   const pick = candidates.find((c) => !delivered.has(c.message));
   if (!pick) return null; // every grounded fact already shown: stay quiet rather than repeat
-  return { target: pick.target, message: pick.message, factKey: pick.key };
+  return { target: pick.target, message: pick.message, factKey: pick.key, card: pick.card || null };
 }
 
 export { genericCandidates, genericMessage };
@@ -414,7 +434,7 @@ export function decideFallback(state, { reason = "unknown" } = {}) {
   const generic = genericMessage(state);
   if (generic) {
     return {
-      action: messageAction(generic.target, generic.message),
+      action: generic.card ? cardAction(generic.target, generic.card) : messageAction(generic.target, generic.message),
       trace: makeTrace(
         now,
         signalNames,

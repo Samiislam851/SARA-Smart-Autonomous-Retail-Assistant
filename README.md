@@ -8,7 +8,7 @@ Built for AI Tinkerers Dhaka's "Agents, Everywhere: Beyond the Chatbox"
 
 ## Demo video
 
-[`media/sara-explainer.mp4`](media/sara-explainer.mp4) — 1:17 rendered explainer (silent, all copy on screen).
+[`media/sara-explainer-narrated.mp4`](media/sara-explainer-narrated.mp4) — 1:17 rendered explainer with voiceover · [silent version](media/sara-explainer.mp4).
 
 [`media/sara-showcase-narrated.mp4`](media/sara-showcase-narrated.mp4) (narrated, 1:57) · [`media/sara-showcase.webm`](media/sara-showcase.webm) — 1:50 live run on the NextCart storefront (fallback decider, no LLM key). Toasts at 0:18, 0:34, 0:48, 1:08.
 
