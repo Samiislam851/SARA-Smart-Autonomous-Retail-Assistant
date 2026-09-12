@@ -744,7 +744,7 @@
   // add_to_cart and relied on the HOST PAGE to have its own listener
   // translating that into a real DOM action. That works for this repo's
   // own reference `web/` app (which wires one up) but not for an arbitrary
-  // "foreign" storefront (NextCart, Acme, or any future site) that
+  // "foreign" storefront (NextCart, TrendMerch, or any future site) that
   // never wrote one. These executors perform the action directly, against
   // the SAME `data-agent-target` attributes every site already exposes for
   // targeting/highlighting — no per-site glue code required.
@@ -2087,7 +2087,7 @@
       return autocomplete.indexOf("cc-") !== -1 || autocomplete.indexOf("one-time-code") !== -1;
     }
     // Search-input-only-fires-on-Enter defect class: a search box that
-    // filters live client-side as the shopper types (Acme — no
+    // filters live client-side as the shopper types (TrendMerch — no
     // Enter/submit at all) used to never emit `search` because the only
     // listener was a keydown-Enter one. isSearchInput() is the single
     // predicate every emission path below (Enter, debounced input, form
@@ -2111,7 +2111,7 @@
     // as a data-agent-search-results="<n>" attribute, checked in this order:
     // the search input itself, its closest <form>, then anywhere else on the
     // page (a results header/container). Both client-side-filtered result
-    // lists (attribute updates in place, no navigation — e.g. Acme)
+    // lists (attribute updates in place, no navigation — e.g. TrendMerch)
     // and SSR results pages (attribute present on load after a navigation —
     // e.g. NextCart's /search?q=...) are covered: this reads the attribute
     // immediately AND watches it via MutationObserver for up to 5s. A
@@ -2209,7 +2209,7 @@
       emitSearchQuery(target, q);
       watchSearchResults(target, q, el);
     }), true);
-    // Live-filter path (Acme etc.): no Enter/submit at all — the
+    // Live-filter path (TrendMerch etc.): no Enter/submit at all — the
     // shop filters as the shopper types. Debounced ~700ms after the last
     // keystroke, min 2 chars (avoids emitting on every single first
     // keystroke of a still-forming query). The (target, q) dedupe in
@@ -2407,6 +2407,7 @@
     // RESEARCH.md "Outcomes" section) — mirrors currentCardCta's pattern.
     var currentMessageId = null;
     var currentMessageShownAt = 0;
+    var MESSAGE_AUTO_HIDE_MS = 6000;
     function renderMessage(text, actionId) {
       var box = ensureMessageBox();
       cancelFade(box);
@@ -2417,6 +2418,9 @@
       if (state.messageTimer) clearTimeout(state.messageTimer);
       currentMessageId = actionId || null;
       currentMessageShownAt = Date.now();
+      // Auto-dismiss after MESSAGE_AUTO_HIDE_MS (owner request: toast-style,
+      // 6s); the tray still keeps the suggestion.
+      state.messageTimer = setTimeout(function () { hideMessage("ignored"); }, MESSAGE_AUTO_HIDE_MS);
     }
     // reason: outcome to report, default "dismiss" (× button).
     function hideMessage(reason) {
@@ -3996,7 +4000,7 @@
         "body.agx-dim::after{content:'';position:fixed;inset:0;background:rgba(20,20,20,.5);z-index:2147483000;pointer-events:none;}" +
         ".agx-spotlight{position:relative;z-index:2147483001;box-shadow:0 0 0 12px #fff;border-radius:4px;}" +
         "@media (prefers-reduced-motion: reduce){.agx-pulse{animation:none;}}" +
-        ".agx-message{position:fixed;right:20px;bottom:84px;z-index:2147483002;max-width:340px;background:#fff;border-left:3px solid #b5321e;padding:14px 16px;box-shadow:0 8px 30px rgba(0,0,0,.18);border-radius:3px;display:flex;gap:12px;align-items:flex-start;font:14px/1.4 system-ui,sans-serif;color:#1d1a17;}" +
+        ".agx-message{position:fixed;right:20px;top:20px;z-index:2147483002;max-width:360px;background:linear-gradient(135deg,#b5321e,#e0532f);border-left:4px solid #ffd166;padding:14px 16px;box-shadow:0 10px 34px rgba(181,50,30,.35);border-radius:10px;display:flex;gap:12px;align-items:flex-start;font:15px/1.4 system-ui,sans-serif;color:#fff;animation:agx-msg-in .35s ease-out;}@keyframes agx-msg-in{from{opacity:0;transform:translateY(-12px)}to{opacity:1;transform:none}}.agx-message button{color:#fff !important;}.agx-message-footer,.agx-message-why,.agx-message-row{color:rgba(255,255,255,.9);}" +
         ".agx-message button{background:none;border:0;color:#6f6a63;font-size:18px;line-height:1;padding:0;cursor:pointer;}" +
         /* Founder rule 2026-09-11: the card appears AT the thing the shopper
          * is looking at, not a fixed corner — .agx-page-card carries no

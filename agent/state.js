@@ -951,7 +951,7 @@ export function buildState(session) {
     // over — cart/dwell/facts are session-derived, not store-derived, and
     // sized independently of which site/catalog is loaded. Logged at
     // debug level (LOG_LEVEL=debug to see it) so a merchant's catalog
-    // growing (e.g. an imported Acme-sized store) is observable
+    // growing (e.g. an imported TrendMerch-sized store) is observable
     // without guessing from cold profiling.
     log.debug("business block size", {
       site: session.site || "default",
