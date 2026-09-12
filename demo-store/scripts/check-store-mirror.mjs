@@ -10,7 +10,7 @@
 // Run: node web/scripts/check-store-mirror.mjs
 // Wired into scripts/check.sh (repo root).
 //
-// Note: web/lib/{products,promos}.ts are parsed with a small brace-depth
+// Note: demo-store/lib/{products,promos}.ts are parsed with a small brace-depth
 // splitter + field regexes rather than a real TS parser — sufficient for
 // these files' plain object-literal-array shape. If that shape changes
 // substantially, update the parser here too.

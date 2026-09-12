@@ -42,7 +42,7 @@ const MESSAGE_MAX_CHARS = 140; // decider-authored copy is untrusted length-wise
 // "search") doesn't actually filter anything, so there is no results
 // header/container here to tag with the attribute. Kept for parity with
 // agent.js's reading logic (and for any future results page this store
-// grows) — see docs/ACME.md / docs/NEXTCART.md for the two real
+// grows) — see docs/TRENDMERCH.md / docs/NEXTCART.md for the two real
 // stores that DO expose the attribute today.
 const SEARCH_RESULTS_ATTR = "data-agent-search-results";
 function parseResultsCount(v: string | null): number | null {
@@ -63,7 +63,7 @@ function readSearchResultsCount(inputEl: HTMLElement | null): number | null {
   return parseResultsCount(el.getAttribute(SEARCH_RESULTS_ATTR));
 }
 // Search-input-only-fires-on-Enter defect class: a search box that filters
-// live client-side as the shopper types (Acme — no Enter/submit at
+// live client-side as the shopper types (TrendMerch — no Enter/submit at
 // all) used to never emit `search`. isSearchInput() is the single
 // predicate every emission path (Enter, debounced input, form submit) uses
 // to decide whether an <input> is a search box. Mirrors server/public/
@@ -88,7 +88,7 @@ function isSearchInput(el: Element | null): el is HTMLInputElement {
 
 // Metrics come over the same WS but aren't part of the fixed Event/Action/Trace
 // contract (server/metrics.js's snapshot() shape) — kept as a local, non-exported
-// type instead of touching web/lib/contracts.ts.
+// type instead of touching demo-store/lib/contracts.ts.
 type MetricsMessage = {
   kind: "metrics";
   ticks?: number;
@@ -2131,7 +2131,7 @@ export default function AgentWidget() {
       searchResultsTimer = setTimeout(stopSearchResultsWatch, 5000);
     };
     const searchInputDebounceTimers = new WeakMap<Element, ReturnType<typeof setTimeout>>();
-    // Live-filter path (Acme etc.): no Enter/submit at all — the shop
+    // Live-filter path (TrendMerch etc.): no Enter/submit at all — the shop
     // filters as the shopper types. Debounced ~700ms after the last
     // keystroke, min 2 chars.
     const onInput = (e: Event) => {

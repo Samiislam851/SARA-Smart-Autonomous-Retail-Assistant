@@ -1,9 +1,9 @@
-// Promo catalog — mirrors ../../server/store/promos.json (merchant-edited).
+// Promo catalog — mirrors ../../agent/store/promos.json (merchant-edited).
 //
 // Why a mirror and not a direct JSON import: the web Dockerfile builds with
 // `context: ./web` (see docker-compose.yml), so anything outside web/ is not
 // visible to `docker build` even with resolveJsonModule enabled. Keep this
-// file's data in lockstep with server/store/promos.json by hand, or run
+// file's data in lockstep with agent/store/promos.json by hand, or run
 // `node web/scripts/check-store-mirror.mjs` (wired into scripts/check.sh)
 // which diffs ids/values/slugs between the two and fails loudly on drift.
 //

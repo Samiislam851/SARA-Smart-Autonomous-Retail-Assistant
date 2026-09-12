@@ -177,11 +177,67 @@ Full guard reference: [`agent/POLICY.md`](agent/POLICY.md).
   agent: listing, product page (size chart, variants), cart, checkout, plus
   `/sessions` research pages for reviewing and labeling recorded live
   sessions.
-- **`storefront/`** — reserved for NextCart, a real Next.js 15 + MongoDB
-  store (300 products across 10 categories, promo codes, 4-step checkout,
-  mock login, admin) built independently and embedded as a second real
-  storefront. See [`docs/NEXTCART.md`](docs/NEXTCART.md) for the
-  integration runbook and [`storefront/README.md`](storefront/README.md).
+- **`storefront/`** — NextCart, a real Next.js 15 + MongoDB store (300
+  products across 10 categories, promo codes, 4-step checkout, mock login,
+  admin) built independently and embedded as a second real storefront via
+  `data-agent-target` attributes rather than DOM scanning. See
+  [`docs/NEXTCART.md`](docs/NEXTCART.md) for the integration runbook and
+  [`storefront/README.md`](storefront/README.md) for how to run it and the
+  full attribute table.
+
+## What the agent watches
+
+`agent/gate.js` scores ~20 friction/attention signals per event before
+ever asking the model — each becomes a `reason` string in `GET /health` /
+traces: zero/repeated-result search, total/element dwell, return visit,
+navigation friction, rage click, cart friction (gap to promo threshold),
+missed promo, similar-product-on-promo, search friction, product
+ping-pong, cart-visit-and-leave, return-to-product-after-cart, breadth
+without commit, exit intent, add-to-cart hesitation, variant churn,
+promo-focused-then-left-empty, search refine, scroll u-turn, page moment,
+idle, plus a periodic "floor" check and a page-fact/spec-diff check. Full
+per-signal semantics: [`docs/BEHAVIOR-MATRIX.md`](docs/BEHAVIOR-MATRIX.md).
+
+## Page-context scan
+
+`agent/public/agent.js` scans the current page's visible DOM (or reads
+`data-agent-target` attributes when the storefront provides them, as
+NextCart does) to build a lightweight `page_context` — what's on screen,
+prices, whether a promo/shipping banner is visible — sent alongside events
+so the decider can reason about what the shopper is actually looking at.
+
+## Fail-safe: fallback decider
+
+If the real LLM backend times out, errors, or returns a malformed
+response, `agent/decide/fallback.js` produces a deterministic decision
+instead of failing open/closed — no shopper-visible gap. `AGENT_MODE=fallback`
+runs this decider directly (no LLM call at all), useful with no model
+key/CLI configured. Disable with `AGENT_FALLBACK=off`.
+
+## Frequency controls
+
+Owner-facing knobs (`agent/POLICY.md` "Frequency & fatigue"), all exposed
+under `policy` in `GET /health`:
+
+| Var | Default (normal / demo) | What it limits |
+|---|---|---|
+| `AGENT_MAX_NUDGES_PER_SESSION` | 4 / 6 | total non-noop actions per session |
+| `AGENT_MAX_CARDS_PER_PAGEVIEW` | 1 / 2 | non-noop actions per page view |
+| `AGENT_SUPPRESS_AFTER_DISMISS` | true | same card template never re-shown after a dismiss |
+| `AGENT_CARD_TTL_MS` | 12000 | ms before a shown card auto-collapses to the tray |
+| `AGENT_COOLDOWN_MS` | 30000 (fixed floor) | min gap between any two non-noop actions |
+
+Plus two fixed (non-configurable) guards: payment-step suppression
+(no action ever fires on `/checkout`) and post-cta suppression (3s quiet
+window after a shopper acts on a card's CTA).
+
+## Persistence
+
+`AGENT_DB_URI` (optional Mongo connection string) makes sessions, events,
+decisions and outcomes durable via `agent/persist.js`. Unset by default —
+zero behavior change, everything stays in-memory. When set, `/sessions`
+research pages fall back to this store when the in-memory/live-record copy
+is gone, so history survives a restart.
 
 ## Tests
 

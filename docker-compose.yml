@@ -30,6 +30,11 @@ services:
       - AGENT_SENSITIVITY=${AGENT_SENSITIVITY:-}
       - AGENT_CONSULT_FLOOR_MS=${AGENT_CONSULT_FLOOR_MS:-}
       - AGENT_MAX_MODEL_CALLS_PER_MIN=${AGENT_MAX_MODEL_CALLS_PER_MIN:-}
+      - AGENT_FALLBACK=${AGENT_FALLBACK:-}
+      - AGENT_MAX_CARDS_PER_PAGEVIEW=${AGENT_MAX_CARDS_PER_PAGEVIEW:-}
+      - AGENT_SUPPRESS_AFTER_DISMISS=${AGENT_SUPPRESS_AFTER_DISMISS:-}
+      - AGENT_CARD_TTL_MS=${AGENT_CARD_TTL_MS:-}
+      - AGENT_DB_URI=${AGENT_DB_URI:-}
     # Optional: uncomment and set in .env if your host user isn't uid/gid
     # 1000 (the `node` user baked into agent/Dockerfile). See docs/OPS.md.
     # user: "${UID:-1000}:${GID:-1000}"

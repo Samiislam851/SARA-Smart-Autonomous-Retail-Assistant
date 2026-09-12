@@ -254,7 +254,7 @@ export function totalPromoDiscount(list: AppliedPromo[]): number {
 }
 
 /** Single "primary" promo for event meta sent to the decider — server/
- * state.js and server/store/index.js's computeOffers() read `meta.promo` as
+ * state.js and agent/store/index.js's computeOffers() read `meta.promo` as
  * flat `{code, discount} | null` (an informal field outside the fixed
  * Event/Action/Trace contract, so this fix doesn't reshape it into an array
  * for that consumer). Prefers the manual code (the thing the shopper
