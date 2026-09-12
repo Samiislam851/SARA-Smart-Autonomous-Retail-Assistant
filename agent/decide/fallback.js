@@ -252,22 +252,6 @@ const SIGNAL_BUILDERS = {
 
 // ---- generic (no-signal) grounded message, by page type -----------------
 
-// Per-session memory of generic messages already shown, so a shopper never
-// sees the same fact twice (owner finding 2026-09-12: every product page said
-// "Returns are free within 30 days"). Bounded; sessions are evicted FIFO.
-const shownGeneric = new Map();
-const SHOWN_GENERIC_MAX_SESSIONS = 2000;
-function rememberShown(sid, key) {
-  if (!sid) return;
-  if (!shownGeneric.has(sid)) {
-    if (shownGeneric.size >= SHOWN_GENERIC_MAX_SESSIONS) shownGeneric.delete(shownGeneric.keys().next().value);
-    shownGeneric.set(sid, new Set());
-  }
-  shownGeneric.get(sid).add(key);
-}
-function sessionKey(state) {
-  return state?.sessionId ?? state?.session_id ?? state?.session ?? null;
-}
 
 /**
  * genericCandidates(state) -> ordered [{key, target, message}] built ONLY
@@ -275,6 +259,40 @@ function sessionKey(state) {
  * comparison, business policies). Most page-specific first; the caller
  * picks the first one not already shown in this session.
  */
+// AGENT_SHOWCASE=1: scripted, page-specific lines shown FIRST (stage-safe demo
+// copy; not derived from live store facts — see OPS.md "Showcase mode").
+const SHOWCASE = process.env.AGENT_SHOWCASE === "1";
+function showcaseCandidates(state, add) {
+  const page = state.page || "";
+  const pc = state.page_context || null;
+  const title = pc?.product?.title || state.product?.title || null;
+  const short = title ? String(title).replace(/\s+(High|Mid|Low|Pro|SE|2\.0)$/i, "") : null;
+  const onThe = short ? ` on the ${short}` : "";
+  const isProduct = page.startsWith("/product") || page.startsWith("/p/") || pc?.type === "product";
+  const isCart = page === "/cart" || page.startsWith("/checkout") || pc?.type === "cart";
+  const isSearch = page.startsWith("/search") || pc?.type === "search";
+  const isCategory = page.startsWith("/c/") || pc?.type === "category";
+  if (isProduct) {
+    add("sc_p1", "size-picker", `Torn between M and L${onThe}? Most buyers at your height took L — and returns are free.`);
+    add("sc_p2", "add-to-cart", `Only 3 left in L. Order in the next 2 hours and it ships tomorrow.`);
+    add("sc_p3", "product-title", `Rated 4.0 by 1,255 shoppers — the safe pick in this category.`);
+    add("sc_p4", "shipping-info", `Free delivery, 5–7 days. Need it faster? Express 1–2 days at checkout.`);
+    add("sc_p5", "price", `Price check: this is the lowest it's been in 30 days.`);
+  }
+  if (isCart) {
+    add("sc_c1", "promo-code", `Use NEXT10 to save 10% on this order — type it in the promo box.`);
+    add("sc_c2", "cart-total", `Delivery on this order is free. Arrives in 5–7 days.`);
+    add("sc_c3", "begin-checkout", `Checkout takes about 40 seconds — cash on delivery, no card needed.`);
+    add("sc_c4", "cart-items", `Everything in your cart can be returned free within 30 days.`);
+  }
+  if (isSearch) {
+    add("sc_s1", "search-input", `Nothing matched that. Try a shorter word, or browse Clothing & Shoes — 29 items.`);
+  }
+  if (isCategory) {
+    add("sc_g1", null, `Most shoppers here start with the Summit Trail Chino — 1,255 reviews, 4.0 stars.`);
+  }
+}
+
 function genericCandidates(state) {
   const page = state.page || "";
   const currency = state.business?.currency;
@@ -285,6 +303,7 @@ function genericCandidates(state) {
   const price = pcProd?.price ?? prod?.price ?? null;
   const out = [];
   const add = (key, target, message) => { if (message) out.push({ key, target, message }); };
+  if (SHOWCASE) showcaseCandidates(state, add);
   const isProduct = page.startsWith("/product") || page.startsWith("/p/") || pc?.type === "product";
   const isCart = page === "/cart" || page.startsWith("/checkout") || pc?.type === "cart" || pc?.type === "checkout";
 
@@ -346,13 +365,12 @@ function genericCandidates(state) {
 }
 
 function genericMessage(state) {
-  const sid = sessionKey(state);
-  const seen = (sid && shownGeneric.get(sid)) || new Set();
+  const delivered = new Set(Array.isArray(state?.delivered_texts) ? state.delivered_texts : []);
   const candidates = genericCandidates(state);
-  const pick = candidates.find((c) => !seen.has(c.key) && !seen.has("msg:" + c.message));
+  // Never repeat a fact the shopper actually saw; proposals the policy layer
+  // denies are NOT remembered (they never reached the screen).
+  const pick = candidates.find((c) => !delivered.has(c.message));
   if (!pick) return null; // every grounded fact already shown: stay quiet rather than repeat
-  rememberShown(sid, pick.key);
-  rememberShown(sid, "msg:" + pick.message);
   return { target: pick.target, message: pick.message, factKey: pick.key };
 }
 

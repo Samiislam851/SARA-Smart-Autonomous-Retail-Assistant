@@ -395,6 +395,14 @@ export function applyPolicy(session, state, proposed, opts = {}) {
       // screen actually carries text (card/message); a highlight/spotlight
       // leaves nothing to be redundant with.
       session.lastInterventionAction = action.action;
+      // deliveredTexts: bounded log of message/card texts that actually went
+      // out, so deciders (fallback) never repeat a fact the shopper saw.
+      const deliveredText = action.action === "message" ? action.message : action.card?.body || action.card?.title || null;
+      if (deliveredText) {
+        session.deliveredTexts = session.deliveredTexts || [];
+        session.deliveredTexts.push(String(deliveredText));
+        if (session.deliveredTexts.length > 20) session.deliveredTexts.shift();
+      }
       if (action.target) session.actedTargets.add(action.target);
       session.nudgeCount = (session.nudgeCount ?? 0) + 1;
       // recentCtas: bounded (max 10) log of every CTA a `card` action has
@@ -481,7 +489,7 @@ function checkViolation(session, state, action, trace, opts = {}, config = defau
       if (kind === "add_to_cart" || kind === "open_product") {
         // session.site (server/store/sites.js): validate against the
         // session's OWN store, not always the default — otherwise every
-        // Acme card would fail-closed as "not a real product slug"
+        // TrendMerch card would fail-closed as "not a real product slug"
         // because it isn't in the default catalog.
         const store = loadStore(session.site);
         const knownSlug = store.catalog.some((p) => p.slug === value);
@@ -505,7 +513,7 @@ function checkViolation(session, state, action, trace, opts = {}, config = defau
         const hasLivePageView = currentPage(session) != null;
         // session.site (server/store/sites.js): liveProduct()'s own
         // `store = loadStore()` default param would silently re-check
-        // against the DEFAULT catalog for a Acme session — same
+        // against the DEFAULT catalog for a TrendMerch session — same
         // cross-site defect class as the add_to_cart/open_product/
         // apply_code branches above, pass the session's own store explicitly.
         const sizes = hasLivePageView
