@@ -6,6 +6,12 @@ shopper actually behaves, and decides on its own whether to help and how.
 Built for AI Tinkerers Dhaka's "Agents, Everywhere: Beyond the Chatbox"
 (12 Sep 2026).
 
+## Demo video
+
+[`media/sara-showcase.webm`](media/sara-showcase.webm) — 1:50 live run on the NextCart storefront (fallback decider, no LLM key). Toasts at 0:18, 0:34, 0:48, 1:08.
+
+![SARA toast on a category page](media/sara-toast.png)
+
 ## What it is
 
 SARA watches a shopper's in-page behavior — dwell time, scroll depth, rage
