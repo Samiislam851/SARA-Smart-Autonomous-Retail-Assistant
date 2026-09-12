@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // Guards against drift between the merchant-edited server data
-// (server/store/catalog.json, server/store/promos.json) and the web mirror
-// (web/lib/products.ts, web/lib/promos.ts). The web build context is
+// (agent/store/catalog.json, agent/store/promos.json) and the web mirror
+// (demo-store/lib/products.ts, demo-store/lib/promos.ts). The web build context is
 // ./web only (see docker-compose.yml), so web can't `import` the server
 // JSON directly — this script is the substitute for that link: it diffs
 // product slugs+prices and promo ids between the two sources and fails
@@ -98,22 +98,22 @@ function main() {
     fail = true;
   };
 
-  console.log("==> check-store-mirror: web/lib vs server/store");
+  console.log("==> check-store-mirror: demo-store/lib vs agent/store");
 
   const webProducts = loadWebProducts();
   const webPromos = loadWebPromos();
-  const serverCatalog = loadServerJson("server/store/catalog.json");
-  const serverPromos = loadServerJson("server/store/promos.json");
+  const serverCatalog = loadServerJson("agent/store/catalog.json");
+  const serverPromos = loadServerJson("agent/store/promos.json");
 
   if (!serverCatalog) {
-    warn("server/store/catalog.json not found — skipping product mirror check");
+    warn("agent/store/catalog.json not found — skipping product mirror check");
   } else {
     const serverBySlug = new Map(serverCatalog.map((p) => [p.slug, p]));
     const webBySlug = new Map(webProducts.map((p) => [p.slug, p]));
     for (const [slug, sp] of serverBySlug) {
       const wp = webBySlug.get(slug);
       if (!wp) {
-        err(`product "${slug}" is in server/store/catalog.json but missing from web/lib/products.ts`);
+        err(`product "${slug}" is in agent/store/catalog.json but missing from demo-store/lib/products.ts`);
       } else if (wp.price !== sp.price) {
         err(`product "${slug}" price mismatch: web=${wp.price} server=${sp.price}`);
       } else {
@@ -122,22 +122,22 @@ function main() {
     }
     for (const slug of webBySlug.keys()) {
       if (!serverBySlug.has(slug)) {
-        err(`product "${slug}" is in web/lib/products.ts but missing from server/store/catalog.json`);
+        err(`product "${slug}" is in demo-store/lib/products.ts but missing from agent/store/catalog.json`);
       }
     }
   }
 
   if (!serverPromos) {
-    warn("server/store/promos.json not found — skipping promo mirror check");
+    warn("agent/store/promos.json not found — skipping promo mirror check");
   } else {
     const serverIds = new Set(serverPromos.map((p) => p.id));
     const webIds = new Set(webPromos.map((p) => p.id));
     for (const id of serverIds) {
-      if (!webIds.has(id)) err(`promo "${id}" is on server but missing from web/lib/promos.ts`);
+      if (!webIds.has(id)) err(`promo "${id}" is on server but missing from demo-store/lib/promos.ts`);
       else ok(`promo "${id}" present in both`);
     }
     for (const id of webIds) {
-      if (!serverIds.has(id)) err(`promo "${id}" is in web/lib/promos.ts but missing from server`);
+      if (!serverIds.has(id)) err(`promo "${id}" is in demo-store/lib/promos.ts but missing from server`);
     }
   }
 
