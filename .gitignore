@@ -1,0 +1,21 @@
+node_modules
+.next
+.env.local
+*.tsbuildinfo
+
+# stray agent run logs (e.g. ad-hoc `node index.js > agent/.cached-agent.log`
+# during manual verification) — never meant to be committed.
+agent/*.log
+
+# agent/sessions/recorded/ is intentionally NOT ignored: recordings are the
+# on-camera demo fallback (AGENT_MODE=cached) and must be committed.
+
+# local env (may hold API keys); .env.example is the template
+.env
+
+# local agent playbooks
+.claude/playbooks/
+
+# live session recordings (research data, regenerated per run)
+agent/sessions/live/
+.claude/worktrees/

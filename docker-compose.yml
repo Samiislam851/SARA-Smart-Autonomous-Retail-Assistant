@@ -1,0 +1,89 @@
+services:
+  agent:
+    restart: unless-stopped
+    build:
+      context: ./agent
+    ports:
+      - "4000:4000"
+    environment:
+      - AGENT_MODE=${AGENT_MODE:-stub}
+      - LLM_MODEL=${LLM_MODEL:-}
+      - LLM_BACKEND=${LLM_BACKEND:-}
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - OPENAI_BASE_URL=${OPENAI_BASE_URL:-}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY:-}
+      - CLAUDE_BIN=${CLAUDE_BIN:-}
+      - GEMINI_API_KEY=${GEMINI_API_KEY:-}
+      - LLM_TIMEOUT_MS=${LLM_TIMEOUT_MS:-}
+      - LLM_JSON_MODE=${LLM_JSON_MODE:-}
+      - LLM_CACHE=${LLM_CACHE:-}
+      - LLM_MAX_CONCURRENT=${LLM_MAX_CONCURRENT:-}
+      - AGENT_RECORD=${AGENT_RECORD:-}
+      - AGENT_METRICS_RESET=${AGENT_METRICS_RESET:-}
+      - AGENT_DEBUG=${AGENT_DEBUG:-}
+      - AGENT_COOLDOWN_MS=${AGENT_COOLDOWN_MS:-}
+      - AGENT_MAX_NUDGES_PER_SESSION=${AGENT_MAX_NUDGES_PER_SESSION:-}
+      - AGENT_ALLOWED_ACTIONS=${AGENT_ALLOWED_ACTIONS:-}
+      - AGENT_DENY_TARGETS=${AGENT_DENY_TARGETS:-}
+      - AGENT_MAX_MESSAGE_CHARS=${AGENT_MAX_MESSAGE_CHARS:-}
+      - AGENT_MIN_CONFIDENCE=${AGENT_MIN_CONFIDENCE:-}
+      - AGENT_SENSITIVITY=${AGENT_SENSITIVITY:-}
+      - AGENT_CONSULT_FLOOR_MS=${AGENT_CONSULT_FLOOR_MS:-}
+      - AGENT_MAX_MODEL_CALLS_PER_MIN=${AGENT_MAX_MODEL_CALLS_PER_MIN:-}
+    # Optional: uncomment and set in .env if your host user isn't uid/gid
+    # 1000 (the `node` user baked into agent/Dockerfile). See docs/OPS.md.
+    # user: "${UID:-1000}:${GID:-1000}"
+    volumes:
+      # rw: codex refreshes auth tokens on disk. Never bake credentials into
+      # the image — this mounts the host's live codex home instead.
+      - ${CODEX_HOME:-~/.codex}:/home/node/.codex:rw
+      # rw: same reasoning as CODEX_HOME, for LLM_BACKEND=claude (`claude -p`
+      # reads ~/.claude/.credentials.json and may refresh it on disk). The
+      # uid 1000 note above applies here too.
+      - ${CLAUDE_HOME:-~/.claude}:/home/node/.claude:rw
+      # Verified in-container (2026-09-11): without this, `claude -p` still
+      # WORKS (auth via .claude/.credentials.json is enough) but prints a
+      # "Claude configuration file not found at: /home/node/.claude.json"
+      # warning on every call. Mounting the top-level config file too
+      # silences it.
+      - ${HOME:-~}/.claude.json:/home/node/.claude.json:rw
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://localhost:4000/health').then(r=>{if(!r.ok)process.exit(1)}).catch(()=>process.exit(1))"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  demo-store:
+    restart: unless-stopped
+    build:
+      context: ./demo-store
+      args:
+        NEXT_PUBLIC_AGENT_HTTP: ${PUBLIC_HTTP:-http://localhost:4000}
+        NEXT_PUBLIC_AGENT_WS: ${PUBLIC_WS:-ws://localhost:4000}
+    ports:
+      - "3000:3000"
+    depends_on:
+      agent:
+        condition: service_healthy
+
+  # Quick Cloudflare tunnels for a public URL. Both share profile "tunnel" so
+  # neither starts on a plain `docker compose up`. Run with:
+  #   docker compose --profile tunnel up -d tunnel tunnel-agent
+  # or use scripts/tunnel-up.sh, which wires the printed URLs into a
+  # demo-store rebuild automatically. See docs/OPS.md for why two tunnels are needed.
+  tunnel:
+    image: cloudflare/cloudflared:latest
+    command: tunnel --no-autoupdate --url http://demo-store:3000
+    depends_on:
+      - demo-store
+    profiles:
+      - tunnel
+
+  tunnel-agent:
+    image: cloudflare/cloudflared:latest
+    command: tunnel --no-autoupdate --url http://agent:4000
+    depends_on:
+      - agent
+    profiles:
+      - tunnel

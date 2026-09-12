@@ -1,0 +1,95 @@
+name: check
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  agent:
+    name: agent (policy + cached fixture replay)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: agent/package-lock.json
+
+      - name: Install agent deps
+        working-directory: agent
+        run: npm ci
+
+      - name: Policy guard probe (no server needed)
+        working-directory: agent
+        run: npm run test:policy
+
+      # AGENT_MODE=cached replays the committed recordings in
+      # agent/sessions/recorded/ (decider proposals captured from a real
+      # backend) through the full state → policy → broadcast path, so all
+      # four demo fixtures pass deterministically with no API key. This is
+      # the same mode the on-camera demo runs in.
+      - name: Start cached-mode agent
+        working-directory: agent
+        run: |
+          AGENT_MODE=cached PORT=4000 node index.js > /tmp/agent.log 2>&1 &
+          echo $! > /tmp/agent.pid
+
+      - name: Wait for /health
+        run: |
+          for i in $(seq 1 30); do
+            if curl -sf http://localhost:4000/health >/dev/null; then
+              echo "agent is up"
+              exit 0
+            fi
+            sleep 1
+          done
+          echo "agent never became healthy"
+          cat /tmp/agent.log
+          exit 1
+
+      # Hard gate: all four demo fixtures must reproduce their recorded
+      # decisions end to end.
+      - name: Fixture replay, cached mode (hard gate)
+        working-directory: agent
+        env:
+          REPLAY_FIXED_SESSION: "1"
+        run: >
+          node replay.js sessions/sizing-hesitation.json sessions/cart-threshold.json
+          sessions/happy-browsing.json sessions/facts-threshold.json --base http://localhost:4000 --speed 20
+
+      - name: Stop agent
+        if: always()
+        run: kill "$(cat /tmp/agent.pid)" || true
+
+      - name: Print agent log
+        if: always()
+        run: cat /tmp/agent.log || true
+
+  demo-store:
+    name: demo-store (typecheck + build)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: demo-store/package-lock.json
+
+      - name: Install demo-store deps
+        working-directory: demo-store
+        run: npm ci
+
+      - name: Typecheck
+        working-directory: demo-store
+        run: npx tsc --noEmit
+
+      - name: Build
+        working-directory: demo-store
+        env:
+          NEXT_PUBLIC_AGENT_HTTP: http://localhost:4000
+          NEXT_PUBLIC_AGENT_WS: ws://localhost:4000
+        run: npm run build
